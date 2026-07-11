@@ -25,8 +25,18 @@ object TrackpointReader {
     const val TYPE = "type"
     const val SPEED = "speed"
 
-    val PROJECTION_V1 = arrayOf(ID, TRACKID, LATITUDE, LONGITUDE, TIME, SPEED)
-    val PROJECTION_V2 = arrayOf(ID, TRACKID, LATITUDE, LONGITUDE, TIME, TYPE, SPEED)
+    // Per-point sensor/measurement columns. OpenTracks' provider does not filter the projection,
+    // so a dashboard may request any table column; they are null when the data wasn't recorded.
+    const val ELEVATION = "elevation" // altitude in meters
+    const val HEARTRATE = "sensor_heartrate" // bpm
+    const val CADENCE = "sensor_cadence" // rpm
+    const val POWER = "sensor_power" // watts
+    const val BEARING = "bearing" // degrees
+
+    private val SENSOR_COLUMNS = arrayOf(ELEVATION, HEARTRATE, CADENCE, POWER, BEARING)
+
+    val PROJECTION_V1 = arrayOf(ID, TRACKID, LATITUDE, LONGITUDE, TIME, SPEED) + SENSOR_COLUMNS
+    val PROJECTION_V2 = arrayOf(ID, TRACKID, LATITUDE, LONGITUDE, TIME, TYPE, SPEED) + SENSOR_COLUMNS
 
     fun readTrackpointsBySegments(
         resolver: ContentResolver,
@@ -82,7 +92,19 @@ object TrackpointReader {
                 }
 
                 if (latLong != null) {
-                    lastTrackpoint = Trackpoint(trackId, id, latLong, type, speed, time)
+                    lastTrackpoint = Trackpoint(
+                        trackId = trackId,
+                        id = id,
+                        latLong = latLong,
+                        type = type,
+                        speed = speed,
+                        time = time,
+                        altitude = cursor.optDouble(ELEVATION),
+                        heartRate = cursor.optDouble(HEARTRATE),
+                        cadence = cursor.optDouble(CADENCE),
+                        power = cursor.optDouble(POWER),
+                        bearing = cursor.optDouble(BEARING),
+                    )
                     segment.add(lastTrackpoint)
                 } else if (type == TRACKPOINT_TYPE_PAUSE || latitude == PAUSE_LATITUDE) {
                     debug.trackpointsPause++
@@ -111,5 +133,12 @@ object TrackpointReader {
         debug.segments = segments.size
 
         return TrackpointsBySegments(segments, debug)
+    }
+
+    /** Reads a nullable Double column by name; returns null if the column is absent or the value null. */
+    private fun android.database.Cursor.optDouble(column: String): Double? {
+        val idx = getColumnIndex(column)
+        if (idx < 0 || isNull(idx)) return null
+        return getDouble(idx)
     }
 }

@@ -102,6 +102,10 @@ class MapViewerActivity : ComponentActivity() {
         mapView.getMapAsync { map ->
             val ctrl = MapLibreController(map)
             controller = ctrl
+            ctrl.setTrackColorMode(
+                cat.hudpro.opentracks.data.map.TrackColorMode.byName(prefs.trackColorMode),
+                prefs.trackColor,
+            )
             setupControls(ctrl)
             val onReady: () -> Unit = {
                 loadFollowRoute(prefs, ctrl)
@@ -167,11 +171,13 @@ class MapViewerActivity : ComponentActivity() {
 
                 val metrics = mergeFollow(MetricsCalculator.compute(segs, stats, reader.isRecording), segs)
                 pushSpeed(metrics.speedKmh)
+                val routeProfile = followEngine?.elevationProfile
                 hudDataFlow.value = HudData(
                     metrics = metrics,
                     speedSeries = speedBuffer.toList(),
-                    elevationProfile = followEngine?.elevationProfile ?: emptyList(),
-                    routeProgress = routeProgress(segs),
+                    // Prefer the followed route's profile; else the recorded track's own altitude.
+                    elevationProfile = if (!routeProfile.isNullOrEmpty()) routeProfile else recordedElevation(segs),
+                    routeProgress = if (!routeProfile.isNullOrEmpty()) routeProgress(segs) else 1f,
                 )
 
                 handleRecordingStopped(reader, segs)
@@ -183,6 +189,14 @@ class MapViewerActivity : ComponentActivity() {
         if (speedKmh == null) return
         speedBuffer.addLast(speedKmh.toFloat())
         while (speedBuffer.size > SPEED_HISTORY) speedBuffer.removeFirst()
+    }
+
+    /** Downsampled altitude series of the recorded track (for the elevation chart when not following). */
+    private fun recordedElevation(segments: List<Segment>): List<Float> {
+        val alts = segments.flatten().mapNotNull { it.altitude?.toFloat() }
+        if (alts.size < 2) return emptyList()
+        val step = (alts.size / 120 + 1).coerceAtLeast(1)
+        return alts.filterIndexed { i, _ -> i % step == 0 }
     }
 
     private fun routeProgress(segments: List<Segment>): Float {

@@ -36,6 +36,12 @@ class TrackpointReaderTest {
         every { cursor.getColumnIndexOrThrow(TrackpointReader.LONGITUDE) } returns 4
         every { cursor.getColumnIndexOrThrow(TrackpointReader.TIME) } returns 5
         every { cursor.getColumnIndexOrThrow(TrackpointReader.SPEED) } returns 6
+        // Sensor columns are absent in these fixtures (optDouble returns null when index < 0).
+        every { cursor.getColumnIndex(TrackpointReader.ELEVATION) } returns -1
+        every { cursor.getColumnIndex(TrackpointReader.HEARTRATE) } returns -1
+        every { cursor.getColumnIndex(TrackpointReader.CADENCE) } returns -1
+        every { cursor.getColumnIndex(TrackpointReader.POWER) } returns -1
+        every { cursor.getColumnIndex(TrackpointReader.BEARING) } returns -1
         every { cursor.close() } just Runs
     }
 

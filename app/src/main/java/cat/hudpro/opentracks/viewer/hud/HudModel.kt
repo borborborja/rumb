@@ -19,6 +19,9 @@ enum class HudMetric(val label: String, val unit: String, val format: (LiveMetri
     ALTITUDE("Altitud", "m", { fmt0(it.altitudeM) }),
     SLOPE("Pendent", "%", { fmt1(it.slopePercent) }),
     VAM("VAM", "m/h", { fmt0(it.vamMeterPerHour) }),
+    HEART_RATE("FC", "bpm", { fmt0(it.heartRateBpm) }),
+    CADENCE("Cadència", "rpm", { fmt0(it.cadenceRpm) }),
+    POWER("Potència", "W", { fmt0(it.powerW) }),
     REMAINING("Restant", "km", { fmt2(it.remainingDistanceKm) }),
     OFF_ROUTE("Desviació", "m", { fmt0(it.offRouteMeters) }),
     ;

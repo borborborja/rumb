@@ -24,6 +24,10 @@ data class LiveMetrics(
     val altitudeM: Double? = null,
     val slopePercent: Double? = null,
     val vamMeterPerHour: Double? = null,
+    // Sensor data (from paired BLE sensors via OpenTracks)
+    val heartRateBpm: Double? = null,
+    val cadenceRpm: Double? = null,
+    val powerW: Double? = null,
     val pointCount: Int = 0,
     val isRecording: Boolean = false,
     // Follow-route metrics (populated when a track is being followed; see follow package)

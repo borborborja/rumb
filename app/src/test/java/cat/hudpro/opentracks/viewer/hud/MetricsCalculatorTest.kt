@@ -40,6 +40,32 @@ class MetricsCalculatorTest {
     }
 
     @Test
+    fun slopeAndVamFromAltitudePoints() {
+        // 100 m climb over 1000 m horizontal in 200 s → slope 10%, VAM 1800 m/h
+        val base = Instant.ofEpochMilli(0)
+        val points = listOf(
+            Trackpoint(1L, 1L, GeoPoint(41.0, 2.0), TRACKPOINT_TYPE_TRACKPOINT, 3.0, base, altitude = 100.0),
+            Trackpoint(1L, 2L, GeoPoint(41.009, 2.0), TRACKPOINT_TYPE_TRACKPOINT, 3.0, base.plusSeconds(200), altitude = 200.0),
+        )
+        val (slope, vam) = MetricsCalculator.slopeAndVam(points)
+        assertThat(slope!!).isEqualTo(10.0, within(0.6)) // ~1001 m horizontal
+        assertThat(vam!!).isEqualTo(1800.0, within(1.0))
+    }
+
+    @Test
+    fun sensorFieldsFlowThrough() {
+        val p = Trackpoint(
+            1L, 1L, GeoPoint(41.0, 2.0), TRACKPOINT_TYPE_TRACKPOINT, 5.0, Instant.ofEpochMilli(0),
+            altitude = 950.0, heartRate = 152.0, cadence = 88.0, power = 210.0,
+        )
+        val m = MetricsCalculator.compute(listOf(listOf(p)), null, isRecording = true)
+        assertThat(m.heartRateBpm).isEqualTo(152.0)
+        assertThat(m.cadenceRpm).isEqualTo(88.0)
+        assertThat(m.powerW).isEqualTo(210.0)
+        assertThat(m.altitudeM).isEqualTo(950.0)
+    }
+
+    @Test
     fun bearingNorthIsZero() {
         val b = MetricsCalculator.bearing(GeoPoint(41.0, 2.0), GeoPoint(41.5, 2.0))
         assertThat(b).isEqualTo(0.0, within(0.5))

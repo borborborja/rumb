@@ -11,6 +11,7 @@ import kotlin.math.sqrt
 
 private const val MS_TO_KMH = 3.6
 private const val EARTH_RADIUS_M = 6_371_000.0
+private const val SLOPE_WINDOW = 10 // trailing points used to smooth slope/VAM
 
 /**
  * Pure, unit-testable derivation of [LiveMetrics] from OpenTracks segments + track statistics.
@@ -28,8 +29,11 @@ object MetricsCalculator {
         val lastPoint = points.lastOrNull()
 
         val currentSpeedKmh = lastPoint?.speed?.takeIf { it >= 0.0 }?.times(MS_TO_KMH)
-        val bearing = bearingOfLastLeg(points)
-        val altitude = lastPoint?.latLong?.let { elevationProvider?.altitudeAt(it.latitude, it.longitude) }
+        val bearing = lastPoint?.bearing ?: bearingOfLastLeg(points)
+        // Prefer OpenTracks' per-point altitude (column "elevation"); fall back to a DEM provider.
+        val altitude = lastPoint?.altitude
+            ?: lastPoint?.latLong?.let { elevationProvider?.altitudeAt(it.latitude, it.longitude) }
+        val (slope, vam) = slopeAndVam(points)
 
         return LiveMetrics(
             speedKmh = currentSpeedKmh,
@@ -44,9 +48,35 @@ object MetricsCalculator {
             minElevationM = statistics?.minElevationMeter,
             maxElevationM = statistics?.maxElevationMeter,
             altitudeM = altitude,
+            slopePercent = slope,
+            vamMeterPerHour = vam,
+            heartRateBpm = lastPoint?.heartRate,
+            cadenceRpm = lastPoint?.cadence,
+            powerW = lastPoint?.power,
             pointCount = points.size,
             isRecording = isRecording,
         )
+    }
+
+    /**
+     * Instantaneous slope (%) and VAM (vertical ascent meters/hour) from a trailing window of points
+     * that carry altitude. Uses the oldest and newest point in the window to smooth GPS noise.
+     */
+    fun slopeAndVam(points: List<Trackpoint>): Pair<Double?, Double?> {
+        val withAlt = points.filter { it.latLong != null && it.altitude != null }
+        if (withAlt.size < 2) return null to null
+        val window = withAlt.takeLast(SLOPE_WINDOW)
+        val first = window.first()
+        val last = window.last()
+        val dAlt = (last.altitude!! - first.altitude!!)
+        var horiz = 0.0
+        for (i in 1 until window.size) {
+            horiz += distanceMeters(window[i - 1].latLong!!, window[i].latLong!!)
+        }
+        val dtSeconds = (last.time.toEpochMilli() - first.time.toEpochMilli()) / 1000.0
+        val slope = if (horiz > 1.0) dAlt / horiz * 100.0 else null
+        val vam = if (dtSeconds > 1.0) dAlt / dtSeconds * 3600.0 else null
+        return slope to vam
     }
 
     /** Pace in minutes per km from speed; null for non-positive speed. */

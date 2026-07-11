@@ -20,6 +20,12 @@ data class Trackpoint(
     val type: Int,
     val speed: Double,
     val time: Instant,
+    // Per-point sensor/measurement data (all optional; populated only when present).
+    val altitude: Double? = null, // m (OpenTracks column "elevation")
+    val heartRate: Double? = null, // bpm ("sensor_heartrate")
+    val cadence: Double? = null, // rpm ("sensor_cadence")
+    val power: Double? = null, // watts ("sensor_power")
+    val bearing: Double? = null, // degrees
 ) {
     val isPause: Boolean get() = type == TRACKPOINT_TYPE_PAUSE
 }

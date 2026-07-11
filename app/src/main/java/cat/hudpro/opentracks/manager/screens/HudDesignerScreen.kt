@@ -1,6 +1,8 @@
 package cat.hudpro.opentracks.manager.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,7 +11,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.ui.draw.clip
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.AssistChip
@@ -117,6 +121,44 @@ fun HudDesignerScreen(onBack: () -> Unit) {
                         )
                     }
                 }
+
+                TrackAppearanceSection(prefs)
+            }
+        }
+    }
+}
+
+@Composable
+private fun TrackAppearanceSection(prefs: ViewerPreferences) {
+    val palette = listOf("#E63946", "#3A86FF", "#2A9D8F", "#F4A261", "#FFD166", "#9B5DE5")
+    var mode by remember { mutableStateOf(cat.hudpro.opentracks.data.map.TrackColorMode.byName(prefs.trackColorMode)) }
+    var color by remember { mutableStateOf(prefs.trackColor) }
+
+    Text("Aparença del track", style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(top = 4.dp))
+    Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        cat.hudpro.opentracks.data.map.TrackColorMode.entries.forEach { m ->
+            FilterChip(
+                selected = mode == m,
+                onClick = { mode = m; prefs.trackColorMode = m.name },
+                label = { Text(m.label) },
+            )
+        }
+    }
+    if (mode == cat.hudpro.opentracks.data.map.TrackColorMode.SINGLE) {
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            palette.forEach { hex ->
+                Box(
+                    Modifier
+                        .size(30.dp)
+                        .clip(androidx.compose.foundation.shape.CircleShape)
+                        .background(Color(android.graphics.Color.parseColor(hex)))
+                        .border(
+                            if (color == hex) 3.dp else 1.dp,
+                            if (color == hex) Color.Black else Color.Gray,
+                            androidx.compose.foundation.shape.CircleShape,
+                        )
+                        .clickable { color = hex; prefs.trackColor = hex },
+                )
             }
         }
     }
