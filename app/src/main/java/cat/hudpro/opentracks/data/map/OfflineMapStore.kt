@@ -57,6 +57,14 @@ class OfflineMapStore private constructor(private val context: Context) {
         return map
     }
 
+    /** Directory where generated/imported MBTiles live. */
+    val mbtilesDir: File get() = dir
+
+    /** Registers an already-written MBTiles (e.g. from an area download). */
+    fun register(map: OfflineMap) {
+        save(list().filterNot { it.path == map.path } + map)
+    }
+
     fun delete(map: OfflineMap) {
         runCatching { File(map.path).delete() }
         save(list().filterNot { it.path == map.path })

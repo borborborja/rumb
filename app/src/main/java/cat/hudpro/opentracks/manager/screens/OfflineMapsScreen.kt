@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Download
+import androidx.compose.material.icons.filled.Map
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -42,7 +43,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OfflineMapsScreen(onBack: () -> Unit) {
+fun OfflineMapsScreen(onBack: () -> Unit, onDownloadArea: () -> Unit = {}) {
     val context = LocalContext.current
     val store = remember { OfflineMapStore.get(context) }
     val prefs = remember { ViewerPreferences.get(context) }
@@ -67,11 +68,19 @@ fun OfflineMapsScreen(onBack: () -> Unit) {
             )
         },
         floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = { importLauncher.launch(arrayOf("application/octet-stream", "*/*")) },
-                icon = { Icon(Icons.Filled.Download, contentDescription = null) },
-                text = { Text("Importar MBTiles") },
-            )
+            androidx.compose.foundation.layout.Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                androidx.compose.material3.SmallFloatingActionButton(onClick = onDownloadArea) {
+                    Icon(Icons.Filled.Map, contentDescription = "Descarregar àrea")
+                }
+                ExtendedFloatingActionButton(
+                    onClick = { importLauncher.launch(arrayOf("application/octet-stream", "*/*")) },
+                    icon = { Icon(Icons.Filled.Download, contentDescription = null) },
+                    text = { Text("Importar MBTiles") },
+                )
+            }
         },
     ) { padding ->
         Box(Modifier.fillMaxSize().padding(padding)) {
