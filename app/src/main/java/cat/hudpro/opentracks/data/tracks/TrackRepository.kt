@@ -48,8 +48,13 @@ class TrackRepository(
     }
 
     suspend fun loadRoute(id: Long): List<GeoPoint> = withContext(Dispatchers.IO) {
+        loadGpxRoute(id).map { it.toGeoPoint() }
+    }
+
+    /** Loads the full route points including elevation/time (for the elevation profile). */
+    suspend fun loadGpxRoute(id: Long): List<GpxPoint> = withContext(Dispatchers.IO) {
         val entity = dao.getById(id) ?: return@withContext emptyList()
-        entity.gpx.byteInputStream().use { Gpx.read(it) }.points.map { it.toGeoPoint() }
+        entity.gpx.byteInputStream().use { Gpx.read(it) }.points
     }
 
     suspend fun delete(id: Long) = withContext(Dispatchers.IO) { dao.delete(id) }

@@ -6,8 +6,13 @@ import android.util.Log
 import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.lifecycleScope
 import cat.hudpro.opentracks.HudProApplication
@@ -17,10 +22,11 @@ import cat.hudpro.opentracks.data.gpx.GpxPoint
 import cat.hudpro.opentracks.data.map.MapSource
 import cat.hudpro.opentracks.data.opentracks.DashboardReader
 import cat.hudpro.opentracks.data.opentracks.isDashboardAction
-import cat.hudpro.opentracks.data.opentracks.model.GeoPoint
 import cat.hudpro.opentracks.data.opentracks.model.Segment
 import cat.hudpro.opentracks.data.prefs.ViewerPreferences
 import cat.hudpro.opentracks.viewer.follow.FollowRouteEngine
+import cat.hudpro.opentracks.viewer.hud.HudControls
+import cat.hudpro.opentracks.viewer.hud.HudData
 import cat.hudpro.opentracks.viewer.hud.HudLayout
 import cat.hudpro.opentracks.viewer.hud.HudLayoutStore
 import cat.hudpro.opentracks.viewer.hud.HudOverlay
@@ -29,8 +35,8 @@ import cat.hudpro.opentracks.viewer.hud.MetricsCalculator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import java.time.format.DateTimeFormatter
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import org.maplibre.android.maps.MapView
 
 /**
@@ -43,9 +49,15 @@ class MapViewerActivity : ComponentActivity() {
     private var controller: MapLibreController? = null
     private var reader: DashboardReader? = null
 
-    private val metricsFlow = MutableStateFlow(LiveMetrics())
+    private val hudDataFlow = MutableStateFlow(HudData())
+    private val controlsFlow = MutableStateFlow(HudControls.disabled)
     private lateinit var hudLayout: HudLayout
+
     private var followEngine: FollowRouteEngine? = null
+    private var followMode = true
+    private var lastSegments: List<Segment> = emptyList()
+    private val speedBuffer = ArrayDeque<Float>()
+
     private var wasRecording = false
     private var uploadedThisSession = false
 
@@ -65,8 +77,16 @@ class MapViewerActivity : ComponentActivity() {
         mapView = MapView(this)
         val hud = ComposeView(this).apply {
             setContent {
-                val metrics by metricsFlow.collectAsState()
-                HudOverlay(metrics, hudLayout)
+                val data by hudDataFlow.collectAsState()
+                val controls by controlsFlow.collectAsState()
+                Surface(color = Color.Transparent, modifier = Modifier.fillMaxSize()) {
+                    HudOverlay(
+                        data = data,
+                        layout = hudLayout,
+                        controls = controls,
+                        modifier = Modifier.safeDrawingPadding(),
+                    )
+                }
             }
         }
         setContentView(
@@ -82,6 +102,7 @@ class MapViewerActivity : ComponentActivity() {
         mapView.getMapAsync { map ->
             val ctrl = MapLibreController(map)
             controller = ctrl
+            setupControls(ctrl)
             val onReady: () -> Unit = {
                 loadFollowRoute(prefs, ctrl)
                 reader?.let { observe(it, ctrl) }
@@ -100,14 +121,36 @@ class MapViewerActivity : ComponentActivity() {
         reader?.start()
     }
 
+    private fun setupControls(ctrl: MapLibreController) {
+        ctrl.onUserMoved { followMode = false; emitControls() }
+        emitControls()
+    }
+
+    private fun emitControls() {
+        val ctrl = controller ?: return
+        controlsFlow.value = HudControls(
+            followEnabled = followMode,
+            onRecenter = { followMode = true; ctrl.follow(lastSegments); emitControls() },
+            onToggleFollow = {
+                followMode = !followMode
+                if (followMode) ctrl.follow(lastSegments)
+                emitControls()
+            },
+            onNorth = { ctrl.northUp() },
+            onZoomIn = { ctrl.zoomIn() },
+            onZoomOut = { ctrl.zoomOut() },
+        )
+    }
+
     private fun loadFollowRoute(prefs: ViewerPreferences, ctrl: MapLibreController) {
         val id = prefs.activeFollowTrackId
         if (id <= 0) return
         lifecycleScope.launch {
-            val route = HudProApplication.from(this@MapViewerActivity).trackRepository.loadRoute(id)
-            if (route.isNotEmpty()) {
-                followEngine = FollowRouteEngine(route)
-                ctrl.setFollowRoute(route)
+            val gpx = HudProApplication.from(this@MapViewerActivity).trackRepository.loadGpxRoute(id)
+            if (gpx.isNotEmpty()) {
+                val geo = gpx.map { it.toGeoPoint() }
+                followEngine = FollowRouteEngine(geo, gpx.map { it.elevation })
+                ctrl.setFollowRoute(geo)
             }
         }
     }
@@ -117,17 +160,37 @@ class MapViewerActivity : ComponentActivity() {
             combine(reader.segments, reader.waypoints, reader.statistics) { segs, wps, stats ->
                 Triple(segs, wps, stats)
             }.collect { (segs, wps, stats) ->
+                lastSegments = segs
                 ctrl.updateTrack(segs, frame = true)
                 ctrl.updateWaypoints(wps)
-                if (reader.isRecording) ctrl.follow(segs)
+                if (followMode && reader.isRecording) ctrl.follow(segs)
 
-                var metrics = MetricsCalculator.compute(segs, stats, reader.isRecording)
-                metrics = mergeFollow(metrics, segs)
-                metricsFlow.value = metrics
+                val metrics = mergeFollow(MetricsCalculator.compute(segs, stats, reader.isRecording), segs)
+                pushSpeed(metrics.speedKmh)
+                hudDataFlow.value = HudData(
+                    metrics = metrics,
+                    speedSeries = speedBuffer.toList(),
+                    elevationProfile = followEngine?.elevationProfile ?: emptyList(),
+                    routeProgress = routeProgress(segs),
+                )
 
                 handleRecordingStopped(reader, segs)
             }
         }
+    }
+
+    private fun pushSpeed(speedKmh: Double?) {
+        if (speedKmh == null) return
+        speedBuffer.addLast(speedKmh.toFloat())
+        while (speedBuffer.size > SPEED_HISTORY) speedBuffer.removeFirst()
+    }
+
+    private fun routeProgress(segments: List<Segment>): Float {
+        val engine = followEngine ?: return 0f
+        val current = segments.lastOrNull()?.lastOrNull { it.latLong != null }?.latLong ?: return 0f
+        val state = engine.update(current) ?: return 0f
+        val n = (engine.points.size - 1).coerceAtLeast(1)
+        return state.nearestIndex.toFloat() / n
     }
 
     private fun mergeFollow(metrics: LiveMetrics, segments: List<Segment>): LiveMetrics {
@@ -189,5 +252,8 @@ class MapViewerActivity : ComponentActivity() {
         super.onDestroy()
     }
 
-    private companion object { const val TAG = "MapViewerActivity" }
+    private companion object {
+        const val TAG = "MapViewerActivity"
+        const val SPEED_HISTORY = 60
+    }
 }

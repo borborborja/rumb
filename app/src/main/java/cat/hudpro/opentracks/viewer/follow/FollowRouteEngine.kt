@@ -17,11 +17,19 @@ data class FollowState(
  * the current position, then derives remaining distance (cumulative-to-end), lateral deviation and
  * the bearing to the next vertex ahead. Suitable for dense GPX; pure and unit-testable.
  */
-class FollowRouteEngine(route: List<GeoPoint>) {
+class FollowRouteEngine(route: List<GeoPoint>, elevations: List<Double?> = emptyList()) {
 
     val points: List<GeoPoint> = route
     private val cumulative: DoubleArray = DoubleArray(route.size)
     val totalMeters: Double
+
+    /** Elevation samples (m) aligned to [points], for the HUD elevation profile. Empty if unknown. */
+    val elevationProfile: List<Float> =
+        if (elevations.size == route.size && elevations.any { it != null }) {
+            elevations.map { (it ?: 0.0).toFloat() }
+        } else {
+            emptyList()
+        }
 
     init {
         var acc = 0.0

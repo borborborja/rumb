@@ -151,4 +151,22 @@ class MapLibreController(private val map: MapLibreMap) {
         val last = segments.lastOrNull()?.lastOrNull { it.latLong != null }?.latLong ?: return
         map.animateCamera(CameraUpdateFactory.newLatLng(LatLng(last.latitude, last.longitude)))
     }
+
+    // --- Interactive map controls (HUD) ---
+
+    fun zoomIn() = map.animateCamera(CameraUpdateFactory.zoomIn())
+    fun zoomOut() = map.animateCamera(CameraUpdateFactory.zoomOut())
+
+    /** Reset orientation to north-up. */
+    fun northUp() {
+        val pos = org.maplibre.android.camera.CameraPosition.Builder(map.cameraPosition).bearing(0.0).build()
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(pos))
+    }
+
+    /** Invokes [onUserGesture] when the user pans/zooms the map by hand (to disable follow mode). */
+    fun onUserMoved(onUserGesture: () -> Unit) {
+        map.addOnCameraMoveStartedListener { reason ->
+            if (reason == MapLibreMap.OnCameraMoveStartedListener.REASON_API_GESTURE) onUserGesture()
+        }
+    }
 }
