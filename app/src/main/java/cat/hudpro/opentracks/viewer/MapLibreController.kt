@@ -11,9 +11,9 @@ import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.geometry.LatLngBounds
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.Style
+import org.maplibre.android.style.layers.CircleLayer
 import org.maplibre.android.style.layers.LineLayer
 import org.maplibre.android.style.layers.PropertyFactory
-import org.maplibre.android.style.layers.SymbolLayer
 import org.maplibre.android.style.sources.GeoJsonSource
 import org.maplibre.geojson.Feature
 import org.maplibre.geojson.FeatureCollection
@@ -34,7 +34,6 @@ class MapLibreController(private val map: MapLibreMap) {
     private var followDoneSource: GeoJsonSource? = null
     private var followLayer: LineLayer? = null
     private var followDoneLayer: LineLayer? = null
-    private var followArrowLayer: SymbolLayer? = null
     private var followPoints: List<GeoPoint> = emptyList()
     private var followColorHex: String = FOLLOW_COLOR
     private var followWidth: Float = 6f
@@ -113,21 +112,8 @@ class MapLibreController(private val map: MapLibreMap) {
         followSource = follow
         followLayer = flLayer
 
-        // Direction arrows along the remaining route (no image assets needed).
-        val arrows = SymbolLayer(FOLLOW_ARROW_LAYER, FOLLOW_SOURCE).withProperties(
-            PropertyFactory.textField("➤"),
-            PropertyFactory.textColor(followColorHex),
-            PropertyFactory.textSize(16f),
-            PropertyFactory.symbolPlacement("line"),
-            PropertyFactory.symbolSpacing(60f),
-            PropertyFactory.textAllowOverlap(true),
-            PropertyFactory.textKeepUpright(false),
-            PropertyFactory.textRotationAlignment("map"),
-            PropertyFactory.visibility(if (followArrows) "visible" else "none"),
-        )
-        style.addLayer(arrows)
-        followArrowLayer = arrows
-
+        // NOTE: no text/symbol layers here. A raster style has no `glyphs`, and a symbol layer that
+        // needs glyphs makes MapLibre fail to render the GeoJSON layers (the route line vanished).
         val track = GeoJsonSource(TRACK_SOURCE, FeatureCollection.fromFeatures(emptyList()))
         style.addSource(track)
         val layer = LineLayer(TRACK_LAYER, TRACK_SOURCE).withProperties(
@@ -142,12 +128,13 @@ class MapLibreController(private val map: MapLibreMap) {
 
         val waypoints = GeoJsonSource(WAYPOINT_SOURCE, FeatureCollection.fromFeatures(emptyList()))
         style.addSource(waypoints)
+        // CircleLayer instead of a text SymbolLayer — no glyphs needed (see note above).
         style.addLayer(
-            SymbolLayer(WAYPOINT_LAYER, WAYPOINT_SOURCE).withProperties(
-                PropertyFactory.textField("●"),
-                PropertyFactory.textColor("#1D3557"),
-                PropertyFactory.textSize(18f),
-                PropertyFactory.textAllowOverlap(true),
+            CircleLayer(WAYPOINT_LAYER, WAYPOINT_SOURCE).withProperties(
+                PropertyFactory.circleRadius(6f),
+                PropertyFactory.circleColor("#1D3557"),
+                PropertyFactory.circleStrokeColor("#FFFFFF"),
+                PropertyFactory.circleStrokeWidth(2f),
             ),
         )
         waypointSource = waypoints
@@ -237,10 +224,6 @@ class MapLibreController(private val map: MapLibreMap) {
             PropertyFactory.visibility(org.maplibre.android.style.layers.Property.VISIBLE),
         )
         followDoneLayer?.setProperties(PropertyFactory.lineWidth((width - 2f).coerceAtLeast(2f)))
-        followArrowLayer?.setProperties(
-            PropertyFactory.textColor(colorHex),
-            PropertyFactory.visibility(if (arrows) "visible" else "none"),
-        )
         if (followPoints.isNotEmpty()) drawFollow(followPoints.size) // refresh remaining/done split
     }
 
