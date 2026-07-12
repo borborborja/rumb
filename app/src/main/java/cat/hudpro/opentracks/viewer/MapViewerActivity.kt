@@ -36,6 +36,7 @@ import cat.hudpro.opentracks.data.endurain.EndurainUploadWorker
 import cat.hudpro.opentracks.data.gpx.Gpx
 import cat.hudpro.opentracks.data.gpx.GpxPoint
 import cat.hudpro.opentracks.data.map.MapSource
+import cat.hudpro.opentracks.data.debug.DebugLog
 import cat.hudpro.opentracks.data.opentracks.DashboardReader
 import cat.hudpro.opentracks.data.opentracks.isDashboardAction
 import cat.hudpro.opentracks.data.opentracks.model.Segment
@@ -116,6 +117,7 @@ class MapViewerActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DebugLog.i("Viewer", "onCreate · dashboard=${intent.isDashboardAction()} · action=${intent.action}")
 
         if (intent.isDashboardAction()) {
             reader = runCatching { DashboardReader(intent, contentResolver) }
@@ -261,6 +263,7 @@ class MapViewerActivity : ComponentActivity() {
         val offline = baseMapId
             ?.takeIf { it.startsWith(cat.hudpro.opentracks.data.map.OfflineMap.OFFLINE_PREFIX) }
             ?.let { cat.hudpro.opentracks.data.map.OfflineMapStore.get(this).bySelectionId(it) }
+        DebugLog.i("Viewer", "applyBaseMap · id=$baseMapId · offline=${offline?.name} · frame=$frame")
         if (offline != null) {
             ctrl.setOfflineMbtiles(offline.path, offline.attribution) {
                 if (frame) offline.bounds?.takeIf { it.size == 4 }?.let { b ->
@@ -343,16 +346,14 @@ class MapViewerActivity : ComponentActivity() {
             onZoomIn = { ctrl.zoomIn() },
             onZoomOut = { ctrl.zoomOut() },
             onStartRecording = {
-                if (cat.hudpro.opentracks.data.opentracks.OpenTracksRecording.start(this)) {
-                    recordingOverride = true
-                    refreshRecordingHud()
-                }
+                val ok = cat.hudpro.opentracks.data.opentracks.OpenTracksRecording.start(this)
+                DebugLog.i("Record", "start() → $ok")
+                if (ok) { recordingOverride = true; refreshRecordingHud() }
             },
             onStopRecording = {
-                if (cat.hudpro.opentracks.data.opentracks.OpenTracksRecording.stop(this)) {
-                    recordingOverride = false
-                    refreshRecordingHud()
-                }
+                val ok = cat.hudpro.opentracks.data.opentracks.OpenTracksRecording.stop(this)
+                DebugLog.i("Record", "stop() → $ok")
+                if (ok) { recordingOverride = false; refreshRecordingHud() }
             },
         )
     }
@@ -433,6 +434,7 @@ class MapViewerActivity : ComponentActivity() {
 
     private fun loadFollowRoute(prefs: ViewerPreferences, ctrl: MapLibreController, frame: Boolean = false) {
         val id = prefs.activeFollowTrackId
+        DebugLog.i("Follow", "loadFollowRoute · id=$id · frame=$frame")
         if (id <= 0) return
         lifecycleScope.launch {
             val gpx = HudProApplication.from(this@MapViewerActivity).trackRepository.loadGpxRoute(id)
@@ -448,15 +450,9 @@ class MapViewerActivity : ComponentActivity() {
                 // Always bring the route into view on (re)load so it can't stay off-screen. During
                 // recording, the live-follow camera takes over on the next update (followMode intact).
                 ctrl.frameFollowRoute()
-                if (frame) {
-                    android.widget.Toast.makeText(
-                        this@MapViewerActivity, "Ruta: ${geo.size}p · ${ctrl.followDebug()}", android.widget.Toast.LENGTH_LONG,
-                    ).show()
-                }
-            } else if (frame) {
-                android.widget.Toast.makeText(
-                    this@MapViewerActivity, "Ruta a seguir buida (id=$id)", android.widget.Toast.LENGTH_LONG,
-                ).show()
+                DebugLog.i("Follow", "dibuixada · ${geo.size} punts · ${ctrl.followDebug()}")
+            } else {
+                DebugLog.w("Follow", "ruta buida (id=$id): loadGpxRoute ha tornat 0 punts")
             }
         }
     }

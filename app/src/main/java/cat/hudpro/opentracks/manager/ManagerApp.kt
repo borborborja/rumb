@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import cat.hudpro.opentracks.data.map.BoundingBox
 import cat.hudpro.opentracks.manager.screens.EndurainScreen
 import cat.hudpro.opentracks.manager.screens.DataDesignerScreen
+import cat.hudpro.opentracks.manager.screens.DebugLogScreen
 import cat.hudpro.opentracks.manager.screens.HomeScreen
 import cat.hudpro.opentracks.manager.screens.HudDesignerScreen
 import cat.hudpro.opentracks.manager.screens.DownloadAreaScreen
@@ -28,6 +29,7 @@ object Routes {
     const val TRACKS = "tracks"
     const val ENDURAIN = "endurain"
     const val SETTINGS = "settings"
+    const val DEBUG_LOG = "debug_log"
     const val CREATE_ROUTE = "create_route"
     const val ROUTE_DETAIL = "route_detail"
     const val EDIT_ROUTE = "edit_route"
@@ -45,7 +47,13 @@ fun ManagerApp(onOpenViewer: () -> Unit) {
                 onOpenSettings = { nav.navigate(Routes.SETTINGS) },
             )
         }
-        composable(Routes.SETTINGS) { SettingsScreen(onBack = { nav.popBackStack() }) }
+        composable(Routes.SETTINGS) {
+            SettingsScreen(
+                onBack = { nav.popBackStack() },
+                onOpenDebugLog = { nav.navigate(Routes.DEBUG_LOG) },
+            )
+        }
+        composable(Routes.DEBUG_LOG) { DebugLogScreen(onBack = { nav.popBackStack() }) }
         composable(Routes.HUD) { HudDesignerScreen(onBack = { nav.popBackStack() }) }
         composable(Routes.DATA) { DataDesignerScreen(onBack = { nav.popBackStack() }) }
         composable(Routes.LAYERS) {

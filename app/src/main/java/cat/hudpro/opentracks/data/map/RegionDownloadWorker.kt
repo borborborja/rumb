@@ -43,12 +43,16 @@ class RegionDownloadWorker(context: Context, params: WorkerParameters) : Corouti
                 ?: File(store.mbtilesDir, "offline_${source.id}.mbtiles").absolutePath,
         )
 
+        cat.hudpro.opentracks.data.debug.DebugLog.i(
+            "Download", "inici · ${source.id} · zoom $minZoom-$maxZoom · ${TileMath.tileCount(bbox, minZoom, maxZoom)} tessel·les → ${outFile.name}",
+        )
         setForeground(foregroundInfo(0, 1))
         return try {
             TileDownloader().download(source, bbox, minZoom, maxZoom, outFile) { p ->
                 setProgress(workDataOf(KEY_DONE to p.done, KEY_TOTAL to p.total, KEY_FAILED to p.failed))
                 setForeground(foregroundInfo(p.done, p.total))
             }
+            cat.hudpro.opentracks.data.debug.DebugLog.i("Download", "completada · ${outFile.name}")
             store.addSector(
                 sourceId = source.id,
                 name = source.displayName,
@@ -65,6 +69,7 @@ class RegionDownloadWorker(context: Context, params: WorkerParameters) : Corouti
             )
             Result.success(workDataOf(KEY_PATH to outFile.absolutePath))
         } catch (e: Exception) {
+            cat.hudpro.opentracks.data.debug.DebugLog.e("Download", "error", e)
             Result.failure(workDataOf(KEY_ERROR to (e.message ?: "Error")))
         }
     }

@@ -32,8 +32,10 @@ class HudProApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        cat.hudpro.opentracks.data.debug.DebugLog.install()
         // MapLibre requires a one-time init before any MapView is created.
         MapLibre.getInstance(this)
+        cat.hudpro.opentracks.data.debug.DebugLog.i("App", "MapLibre inicialitzat")
         // OpenStreetMap (and others) return HTTP 403 "Access blocked" to generic user agents. Identify
         // the app per OSM's tile usage policy so its tiles load. Applies to all MapLibre HTTP requests.
         HttpRequestUtil.setOkHttpClient(

@@ -61,6 +61,7 @@ object OpenTracksRecording {
             extras()
         }
         return runCatching { context.startActivity(intent); true }.getOrElse {
+            cat.hudpro.opentracks.data.debug.DebugLog.e("Record", "launch $pkg/$cls fallit", it)
             Toast.makeText(context, "No s'ha pogut obrir OpenTracks. Activa l'«API pública» als seus ajustos.", Toast.LENGTH_LONG).show()
             false
         }

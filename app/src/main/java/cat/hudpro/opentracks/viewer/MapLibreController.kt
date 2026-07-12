@@ -79,6 +79,7 @@ class MapLibreController(private val map: MapLibreMap) {
     private fun applyStyle(builder: Style.Builder, onReady: () -> Unit) {
         map.setStyle(builder) { style ->
             addOverlayLayers(style)
+            cat.hudpro.opentracks.data.debug.DebugLog.i("Map", "estil aplicat · capes=${style.layers.size}")
             onReady()
         }
     }
@@ -247,7 +248,10 @@ class MapLibreController(private val map: MapLibreMap) {
     fun setFollowRoute(points: List<GeoPoint>) {
         followPoints = points
         // Draw once the style is ready so the source update isn't dropped on a not-yet-loaded style.
-        map.getStyle { drawFollow(points.size) }
+        map.getStyle {
+            drawFollow(points.size)
+            cat.hudpro.opentracks.data.debug.DebugLog.d("Map", "setFollowRoute · ${points.size} punts · ${followDebug()}")
+        }
     }
 
     /** Debug string describing the follow-route render state (layer presence, order vs base raster). */

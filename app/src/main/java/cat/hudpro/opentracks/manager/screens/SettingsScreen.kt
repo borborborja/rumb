@@ -60,7 +60,7 @@ private sealed interface UpdateState {
 private val TABS = listOf("Unitats", "Aparença", "Ruta", "Àudio", "App")
 
 @Composable
-fun SettingsScreen(onBack: () -> Unit) {
+fun SettingsScreen(onBack: () -> Unit, onOpenDebugLog: () -> Unit = {}) {
     val context = LocalContext.current
     val prefs = remember { ViewerPreferences.get(context) }
     var tab by remember { mutableIntStateOf(0) }
@@ -81,7 +81,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                     1 -> TrackAppearanceSection(prefs)
                     2 -> FollowRouteSection(prefs)
                     3 -> AudioAnnouncementsSection(prefs)
-                    else -> AppSection()
+                    else -> AppSection(onOpenDebugLog)
                 }
             }
         }
@@ -122,7 +122,7 @@ private fun UnitsSection(prefs: ViewerPreferences) {
 // --- App (version / update / debug / about) ---
 
 @Composable
-private fun AppSection() {
+private fun AppSection(onOpenDebugLog: () -> Unit) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val repo = remember { UpdateRepository() }
@@ -195,6 +195,10 @@ private fun AppSection() {
     Card {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text("Depuració", style = MaterialTheme.typography.labelMedium)
+            OutlinedButton(
+                onClick = onOpenDebugLog,
+                modifier = Modifier.fillMaxWidth(),
+            ) { Text("Registre de debug (log complet)") }
             OutlinedButton(
                 onClick = { scope.launch { diag = buildDiagnostics(context) } },
                 modifier = Modifier.fillMaxWidth(),
