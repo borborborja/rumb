@@ -65,16 +65,20 @@ object OpenTracksRecording {
     }
 
     private fun launch(context: Context, pkg: String, cls: String, extras: Intent.() -> Unit): Boolean {
-        val intent = Intent().apply {
+        fun build(newTask: Boolean) = Intent().apply {
             setClassName(pkg, cls)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            if (newTask) addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             extras()
         }
-        return runCatching { context.startActivity(intent); true }.getOrElse {
-            cat.hudpro.opentracks.data.debug.DebugLog.e("Record", "launch $pkg/$cls fallit", it)
-            Toast.makeText(context, "No s'ha pogut obrir OpenTracks. Activa l'«API pública» als seus ajustos.", Toast.LENGTH_LONG).show()
-            false
-        }
+        // Prefer launching within our task (from an Activity) so OpenTracks returns to the viewer, not
+        // the home screen. Fall back to NEW_TASK if that's not allowed (non-Activity context).
+        return runCatching { context.startActivity(build(context !is android.app.Activity)); true }
+            .recoverCatching { context.startActivity(build(true)); true }
+            .getOrElse {
+                cat.hudpro.opentracks.data.debug.DebugLog.e("Record", "launch $pkg/$cls fallit", it)
+                Toast.makeText(context, "No s'ha pogut obrir OpenTracks. Activa l'«API pública» als seus ajustos.", Toast.LENGTH_LONG).show()
+                false
+            }
     }
 
     private fun notFound(context: Context) {

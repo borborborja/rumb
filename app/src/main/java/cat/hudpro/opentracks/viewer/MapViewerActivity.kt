@@ -367,8 +367,20 @@ class MapViewerActivity : ComponentActivity() {
             onZoomOut = { ctrl.zoomOut() },
             onStartRecording = {
                 val ok = cat.hudpro.opentracks.data.opentracks.OpenTracksRecording.start(this)
-                DebugLog.i("Record", "start() → $ok")
-                if (ok) { recordingOverride = true; refreshRecordingHud() }
+                DebugLog.i("Record", "start() → $ok · reader=${reader != null}")
+                if (ok) {
+                    recordingOverride = true
+                    refreshRecordingHud()
+                    // Standalone viewer: OpenTracks won't push live data here unless HUD Pro is opened
+                    // as its dashboard. Tell the user how to see live stats.
+                    if (reader == null) {
+                        android.widget.Toast.makeText(
+                            this,
+                            "Gravació iniciada. Per veure les dades en viu, obre HUD Pro des del botó de mapa/tauler d'OpenTracks.",
+                            android.widget.Toast.LENGTH_LONG,
+                        ).show()
+                    }
+                }
             },
             onStopRecording = {
                 val ok = cat.hudpro.opentracks.data.opentracks.OpenTracksRecording.stop(this)
