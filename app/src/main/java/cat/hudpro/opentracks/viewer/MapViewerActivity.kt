@@ -6,15 +6,20 @@ import android.util.Log
 import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
+import cat.hudpro.opentracks.ui.theme.HudProTheme
+import cat.hudpro.opentracks.viewer.data.DataView
+import cat.hudpro.opentracks.viewer.hud.HudOverlay
 import cat.hudpro.opentracks.HudProApplication
 import cat.hudpro.opentracks.data.endurain.EndurainUploadWorker
 import cat.hudpro.opentracks.data.gpx.Gpx
@@ -29,7 +34,6 @@ import cat.hudpro.opentracks.viewer.hud.HudControls
 import cat.hudpro.opentracks.viewer.hud.HudData
 import cat.hudpro.opentracks.viewer.hud.HudLayout
 import cat.hudpro.opentracks.viewer.hud.HudLayoutStore
-import cat.hudpro.opentracks.viewer.hud.HudOverlay
 import cat.hudpro.opentracks.viewer.hud.LiveMetrics
 import cat.hudpro.opentracks.viewer.hud.MetricsCalculator
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -51,6 +55,7 @@ class MapViewerActivity : ComponentActivity() {
 
     private val hudDataFlow = MutableStateFlow(HudData())
     private val controlsFlow = MutableStateFlow(HudControls.disabled)
+    private val currentPageFlow = MutableStateFlow(0)
     private lateinit var hudLayout: HudLayout
 
     private var followEngine: FollowRouteEngine? = null
@@ -89,28 +94,60 @@ class MapViewerActivity : ComponentActivity() {
         hudLayout = HudLayoutStore.load(prefs)
         setupAnnouncements(prefs)
 
-        mapView = MapView(this)
-        val hud = ComposeView(this).apply {
+        // textureMode so the map behaves well when hosted in a scrolling container.
+        mapView = MapView(this, org.maplibre.android.maps.MapLibreMapOptions().textureMode(true))
+        mapView.onCreate(savedInstanceState)
+
+        // Page 0: map + HUD overlay. Page 1: full data grid. Real views in a ViewPager2 so the
+        // MapView stays correctly measured across swipes (a Compose pager corrupts its TextureView).
+        val hudView = ComposeView(this).apply {
             setContent {
-                val data by hudDataFlow.collectAsState()
-                val controls by controlsFlow.collectAsState()
-                Surface(color = Color.Transparent, modifier = Modifier.fillMaxSize()) {
-                    HudOverlay(
-                        data = data,
-                        layout = hudLayout,
-                        controls = controls,
-                        modifier = Modifier.safeDrawingPadding(),
-                    )
+                HudProTheme {
+                    val data by hudDataFlow.collectAsState()
+                    val controls by controlsFlow.collectAsState()
+                    HudOverlay(data, hudLayout, controls, Modifier.safeDrawingPadding())
                 }
             }
         }
+        val mapPage = FrameLayout(this).apply {
+            addView(mapView)
+            addView(hudView)
+        }
+        val dataPage = ComposeView(this).apply {
+            setContent {
+                HudProTheme {
+                    val data by hudDataFlow.collectAsState()
+                    DataView(data, Modifier.safeDrawingPadding())
+                }
+            }
+        }
+        val pager = ViewPager2(this).apply {
+            offscreenPageLimit = 1
+            adapter = ViewerPagesAdapter(listOf(mapPage, dataPage))
+        }
+        val switcher = ComposeView(this).apply {
+            setContent {
+                HudProTheme {
+                    val page by currentPageFlow.collectAsState()
+                    Box(Modifier.fillMaxSize().safeDrawingPadding().padding(top = 8.dp)) {
+                        ViewerSwitcher(
+                            currentPage = page,
+                            onSelect = { pager.setCurrentItem(it, true) },
+                            modifier = Modifier.align(androidx.compose.ui.Alignment.TopCenter),
+                        )
+                    }
+                }
+            }
+        }
+        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) { currentPageFlow.value = position }
+        })
         setContentView(
             FrameLayout(this).apply {
-                addView(mapView)
-                addView(hud)
+                addView(pager)
+                addView(switcher)
             },
         )
-        mapView.onCreate(savedInstanceState)
 
         val baseMapId = prefs.baseMapId
         wasRecording = reader?.isRecording == true

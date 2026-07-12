@@ -51,6 +51,12 @@ object MapStyleFactory {
     }
 
     private fun wrapRasterSource(source: JSONObject): String {
+        // Neutral background so areas without tiles (e.g. edges of a small offline region) render a
+        // light grey instead of black.
+        val background = JSONObject()
+            .put("id", "bg")
+            .put("type", "background")
+            .put("paint", JSONObject().put("background-color", "#E8E8E8"))
         val layer = JSONObject()
             .put("id", "base-raster")
             .put("type", "raster")
@@ -59,7 +65,7 @@ object MapStyleFactory {
         return JSONObject()
             .put("version", 8)
             .put("sources", JSONObject().put("base", source))
-            .put("layers", JSONArray().put(layer))
+            .put("layers", JSONArray().put(background).put(layer))
             .toString()
     }
 }

@@ -14,8 +14,8 @@ android {
         applicationId = "cat.hudpro.opentracks"
         minSdk = 26
         targetSdk = 35
-        versionCode = 7
-        versionName = "0.7.0"
+        versionCode = 8
+        versionName = "0.8.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -84,6 +84,7 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
     implementation(libs.navigation.compose)
+    implementation(libs.viewpager2)
     debugImplementation(libs.compose.ui.tooling)
 
     implementation(libs.datastore.preferences)
