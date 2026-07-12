@@ -258,7 +258,9 @@ class MapLibreController(private val map: MapLibreMap) {
         val vis = (followLyr as? LineLayer)?.visibility?.value ?: "?"
         val idx = ids.indexOf(FOLLOW_LAYER)
         val baseIdx = ids.indexOf("base-raster")
-        return "pts=${followPoints.size} styleLyr=${followLyr != null} vis=$vis idx=$idx base=$baseIdx n=${ids.size}"
+        val styleSrc = style?.getSource(FOLLOW_SOURCE)
+        val same = styleSrc != null && styleSrc === followSource
+        return "pts=${followPoints.size} lyr=${followLyr != null} vis=$vis idx=$idx base=$baseIdx styleSrc=${styleSrc != null} same=$same"
     }
 
     /** Frames the camera to enclose the current followed route (used when the user picks one). */
@@ -281,10 +283,15 @@ class MapLibreController(private val map: MapLibreMap) {
     }
 
     private fun drawFollow(splitIndex: Int) {
+        // Fetch the sources from the CURRENT style by id — the field references can go stale after a
+        // restyle, so setGeoJson on them would update an orphaned source that nothing renders.
+        val style = map.style
+        val followSrc = style?.getSourceAs<GeoJsonSource>(FOLLOW_SOURCE) ?: followSource
+        val doneSrc = style?.getSourceAs<GeoJsonSource>(FOLLOW_DONE_SOURCE) ?: followDoneSource
         val points = followPoints
         if (points.size < 2) {
-            followSource?.setGeoJson(FeatureCollection.fromFeatures(emptyList<Feature>()))
-            followDoneSource?.setGeoJson(FeatureCollection.fromFeatures(emptyList<Feature>()))
+            followSrc?.setGeoJson(FeatureCollection.fromFeatures(emptyList<Feature>()))
+            doneSrc?.setGeoJson(FeatureCollection.fromFeatures(emptyList<Feature>()))
             return
         }
         fun line(sub: List<GeoPoint>) = if (sub.size >= 2) {
@@ -293,11 +300,11 @@ class MapLibreController(private val map: MapLibreMap) {
             emptyList()
         }
         if (followProgress && splitIndex in 1 until points.size) {
-            followDoneSource?.setGeoJson(FeatureCollection.fromFeatures(line(points.subList(0, splitIndex + 1))))
-            followSource?.setGeoJson(FeatureCollection.fromFeatures(line(points.subList(splitIndex, points.size))))
+            doneSrc?.setGeoJson(FeatureCollection.fromFeatures(line(points.subList(0, splitIndex + 1))))
+            followSrc?.setGeoJson(FeatureCollection.fromFeatures(line(points.subList(splitIndex, points.size))))
         } else {
-            followDoneSource?.setGeoJson(FeatureCollection.fromFeatures(emptyList<Feature>()))
-            followSource?.setGeoJson(FeatureCollection.fromFeatures(line(points)))
+            doneSrc?.setGeoJson(FeatureCollection.fromFeatures(emptyList<Feature>()))
+            followSrc?.setGeoJson(FeatureCollection.fromFeatures(line(points)))
         }
     }
 
