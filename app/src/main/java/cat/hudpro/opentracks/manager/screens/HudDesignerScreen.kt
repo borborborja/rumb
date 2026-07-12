@@ -123,8 +123,62 @@ fun HudDesignerScreen(onBack: () -> Unit) {
 
                 TrackAppearanceSection(prefs)
                 FollowRouteSection(prefs)
+                AudioAnnouncementsSection(prefs)
             }
         }
+    }
+}
+
+@Composable
+private fun AudioAnnouncementsSection(prefs: ViewerPreferences) {
+    var enabled by remember { mutableStateOf(prefs.announceEnabled) }
+    var voice by remember { mutableStateOf(prefs.announceMode == "VOICE") }
+    var lang by remember { mutableStateOf(cat.hudpro.opentracks.viewer.audio.AnnounceLang.byCode(prefs.announceLang)) }
+    var byDist by remember { mutableStateOf(prefs.announceByDistance) }
+    var distKm by remember { mutableFloatStateOf(prefs.announceDistanceKm) }
+    var byTime by remember { mutableStateOf(prefs.announceByTime) }
+    var timeMin by remember { mutableFloatStateOf(prefs.announceTimeMin.toFloat()) }
+    var fDist by remember { mutableStateOf(prefs.annDistanceTime) }
+    var fPace by remember { mutableStateOf(prefs.annPace) }
+    var fSplit by remember { mutableStateOf(prefs.annSplitPace) }
+    var fElev by remember { mutableStateOf(prefs.annElevation) }
+    var fHr by remember { mutableStateOf(prefs.annHeartRate) }
+    var offSpoken by remember { mutableStateOf(prefs.offRouteSpoken) }
+
+    Text("Àudio i avisos", style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(top = 8.dp))
+    ToggleRow("Activar avisos d'àudio", enabled) { enabled = it; prefs.announceEnabled = it }
+    if (!enabled) return
+
+    Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        FilterChip(voice, { voice = true; prefs.announceMode = "VOICE" }, label = { Text("Veu") })
+        FilterChip(!voice, { voice = false; prefs.announceMode = "BEEP" }, label = { Text("Xiulets") })
+    }
+    if (voice) {
+        Text("Idioma", style = MaterialTheme.typography.bodySmall)
+        Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            cat.hudpro.opentracks.viewer.audio.AnnounceLang.entries.forEach { l ->
+                FilterChip(lang == l, { lang = l; prefs.announceLang = l.code }, label = { Text(l.label) })
+            }
+        }
+    }
+
+    ToggleRow("Cada ${distKm.toInt()} km", byDist) { byDist = it; prefs.announceByDistance = it }
+    if (byDist) {
+        Slider(value = distKm, onValueChange = { distKm = it; prefs.announceDistanceKm = it }, valueRange = 1f..10f, steps = 8)
+    }
+    ToggleRow("Cada ${timeMin.toInt()} min", byTime) { byTime = it; prefs.announceByTime = it }
+    if (byTime) {
+        Slider(value = timeMin, onValueChange = { timeMin = it; prefs.announceTimeMin = it.toInt() }, valueRange = 1f..30f, steps = 28)
+    }
+
+    if (voice) {
+        Text("Què s'anuncia", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 4.dp))
+        ToggleRow("Distància i temps", fDist) { fDist = it; prefs.annDistanceTime = it }
+        ToggleRow("Ritme", fPace) { fPace = it; prefs.annPace = it }
+        ToggleRow("Ritme de l'últim km", fSplit) { fSplit = it; prefs.annSplitPace = it }
+        ToggleRow("Desnivell", fElev) { fElev = it; prefs.annElevation = it }
+        ToggleRow("Pulsacions", fHr) { fHr = it; prefs.annHeartRate = it }
+        ToggleRow("Dir 'Fora de ruta' per veu", offSpoken) { offSpoken = it; prefs.offRouteSpoken = it }
     }
 }
 

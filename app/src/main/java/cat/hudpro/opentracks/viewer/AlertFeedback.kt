@@ -27,13 +27,18 @@ object AlertFeedback {
     }
 
     /** Short alert tone. Best-effort; ignores audio failures. */
-    fun beep() {
+    fun beep() = beeps(1)
+
+    /** Plays [count] short tones in sequence (e.g. one per milestone). Best-effort. */
+    fun beeps(count: Int) {
+        val n = count.coerceIn(1, 5)
         runCatching {
-            val tone = ToneGenerator(AudioManager.STREAM_ALARM, 80)
-            tone.startTone(ToneGenerator.TONE_PROP_BEEP2, 300)
-            // Release shortly after the tone finishes.
+            val tone = ToneGenerator(AudioManager.STREAM_MUSIC, 90)
             Thread {
-                Thread.sleep(500)
+                repeat(n) {
+                    tone.startTone(ToneGenerator.TONE_PROP_BEEP2, 250)
+                    Thread.sleep(400)
+                }
                 runCatching { tone.release() }
             }.start()
         }

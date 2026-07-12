@@ -63,6 +63,60 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         get() = prefs.getBoolean(KEY_OFFROUTE_VIBRATE, true)
         set(value) = prefs.edit().putBoolean(KEY_OFFROUTE_VIBRATE, value).apply()
 
+    // --- Audio announcements ---
+    var announceEnabled: Boolean
+        get() = prefs.getBoolean(KEY_ANN_ENABLED, false)
+        set(value) = prefs.edit().putBoolean(KEY_ANN_ENABLED, value).apply()
+
+    /** "VOICE" or "BEEP". */
+    var announceMode: String
+        get() = prefs.getString(KEY_ANN_MODE, "VOICE") ?: "VOICE"
+        set(value) = prefs.edit().putString(KEY_ANN_MODE, value).apply()
+
+    var announceLang: String
+        get() = prefs.getString(KEY_ANN_LANG, "ca") ?: "ca"
+        set(value) = prefs.edit().putString(KEY_ANN_LANG, value).apply()
+
+    var announceByDistance: Boolean
+        get() = prefs.getBoolean(KEY_ANN_BY_DIST, true)
+        set(value) = prefs.edit().putBoolean(KEY_ANN_BY_DIST, value).apply()
+
+    var announceDistanceKm: Float
+        get() = prefs.getFloat(KEY_ANN_DIST_KM, 1f)
+        set(value) = prefs.edit().putFloat(KEY_ANN_DIST_KM, value).apply()
+
+    var announceByTime: Boolean
+        get() = prefs.getBoolean(KEY_ANN_BY_TIME, false)
+        set(value) = prefs.edit().putBoolean(KEY_ANN_BY_TIME, value).apply()
+
+    var announceTimeMin: Int
+        get() = prefs.getInt(KEY_ANN_TIME_MIN, 10)
+        set(value) = prefs.edit().putInt(KEY_ANN_TIME_MIN, value).apply()
+
+    var annDistanceTime: Boolean
+        get() = prefs.getBoolean(KEY_ANN_F_DIST, true)
+        set(value) = prefs.edit().putBoolean(KEY_ANN_F_DIST, value).apply()
+
+    var annPace: Boolean
+        get() = prefs.getBoolean(KEY_ANN_F_PACE, true)
+        set(value) = prefs.edit().putBoolean(KEY_ANN_F_PACE, value).apply()
+
+    var annSplitPace: Boolean
+        get() = prefs.getBoolean(KEY_ANN_F_SPLIT, false)
+        set(value) = prefs.edit().putBoolean(KEY_ANN_F_SPLIT, value).apply()
+
+    var annElevation: Boolean
+        get() = prefs.getBoolean(KEY_ANN_F_ELEV, false)
+        set(value) = prefs.edit().putBoolean(KEY_ANN_F_ELEV, value).apply()
+
+    var annHeartRate: Boolean
+        get() = prefs.getBoolean(KEY_ANN_F_HR, false)
+        set(value) = prefs.edit().putBoolean(KEY_ANN_F_HR, value).apply()
+
+    var offRouteSpoken: Boolean
+        get() = prefs.getBoolean(KEY_OFFROUTE_SPOKEN, true)
+        set(value) = prefs.edit().putBoolean(KEY_OFFROUTE_SPOKEN, value).apply()
+
     companion object {
         private const val KEY_BASE_MAP = "base_map_id"
         private const val KEY_HUD_LAYOUT = "hud_layout_json"
@@ -76,6 +130,19 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         private const val KEY_OFFROUTE_THRESHOLD = "offroute_threshold"
         private const val KEY_OFFROUTE_SOUND = "offroute_sound"
         private const val KEY_OFFROUTE_VIBRATE = "offroute_vibrate"
+        private const val KEY_OFFROUTE_SPOKEN = "offroute_spoken"
+        private const val KEY_ANN_ENABLED = "ann_enabled"
+        private const val KEY_ANN_MODE = "ann_mode"
+        private const val KEY_ANN_LANG = "ann_lang"
+        private const val KEY_ANN_BY_DIST = "ann_by_dist"
+        private const val KEY_ANN_DIST_KM = "ann_dist_km"
+        private const val KEY_ANN_BY_TIME = "ann_by_time"
+        private const val KEY_ANN_TIME_MIN = "ann_time_min"
+        private const val KEY_ANN_F_DIST = "ann_f_dist"
+        private const val KEY_ANN_F_PACE = "ann_f_pace"
+        private const val KEY_ANN_F_SPLIT = "ann_f_split"
+        private const val KEY_ANN_F_ELEV = "ann_f_elev"
+        private const val KEY_ANN_F_HR = "ann_f_hr"
         const val DEFAULT_TRACK_COLOR = "#E63946"
         const val DEFAULT_FOLLOW_COLOR = "#3A86FF"
 

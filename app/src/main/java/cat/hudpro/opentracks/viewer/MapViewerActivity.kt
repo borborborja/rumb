@@ -63,6 +63,14 @@ class MapViewerActivity : ComponentActivity() {
     private var offRouteThreshold = 40
     private var offRouteSound = true
     private var offRouteVibrate = true
+    private var offRouteSpoken = true
+
+    // Audio announcements
+    private var announcer: cat.hudpro.opentracks.viewer.audio.SpeechAnnouncer? = null
+    private var announceScheduler: cat.hudpro.opentracks.viewer.audio.AnnouncementScheduler? = null
+    private var announceVoice = false
+    private var announceLang = cat.hudpro.opentracks.viewer.audio.AnnounceLang.CA
+    private var announceFields = cat.hudpro.opentracks.viewer.audio.AnnounceFields()
 
     private var wasRecording = false
     private var uploadedThisSession = false
@@ -79,6 +87,7 @@ class MapViewerActivity : ComponentActivity() {
 
         val prefs = ViewerPreferences.get(this)
         hudLayout = HudLayoutStore.load(prefs)
+        setupAnnouncements(prefs)
 
         mapView = MapView(this)
         val hud = ComposeView(this).apply {
@@ -152,6 +161,52 @@ class MapViewerActivity : ComponentActivity() {
         )
     }
 
+    private fun setupAnnouncements(prefs: ViewerPreferences) {
+        offRouteSpoken = prefs.offRouteSpoken
+        if (!prefs.announceEnabled) return
+        announceScheduler = cat.hudpro.opentracks.viewer.audio.AnnouncementScheduler(
+            cat.hudpro.opentracks.viewer.audio.AnnounceConfig(
+                byDistance = prefs.announceByDistance,
+                distanceStepKm = prefs.announceDistanceKm.toDouble(),
+                byTime = prefs.announceByTime,
+                timeStepMin = prefs.announceTimeMin,
+            ),
+        )
+        announceLang = cat.hudpro.opentracks.viewer.audio.AnnounceLang.byCode(prefs.announceLang)
+        announceFields = cat.hudpro.opentracks.viewer.audio.AnnounceFields(
+            distanceTime = prefs.annDistanceTime,
+            pace = prefs.annPace,
+            elevation = prefs.annElevation,
+            heartRate = prefs.annHeartRate,
+            splitPace = prefs.annSplitPace,
+        )
+        announceVoice = prefs.announceMode == "VOICE"
+        if (announceVoice) {
+            announcer = cat.hudpro.opentracks.viewer.audio.SpeechAnnouncer(this, announceLang)
+        }
+    }
+
+    private fun handleAnnouncements(metrics: LiveMetrics) {
+        val scheduler = announceScheduler ?: return
+        val triggers = scheduler.update(metrics.distanceKm, metrics.movingTime.inWholeSeconds)
+        for (t in triggers) {
+            if (announceVoice) {
+                val snap = cat.hudpro.opentracks.viewer.audio.AnnounceSnapshot(
+                    distanceKm = t.distanceKm,
+                    elapsedSeconds = t.elapsedSeconds,
+                    paceMinPerKm = metrics.paceMinPerKm,
+                    speedKmh = metrics.speedKmh,
+                    elevationGainM = metrics.elevationGainM,
+                    heartRateBpm = metrics.heartRateBpm,
+                    splitPaceMinPerKm = t.splitPaceMinPerKm,
+                )
+                announcer?.speak(cat.hudpro.opentracks.viewer.audio.AnnouncementText.progress(announceLang, announceFields, snap))
+            } else {
+                AlertFeedback.beeps(1)
+            }
+        }
+    }
+
     private fun loadFollowRoute(prefs: ViewerPreferences, ctrl: MapLibreController) {
         val id = prefs.activeFollowTrackId
         if (id <= 0) return
@@ -194,9 +249,16 @@ class MapViewerActivity : ComponentActivity() {
                     ctrl.updateFollowProgress(state.nearestIndex)
                     if (offRouteAlerter.update(state.offRouteMeters, offRouteThreshold) == cat.hudpro.opentracks.viewer.follow.OffRouteAlerter.Event.ENTERED) {
                         if (offRouteVibrate) AlertFeedback.vibrate(this@MapViewerActivity)
-                        if (offRouteSound) AlertFeedback.beep()
+                        val spoken = offRouteSpoken && announceVoice && announcer != null
+                        if (spoken) {
+                            announcer?.speak(cat.hudpro.opentracks.viewer.audio.AnnouncementText.offRoute(announceLang))
+                        } else if (offRouteSound) {
+                            AlertFeedback.beep()
+                        }
                     }
                 }
+
+                if (reader.isRecording) handleAnnouncements(metrics)
 
                 pushSpeed(metrics.speedKmh)
                 val routeProfile = followEngine?.elevationProfile
@@ -274,6 +336,7 @@ class MapViewerActivity : ComponentActivity() {
 
     override fun onDestroy() {
         reader?.stop()
+        announcer?.shutdown()
         mapView.onDestroy()
         super.onDestroy()
     }
