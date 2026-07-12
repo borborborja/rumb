@@ -227,7 +227,8 @@ class MapViewerActivity : ComponentActivity() {
             ctrl.setHeadingUp(prefs.mapOrientation == "HEADING_UP")
             setupControls(ctrl)
             val onReady: () -> Unit = {
-                loadFollowRoute(prefs, ctrl)
+                // Frame the active route when not recording (no live track to follow yet) so it's visible.
+                loadFollowRoute(prefs, ctrl, frame = reader?.isRecording != true)
                 reader?.let { observe(it, ctrl) }
                 // Show the user's location; request the permission if we don't have it yet.
                 if (hasLocationPermission()) {

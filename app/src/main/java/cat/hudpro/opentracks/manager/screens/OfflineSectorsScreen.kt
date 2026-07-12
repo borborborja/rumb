@@ -44,6 +44,7 @@ fun OfflineSectorsScreen(mapPath: String, onBack: () -> Unit, onDownloadArea: ()
     val context = LocalContext.current
     val store = remember { OfflineMapStore.get(context) }
     val mapView = rememberMapViewWithLifecycle()
+    val requestNotif = rememberNotificationPermission()
 
     var map by remember { mutableStateOf(store.byPath(mapPath)) }
     var sectors by remember { mutableStateOf(map?.let { store.sectorsOf(it) } ?: emptyList()) }
@@ -115,6 +116,7 @@ fun OfflineSectorsScreen(mapPath: String, onBack: () -> Unit, onDownloadArea: ()
                             if (sid == null) {
                                 Toast.makeText(context, "Tipus de mapa desconegut", Toast.LENGTH_SHORT).show()
                             } else {
+                                requestNotif()
                                 RegionDownloadWorker.enqueue(
                                     context, sid, MapSource.byId(sid).displayName + " · àrea",
                                     sector.bbox, sector.minZoom, sector.maxZoom,

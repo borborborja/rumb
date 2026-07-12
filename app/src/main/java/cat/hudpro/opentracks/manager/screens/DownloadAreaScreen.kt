@@ -60,6 +60,7 @@ private const val KB_PER_TILE = 25.0
 fun DownloadAreaScreen(onBack: () -> Unit, initialBbox: BoundingBox? = null) {
     val context = LocalContext.current
     val mapView = rememberMapViewWithLifecycle()
+    val requestNotif = rememberNotificationPermission()
 
     var controller by remember { mutableStateOf<AreaSelectController?>(null) }
     var mode by remember { mutableStateOf(if (initialBbox != null) AreaMode.ROUTE else AreaMode.PROVINCE) }
@@ -228,6 +229,7 @@ fun DownloadAreaScreen(onBack: () -> Unit, initialBbox: BoundingBox? = null) {
                         Button(
                             onClick = {
                                 bbox?.let {
+                                    requestNotif()
                                     RegionDownloadWorker.enqueue(
                                         context, source.id, "${source.displayName} · àrea", it, minZoom, maxZoom,
                                     )
