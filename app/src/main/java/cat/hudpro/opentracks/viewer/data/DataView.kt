@@ -33,9 +33,9 @@ private data class DataCell(val label: String, val value: String, val unit: Stri
  * screen). Swiped in from the map. Reuses [HudMetric] formatters so values match the HUD widgets.
  */
 @Composable
-fun DataView(data: HudData, modifier: Modifier = Modifier) {
+fun DataView(data: HudData, modifier: Modifier = Modifier, reloadKey: Any? = null) {
     val context = androidx.compose.ui.platform.LocalContext.current
-    val layout = remember {
+    val layout = remember(reloadKey) {
         DataLayoutStore.load(cat.hudpro.opentracks.data.prefs.ViewerPreferences.get(context))
     }
     val followOnly = setOf(HudMetric.REMAINING, HudMetric.OFF_ROUTE)

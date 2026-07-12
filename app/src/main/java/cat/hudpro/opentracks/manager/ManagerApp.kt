@@ -39,9 +39,12 @@ object Routes {
 }
 
 @Composable
-fun ManagerApp(onOpenViewer: () -> Unit) {
+fun ManagerApp(onOpenViewer: () -> Unit, startRoute: String? = null) {
     val nav = rememberNavController()
-    NavHost(navController = nav, startDestination = Routes.HOME) {
+    // Launched directly on an editor (pencil in the viewer): back closes the activity, not Home.
+    val activity = androidx.compose.ui.platform.LocalContext.current as? android.app.Activity
+    val backOrFinish: () -> Unit = { if (!nav.popBackStack()) activity?.finish() }
+    NavHost(navController = nav, startDestination = startRoute ?: Routes.HOME) {
         composable(Routes.HOME) {
             HomeScreen(
                 onOpenViewer = onOpenViewer,
@@ -58,8 +61,8 @@ fun ManagerApp(onOpenViewer: () -> Unit) {
         }
         composable(Routes.SENSORS) { SensorsScreen(onBack = { nav.popBackStack() }) }
         composable(Routes.DEBUG_LOG) { DebugLogScreen(onBack = { nav.popBackStack() }) }
-        composable(Routes.HUD) { HudDesignerScreen(onBack = { nav.popBackStack() }) }
-        composable(Routes.DATA) { DataDesignerScreen(onBack = { nav.popBackStack() }) }
+        composable(Routes.HUD) { HudDesignerScreen(onBack = backOrFinish) }
+        composable(Routes.DATA) { DataDesignerScreen(onBack = backOrFinish) }
         composable(Routes.LAYERS) {
             MapLayersScreen(
                 onBack = { nav.popBackStack() },

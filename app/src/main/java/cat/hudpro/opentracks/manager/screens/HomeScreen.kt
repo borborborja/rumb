@@ -15,10 +15,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.DirectionsRun
 import androidx.compose.material.icons.filled.CloudUpload
-import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.FiberManualRecord
-import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Settings
@@ -45,8 +43,6 @@ private data class Tile(val title: String, val subtitle: String, val icon: Image
 @Composable
 fun HomeScreen(onOpenViewer: () -> Unit, onNavigate: (String) -> Unit, onOpenSettings: () -> Unit = {}) {
     val tiles = listOf(
-        Tile("Diseñar HUD", "Widgets i disposició", Icons.Filled.Dashboard, Routes.HUD),
-        Tile("Editar Dades", "Mètriques i ordre", Icons.Filled.GridView, Routes.DATA),
         Tile("Capas de mapa", "Online i offline", Icons.Filled.Layers, Routes.LAYERS),
         Tile("Tracks a seguir", "GPX i col·leccions", Icons.AutoMirrored.Filled.DirectionsRun, Routes.TRACKS),
         Tile("Endurain", "Pujar i sincronitzar", Icons.Filled.CloudUpload, Routes.ENDURAIN),

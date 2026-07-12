@@ -8,7 +8,16 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Icon
+import androidx.compose.runtime.remember
+import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -112,7 +121,8 @@ class MapViewerActivity : ComponentActivity() {
             androidx.core.content.ContextCompat.checkSelfPermission(
                 this, android.Manifest.permission.ACCESS_COARSE_LOCATION,
             ) == android.content.pm.PackageManager.PERMISSION_GRANTED
-    private lateinit var hudLayout: HudLayout
+    private val hudLayoutFlow = MutableStateFlow(HudLayout.DEFAULT)
+    private val dataReloadFlow = MutableStateFlow(0)
 
     private var followEngine: FollowRouteEngine? = null
     private var followMode = true
@@ -149,7 +159,7 @@ class MapViewerActivity : ComponentActivity() {
         applyWindowFlags()
 
         val prefs = ViewerPreferences.get(this)
-        hudLayout = HudLayoutStore.load(prefs)
+        hudLayoutFlow.value = HudLayoutStore.load(prefs)
         units = cat.hudpro.opentracks.viewer.hud.UnitsStore.load(prefs)
         adaptiveZoom = prefs.adaptiveZoom
         setupAnnouncements(prefs)
@@ -166,7 +176,8 @@ class MapViewerActivity : ComponentActivity() {
                 HudProTheme {
                     val data by hudDataFlow.collectAsState()
                     val controls by controlsFlow.collectAsState()
-                    HudOverlay(data, hudLayout, controls, Modifier.safeDrawingPadding())
+                    val layout by hudLayoutFlow.collectAsState()
+                    HudOverlay(data, layout, controls, Modifier.safeDrawingPadding())
                 }
             }
         }
@@ -183,7 +194,8 @@ class MapViewerActivity : ComponentActivity() {
             setContent {
                 HudProTheme {
                     val data by hudDataFlow.collectAsState()
-                    DataView(data, Modifier.safeDrawingPadding())
+                    val reload by dataReloadFlow.collectAsState()
+                    DataView(data, Modifier.safeDrawingPadding(), reloadKey = reload)
                 }
             }
         }
@@ -198,12 +210,28 @@ class MapViewerActivity : ComponentActivity() {
                     val page by currentPageFlow.collectAsState()
                     val settingsOpen by settingsOpenFlow.collectAsState()
                     Box(Modifier.fillMaxSize().safeDrawingPadding().padding(top = 8.dp)) {
-                        ViewerSwitcher(
-                            currentPage = page,
-                            onSelect = { pager.setCurrentItem(it, true) },
-                            onGear = { settingsOpenFlow.value = true },
+                        androidx.compose.foundation.layout.Row(
                             modifier = Modifier.align(androidx.compose.ui.Alignment.TopCenter),
-                        )
+                            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp),
+                        ) {
+                            ViewerSwitcher(
+                                currentPage = page,
+                                onSelect = { pager.setCurrentItem(it, true) },
+                                onGear = { settingsOpenFlow.value = true },
+                            )
+                            // Pencil: edit the layout of whatever page is showing (HUD or Dades).
+                            EditPageButton {
+                                val route = if (page == 0) {
+                                    cat.hudpro.opentracks.manager.Routes.HUD
+                                } else {
+                                    cat.hudpro.opentracks.manager.Routes.DATA
+                                }
+                                startActivity(
+                                    cat.hudpro.opentracks.manager.ManagerActivity.editIntent(this@MapViewerActivity, route),
+                                )
+                            }
+                        }
                         if (settingsOpen) {
                             val tracks by app.trackRepository.observeSummaries().collectAsState(initial = emptyList())
                             ViewerQuickSettings(
@@ -729,7 +757,13 @@ class MapViewerActivity : ComponentActivity() {
     }
 
     override fun onStart() { super.onStart(); mapView.onStart() }
-    override fun onResume() { super.onResume(); mapView.onResume() }
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+        // Pick up layout changes made in the editors (pencil button) while we were paused.
+        hudLayoutFlow.value = HudLayoutStore.load(ViewerPreferences.get(this))
+        dataReloadFlow.value++
+    }
     override fun onPause() { mapView.onPause(); super.onPause() }
     override fun onStop() { mapView.onStop(); super.onStop() }
     override fun onLowMemory() { super.onLowMemory(); mapView.onLowMemory() }
@@ -745,6 +779,27 @@ class MapViewerActivity : ComponentActivity() {
     private companion object {
         const val TAG = "MapViewerActivity"
         const val SPEED_HISTORY = 60
+    }
+}
+
+/** Round dark pencil button, outside the switcher pill, that opens the current page's editor. */
+@Composable
+private fun EditPageButton(onClick: () -> Unit) {
+    val interaction = remember { MutableInteractionSource() }
+    Box(
+        modifier = Modifier
+            .size(36.dp)
+            .clip(CircleShape)
+            .background(Color(0x99000000))
+            .clickable(interactionSource = interaction, indication = null, onClick = onClick),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            Icons.Filled.Edit,
+            contentDescription = "Editar la pantalla actual",
+            tint = Color.White,
+            modifier = Modifier.size(18.dp),
+        )
     }
 }
 
