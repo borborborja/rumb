@@ -56,6 +56,20 @@ class MapViewerActivity : ComponentActivity() {
     private val hudDataFlow = MutableStateFlow(HudData())
     private val controlsFlow = MutableStateFlow(HudControls.disabled)
     private val currentPageFlow = MutableStateFlow(0)
+
+    private val locationPermLauncher = registerForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions(),
+    ) { result ->
+        if (result.values.any { it }) controller?.enableLocation(this)
+    }
+
+    private fun hasLocationPermission(): Boolean =
+        androidx.core.content.ContextCompat.checkSelfPermission(
+            this, android.Manifest.permission.ACCESS_FINE_LOCATION,
+        ) == android.content.pm.PackageManager.PERMISSION_GRANTED ||
+            androidx.core.content.ContextCompat.checkSelfPermission(
+                this, android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            ) == android.content.pm.PackageManager.PERMISSION_GRANTED
     private lateinit var hudLayout: HudLayout
 
     private var followEngine: FollowRouteEngine? = null
@@ -162,6 +176,17 @@ class MapViewerActivity : ComponentActivity() {
             val onReady: () -> Unit = {
                 loadFollowRoute(prefs, ctrl)
                 reader?.let { observe(it, ctrl) }
+                // Show the user's location; request the permission if we don't have it yet.
+                if (hasLocationPermission()) {
+                    ctrl.enableLocation(this)
+                } else {
+                    locationPermLauncher.launch(
+                        arrayOf(
+                            android.Manifest.permission.ACCESS_FINE_LOCATION,
+                            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                        ),
+                    )
+                }
                 Unit
             }
             val offline = baseMapId
@@ -192,10 +217,15 @@ class MapViewerActivity : ComponentActivity() {
         val ctrl = controller ?: return
         controlsFlow.value = HudControls(
             followEnabled = followMode,
-            onRecenter = { followMode = true; ctrl.follow(lastSegments); emitControls() },
+            onRecenter = {
+                followMode = true
+                // Prefer the user's GPS location; fall back to the recorded track.
+                if (!ctrl.recenterOnLocation(this)) ctrl.follow(lastSegments)
+                emitControls()
+            },
             onToggleFollow = {
                 followMode = !followMode
-                if (followMode) ctrl.follow(lastSegments)
+                if (followMode && !ctrl.recenterOnLocation(this)) ctrl.follow(lastSegments)
                 emitControls()
             },
             onNorth = { ctrl.northUp() },

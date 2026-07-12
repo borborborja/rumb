@@ -29,38 +29,37 @@ object OpenTracksRecording {
 
     /**
      * Starts a new OpenTracks recording and asks it to route the live track back to our viewer
-     * (so the dashboard opens automatically). Returns false if OpenTracks isn't installed.
+     * (so the dashboard opens automatically). Returns false if it couldn't be launched.
      */
-    fun start(context: Context): Boolean {
-        val pkg = installedPackage(context) ?: run { notInstalled(context); return false }
-        val intent = Intent().apply {
+    fun start(context: Context): Boolean = tryLaunch(context) { pkg ->
+        Intent().apply {
             setClassName(pkg, START)
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             putExtra(EXTRA_STATS_PACKAGE, context.packageName)
             putExtra(EXTRA_STATS_CLASS, "cat.hudpro.opentracks.viewer.MapViewerActivity")
         }
-        return launch(context, intent)
     }
 
-    /** Stops/finishes the current OpenTracks recording. Returns false if OpenTracks isn't installed. */
-    fun stop(context: Context): Boolean {
-        val pkg = installedPackage(context) ?: run { notInstalled(context); return false }
-        val intent = Intent().apply {
+    /** Stops/finishes the current OpenTracks recording. */
+    fun stop(context: Context): Boolean = tryLaunch(context) { pkg ->
+        Intent().apply {
             setClassName(pkg, STOP)
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
-        return launch(context, intent)
     }
 
-    private fun launch(context: Context, intent: Intent): Boolean = runCatching {
-        context.startActivity(intent)
-        true
-    }.getOrElse {
-        Toast.makeText(context, "Activa l'API pública a OpenTracks", Toast.LENGTH_LONG).show()
-        false
-    }
-
-    private fun notInstalled(context: Context) {
-        Toast.makeText(context, "OpenTracks no està instal·lat", Toast.LENGTH_LONG).show()
+    /** Tries each candidate OpenTracks package; toasts guidance if none can be launched. */
+    private fun tryLaunch(context: Context, intentFor: (String) -> Intent): Boolean {
+        for (pkg in PACKAGES) {
+            val launched = runCatching { context.startActivity(intentFor(pkg)); true }.getOrDefault(false)
+            if (launched) return true
+        }
+        val msg = if (isInstalled(context)) {
+            "OpenTracks trobat, però activa l'«API pública» als seus ajustos"
+        } else {
+            "Instal·la OpenTracks i activa l'«API pública» als seus ajustos"
+        }
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+        return false
     }
 }

@@ -302,6 +302,45 @@ class MapLibreController(private val map: MapLibreMap) {
     fun zoomIn() = map.animateCamera(CameraUpdateFactory.zoomIn())
     fun zoomOut() = map.animateCamera(CameraUpdateFactory.zoomOut())
 
+    /** Enables the device-location blue dot (caller must hold the location permission). */
+    @android.annotation.SuppressLint("MissingPermission")
+    fun enableLocation(context: android.content.Context) {
+        map.getStyle { style ->
+            val lc = map.locationComponent
+            if (!lc.isLocationComponentActivated) {
+                lc.activateLocationComponent(
+                    org.maplibre.android.location.LocationComponentActivationOptions
+                        .builder(context.applicationContext, style)
+                        .useDefaultLocationEngine(true)
+                        .build(),
+                )
+            }
+            lc.isLocationComponentEnabled = true
+            lc.cameraMode = org.maplibre.android.location.modes.CameraMode.NONE
+            lc.renderMode = org.maplibre.android.location.modes.RenderMode.COMPASS
+        }
+    }
+
+    /** Centers on the user's current GPS location if available. Returns false if unknown. */
+    @android.annotation.SuppressLint("MissingPermission")
+    fun recenterOnLocation(context: android.content.Context): Boolean {
+        val loc = runCatching { map.locationComponent.lastKnownLocation }.getOrNull()
+            ?: lastKnownFromSystem(context) ?: return false
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(loc.latitude, loc.longitude), 15.0))
+        return true
+    }
+
+    /** Fallback: the most recent fix from the OS location providers (independent of MapLibre's engine). */
+    @android.annotation.SuppressLint("MissingPermission")
+    private fun lastKnownFromSystem(context: android.content.Context): android.location.Location? {
+        val lm = context.getSystemService(android.content.Context.LOCATION_SERVICE) as? android.location.LocationManager
+            ?: return null
+        for (provider in listOf("fused", android.location.LocationManager.GPS_PROVIDER, android.location.LocationManager.NETWORK_PROVIDER)) {
+            runCatching { lm.getLastKnownLocation(provider) }.getOrNull()?.let { return it }
+        }
+        return null
+    }
+
     /** Frames the camera on a bounding box [w,s,e,n] (used for offline map coverage). */
     fun frameBounds(west: Double, south: Double, east: Double, north: Double) {
         val bounds = LatLngBounds.Builder()
