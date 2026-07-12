@@ -194,7 +194,7 @@ class MapViewerActivity : ComponentActivity() {
                                 },
                                 onSelectFollow = { id ->
                                     prefs.activeFollowTrackId = id
-                                    controller?.let { reloadFollow(it) }
+                                    controller?.let { reloadFollow(it, frame = true) }
                                 },
                                 onOrientation = { m -> prefs.mapOrientation = m; controller?.let { applyOrientation(it) } },
                                 onKeepScreenOn = { b -> prefs.keepScreenOn = b; applyKeepScreenOn(b) },
@@ -285,14 +285,14 @@ class MapViewerActivity : ComponentActivity() {
     }
 
     /** Loads or clears the followed route according to the current pref (live). */
-    private fun reloadFollow(ctrl: MapLibreController) {
+    private fun reloadFollow(ctrl: MapLibreController, frame: Boolean = false) {
         val prefs = ViewerPreferences.get(this)
         if (prefs.activeFollowTrackId <= 0) {
             ctrl.setFollowRoute(emptyList())
             followEngine = null
             following = false
         } else {
-            loadFollowRoute(prefs, ctrl)
+            loadFollowRoute(prefs, ctrl, frame = frame)
         }
     }
 
@@ -429,7 +429,7 @@ class MapViewerActivity : ComponentActivity() {
         }
     }
 
-    private fun loadFollowRoute(prefs: ViewerPreferences, ctrl: MapLibreController) {
+    private fun loadFollowRoute(prefs: ViewerPreferences, ctrl: MapLibreController, frame: Boolean = false) {
         val id = prefs.activeFollowTrackId
         if (id <= 0) return
         lifecycleScope.launch {
@@ -443,6 +443,8 @@ class MapViewerActivity : ComponentActivity() {
                 offRouteSound = prefs.offRouteSound
                 offRouteVibrate = prefs.offRouteVibrate
                 following = true
+                // When the user just picked a route, bring it into view (it may be far from the camera).
+                if (frame) { followMode = false; ctrl.frameFollowRoute(); emitControls() }
             }
         }
     }

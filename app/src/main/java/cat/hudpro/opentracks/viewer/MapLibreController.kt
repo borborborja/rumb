@@ -244,6 +244,16 @@ class MapLibreController(private val map: MapLibreMap) {
         drawFollow(points.size)
     }
 
+    /** Frames the camera to enclose the current followed route (used when the user picks one). */
+    fun frameFollowRoute() {
+        val pts = followPoints
+        if (pts.size < 2) return
+        val bounds = LatLngBounds.Builder()
+            .includes(pts.map { LatLng(it.latitude, it.longitude) })
+            .build()
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 80))
+    }
+
     /** Splits the route into traveled ("done") and remaining at [nearestIndex] when progress is on. */
     fun updateFollowProgress(nearestIndex: Int) {
         if (followProgress && followPoints.isNotEmpty()) drawFollow(nearestIndex.coerceIn(0, followPoints.size))
