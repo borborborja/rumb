@@ -6,9 +6,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -45,17 +50,30 @@ class ViewerPagesAdapter(private val pages: List<View>) : RecyclerView.Adapter<V
     class PageHolder(view: View) : RecyclerView.ViewHolder(view)
 }
 
-/** Top segmented switcher ("Mapa" / "Dades") that reflects and drives the current page. */
+/**
+ * Top switcher: segmented "Mapa" / "Dades" plus a trailing gear that opens the quick-settings sheet.
+ */
 @Composable
-fun ViewerSwitcher(currentPage: Int, onSelect: (Int) -> Unit, modifier: Modifier = Modifier) {
+fun ViewerSwitcher(currentPage: Int, onSelect: (Int) -> Unit, onGear: () -> Unit, modifier: Modifier = Modifier) {
     Row(
         modifier
             .clip(RoundedCornerShape(20.dp))
             .background(Color(0x99000000))
             .padding(4.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         SwitchTab("Mapa", currentPage == 0) { onSelect(0) }
         SwitchTab("Dades", currentPage == 1) { onSelect(1) }
+        Icon(
+            Icons.Filled.Settings,
+            contentDescription = "Ajustos del visor",
+            tint = Color.White,
+            modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .clickable(onClick = onGear)
+                .padding(horizontal = 12.dp, vertical = 6.dp)
+                .size(22.dp),
+        )
     }
 }
 

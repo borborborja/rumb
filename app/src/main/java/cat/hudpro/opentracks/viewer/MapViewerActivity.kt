@@ -73,7 +73,9 @@ class MapViewerActivity : ComponentActivity() {
     private val hudDataFlow = MutableStateFlow(HudData())
     private val controlsFlow = MutableStateFlow(HudControls.disabled)
     private val currentPageFlow = MutableStateFlow(0)
+    private val settingsOpenFlow = MutableStateFlow(false)
     private var units = cat.hudpro.opentracks.viewer.hud.Units()
+    private var lastWaypoints: List<cat.hudpro.opentracks.data.opentracks.model.Waypoint> = emptyList()
 
     private val locationPermLauncher = registerForActivityResult(
         androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions(),
@@ -163,16 +165,43 @@ class MapViewerActivity : ComponentActivity() {
             offscreenPageLimit = 1
             adapter = ViewerPagesAdapter(listOf(mapPage, dataPage))
         }
+        val app = HudProApplication.from(this)
         val switcher = ComposeView(this).apply {
             setContent {
                 HudProTheme {
                     val page by currentPageFlow.collectAsState()
+                    val settingsOpen by settingsOpenFlow.collectAsState()
                     Box(Modifier.fillMaxSize().safeDrawingPadding().padding(top = 8.dp)) {
                         ViewerSwitcher(
                             currentPage = page,
                             onSelect = { pager.setCurrentItem(it, true) },
+                            onGear = { settingsOpenFlow.value = true },
                             modifier = Modifier.align(androidx.compose.ui.Alignment.TopCenter),
                         )
+                        if (settingsOpen) {
+                            val tracks by app.trackRepository.observeSummaries().collectAsState(initial = emptyList())
+                            ViewerQuickSettings(
+                                currentBaseMapId = prefs.baseMapId,
+                                offlineMaps = cat.hudpro.opentracks.data.map.OfflineMapStore.get(this@MapViewerActivity).list(),
+                                currentFollowId = prefs.activeFollowTrackId,
+                                tracks = tracks,
+                                orientation = prefs.mapOrientation,
+                                keepScreenOn = prefs.keepScreenOn,
+                                fullscreen = prefs.fullscreen,
+                                onSelectBaseMap = { id ->
+                                    prefs.baseMapId = id
+                                    controller?.let { c -> applyBaseMap(c, frame = false) { reapplyOverlays(c) } }
+                                },
+                                onSelectFollow = { id ->
+                                    prefs.activeFollowTrackId = id
+                                    controller?.let { reloadFollow(it) }
+                                },
+                                onOrientation = { m -> prefs.mapOrientation = m; controller?.let { applyOrientation(it) } },
+                                onKeepScreenOn = { b -> prefs.keepScreenOn = b; applyKeepScreenOn(b) },
+                                onFullscreen = { b -> prefs.fullscreen = b; applyFullscreen(b) },
+                                onDismiss = { settingsOpenFlow.value = false },
+                            )
+                        }
                     }
                 }
             }
@@ -187,7 +216,6 @@ class MapViewerActivity : ComponentActivity() {
             },
         )
 
-        val baseMapId = prefs.baseMapId
         wasRecording = reader?.isRecording == true
         mapView.getMapAsync { map ->
             val ctrl = MapLibreController(map)
@@ -196,6 +224,7 @@ class MapViewerActivity : ComponentActivity() {
                 cat.hudpro.opentracks.data.map.TrackColorMode.byName(prefs.trackColorMode),
                 prefs.trackColor,
             )
+            ctrl.setHeadingUp(prefs.mapOrientation == "HEADING_UP")
             setupControls(ctrl)
             val onReady: () -> Unit = {
                 loadFollowRoute(prefs, ctrl)
@@ -213,20 +242,7 @@ class MapViewerActivity : ComponentActivity() {
                 }
                 Unit
             }
-            val offline = baseMapId
-                ?.takeIf { it.startsWith(cat.hudpro.opentracks.data.map.OfflineMap.OFFLINE_PREFIX) }
-                ?.let { cat.hudpro.opentracks.data.map.OfflineMapStore.get(this).bySelectionId(it) }
-            if (offline != null) {
-                ctrl.setOfflineMbtiles(offline.path, offline.attribution) {
-                    // Frame the offline coverage so it isn't lost at world zoom.
-                    offline.bounds?.takeIf { it.size == 4 }?.let { b ->
-                        ctrl.frameBounds(b[0], b[1], b[2], b[3])
-                    }
-                    onReady()
-                }
-            } else {
-                ctrl.setBaseMap(MapSource.byId(baseMapId), onReady)
-            }
+            applyBaseMap(ctrl, frame = true, onReady)
         }
 
         reader?.start()
@@ -235,6 +251,75 @@ class MapViewerActivity : ComponentActivity() {
     private fun setupControls(ctrl: MapLibreController) {
         ctrl.onUserMoved { followMode = false; emitControls() }
         emitControls()
+    }
+
+    /** Applies the base map from prefs (online source or offline MBTiles), then runs [onReady]. */
+    private fun applyBaseMap(ctrl: MapLibreController, frame: Boolean, onReady: () -> Unit) {
+        val baseMapId = ViewerPreferences.get(this).baseMapId
+        val offline = baseMapId
+            ?.takeIf { it.startsWith(cat.hudpro.opentracks.data.map.OfflineMap.OFFLINE_PREFIX) }
+            ?.let { cat.hudpro.opentracks.data.map.OfflineMapStore.get(this).bySelectionId(it) }
+        if (offline != null) {
+            ctrl.setOfflineMbtiles(offline.path, offline.attribution) {
+                if (frame) offline.bounds?.takeIf { it.size == 4 }?.let { b ->
+                    ctrl.frameBounds(b[0], b[1], b[2], b[3])
+                }
+                onReady()
+            }
+        } else {
+            ctrl.setBaseMap(MapSource.byId(baseMapId), onReady)
+        }
+    }
+
+    /** After a live style change, re-draw the overlays (a new style discards previous sources/layers). */
+    private fun reapplyOverlays(ctrl: MapLibreController) {
+        val prefs = ViewerPreferences.get(this)
+        ctrl.setTrackColorMode(
+            cat.hudpro.opentracks.data.map.TrackColorMode.byName(prefs.trackColorMode),
+            prefs.trackColor,
+        )
+        ctrl.updateTrack(lastSegments, frame = false)
+        ctrl.updateWaypoints(lastWaypoints)
+        reloadFollow(ctrl)
+        if (hasLocationPermission()) ctrl.enableLocation(this)
+    }
+
+    /** Loads or clears the followed route according to the current pref (live). */
+    private fun reloadFollow(ctrl: MapLibreController) {
+        val prefs = ViewerPreferences.get(this)
+        if (prefs.activeFollowTrackId <= 0) {
+            ctrl.setFollowRoute(emptyList())
+            followEngine = null
+            following = false
+        } else {
+            loadFollowRoute(prefs, ctrl)
+        }
+    }
+
+    private fun applyOrientation(ctrl: MapLibreController) {
+        val heading = ViewerPreferences.get(this).mapOrientation == "HEADING_UP"
+        ctrl.setHeadingUp(heading)
+        if (!heading) {
+            ctrl.northUp()
+        } else if (followMode) {
+            ctrl.follow(lastSegments, hudDataFlow.value.metrics.bearingDeg)
+        }
+    }
+
+    private fun applyKeepScreenOn(on: Boolean) {
+        if (on) window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        else window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
+
+    @Suppress("DEPRECATION")
+    private fun applyFullscreen(on: Boolean) {
+        window.decorView.systemUiVisibility = if (on) {
+            android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
+                android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
+        } else {
+            android.view.View.SYSTEM_UI_FLAG_VISIBLE
+        }
     }
 
     private fun emitControls() {
@@ -371,12 +456,14 @@ class MapViewerActivity : ComponentActivity() {
                 Triple(segs, wps, stats)
             }.collect { (segs, wps, stats) ->
                 lastSegments = segs
+                lastWaypoints = wps
                 ctrl.updateTrack(segs, frame = true)
                 ctrl.updateWaypoints(wps)
                 val recording = isRecordingNow()
-                if (followMode && recording) ctrl.follow(segs)
-
                 var metrics = MetricsCalculator.compute(segs, stats, recording)
+                if (followMode && recording) {
+                    ctrl.follow(segs, if (ctrl.headingUp) metrics.bearingDeg else null)
+                }
 
                 // Follow-route: compute state once, drive metrics + progress split + off-route alert.
                 val current = segs.lastOrNull()?.lastOrNull { it.latLong != null }?.latLong
@@ -455,17 +542,17 @@ class MapViewerActivity : ComponentActivity() {
     }
 
     private fun applyWindowFlags() {
-        val r = reader ?: return
-        if (r.keepScreenOn) window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        if (r.showOnLockScreen && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+        val r = reader
+        val prefs = ViewerPreferences.get(this)
+        // Keep-screen-on / fullscreen honor OUR prefs and OpenTracks' intent extras (either wins).
+        if (prefs.keepScreenOn || r?.keepScreenOn == true) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
+        if (r?.showOnLockScreen == true && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true)
         }
-        if (r.showFullscreen) {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility =
-                (android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    or android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or android.view.View.SYSTEM_UI_FLAG_FULLSCREEN)
+        if (prefs.fullscreen || r?.showFullscreen == true) {
+            applyFullscreen(true)
         }
     }
 

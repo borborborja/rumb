@@ -44,6 +44,22 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         get() = prefs.getLong(KEY_FOLLOW_TRACK, -1L)
         set(value) = prefs.edit().putLong(KEY_FOLLOW_TRACK, value).apply()
 
+    // --- Viewer options (in-viewer quick settings) ---
+    /** Map orientation: "NORTH_UP" (fixed) or "HEADING_UP" (rotates to travel direction). */
+    var mapOrientation: String
+        get() = prefs.getString(KEY_MAP_ORIENTATION, "NORTH_UP") ?: "NORTH_UP"
+        set(value) = prefs.edit().putString(KEY_MAP_ORIENTATION, value).apply()
+
+    /** Keep the screen on in the viewer (independent of OpenTracks' own setting). */
+    var keepScreenOn: Boolean
+        get() = prefs.getBoolean(KEY_KEEP_SCREEN_ON, false)
+        set(value) = prefs.edit().putBoolean(KEY_KEEP_SCREEN_ON, value).apply()
+
+    /** Hide the system bars (immersive) in the viewer. */
+    var fullscreen: Boolean
+        get() = prefs.getBoolean(KEY_FULLSCREEN, false)
+        set(value) = prefs.edit().putBoolean(KEY_FULLSCREEN, value).apply()
+
     /** Name of the selected [cat.hudpro.opentracks.data.map.TrackColorMode]. */
     var trackColorMode: String?
         get() = prefs.getString(KEY_TRACK_COLOR_MODE, null)
@@ -145,6 +161,9 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         private const val KEY_UNIT_DISTANCE = "unit_distance"
         private const val KEY_UNIT_ELEVATION = "unit_elevation"
         private const val KEY_UNIT_SPEED = "unit_speed"
+        private const val KEY_MAP_ORIENTATION = "map_orientation"
+        private const val KEY_KEEP_SCREEN_ON = "keep_screen_on"
+        private const val KEY_FULLSCREEN = "fullscreen"
         private const val KEY_FOLLOW_TRACK = "active_follow_track_id"
         private const val KEY_TRACK_COLOR_MODE = "track_color_mode"
         private const val KEY_TRACK_COLOR = "track_color"

@@ -291,11 +291,27 @@ class MapLibreController(private val map: MapLibreMap) {
         hasFramedTrack = true
     }
 
-    /** Recenter on the most recent point (used while recording to follow the user). */
-    fun follow(segments: List<Segment>) {
+    /**
+     * Recenter on the most recent point (used while recording to follow the user). When [bearingDeg]
+     * is provided and heading-up is on, the camera also rotates so the travel direction points up.
+     */
+    fun follow(segments: List<Segment>, bearingDeg: Double? = null) {
         val last = segments.lastOrNull()?.lastOrNull { it.latLong != null }?.latLong ?: return
-        map.animateCamera(CameraUpdateFactory.newLatLng(LatLng(last.latitude, last.longitude)))
+        val target = LatLng(last.latitude, last.longitude)
+        if (headingUp && bearingDeg != null) {
+            val pos = org.maplibre.android.camera.CameraPosition.Builder(map.cameraPosition)
+                .target(target).bearing(bearingDeg).build()
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(pos))
+        } else {
+            map.animateCamera(CameraUpdateFactory.newLatLng(target))
+        }
     }
+
+    /** Whether the camera rotates to the travel direction (heading-up) instead of staying north-up. */
+    var headingUp: Boolean = false
+        private set
+
+    fun setHeadingUp(enabled: Boolean) { headingUp = enabled }
 
     // --- Interactive map controls (HUD) ---
 
