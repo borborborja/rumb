@@ -15,24 +15,32 @@ class NearestFieldTest {
 
     @Test
     fun directHitWins() {
-        assertThat(nearestField(bounds, Offset(50f, 50f), exclude = "B")).isEqualTo("A")
+        assertThat(nearestField(bounds, Offset(50f, 50f))).isEqualTo("A")
+        assertThat(nearestField(bounds, Offset(160f, 50f))).isEqualTo("B")
     }
 
     @Test
-    fun excludedTileFallsBackToRowNeighbor() {
-        // Pointer over A, but A excluded (it's the dragged tile): same-row neighbor B is the target.
-        assertThat(nearestField(bounds, Offset(50f, 50f), exclude = "A")).isEqualTo("B")
+    fun draggedTileIsNotExcludedSoItResolvesToItself() {
+        // The finger over A resolves to A (the dragged tile) → "no move"; this is what stops the
+        // row oscillation that previously trapped upward drags.
+        assertThat(nearestField(bounds, Offset(50f, 50f))).isEqualTo("A")
     }
 
     @Test
-    fun gapFallsBackToNearestInRow() {
-        // Pointer in the horizontal gap between A and B (x=105): nearest by center X.
-        assertThat(nearestField(bounds, Offset(105f, 50f), exclude = "C")).isEqualTo("A")
-        assertThat(nearestField(bounds, Offset(109f, 50f), exclude = "A")).isEqualTo("B")
+    fun climbsToUpperRowByEuclideanDistance() {
+        assertThat(nearestField(bounds, Offset(40f, 130f))).isEqualTo("C") // still inside C
+        assertThat(nearestField(bounds, Offset(40f, 95f))).isEqualTo("A") // moved up into A's band
     }
 
     @Test
-    fun noRowMatchReturnsNull() {
-        assertThat(nearestField(bounds, Offset(50f, 500f), exclude = "A")).isNull()
+    fun gapFallsBackToNearestCenter() {
+        assertThat(nearestField(bounds, Offset(105f, 50f))).isEqualTo("A")
+        assertThat(nearestField(bounds, Offset(109f, 50f))).isEqualTo("B")
+    }
+
+    @Test
+    fun farPointerReturnsGloballyNearest() {
+        // No vertical-band restriction any more: a far pointer resolves to the nearest tile.
+        assertThat(nearestField(bounds, Offset(50f, 500f))).isEqualTo("C")
     }
 }

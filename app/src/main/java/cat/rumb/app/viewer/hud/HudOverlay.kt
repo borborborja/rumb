@@ -182,7 +182,10 @@ fun androidx.compose.foundation.layout.BoxScope.ZoneGroup(
         if (zone.isCenter) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { content() }
         } else {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) { content() }
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalAlignment = zoneColumnAlignment(zone),
+            ) { content() }
         }
     }
 }
@@ -202,6 +205,15 @@ fun zoneForPoint(x: Float, y: Float, width: Float, height: Float): HudZone {
         1 -> if (col == 0 || (col == 1 && x < width / 2)) HudZone.MIDDLE_LEFT else HudZone.MIDDLE_RIGHT
         else -> listOf(HudZone.BOTTOM_LEFT, HudZone.BOTTOM_CENTER, HudZone.BOTTOM_RIGHT)[col]
     }
+}
+
+/**
+ * Horizontal alignment for a non-center zone's widget column: right zones flush right, left zones
+ * flush left — so narrow widgets hug the correct screen edge instead of the widest sibling. Pure.
+ */
+fun zoneColumnAlignment(zone: HudZone): Alignment.Horizontal = when (zone) {
+    HudZone.TOP_RIGHT, HudZone.MIDDLE_RIGHT, HudZone.BOTTOM_RIGHT -> Alignment.End
+    else -> Alignment.Start
 }
 
 /** Maps a [HudZone] to a Compose [Alignment]. Pure. */

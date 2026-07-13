@@ -167,6 +167,7 @@ private fun WidgetsDropdown(
             R.string.editor_metrics to HudCategory.METRIC,
             R.string.editor_charts to HudCategory.CHART,
             R.string.editor_controls to HudCategory.CONTROL,
+            R.string.editor_extra to HudCategory.EXTRA,
         )
         groups.forEach { (titleRes, category) ->
             Text(

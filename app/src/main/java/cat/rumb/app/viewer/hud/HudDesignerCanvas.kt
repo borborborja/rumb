@@ -145,7 +145,10 @@ fun HudEditorCanvas(
                 if (zone.isCenter) {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { content() }
                 } else {
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) { content() }
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalAlignment = zoneColumnAlignment(zone),
+                    ) { content() }
                 }
             }
         }

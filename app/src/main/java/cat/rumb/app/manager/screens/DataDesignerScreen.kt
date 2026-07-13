@@ -310,14 +310,16 @@ private fun TileConfigDialog(
 }
 
 /**
- * Drop-target resolution: the tile containing [pointer], or — dragging over gaps — the tile whose
- * vertical band contains pointer.y with the nearest horizontal center. Pure (unit-tested).
+ * Drop-target resolution: the tile under [pointer], else the tile whose center is nearest by
+ * Euclidean distance. The dragged tile is intentionally NOT excluded — once it has slid under the
+ * finger it resolves to itself, so no further move fires (this is what lets a tile settle instead
+ * of oscillating within its row, and lets it climb to an upper row when the finger moves there).
+ * Pure (unit-tested).
  */
-internal fun nearestField(bounds: Map<String, Rect>, pointer: Offset, exclude: String): String? {
-    bounds.entries.firstOrNull { it.key != exclude && it.value.contains(pointer) }?.let { return it.key }
+internal fun nearestField(bounds: Map<String, Rect>, pointer: Offset): String? {
+    bounds.entries.firstOrNull { it.value.contains(pointer) }?.let { return it.key }
     return bounds.entries
-        .filter { it.key != exclude && pointer.y >= it.value.top && pointer.y <= it.value.bottom }
-        .minByOrNull { kotlin.math.abs(it.value.center.x - pointer.x) }
+        .minByOrNull { (it.value.center - pointer).getDistanceSquared() }
         ?.key
 }
 
@@ -372,7 +374,7 @@ private fun TileGrid(
                             onDragStart = { onDragState(field) },
                             onDragEnd = { onDragState(null) },
                             onDragTo = { pointer ->
-                                val target = nearestField(bounds, pointer, exclude = field)
+                                val target = nearestField(bounds, pointer)
                                 if (target != null) {
                                     val from = currentLayout.fields.indexOf(field)
                                     val to = currentLayout.fields.indexOf(target)
