@@ -143,6 +143,12 @@ class TrackRepository(
                 collection = "General",
                 createdAt = now(),
                 remoteId = null,
+                // A route copy is fully independent of the library original: it carries no
+                // competition membership and no archive state of its own.
+                isCompetition = false,
+                competitionRefId = null,
+                competitionArchived = false,
+                archived = false,
             ),
         )
     }
