@@ -65,6 +65,10 @@ fun HudOverlay(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
+            // Recording but the engine hasn't accepted a single fix yet (GPS warm-up): make it visible.
+            if (data.metrics.isRecording && data.metrics.pointCount == 0) {
+                GpsWaitingPill()
+            }
             if (data.isOffRoute) {
                 OffRouteBanner(data.metrics)
             }
@@ -272,6 +276,25 @@ private fun optionColor(options: Map<String, String>): Color =
     options[HudOption.COLOR]?.let { hex ->
         runCatching { Color(android.graphics.Color.parseColor(hex)) }.getOrNull()
     } ?: Color.White
+
+/** Amber pill shown while recording until the first precise GPS fix is accepted. */
+@Composable
+private fun GpsWaitingPill() {
+    Row(
+        modifier = Modifier
+            .clip(RoundedCornerShape(24.dp))
+            .background(Color(0xF2F4A261))
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            androidx.compose.ui.res.stringResource(cat.rumb.app.R.string.countdown_waiting_gps),
+            color = Color.White,
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Bold,
+        )
+    }
+}
 
 /** History series to chart for a metric, when the "chart" option is on. */
 private fun seriesFor(metric: HudMetric, data: HudData): List<Float> = when (metric) {

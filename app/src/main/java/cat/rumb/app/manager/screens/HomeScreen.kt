@@ -299,7 +299,7 @@ fun HomeScreen(
                     }
                 }
 
-                if (tracks.isEmpty() && folders.isEmpty()) {
+                if (tracks.isEmpty() && folders.isEmpty() && archivedTracks.isEmpty()) {
                     Box(Modifier.fillMaxSize().padding(24.dp), contentAlignment = Alignment.Center) {
                         Text(
                             if (kind == TrackKind.TRAINING) {
