@@ -66,4 +66,6 @@
     <string name="comp_at_start">Estás en el punto de salida</string>
     <string name="comp_start_distance">Salida a %1$d m</string>
     <string name="comp_start_distance_km">Salida a %1$.1f km</string>
+    <string name="viewer_qs_auto_pause">Auto-pausa al detenerte</string>
+    <string name="viewer_qs_auto_pause_secs">Pausa tras estar parado:</string>
 </resources>

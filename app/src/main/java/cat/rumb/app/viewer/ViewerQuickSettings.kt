@@ -61,6 +61,10 @@ fun ViewerQuickSettings(
     onFullscreen: (Boolean) -> Unit,
     countdown: Boolean = false,
     onCountdown: (Boolean) -> Unit = {},
+    autoPause: Boolean = false,
+    onAutoPause: (Boolean) -> Unit = {},
+    autoPauseSec: Int = 5,
+    onAutoPauseSec: (Int) -> Unit = {},
     onAdaptiveZoom: (Boolean) -> Unit,
     onDismiss: () -> Unit,
     competing: Boolean = false,
@@ -80,6 +84,8 @@ fun ViewerQuickSettings(
     var keep by remember { mutableStateOf(keepScreenOn) }
     var full by remember { mutableStateOf(fullscreen) }
     var cd by remember { mutableStateOf(countdown) }
+    var ap by remember { mutableStateOf(autoPause) }
+    var apSec by remember { mutableStateOf(autoPauseSec) }
     var autoZoom by remember { mutableStateOf(adaptiveZoom) }
 
     val tabs = TABS + if (competing) listOf(R.string.viewer_qs_tab_competition) else emptyList()
@@ -109,6 +115,10 @@ fun ViewerQuickSettings(
                     onFullscreen = { full = it; onFullscreen(it) },
                     countdown = cd,
                     onCountdown = { cd = it; onCountdown(it) },
+                    autoPause = ap,
+                    onAutoPause = { ap = it; onAutoPause(it) },
+                    autoPauseSec = apSec,
+                    onAutoPauseSec = { apSec = it; onAutoPauseSec(it) },
                     onAdaptiveZoom = { autoZoom = it; onAdaptiveZoom(it) },
                 )
             }
@@ -163,6 +173,10 @@ private fun OptionsTab(
     onFullscreen: (Boolean) -> Unit,
     countdown: Boolean = false,
     onCountdown: (Boolean) -> Unit = {},
+    autoPause: Boolean = false,
+    onAutoPause: (Boolean) -> Unit = {},
+    autoPauseSec: Int = 5,
+    onAutoPauseSec: (Int) -> Unit = {},
     onAdaptiveZoom: (Boolean) -> Unit,
 ) {
     Text(stringResource(R.string.viewer_qs_map_orientation), style = MaterialTheme.typography.labelLarge)
@@ -181,6 +195,19 @@ private fun OptionsTab(
     ToggleRow(stringResource(R.string.viewer_qs_keep_screen_on), keepScreenOn, onKeepScreenOn)
     ToggleRow(stringResource(R.string.viewer_qs_fullscreen), fullscreen, onFullscreen)
     ToggleRow(stringResource(R.string.viewer_qs_countdown), countdown, onCountdown)
+    ToggleRow(stringResource(R.string.viewer_qs_auto_pause), autoPause, onAutoPause)
+    if (autoPause) {
+        Text(
+            stringResource(R.string.viewer_qs_auto_pause_secs),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.outline,
+        )
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            listOf(5, 10, 20, 30).forEach { secs ->
+                FilterChip(autoPauseSec == secs, { onAutoPauseSec(secs) }, label = { Text("$secs s") })
+            }
+        }
+    }
 }
 
 @Composable

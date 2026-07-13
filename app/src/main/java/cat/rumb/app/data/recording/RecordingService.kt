@@ -54,6 +54,7 @@ class RecordingService : Service() {
             ACTION_PAUSE -> doPause(manual = true)
             ACTION_RESUME -> doResume(manual = true)
             ACTION_STOP -> finish()
+            ACTION_REFRESH_AUTOPAUSE -> refreshAutoPauseFromPrefs()
             // null action = sticky restart after process death: resume the persisted recording.
             null -> restoreAfterDeath()
         }
@@ -66,7 +67,7 @@ class RecordingService : Service() {
         val r = TrackRecorder(configFrom(prefs))
         r.start(Instant.now())
         recorder = r
-        autoPause = if (prefs.recAutoPause) AutoPause() else null
+        autoPause = if (prefs.recAutoPause) AutoPause(idleAfterSec = prefs.recAutoPauseSec.toLong()) else null
         segmentIndex = 0
         publish()
         startForegroundWithType()
@@ -101,7 +102,7 @@ class RecordingService : Service() {
             recorder = r
             recordingId = active.id
             segmentIndex = (stored.maxOfOrNull { it.segment } ?: 0) + 1
-            autoPause = if (prefs.recAutoPause) AutoPause() else null
+            autoPause = if (prefs.recAutoPause) AutoPause(idleAfterSec = prefs.recAutoPauseSec.toLong()) else null
             publish()
             acquireWakeLock()
             startSensors(prefs)
@@ -321,11 +322,20 @@ class RecordingService : Service() {
         wakeLock = null
     }
 
+    /** Re-reads the auto-pause prefs mid-recording (changed from the viewer quick settings). */
+    private fun refreshAutoPauseFromPrefs() {
+        if (recorder == null) return
+        val prefs = ViewerPreferences.get(this)
+        autoPause = if (prefs.recAutoPause) AutoPause(idleAfterSec = prefs.recAutoPauseSec.toLong()) else null
+        DebugLog.i("Record", "auto-pausa reconfigurada · on=${prefs.recAutoPause} · ${prefs.recAutoPauseSec}s")
+    }
+
     companion object {
         private const val ACTION_START = "cat.rumb.app.recording.START"
         private const val ACTION_PAUSE = "cat.rumb.app.recording.PAUSE"
         private const val ACTION_RESUME = "cat.rumb.app.recording.RESUME"
         private const val ACTION_STOP = "cat.rumb.app.recording.STOP"
+        private const val ACTION_REFRESH_AUTOPAUSE = "cat.rumb.app.recording.REFRESH_AUTOPAUSE"
         private const val CHANNEL = "recording"
         private const val NOTIF_ID = 4243
 
@@ -333,6 +343,13 @@ class RecordingService : Service() {
         fun pause(context: Context) = send(context, ACTION_PAUSE)
         fun resume(context: Context) = send(context, ACTION_RESUME)
         fun stop(context: Context) = send(context, ACTION_STOP)
+
+        /** No-op when no recording is running; otherwise re-reads the auto-pause configuration. */
+        fun refreshAutoPause(context: Context) {
+            // Don't spin the service up just to reconfigure: only relevant mid-recording.
+            if (!NativeRecording.isActive) return
+            send(context, ACTION_REFRESH_AUTOPAUSE)
+        }
 
         private fun send(context: Context, action: String) {
             val intent = Intent(context, RecordingService::class.java).setAction(action)

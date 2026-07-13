@@ -20,6 +20,15 @@ class AutoPauseTest {
     }
 
     @Test
+    fun fiveSecondThresholdPausesAtExactlyFiveSeconds() {
+        val ap = AutoPause(idleSpeedMs = 0.4, idleAfterSec = 5)
+        assertThat(ap.onFix(here, 0.1, t0, isPaused = false)).isEqualTo(AutoPause.Command.NONE)
+        assertThat(ap.onFix(here, 0.1, t0.plusSeconds(4), isPaused = false)).isEqualTo(AutoPause.Command.NONE)
+        assertThat(ap.onFix(here, 0.1, t0.plusSeconds(5), isPaused = false)).isEqualTo(AutoPause.Command.PAUSE)
+        assertThat(ap.isAutoPaused).isTrue()
+    }
+
+    @Test
     fun movementResetsIdleTimer() {
         val ap = AutoPause(idleSpeedMs = 0.4, idleAfterSec = 10)
         ap.onFix(here, 0.1, t0, isPaused = false)

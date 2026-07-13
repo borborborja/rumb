@@ -328,6 +328,18 @@ class MapViewerActivity : ComponentActivity() {
                                     DebugLog.i("UI", "quick-settings · compte enrere → $b")
                                     prefs.recCountdown = b
                                 },
+                                autoPause = prefs.recAutoPause,
+                                onAutoPause = { b ->
+                                    DebugLog.i("UI", "quick-settings · auto-pausa → $b")
+                                    prefs.recAutoPause = b
+                                    RecordingService.refreshAutoPause(this@MapViewerActivity)
+                                },
+                                autoPauseSec = prefs.recAutoPauseSec,
+                                onAutoPauseSec = { secs ->
+                                    DebugLog.i("UI", "quick-settings · auto-pausa llindar → ${secs}s")
+                                    prefs.recAutoPauseSec = secs
+                                    RecordingService.refreshAutoPause(this@MapViewerActivity)
+                                },
                                 onDismiss = { settingsOpenFlow.value = false },
                                 competing = competing,
                                 ghostCandidates = ghostCandidates,

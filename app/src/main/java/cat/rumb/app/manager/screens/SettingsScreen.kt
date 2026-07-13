@@ -236,6 +236,14 @@ private fun RecordingSection(prefs: ViewerPreferences, onOpenSensors: () -> Unit
     )
 
     ToggleRow(stringResource(R.string.settings_rec_auto_pause), autoPause) { autoPause = it; prefs.recAutoPause = it }
+    if (autoPause) {
+        var autoPauseSec by remember { mutableIntStateOf(prefs.recAutoPauseSec) }
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            listOf(5, 10, 20, 30).forEach { secs ->
+                FilterChip(autoPauseSec == secs, { autoPauseSec = secs; prefs.recAutoPauseSec = secs }, label = { Text("$secs s") })
+            }
+        }
+    }
     ToggleRow(stringResource(R.string.settings_rec_barometer), barometer) { barometer = it; prefs.recBarometer = it }
 
     OutlinedButton(onClick = onOpenSensors, modifier = Modifier.fillMaxWidth().padding(top = 8.dp)) {
