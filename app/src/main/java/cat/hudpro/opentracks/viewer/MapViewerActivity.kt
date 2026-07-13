@@ -234,17 +234,14 @@ class MapViewerActivity : ComponentActivity() {
                                 modifier = Modifier.size(20.dp),
                             )
                         }
-                        androidx.compose.foundation.layout.Row(
+                        ViewerSwitcher(
+                            currentPage = page,
+                            onSelect = { pager.setCurrentItem(it, true) },
+                            onGear = { settingsOpenFlow.value = true },
                             modifier = Modifier.align(androidx.compose.ui.Alignment.TopCenter),
-                            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
-                            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp),
-                        ) {
-                            ViewerSwitcher(
-                                currentPage = page,
-                                onSelect = { pager.setCurrentItem(it, true) },
-                                onGear = { settingsOpenFlow.value = true },
-                            )
-                            // Pencil: edit the layout of whatever page is showing (HUD or Dades).
+                        )
+                        // Pencil at the top-right (mirroring the back arrow): edits the visible page.
+                        Box(Modifier.align(androidx.compose.ui.Alignment.TopEnd).padding(end = 8.dp)) {
                             EditPageButton {
                                 val route = if (page == 0) {
                                     cat.hudpro.opentracks.manager.Routes.HUD
