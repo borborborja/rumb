@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.remember
@@ -185,7 +186,8 @@ class MapViewerActivity : ComponentActivity() {
         val scrimView = ComposeView(this).apply {
             setContent { HudProTheme { StatusBarScrim() } }
         }
-        val mapPage = FrameLayout(this).apply {
+        // MapGestureFrame keeps horizontal drags on the map (page swipe only from the screen edges).
+        val mapPage = MapGestureFrame(this).apply {
             addView(mapView)
             addView(scrimView)
             addView(hudView)
@@ -210,6 +212,28 @@ class MapViewerActivity : ComponentActivity() {
                     val page by currentPageFlow.collectAsState()
                     val settingsOpen by settingsOpenFlow.collectAsState()
                     Box(Modifier.fillMaxSize().safeDrawingPadding().padding(top = 8.dp)) {
+                        // Explicit exit arrow: the system back gesture also collides with map panning.
+                        Box(
+                            modifier = Modifier
+                                .align(androidx.compose.ui.Alignment.TopStart)
+                                .padding(start = 8.dp)
+                                .size(36.dp)
+                                .clip(CircleShape)
+                                .background(Color(0x99000000))
+                                .clickable(
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    indication = null,
+                                    onClick = { finish() },
+                                ),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Icon(
+                                Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Sortir del visor",
+                                tint = Color.White,
+                                modifier = Modifier.size(20.dp),
+                            )
+                        }
                         androidx.compose.foundation.layout.Row(
                             modifier = Modifier.align(androidx.compose.ui.Alignment.TopCenter),
                             verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,

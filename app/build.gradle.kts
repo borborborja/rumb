@@ -14,8 +14,8 @@ android {
         applicationId = "cat.hudpro.opentracks"
         minSdk = 26
         targetSdk = 35
-        versionCode = 40
-        versionName = "0.40.0"
+        versionCode = 41
+        versionName = "0.41.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
