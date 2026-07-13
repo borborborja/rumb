@@ -1,6 +1,7 @@
 package cat.hudpro.opentracks.manager.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -48,6 +50,7 @@ import cat.hudpro.opentracks.viewer.hud.HudData
 import cat.hudpro.opentracks.viewer.hud.HudEditorCanvas
 import cat.hudpro.opentracks.viewer.hud.HudLayout
 import cat.hudpro.opentracks.viewer.hud.HudLayoutStore
+import cat.hudpro.opentracks.viewer.hud.HudOption
 import cat.hudpro.opentracks.viewer.hud.HudZone
 import kotlin.time.Duration.Companion.minutes
 
@@ -56,9 +59,13 @@ private val SAMPLE = HudData(
         speedKmh = 24.6, avgMovingSpeedKmh = 19.3, maxSpeedKmh = 41.2, distanceKm = 32.48,
         totalTime = 98.minutes, movingTime = 91.minutes, paceMinPerKm = 3.9, bearingDeg = 271.0,
         elevationGainM = 842.0, altitudeM = 1240.0, slopePercent = 6.4, remainingDistanceKm = 8.2,
+        heartRateBpm = 148.0, cadenceRpm = 86.0, powerW = 213.0,
         isRecording = true,
     ),
     speedSeries = listOf(12f, 15f, 18f, 22f, 20f, 24f, 27f, 25f, 23f, 26f, 28f, 24f),
+    heartRateSeries = listOf(120f, 132f, 141f, 150f, 147f, 155f, 149f, 152f, 148f, 151f),
+    cadenceSeries = listOf(78f, 82f, 85f, 88f, 84f, 86f, 87f, 85f, 86f, 86f),
+    powerSeries = listOf(180f, 205f, 226f, 240f, 218f, 210f, 231f, 224f, 213f, 219f),
     elevationProfile = listOf(800f, 840f, 910f, 1010f, 1180f, 1240f, 1200f, 1300f, 1360f),
     routeProgress = 0.55f,
 )
@@ -218,17 +225,83 @@ private fun WidgetConfigDialog(
     onDismiss: () -> Unit,
 ) {
     val widget = layout.widgets[index]
+    val element = widget.element
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(widget.element?.label ?: "Widget") },
+        title = { Text(element?.label ?: "Widget") },
         text = {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Mida: ${"%.0f".format(widget.scale * 100)}%", style = MaterialTheme.typography.labelLarge)
+            Column(
+                Modifier.verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Text("Mida de la lletra: ${"%.0f".format(widget.scale * 100)}%", style = MaterialTheme.typography.labelLarge)
                 Slider(
                     value = widget.scale,
                     onValueChange = { onUpdate(layout.setWidgetScale(index, it)) },
                     valueRange = HudLayout.MIN_WIDGET_SCALE..HudLayout.MAX_WIDGET_SCALE,
                 )
+
+                Text("Color del valor", style = MaterialTheme.typography.labelLarge)
+                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    val palette = listOf(null, "#FFD166", "#E63946", "#2A9D8F", "#3A86FF", "#F4A261", "#9B5DE5")
+                    palette.forEach { hex ->
+                        val current = widget.options[HudOption.COLOR]
+                        val selected = current == hex || (hex == null && current == null)
+                        Box(
+                            Modifier
+                                .size(30.dp)
+                                .clip(androidx.compose.foundation.shape.CircleShape)
+                                .background(
+                                    if (hex == null) Color.White
+                                    else Color(android.graphics.Color.parseColor(hex)),
+                                )
+                                .border(
+                                    if (selected) 3.dp else 1.dp,
+                                    if (selected) MaterialTheme.colorScheme.primary else Color.Gray,
+                                    androidx.compose.foundation.shape.CircleShape,
+                                )
+                                .clickable { onUpdate(layout.setWidgetOption(index, HudOption.COLOR, hex)) },
+                        )
+                    }
+                }
+
+                // History chart toggle (metrics with a live series).
+                val chartable = element?.metric in setOf(
+                    cat.hudpro.opentracks.viewer.hud.HudMetric.SPEED,
+                    cat.hudpro.opentracks.viewer.hud.HudMetric.HEART_RATE,
+                    cat.hudpro.opentracks.viewer.hud.HudMetric.CADENCE,
+                    cat.hudpro.opentracks.viewer.hud.HudMetric.POWER,
+                )
+                if (chartable) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("Mostrar gràfica", Modifier.weight(1f), style = MaterialTheme.typography.labelLarge)
+                        androidx.compose.material3.Switch(
+                            checked = widget.options[HudOption.CHART] == "1",
+                            onCheckedChange = { on ->
+                                onUpdate(layout.setWidgetOption(index, HudOption.CHART, if (on) "1" else null))
+                            },
+                        )
+                    }
+                }
+
+                // Clock-specific: 24 h vs 12 h.
+                if (widget.elementId == HudCatalog.WIDGET_CLOCK) {
+                    Text("Format de l'hora", style = MaterialTheme.typography.labelLarge)
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        val h24 = widget.options[HudOption.H24] != "0"
+                        androidx.compose.material3.FilterChip(
+                            selected = h24,
+                            onClick = { onUpdate(layout.setWidgetOption(index, HudOption.H24, null)) },
+                            label = { Text("24 h") },
+                        )
+                        androidx.compose.material3.FilterChip(
+                            selected = !h24,
+                            onClick = { onUpdate(layout.setWidgetOption(index, HudOption.H24, "0")) },
+                            label = { Text("12 h") },
+                        )
+                    }
+                }
+
                 Text("Zona", style = MaterialTheme.typography.labelLarge)
                 ZonePicker(widget.zone) { zone -> onUpdate(layout.moveToZone(index, zone)) }
             }

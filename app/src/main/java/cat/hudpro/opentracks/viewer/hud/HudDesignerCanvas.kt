@@ -114,7 +114,14 @@ fun HudEditorCanvas(
                                 dragPointer = dragPointer?.plus(delta)
                             },
                             onDragEnd = { cancelled ->
-                                val zoneAtDrop = targetZone
+                                // Compute the drop zone from the CURRENT pointer state (a composition
+                                // value here would be a stale closure inside pointerInput).
+                                val p = dragPointer
+                                val zoneAtDrop = if (p != null && canvasSize.width > 0) {
+                                    zoneForPoint(p.x, p.y, canvasSize.width, canvasSize.height)
+                                } else {
+                                    null
+                                }
                                 if (!cancelled && zoneAtDrop != null) {
                                     val i = currentLayout.widgets.indexOfFirst { it.elementId == widget.elementId }
                                     if (i >= 0) onChange(currentLayout.moveToZone(i, zoneAtDrop))
@@ -124,7 +131,7 @@ fun HudEditorCanvas(
                                 dragPointer = null
                             },
                         ) {
-                            HudWidgetContent(element, data, HudControls.disabled, layout.scale * widget.scale)
+                            HudWidgetContent(element, data, HudControls.disabled, layout.scale * widget.scale, widget.options)
                         }
                     }
                 }
@@ -187,6 +194,12 @@ private fun EditorWidget(
     content: @Composable () -> Unit,
 ) {
     var originInRoot by remember { mutableStateOf(Offset.Zero) }
+    // pointerInput(elementId) never restarts, so its lambdas would capture the FIRST composition's
+    // callbacks (stale layout/pointer state). Route every call through rememberUpdatedState.
+    val currentOnDragStart by rememberUpdatedState(onDragStart)
+    val currentOnDragBy by rememberUpdatedState(onDragBy)
+    val currentOnDragEnd by rememberUpdatedState(onDragEnd)
+    val currentOnResizeBy by rememberUpdatedState(onResizeBy)
 
     Box(
         Modifier
@@ -210,10 +223,10 @@ private fun EditorWidget(
                 .noRippleClickable(onSelect)
                 .pointerInput(elementId) {
                     detectDragGestures(
-                        onDragStart = { start -> onDragStart(originInRoot, start) },
-                        onDrag = { change, delta -> change.consume(); onDragBy(delta) },
-                        onDragEnd = { onDragEnd(false) },
-                        onDragCancel = { onDragEnd(true) },
+                        onDragStart = { start -> currentOnDragStart(originInRoot, start) },
+                        onDrag = { change, delta -> change.consume(); currentOnDragBy(delta) },
+                        onDragEnd = { currentOnDragEnd(false) },
+                        onDragCancel = { currentOnDragEnd(true) },
                     )
                 },
         )
@@ -250,7 +263,7 @@ private fun EditorWidget(
                             onDrag = { change, delta ->
                                 change.consume()
                                 // Down-right grows, up-left shrinks.
-                                onResizeBy(1f + (delta.x + delta.y) / 250f)
+                                currentOnResizeBy(1f + (delta.x + delta.y) / 250f)
                             },
                         )
                     },

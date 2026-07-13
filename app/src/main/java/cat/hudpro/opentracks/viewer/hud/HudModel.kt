@@ -87,7 +87,7 @@ enum class HudMetric(val label: String) {
 }
 
 /** Category of a placeable HUD element (drives palette grouping and rendering). */
-enum class HudCategory { METRIC, CHART, CONTROL }
+enum class HudCategory { METRIC, CHART, CONTROL, EXTRA }
 
 /** Descriptor of a placeable HUD element, resolvable from a stable [id]. */
 data class HudElement(
@@ -105,6 +105,7 @@ object HudCatalog {
     const val CONTROL_COMPASS = "control:compass"
     const val CONTROL_ZOOM = "control:zoom"
     const val CONTROL_RECORD = "control:record"
+    const val WIDGET_CLOCK = "widget:clock"
 
     fun idOf(metric: HudMetric) = "metric:${metric.name}"
 
@@ -116,6 +117,7 @@ object HudCatalog {
         add(HudElement(CONTROL_COMPASS, "Brúixola", HudCategory.CONTROL))
         add(HudElement(CONTROL_ZOOM, "Zoom", HudCategory.CONTROL))
         add(HudElement(CONTROL_RECORD, "Gravació", HudCategory.CONTROL))
+        add(HudElement(WIDGET_CLOCK, "Rellotge", HudCategory.EXTRA))
     }
 
     private val byId = elements.associateBy { it.id }
@@ -143,8 +145,20 @@ data class HudWidget(
     val elementId: String,
     val zone: HudZone,
     val scale: Float = 1f,
+    /** Per-widget options (see HudOption keys): color, chart, 12/24h clock… */
+    val options: Map<String, String> = emptyMap(),
 ) {
     val element: HudElement? get() = HudCatalog.byId(elementId)
+}
+
+/** Recognized per-widget option keys. */
+object HudOption {
+    /** Hex color ("#RRGGBB") of the value text; absent = white. */
+    const val COLOR = "color"
+    /** "1" → show a mini history chart under the value (speed/FC/cadència/potència). */
+    const val CHART = "chart"
+    /** Clock format: "1" (default) = 24 h, "0" = 12 h. */
+    const val H24 = "h24"
 }
 
 /** The full HUD configuration: zone-placed widgets + a global size scale. */
@@ -174,6 +188,14 @@ data class HudLayout(
         if (index !in widgets.indices) return this
         val w = widgets[index].copy(scale = scale.coerceIn(MIN_WIDGET_SCALE, MAX_WIDGET_SCALE))
         return copy(widgets = widgets.toMutableList().also { it[index] = w })
+    }
+
+    /** Sets (or clears with null) one widget option. */
+    fun setWidgetOption(index: Int, key: String, value: String?): HudLayout {
+        if (index !in widgets.indices) return this
+        val current = widgets[index]
+        val options = if (value == null) current.options - key else current.options + (key to value)
+        return copy(widgets = widgets.toMutableList().also { it[index] = current.copy(options = options) })
     }
 
     companion object {

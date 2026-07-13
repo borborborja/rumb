@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -68,7 +69,7 @@ fun androidx.compose.foundation.layout.BoxScope.ZoneGroup(
     if (widgets.isEmpty()) return
     val content: @Composable () -> Unit = {
         widgets.forEach { w ->
-            w.element?.let { HudWidgetContent(it, data, controls, layout.scale * w.scale) }
+            w.element?.let { HudWidgetContent(it, data, controls, layout.scale * w.scale, w.options) }
         }
     }
     // Top zones start below the floating "Mapa / Dades" switcher so its pill never covers a widget.
@@ -142,9 +143,15 @@ private fun OffRouteBanner(metrics: LiveMetrics, modifier: Modifier = Modifier) 
 
 /** Renders one element by its category. Shared between the viewer and the designer canvas. */
 @Composable
-fun HudWidgetContent(element: HudElement, data: HudData, controls: HudControls, scale: Float) {
+fun HudWidgetContent(
+    element: HudElement,
+    data: HudData,
+    controls: HudControls,
+    scale: Float,
+    options: Map<String, String> = emptyMap(),
+) {
     when (element.category) {
-        HudCategory.METRIC -> element.metric?.let { HudTile(it, data.metrics, data.units, scale) }
+        HudCategory.METRIC -> element.metric?.let { HudTile(it, data, scale, options) }
         HudCategory.CHART -> when (element.id) {
             HudCatalog.CHART_SPEED -> SpeedSparkline(data.speedSeries, scale)
             HudCatalog.CHART_ELEVATION -> ElevationProfile(data.elevationProfile, data.routeProgress, scale)
@@ -155,12 +162,33 @@ fun HudWidgetContent(element: HudElement, data: HudData, controls: HudControls, 
             HudCatalog.CONTROL_ZOOM -> ZoomControl(controls, scale)
             HudCatalog.CONTROL_RECORD -> RecordControl(controls, data.metrics.isRecording, data.isPaused, scale)
         }
+        HudCategory.EXTRA -> when (element.id) {
+            HudCatalog.WIDGET_CLOCK -> ClockTile(scale, options)
+        }
     }
 }
 
+/** Value-text color from the widget's options (white by default; malformed hex falls back). */
+private fun optionColor(options: Map<String, String>): Color =
+    options[HudOption.COLOR]?.let { hex ->
+        runCatching { Color(android.graphics.Color.parseColor(hex)) }.getOrNull()
+    } ?: Color.White
+
+/** History series to chart for a metric, when the "chart" option is on. */
+private fun seriesFor(metric: HudMetric, data: HudData): List<Float> = when (metric) {
+    HudMetric.SPEED -> data.speedSeries
+    HudMetric.HEART_RATE -> data.heartRateSeries
+    HudMetric.CADENCE -> data.cadenceSeries
+    HudMetric.POWER -> data.powerSeries
+    else -> emptyList()
+}
+
 @Composable
-private fun HudTile(metric: HudMetric, metrics: LiveMetrics, units: Units, scale: Float) {
+private fun HudTile(metric: HudMetric, data: HudData, scale: Float, options: Map<String, String> = emptyMap()) {
+    val units = data.units
     val unitLabel = metric.unit(units)
+    val valueColor = optionColor(options)
+    val chartSeries = if (options[HudOption.CHART] == "1") seriesFor(metric, data) else emptyList()
     Column(
         modifier = Modifier
             .clip(RoundedCornerShape(14.dp))
@@ -175,8 +203,8 @@ private fun HudTile(metric: HudMetric, metrics: LiveMetrics, units: Units, scale
         )
         Row(verticalAlignment = Alignment.Bottom) {
             Text(
-                text = metric.value(metrics, units),
-                color = Color.White,
+                text = metric.value(data.metrics, units),
+                color = valueColor,
                 fontSize = (30 * scale).sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.SansSerif,
@@ -190,6 +218,64 @@ private fun HudTile(metric: HudMetric, metrics: LiveMetrics, units: Units, scale
                 )
             }
         }
+        if (chartSeries.size >= 2) {
+            MiniSparkline(chartSeries, valueColor, scale)
+        }
+    }
+}
+
+/** Tiny history polyline drawn under the value when the widget's chart option is on. */
+@Composable
+private fun MiniSparkline(series: List<Float>, color: Color, scale: Float) {
+    androidx.compose.foundation.Canvas(
+        Modifier
+            .padding(top = (4 * scale).dp)
+            .size(width = (96 * scale).dp, height = (20 * scale).dp),
+    ) {
+        val min = series.min()
+        val max = series.max()
+        val span = (max - min).takeIf { it > 1e-3f } ?: 1f
+        val stepX = size.width / (series.size - 1)
+        var prev = androidx.compose.ui.geometry.Offset(0f, size.height * (1f - (series[0] - min) / span))
+        for (i in 1 until series.size) {
+            val p = androidx.compose.ui.geometry.Offset(i * stepX, size.height * (1f - (series[i] - min) / span))
+            drawLine(color = color, start = prev, end = p, strokeWidth = 3f)
+            prev = p
+        }
+    }
+}
+
+/** Wall-clock widget (ticking every second); 24 h by default, 12 h via the h24 option. */
+@Composable
+private fun ClockTile(scale: Float, options: Map<String, String>) {
+    val h24 = options[HudOption.H24] != "0"
+    val pattern = if (h24) "HH:mm" else "h:mm a"
+    val time by androidx.compose.runtime.produceState(initialValue = "", key1 = pattern) {
+        val fmt = java.time.format.DateTimeFormatter.ofPattern(pattern)
+        while (true) {
+            value = java.time.LocalTime.now().format(fmt)
+            kotlinx.coroutines.delay(1000)
+        }
+    }
+    Column(
+        modifier = Modifier
+            .clip(RoundedCornerShape(14.dp))
+            .background(Color(0xB0000000))
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+    ) {
+        Text(
+            text = "RELLOTGE",
+            color = Color(0xFFB8C4CE),
+            fontSize = (11 * scale).sp,
+            fontWeight = FontWeight.Medium,
+        )
+        Text(
+            text = time,
+            color = optionColor(options),
+            fontSize = (30 * scale).sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.SansSerif,
+        )
     }
 }
 

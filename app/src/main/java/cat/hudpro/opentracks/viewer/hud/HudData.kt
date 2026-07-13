@@ -9,6 +9,10 @@ package cat.hudpro.opentracks.viewer.hud
 data class HudData(
     val metrics: LiveMetrics = LiveMetrics(),
     val speedSeries: List<Float> = emptyList(),
+    // Recent sensor history for per-widget mini charts (FC, cadència, potència).
+    val heartRateSeries: List<Float> = emptyList(),
+    val cadenceSeries: List<Float> = emptyList(),
+    val powerSeries: List<Float> = emptyList(),
     val elevationProfile: List<Float> = emptyList(),
     val routeProgress: Float = 0f,
     /** True when a route is being followed (enables the off-route warning). */

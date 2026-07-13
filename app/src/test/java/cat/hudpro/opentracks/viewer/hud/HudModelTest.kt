@@ -80,4 +80,32 @@ class HudModelTest {
         assertThat(zoneForPoint(430f, 450f, w, h)).isEqualTo(HudZone.MIDDLE_LEFT)
         assertThat(zoneForPoint(470f, 450f, w, h)).isEqualTo(HudZone.MIDDLE_RIGHT)
     }
+
+    @Test
+    fun setWidgetOptionAddsAndClears() {
+        val layout = HudLayout.CYCLING
+        val colored = layout.setWidgetOption(0, HudOption.COLOR, "#FFD166")
+        assertThat(colored.widgets[0].options[HudOption.COLOR]).isEqualTo("#FFD166")
+        val cleared = colored.setWidgetOption(0, HudOption.COLOR, null)
+        assertThat(cleared.widgets[0].options).doesNotContainKey(HudOption.COLOR)
+        assertThat(layout.setWidgetOption(99, HudOption.COLOR, "#FFFFFF")).isEqualTo(layout)
+    }
+
+    @Test
+    fun legacyWidgetJsonWithoutOptionsDecodes() {
+        val legacy = """{"widgets":[{"elementId":"metric:SPEED","zone":"TOP_LEFT","scale":1.0}],"scale":1.0}"""
+        val decoded = json.decodeFromString(HudLayout.serializer(), legacy)
+        assertThat(decoded.widgets[0].options).isEmpty()
+    }
+
+    @Test
+    fun optionsRoundTripThroughJson() {
+        val layout = HudLayout(
+            widgets = listOf(
+                HudWidget(HudCatalog.WIDGET_CLOCK, HudZone.TOP_RIGHT, options = mapOf(HudOption.H24 to "0")),
+            ),
+        )
+        val restored = json.decodeFromString(HudLayout.serializer(), json.encodeToString(HudLayout.serializer(), layout))
+        assertThat(restored).isEqualTo(layout)
+    }
 }

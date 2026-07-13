@@ -129,6 +129,9 @@ class MapViewerActivity : ComponentActivity() {
     private var followMode = true
     private var lastSegments: List<Segment> = emptyList()
     private val speedBuffer = ArrayDeque<Float>()
+    private val hrBuffer = ArrayDeque<Float>()
+    private val cadBuffer = ArrayDeque<Float>()
+    private val pwrBuffer = ArrayDeque<Float>()
 
     private val offRouteAlerter = cat.hudpro.opentracks.viewer.follow.OffRouteAlerter()
     private var following = false
@@ -713,12 +716,18 @@ class MapViewerActivity : ComponentActivity() {
         if (recording) handleAnnouncements(metrics)
 
         pushSpeed(metrics.speedKmh)
+        pushSeries(hrBuffer, metrics.heartRateBpm)
+        pushSeries(cadBuffer, metrics.cadenceRpm)
+        pushSeries(pwrBuffer, metrics.powerW)
         val routeProfile = followEngine?.elevationProfile
         val nPoints = (followEngine?.points?.size ?: 1)
         hudDataFlow.value = HudData(
             metrics = metrics,
             units = units,
             speedSeries = speedBuffer.toList(),
+            heartRateSeries = hrBuffer.toList(),
+            cadenceSeries = cadBuffer.toList(),
+            powerSeries = pwrBuffer.toList(),
             // Prefer the followed route's profile; else the recorded track's own altitude.
             elevationProfile = if (!routeProfile.isNullOrEmpty()) routeProfile else recordedElevation(segs),
             routeProgress = if (state != null && nPoints > 1) state.nearestIndex.toFloat() / (nPoints - 1) else 1f,
@@ -732,6 +741,12 @@ class MapViewerActivity : ComponentActivity() {
         if (speedKmh == null) return
         speedBuffer.addLast(speedKmh.toFloat())
         while (speedBuffer.size > SPEED_HISTORY) speedBuffer.removeFirst()
+    }
+
+    private fun pushSeries(buffer: ArrayDeque<Float>, value: Double?) {
+        if (value == null) return
+        buffer.addLast(value.toFloat())
+        while (buffer.size > SPEED_HISTORY) buffer.removeFirst()
     }
 
     /** Downsampled altitude series of the recorded track (for the elevation chart when not following). */
