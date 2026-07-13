@@ -25,6 +25,15 @@ data class RecorderConfig(
     val elevationHysteresisM: Double = 2.0,
     /** EMA factor for altitude smoothing (0..1; higher follows GPS faster). */
     val altitudeSmoothing: Double = 0.3,
+    /** GPS warm-up: the track's first point requires fixes at least this precise (m). */
+    val startAccuracyM: Float = 12f,
+    /** GPS warm-up: consecutive precise fixes required before the first point is accepted. */
+    val startGoodFixes: Int = 2,
+    /**
+     * Stationary-jitter gate: a leg shorter than accuracy × this factor is movement within the
+     * fix's own uncertainty circle and is discarded (prevents phantom distance while stopped).
+     */
+    val jitterFactor: Double = 0.5,
 )
 
 /** Immutable snapshot of an ongoing/finished native recording, consumed by the viewer pipeline. */
@@ -79,6 +88,10 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
     private var cadence: Double? = null
     private var power: Double? = null
 
+    // GPS warm-up: no point is accepted until the fix quality stabilizes (see RecorderConfig).
+    private var warmedUp = false
+    private var warmupGoodFixes = 0
+
     fun start(time: Instant) {
         check(startedAt == null) { "already started" }
         startedAt = time
@@ -120,6 +133,7 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
     fun restore(segments: List<Segment>, startedAt: Instant, resumeAt: Instant) {
         check(this.startedAt == null) { "already started" }
         this.startedAt = startedAt
+        warmedUp = segments.any { it.isNotEmpty() } // the pre-crash track already locked GPS
         closedSegments.addAll(segments.filter { it.isNotEmpty() })
         val all = closedSegments.flatten()
         seq = (all.maxOfOrNull { it.id } ?: -1L) + 1
@@ -162,6 +176,14 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
         if (paused || finished || startedAt == null) return null
         if (accuracyM > config.maxAccuracyM) return null
 
+        // Warm-up gate: the very first point of the track needs a stable, precise fix, otherwise
+        // the cold-start scatter gets recorded as a zigzag with phantom distance.
+        if (!warmedUp) {
+            warmupGoodFixes = if (accuracyM <= config.startAccuracyM) warmupGoodFixes + 1 else 0
+            if (warmupGoodFixes < config.startGoodFixes) return null
+            warmedUp = true
+        }
+
         val here = GeoPoint(latitude, longitude)
         val prevLatLong = lastLatLong
         val prevTime = lastPointTime
@@ -172,11 +194,18 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
             dt = java.time.Duration.between(prevTime, time).toKotlinDuration()
             val dtSec = dt.inWholeMilliseconds / 1000.0
             if (dtSec > 0 && legDistance / dtSec > config.maxImpliedSpeedMs) return null // GPS jump
-            if (legDistance < config.minDistanceM) return null // idle jitter
+            // Jitter gate: ignore displacements below the min interval OR within the fix's own
+            // uncertainty circle — while stopped, GPS scatter must not accumulate as distance.
+            if (legDistance < maxOf(config.minDistanceM, accuracyM * config.jitterFactor)) {
+                markIdleIfStopped(speedMs, time)
+                return null
+            }
         }
 
         val dtSec = dt.inWholeMilliseconds / 1000.0
-        val speed = speedMs ?: if (dtSec > 0) legDistance / dtSec else 0.0
+        val rawSpeed = speedMs ?: if (dtSec > 0) legDistance / dtSec else 0.0
+        // Below the idle threshold the GPS speed is noise — record a clean 0.
+        val speed = if (rawSpeed < config.idleSpeedMs) 0.0 else rawSpeed
 
         // Altitude: EMA smoothing + hysteresis gate for gain/loss (skipped once the barometer owns it).
         val alt = altitude?.let { raw ->
@@ -267,6 +296,33 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
             if (currentSegment.isNotEmpty()) add(currentSegment.toList())
         }
         return RecorderState(segments = segments, statistics = stats, isPaused = paused, isFinished = finished)
+    }
+
+    /**
+     * When a fix is discarded by the jitter gate and the athlete is actually stopped, appends one
+     * zero-speed point at the previous location so the HUD/charts show 0 instead of the last
+     * moving speed. Adds no distance; emitted once per stop.
+     */
+    private fun markIdleIfStopped(speedMs: Double?, time: Instant) {
+        if ((speedMs ?: 0.0) >= config.idleSpeedMs) return
+        val prev = lastLatLong ?: return
+        val last = currentSegment.lastOrNull() ?: return
+        if (last.speed == 0.0) return
+        val idlePoint = Trackpoint(
+            trackId = 0L,
+            id = seq++,
+            latLong = prev,
+            type = TRACKPOINT_TYPE_TRACKPOINT,
+            speed = 0.0,
+            time = time,
+            altitude = smoothedAlt,
+            heartRate = heartRate,
+            cadence = cadence,
+            power = power,
+            bearing = null,
+        )
+        currentSegment.add(idlePoint)
+        lastPointTime = time
     }
 
     private fun activeDuration(now: Instant): Duration =
