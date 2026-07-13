@@ -98,6 +98,16 @@ data class CreateRouteRequest(val name: String, val profile: String, val waypoin
 @Serializable
 data class OkDto(val ok: Boolean, val id: Long? = null, val error: String? = null)
 
+@Serializable
+data class ProfileDto(val id: String, val label: String)
+
+@Serializable
+data class LocationDto(val lat: Double, val lng: Double)
+
+/** Live preview of a drawn route: the snapped (magnetized) polyline + running distance/ascent. */
+@Serializable
+data class RoutePreviewDto(val points: List<WaypointDto>, val distanceM: Double, val ascentM: Double)
+
 // --- Mappers ---
 
 fun FollowTrackEntity.toDto(): TrackDto = TrackDto(

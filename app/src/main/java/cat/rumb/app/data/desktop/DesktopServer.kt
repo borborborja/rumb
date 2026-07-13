@@ -11,7 +11,6 @@ import cat.rumb.app.data.gpx.TrackFormat
 import cat.rumb.app.data.gpx.formatFor
 import cat.rumb.app.data.opentracks.model.GeoPoint
 import cat.rumb.app.data.prefs.ViewerPreferences
-import cat.rumb.app.data.tracks.ActivityTypeSuggester
 import cat.rumb.app.data.tracks.PersonalRecords
 import cat.rumb.app.data.tracks.ProgressStats
 import cat.rumb.app.data.tracks.TrackKind
@@ -72,6 +71,9 @@ class DesktopServer(
             uri == "/api/progress" -> handleProgress()
             uri == "/api/competitions" -> handleCompetitions()
             uri.startsWith("/api/competition/") -> handleCompetitionDetail(uri.removePrefix("/api/competition/").toLong())
+            uri == "/api/profiles" -> handleProfiles()
+            uri == "/api/location" -> handleLocation()
+            uri == "/api/route/preview" && session.method == Method.POST -> handleRoutePreview(session)
             uri == "/api/import" && session.method == Method.POST -> handleImport(session)
             uri == "/api/route" && session.method == Method.POST -> handleCreateRoute(session)
             else -> json(Response.Status.NOT_FOUND, OkDto(false, error = "not found"))
@@ -210,6 +212,43 @@ class DesktopServer(
         }
         DebugLog.i("Desktop", "import web · $kind · ${route.points.size} punts · id=$id")
         return json(Response.Status.OK, OkDto(true, id = id))
+    }
+
+    /** Routing profiles with their localized labels (same set/labels as the mobile app). */
+    private fun handleProfiles(): Response {
+        val list = RoutingProfile.entries.map { ProfileDto(it.name, context.getString(it.labelRes)) }
+        return json(Response.Status.OK, list)
+    }
+
+    /** Phone's last known location so the web map can open centered on the current position. */
+    private fun handleLocation(): Response {
+        val loc = lastKnownLocation() ?: return json(Response.Status.NOT_FOUND, OkDto(false, error = "no location"))
+        return json(Response.Status.OK, LocationDto(loc.latitude, loc.longitude))
+    }
+
+    @android.annotation.SuppressLint("MissingPermission")
+    private fun lastKnownLocation(): android.location.Location? {
+        val lm = context.getSystemService(Context.LOCATION_SERVICE) as? android.location.LocationManager ?: return null
+        for (provider in listOf("fused", android.location.LocationManager.GPS_PROVIDER, android.location.LocationManager.NETWORK_PROVIDER)) {
+            runCatching { lm.getLastKnownLocation(provider) }.getOrNull()?.let { return it }
+        }
+        return null
+    }
+
+    /** Snaps the drawn waypoints to trails/roads and returns the polyline + distance/ascent (no save). */
+    private fun handleRoutePreview(session: IHTTPSession): Response {
+        val req = runCatching { json.decodeFromString<CreateRouteRequest>(readBody(session)) }.getOrNull()
+            ?: return json(Response.Status.BAD_REQUEST, OkDto(false, error = "bad body"))
+        if (req.waypoints.size < 2) return json(Response.Status.BAD_REQUEST, OkDto(false, error = "need >=2 waypoints"))
+        val profile = runCatching { RoutingProfile.valueOf(req.profile) }.getOrDefault(RoutingProfile.HIKING)
+        val geoPoints = req.waypoints.map { GeoPoint(it.lat, it.lng) }
+        val routed = runBlocking { app.routingRepository.route(geoPoints, profile) }
+        val preview = RoutePreviewDto(
+            points = routed.points.map { WaypointDto(it.latitude, it.longitude) },
+            distanceM = routed.distanceMeters,
+            ascentM = routed.ascentMeters,
+        )
+        return json(Response.Status.OK, preview)
     }
 
     private fun handleCreateRoute(session: IHTTPSession): Response {

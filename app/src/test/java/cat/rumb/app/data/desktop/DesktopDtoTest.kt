@@ -45,4 +45,17 @@ class DesktopDtoTest {
         assertThat(req.waypoints).hasSize(2)
         assertThat(req.profile).isEqualTo("HIKING")
     }
+
+    @Test
+    fun previewLocationAndProfileDtosSerialize() {
+        val preview = RoutePreviewDto(listOf(WaypointDto(41.0, 2.0), WaypointDto(41.1, 2.1)), 1234.5, 56.7)
+        val back = json.decodeFromString<RoutePreviewDto>(json.encodeToString(preview))
+        assertThat(back.points).hasSize(2)
+        assertThat(back.distanceM).isEqualTo(1234.5)
+        assertThat(back.ascentM).isEqualTo(56.7)
+
+        assertThat(json.decodeFromString<LocationDto>(json.encodeToString(LocationDto(41.4, 2.1))).lat).isEqualTo(41.4)
+        assertThat(json.decodeFromString<ProfileDto>(json.encodeToString(ProfileDto("HIKING", "Senderisme"))).label)
+            .isEqualTo("Senderisme")
+    }
 }

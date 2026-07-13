@@ -63,16 +63,69 @@ function esc(s) {
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
+/* ============================================================= *
+ *  Inline SVG icon system (no emoji)                            *
+ *  Each entry: { m:'s'|'f', c: inner svg markup }               *
+ *  m='s' -> stroked (currentColor), m='f' -> filled            *
+ * ============================================================= */
+const ICONS = {
+  // --- tabs ---
+  library:     { m: "s", c: '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3.5" y1="6" x2="3.51" y2="6"/><line x1="3.5" y1="12" x2="3.51" y2="12"/><line x1="3.5" y1="18" x2="3.51" y2="18"/>' },
+  routes:      { m: "s", c: '<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>' },
+  competition: { m: "s", c: '<line x1="10" y1="2" x2="14" y2="2"/><line x1="12" y1="14" x2="15" y2="11"/><circle cx="12" cy="14" r="8"/>' },
+  records:     { m: "s", c: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>' },
+  progress:    { m: "s", c: '<path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>' },
+  // --- activity types (Material-style filled figures) ---
+  walk:  { m: "f", c: '<path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9 7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7z"/>' },
+  run:   { m: "f", c: '<path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9 1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/>' },
+  bike:  { m: "s", c: '<circle cx="18.5" cy="17.5" r="3.3"/><circle cx="5.5" cy="17.5" r="3.3"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/>' },
+  mtb:   { m: "s", c: '<circle cx="18.5" cy="17.5" r="3.3"/><circle cx="5.5" cy="17.5" r="3.3"/><circle cx="12" cy="5" r="1"/><path d="M5.5 17.5 9 8l3 3h3l-2.5 6.5"/><path d="M15 11h2.5l1 6.5"/>' },
+  hike:  { m: "s", c: '<path d="m3 20 5-11 3 5 4-8 6 14"/><path d="M3 20h18"/>' },
+  ski:   { m: "s", c: '<line x1="3" y1="19" x2="21" y2="15"/><line x1="4" y1="21" x2="20" y2="17"/><circle cx="16" cy="4" r="1.4"/><path d="M9 20l3-7 2 3 3 1"/>' },
+  skate: { m: "s", c: '<circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/><path d="M3 14h18l-1.5 2H4.5z"/>' },
+  kayak: { m: "s", c: '<line x1="12" y1="2" x2="12" y2="22"/><path d="M12 2c-2 0-3 1.5-3 3.5S10 9 12 9"/><path d="M12 15c2 0 3 1.5 3 3.5S14 22 12 22"/>' },
+  swim:  { m: "s", c: '<path d="M2 8c.6.5 1.2 1 2.5 1C7 9 7 7 9.5 7c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 13c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>' },
+  pin:   { m: "s", c: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>' },
+  // --- controls / actions ---
+  play:     { m: "f", c: '<path d="M8 5v14l11-7z"/>' },
+  prev:     { m: "f", c: '<path d="M15 5v14L4 12z"/>' },
+  next:     { m: "f", c: '<path d="M9 5v14l11-7z"/>' },
+  undo:     { m: "s", c: '<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5A5.5 5.5 0 0 1 20 14.5 5.5 5.5 0 0 1 14.5 20H11"/>' },
+  add:      { m: "s", c: '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>' },
+  check:    { m: "s", c: '<polyline points="20 6 9 17 4 12"/>' },
+  star:     { m: "f", c: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>' },
+  download: { m: "s", c: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>' },
+  upload:   { m: "s", c: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>' },
+  edit:     { m: "s", c: '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/>' },
+  trash:    { m: "s", c: '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>' }
+};
+
+// Return an inline <svg> string for a named icon. Extra CSS class optional.
+function icon(name, cls) {
+  const ic = ICONS[name] || ICONS.pin;
+  const base = ic.m === "f"
+    ? 'fill="currentColor" stroke="none"'
+    : 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+  return '<svg class="icon' + (cls ? " " + cls : "") + '" viewBox="0 0 24 24" ' +
+    base + ' aria-hidden="true">' + ic.c + "</svg>";
+}
+
+// Map an activity type string -> icon name.
 const ACT_ICON = {
-  running: "🏃", trail_running: "🏃", walking: "🚶", hiking: "🥾", trekking: "🥾",
-  cycling: "🚴", biking: "🚴", mountain_biking: "🚵", mtb: "🚵",
-  swimming: "🏊", skiing: "⛷️", default: "📍"
+  trail_running: "run", running: "run", walking: "walk", hiking: "hike", trekking: "hike",
+  mountain_biking: "mtb", mtb: "mtb", cycling: "bike", biking: "bike",
+  swimming: "swim", skiing: "ski", skating: "skate", kayaking: "kayak", kayak: "kayak",
+  default: "pin"
 };
 function actIcon(t) {
-  if (!t) return ACT_ICON.default;
-  const k = t.toLowerCase();
-  for (const key in ACT_ICON) if (k.indexOf(key) >= 0) return ACT_ICON[key];
-  return ACT_ICON.default;
+  let name = ACT_ICON.default;
+  if (t) {
+    const k = t.toLowerCase();
+    for (const key in ACT_ICON) {
+      if (key !== "default" && k.indexOf(key) >= 0) { name = ACT_ICON[key]; break; }
+    }
+  }
+  return icon(name, "act-icon");
 }
 const DIFF_LABEL = { EASY: "Fàcil", MODERATE: "Moderat", HARD: "Difícil", VERY_HARD: "Molt difícil" };
 function diffBadge(d) {
@@ -370,7 +423,7 @@ function renderTab(tab) {
  * ============================================================= */
 function trackRow(t) {
   return '<tr data-id="' + t.id + '">' +
-    '<td><span class="act-icon">' + actIcon(t.activityType) + "</span></td>" +
+    '<td class="act-cell">' + actIcon(t.activityType) + "</td>" +
     "<td><b>" + esc(t.name) + "</b>" +
     (t.isCompetition ? '<span class="badge badge-comp">Competició</span>' : "") +
     (t.archived ? '<span class="badge badge-arch">Arxivat</span>' : "") + "</td>" +
@@ -434,9 +487,9 @@ async function renderTrackDetail(container, id, backFn) {
     '<p class="subtitle">' + esc(t.municipality || "") + (t.municipality ? " · " : "") +
     date(t.createdAt) + " · " + diffBadge(t.difficulty) + "</p></div>" +
     '<div class="detail-actions">' +
-    '<a class="btn" href="/api/track/' + t.id + '/gpx">⬇ Baixa GPX</a>' +
-    '<button class="btn" data-act="rename">✎ Reanomenar</button>' +
-    '<button class="btn btn-danger" data-act="delete">🗑 Eliminar</button>' +
+    '<a class="btn" href="/api/track/' + t.id + '/gpx">' + icon("download") + " Baixa GPX</a>" +
+    '<button class="btn" data-act="rename">' + icon("edit") + " Reanomenar</button>" +
+    '<button class="btn btn-danger" data-act="delete">' + icon("trash") + " Eliminar</button>" +
     "</div></div>" +
     statsGrid(s) +
     '<div class="map" id="detailMap"></div>' +
@@ -508,8 +561,8 @@ async function renderRoutes() {
   v.innerHTML =
     '<h2 class="title">Per seguir</h2><p class="subtitle">Rutes importades i creades</p>' +
     '<div class="toolbar">' +
-    '<label class="btn">⬆ Importar<input id="importFile" type="file" accept=".gpx,.kml,.tcx" hidden></label>' +
-    '<button class="btn btn-primary" id="btnCreate">✚ Crear ruta</button>' +
+    '<label class="btn">' + icon("upload") + ' Importar<input id="importFile" type="file" accept=".gpx,.kml,.tcx" hidden></label>' +
+    '<button class="btn btn-primary" id="btnCreate">' + icon("add") + " Crear ruta</button>" +
     "</div>" +
     '<div id="routesList">' + loadingHtml() + "</div>" +
     '<div id="routeEditor"></div>';
@@ -546,24 +599,45 @@ async function handleImport(e) {
   e.target.value = "";
 }
 
-// Route editor with interactive Leaflet map.
-function openRouteEditor() {
+// Route editor with interactive Leaflet map:
+// magnetize (snap to trails/roads via /api/route/preview), live distance/ascent,
+// mobile-provided profiles, and centering on the phone's current location.
+async function openRouteEditor() {
   const ed = document.getElementById("routeEditor");
   document.getElementById("routesList").classList.add("hidden");
+
+  // Profiles come from the app (localized to match mobile); fall back if unavailable.
+  let profiles = [];
+  try { profiles = await apiJson("/api/profiles"); }
+  catch (e) { if (e && e.auth) return; }
+  if (!Array.isArray(profiles) || !profiles.length) {
+    profiles = [
+      { id: "HIKING", label: "Senderisme" },
+      { id: "TREKKING", label: "Bici-trekking" },
+      { id: "MTB", label: "BTT" },
+      { id: "SHORTEST", label: "Més curt" }
+    ];
+  }
+  const profileOpts = profiles.map((p, i) =>
+    '<option value="' + esc(p.id) + '"' + (i === 0 ? " selected" : "") + ">" + esc(p.label) + "</option>").join("");
+
   ed.innerHTML =
     '<span class="back-link">← Tornar a la llista</span>' +
     '<h3 class="section-title">Crear ruta</h3>' +
-    '<p class="hint">Clica al mapa per afegir punts de pas. Calen com a mínim 2 punts.</p>' +
+    '<p class="hint">Clica al mapa per afegir punts de pas. La ruta es magnetitza a camins i carreteres. Calen com a mínim 2 punts.</p>' +
     '<div class="route-editor">' +
     '<div class="route-form">' +
     '<input id="rName" type="text" placeholder="Nom de la ruta" style="min-width:220px">' +
-    '<select id="rProfile"><option value="HIKING">Excursionisme</option>' +
-    '<option value="TREKKING">Trekking</option><option value="MTB">BTT</option>' +
-    '<option value="SHORTEST">Més curt</option></select>' +
+    '<select id="rProfile">' + profileOpts + "</select>" +
     '<span class="wp-count" id="wpCount">0 punts</span>' +
-    '<button class="btn" id="rUndo">↶ Desfés</button>' +
+    '<button class="btn" id="rUndo">' + icon("undo") + " Desfés</button>" +
     '<button class="btn btn-ghost" id="rClear">Buidar</button>' +
-    '<button class="btn btn-primary" id="rSave">Desar</button>' +
+    '<button class="btn btn-primary" id="rSave">' + icon("check") + " Desar</button>" +
+    "</div>" +
+    '<div class="route-readout">' +
+    '<div class="route-stat"><span class="k">Distància</span><span class="v" id="rDist">—</span></div>' +
+    '<div class="route-stat"><span class="k">Ascens</span><span class="v" id="rAsc">—</span></div>' +
+    '<div class="route-status" id="rStatus"></div>' +
     "</div>" +
     '<div class="map map-lg" id="routeMap"></div>' +
     "</div>";
@@ -574,21 +648,97 @@ function openRouteEditor() {
   map.setView([41.3874, 2.1686], 12);
   setTimeout(() => map.invalidateSize(), 60);
 
+  // Center on the phone's current location if available (404 -> keep default view).
+  (async () => {
+    try {
+      const res = await api("/api/location");
+      if (!res.ok) return;
+      const loc = await res.json().catch(() => null);
+      if (loc && loc.lat != null && loc.lng != null) {
+        map.setView([loc.lat, loc.lng], 15);
+        L.circleMarker([loc.lat, loc.lng], {
+          radius: 7, color: "#2ECC71", weight: 2, fillColor: "#2ECC71", fillOpacity: .35
+        }).addTo(map).bindTooltip("Ubicació actual");
+      }
+    } catch (e) { /* ignore: leave default view */ }
+  })();
+
   const waypoints = [];
-  let poly = L.polyline([], { color: "#E63946", weight: 4 }).addTo(map);
   const markers = [];
+  // Drawn route: snapped polyline when the preview succeeds, dashed straight line otherwise.
+  const routeLine = L.polyline([], { color: "#E63946", weight: 4, opacity: .9 }).addTo(map);
   const countEl = ed.querySelector("#wpCount");
+  const distEl = ed.querySelector("#rDist");
+  const ascEl = ed.querySelector("#rAsc");
+  const statusEl = ed.querySelector("#rStatus");
+  const profileEl = ed.querySelector("#rProfile");
+
+  let previewTimer = null;
+  let previewSeq = 0; // guards against out-of-order responses
+
+  function setStats(distanceM, ascentM) {
+    distEl.textContent = (distanceM == null || isNaN(distanceM)) ? "—" : km(distanceM);
+    ascEl.textContent = num(ascentM, 0, " m");
+  }
+  function drawStraight() {
+    routeLine.setLatLngs(waypoints.map(w => [w.lat, w.lng]));
+    routeLine.setStyle({ dashArray: "6,7" });
+  }
+  function setStatus(kind, text) {
+    statusEl.className = "route-status" + (kind ? " " + kind : "");
+    if (kind === "busy") statusEl.innerHTML = '<span class="spinner"></span> Calculant…';
+    else statusEl.textContent = text || "";
+  }
+
+  async function runPreview() {
+    const profile = profileEl.value;
+    if (waypoints.length < 2) { drawStraight(); setStats(null, null); setStatus(); return; }
+    const seq = ++previewSeq;
+    setStatus("busy");
+    try {
+      const res = await api("/api/route/preview", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: "", profile, waypoints: waypoints.map(w => ({ lat: w.lat, lng: w.lng })) })
+      });
+      if (seq !== previewSeq) return; // a newer request superseded this one
+      if (!res.ok) throw new Error("preview " + res.status);
+      const data = await res.json();
+      if (seq !== previewSeq) return;
+      const pts = (data.points || []).filter(p => p.lat != null && p.lng != null).map(p => [p.lat, p.lng]);
+      if (pts.length >= 2) {
+        routeLine.setLatLngs(pts);
+        routeLine.setStyle({ dashArray: null });
+      } else {
+        drawStraight();
+      }
+      setStats(data.distanceM, data.ascentM);
+      setStatus();
+    } catch (err) {
+      if (err && err.auth) return;
+      if (seq !== previewSeq) return;
+      // Graceful fallback: show the straight line and a subtle note; never block.
+      drawStraight();
+      setStats(null, null);
+      setStatus("warn", "No s'ha pogut calcular la ruta");
+    }
+  }
+  function schedulePreview() {
+    clearTimeout(previewTimer);
+    previewTimer = setTimeout(runPreview, 250);
+  }
 
   function refresh() {
-    poly.setLatLngs(waypoints.map(w => [w.lat, w.lng]));
     countEl.textContent = waypoints.length + (waypoints.length === 1 ? " punt" : " punts");
+    if (waypoints.length < 2) { drawStraight(); setStats(null, null); setStatus(); }
+    else schedulePreview();
   }
+
   map.on("click", (e) => {
     const wp = { lat: e.latlng.lat, lng: e.latlng.lng };
     waypoints.push(wp);
     const idx = markers.length;
     const m = L.circleMarker([wp.lat, wp.lng], {
-      radius: 6, color: "#fff", weight: 2, fillColor: "#E63946", fillOpacity: 1
+      radius: 6, color: "#fff", weight: 2, fillColor: "#E63946", fillOpacity: 1, className: "wp-marker"
     }).addTo(map).bindTooltip("" + (idx + 1));
     markers.push(m);
     refresh();
@@ -606,9 +756,10 @@ function openRouteEditor() {
     markers.length = 0;
     refresh();
   });
+  profileEl.addEventListener("change", () => { if (waypoints.length >= 2) schedulePreview(); });
   ed.querySelector("#rSave").addEventListener("click", async () => {
     const name = ed.querySelector("#rName").value.trim();
-    const profile = ed.querySelector("#rProfile").value;
+    const profile = profileEl.value;
     if (!name) { toast("Posa un nom a la ruta", true); return; }
     if (waypoints.length < 2) { toast("Calen com a mínim 2 punts", true); return; }
     try {
@@ -664,7 +815,7 @@ async function openCompetition(refId) {
   catch (e) { if (!e.auth) v.innerHTML = emptyHtml("No s'ha pogut carregar."); return; }
   const rows = (d.attempts || []).map(a =>
     '<tr class="norow' + (a.isBest ? " best" : "") + '">' +
-    "<td>" + dateTime(a.dateMs) + (a.isBest ? " 🏆" : "") + "</td>" +
+    "<td>" + dateTime(a.dateMs) + (a.isBest ? " " + icon("star", "star-best") : "") + "</td>" +
     "<td>" + hms(a.durationMs) + "</td>" +
     "<td>" + num(a.avgSpeedKmh, 1, " km/h") + "</td>" +
     "<td>" + num(a.avgHr, 0, " bpm") + "</td></tr>").join("");
@@ -793,6 +944,10 @@ window.addEventListener("resize", () => {
     if (!$app.classList.contains("hidden")) renderTab(currentTab);
   }, 250);
 });
+
+// Populate tab icons from the icon system (single source of truth).
+document.querySelectorAll(".tab[data-icon]").forEach(btn =>
+  btn.insertAdjacentHTML("afterbegin", icon(btn.dataset.icon)));
 
 // Initial probe: hit a cheap endpoint; 401 -> login, else load app.
 (async function init() {

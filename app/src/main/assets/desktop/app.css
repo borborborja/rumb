@@ -114,7 +114,14 @@ input[type=text]:focus, select:focus { outline: none; border-color: var(--red); 
 .card-title { font-weight: 700; font-size: 15px; margin: 0 0 4px; }
 .card-meta { color: var(--muted); font-size: 12px; }
 .card-big { font-size: 26px; font-weight: 800; margin: 6px 0; }
-.act-icon { font-size: 20px; }
+
+/* ---------- Inline SVG icons ---------- */
+.icon { width: 1.15em; height: 1.15em; vertical-align: -0.18em; flex: none; }
+.act-icon { width: 20px; height: 20px; vertical-align: -0.28em; }
+.act-cell .act-icon { color: var(--muted); vertical-align: middle; }
+.card-title .act-icon, h2.title .act-icon { color: var(--red); margin-right: 4px; }
+.tab .icon { width: 18px; height: 18px; }
+.star-best { color: var(--amber); vertical-align: -0.18em; }
 
 /* ---------- Table ---------- */
 .tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
@@ -190,6 +197,20 @@ canvas.chart.tall { height: 220px; }
 .route-editor { display: grid; grid-template-columns: 1fr; gap: 14px; }
 .route-form { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .wp-count { color: var(--muted); font-size: 13px; }
+
+/* Live route readout (distance / ascent / status) */
+.route-readout { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; margin-top: -4px; }
+.route-stat { display: flex; flex-direction: column; }
+.route-stat .k { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+.route-stat .v { font-size: 20px; font-weight: 700; }
+.route-status { font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; min-height: 16px; }
+.route-status.warn { color: var(--amber); }
+.spinner {
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid var(--line); border-top-color: var(--red);
+  display: inline-block; animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* Leaflet dark-ish attribution readability */
 .leaflet-container { background: #0b0e12; }
