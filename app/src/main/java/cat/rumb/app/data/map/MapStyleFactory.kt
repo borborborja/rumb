@@ -19,11 +19,22 @@ object MapStyleFactory {
     fun rasterStyleJson(source: MapSource, desaturate: Boolean = false): String {
         require(source.kind == MapSource.Kind.RASTER)
         return buildRasterStyle(
-            tiles = listOf(source.url),
+            tiles = expandTiles(source),
             attribution = source.attribution,
             maxZoom = source.maxZoom,
+            scheme = source.scheme,
             desaturate = desaturate,
         )
+    }
+
+    /** Expands `{s}` into one URL per subdomain (MapLibre's way to spread load); else a single URL. */
+    private fun expandTiles(source: MapSource): List<String> {
+        val subs = source.subdomains
+        return if (subs.isNullOrEmpty()) {
+            listOf(source.url)
+        } else {
+            subs.map { source.url.replace("{s}", it.toString()) }
+        }
     }
 
     /**
@@ -41,13 +52,21 @@ object MapStyleFactory {
         return wrapRasterSource(source)
     }
 
-    private fun buildRasterStyle(tiles: List<String>, attribution: String, maxZoom: Int, desaturate: Boolean = false): String {
+    private fun buildRasterStyle(
+        tiles: List<String>,
+        attribution: String,
+        maxZoom: Int,
+        scheme: MapSource.Scheme = MapSource.Scheme.XYZ,
+        desaturate: Boolean = false,
+    ): String {
         val source = JSONObject()
             .put("type", "raster")
             .put("tiles", JSONArray(tiles))
             .put("tileSize", 256)
             .put("attribution", attribution)
             .put("maxzoom", maxZoom)
+        // TMS sources number the Y row from the south; MapLibre flips it when scheme=tms.
+        if (scheme == MapSource.Scheme.TMS) source.put("scheme", "tms")
         return wrapRasterSource(source, desaturate)
     }
 

@@ -974,7 +974,7 @@ class MapViewerActivity : ComponentActivity() {
         val baseMapId = prefs.baseMapId
         if (baseMapId?.startsWith(cat.rumb.app.data.map.OfflineMap.OFFLINE_PREFIX) == true) return // already offline
         val src = MapSource.byId(baseMapId)
-        if (src.kind != MapSource.Kind.RASTER) return
+        if (src.kind != MapSource.Kind.RASTER || !src.offlineAllowed) return
         val key = "$trackId:${src.id}"
         if (prefetchedRouteKey == key) return
         if (!cat.rumb.app.data.map.Connectivity.isOnline(this)) return

@@ -13,6 +13,12 @@ enum class MapSource(
     val url: String,
     val attribution: String,
     val maxZoom: Int = 20,
+    /** Tile-server subdomains to expand `{s}` (e.g. "abc"); null = no subdomain. */
+    val subdomains: String? = null,
+    /** Tile numbering scheme. TMS inverts the Y row (used by IGN's *.idee.es endpoints). */
+    val scheme: Scheme = Scheme.XYZ,
+    /** False = online only: excluded from offline region download and route prefetch. */
+    val offlineAllowed: Boolean = true,
 ) {
     OSM(
         id = "osm",
@@ -56,7 +62,53 @@ enum class MapSource(
         kind = Kind.RASTER,
         url = "https://geoserveis.icgc.cat/servei/catalunya/mapa-base/wmts/geologic/MON3857NW/{z}/{x}/{y}.png",
         attribution = "© Institut Cartogràfic i Geològic de Catalunya (ICGC)",
+    ),
+
+    // ---- Global / national sources (coverage beyond Catalonia) ----
+
+    /** IGN España MTN topographic — national coverage. TMS endpoint (inverted Y). */
+    IGN_MTN(
+        id = "ign_mtn",
+        displayName = "IGN Topogràfic (Espanya)",
+        kind = Kind.RASTER,
+        url = "https://tms-mapa-raster.idee.es/1.0.0/mapa-raster/{z}/{y}/{x}.jpeg",
+        attribution = "© Instituto Geográfico Nacional (IGN España)",
+        maxZoom = 18,
+        scheme = Scheme.TMS,
+    ),
+    /** Esri World Imagery — global satellite. Placeholder order is {z}/{y}/{x} (standard XYZ). */
+    ESRI_IMAGERY(
+        id = "esri_imagery",
+        displayName = "Esri Satèl·lit",
+        kind = Kind.RASTER,
+        url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        attribution = "© Esri, Maxar, Earthstar Geographics",
+        maxZoom = 19,
+    ),
+    /** OpenTopoMap — global topographic. Online only (server discourages bulk download). */
+    OPENTOPOMAP(
+        id = "opentopomap",
+        displayName = "OpenTopoMap",
+        kind = Kind.RASTER,
+        url = "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+        attribution = "© OpenTopoMap (CC-BY-SA) · © OpenStreetMap contributors",
+        maxZoom = 17,
+        subdomains = "abc",
+        offlineAllowed = false,
+    ),
+    /** CyclOSM — cycling-oriented OSM. Online only (fair-use community tiles). */
+    CYCLOSM(
+        id = "cyclosm",
+        displayName = "CyclOSM",
+        kind = Kind.RASTER,
+        url = "https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png",
+        attribution = "© CyclOSM · © OpenStreetMap contributors",
+        maxZoom = 20,
+        subdomains = "abc",
+        offlineAllowed = false,
     );
+
+    enum class Scheme { XYZ, TMS }
 
     enum class Kind { RASTER, VECTOR_STYLE }
 

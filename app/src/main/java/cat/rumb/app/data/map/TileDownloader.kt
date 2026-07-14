@@ -62,10 +62,7 @@ class TileDownloader(
     }
 
     private fun fetch(source: MapSource, z: Int, x: Int, y: Int): ByteArray? {
-        val url = source.url
-            .replace("{z}", z.toString())
-            .replace("{x}", x.toString())
-            .replace("{y}", y.toString())
+        val url = tileUrl(source, z, x, y)
         return runCatching {
             val request = Request.Builder().url(url).header("User-Agent", USER_AGENT).build()
             client.newCall(request).execute().use { response ->
@@ -75,8 +72,25 @@ class TileDownloader(
         }.getOrNull()
     }
 
-    private companion object {
+    companion object {
         const val USER_AGENT = "Rumb/1.0 (offline map cache)"
-        const val PROGRESS_EVERY = 25L
+        private const val PROGRESS_EVERY = 25L
+
+        /**
+         * Resolves a [MapSource] template to a concrete tile URL. Substitutes `{z}/{x}/{y}`, expands
+         * `{s}` to a rotating subdomain, and for TMS sources requests the inverted Y row
+         * (`2^z - 1 - y`) while callers keep passing logical XYZ coordinates.
+         */
+        fun tileUrl(source: MapSource, z: Int, x: Int, y: Int): String {
+            val serverY = if (source.scheme == MapSource.Scheme.TMS) (1 shl z) - 1 - y else y
+            var url = source.url
+                .replace("{z}", z.toString())
+                .replace("{x}", x.toString())
+                .replace("{y}", serverY.toString())
+            source.subdomains?.takeIf { it.isNotEmpty() }?.let { subs ->
+                url = url.replace("{s}", subs[((x + y) % subs.length + subs.length) % subs.length].toString())
+            }
+            return url
+        }
     }
 }

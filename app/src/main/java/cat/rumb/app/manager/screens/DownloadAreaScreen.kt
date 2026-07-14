@@ -79,7 +79,7 @@ fun DownloadAreaScreen(onBack: () -> Unit, initialBbox: BoundingBox? = null) {
     val active = workInfos.firstOrNull { !it.state.isFinished }
     val succeeded = workInfos.any { it.state == WorkInfo.State.SUCCEEDED }
 
-    val rasterSources = remember { MapSource.entries.filter { it.kind == MapSource.Kind.RASTER } }
+    val rasterSources = remember { MapSource.entries.filter { it.kind == MapSource.Kind.RASTER && it.offlineAllowed } }
     val minZoom = zoom.start.roundToLong().toInt()
     val maxZoom = zoom.endInclusive.roundToLong().toInt()
     val tiles = bbox?.let { TileMath.tileCount(it, minZoom, maxZoom) } ?: 0L

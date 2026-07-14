@@ -373,6 +373,10 @@ const BASE_MAPS = [
   { id: "icgc_orto", name: "ICGC Ortofoto", url: ICGC("orto"), attr: ICGC_ATTR, maxZoom: 20 },
   { id: "icgc_orto_hibrida", name: "ICGC Ortofoto híbrida", url: ICGC("orto-hibrida"), attr: ICGC_ATTR, maxZoom: 20 },
   { id: "icgc_geologic", name: "ICGC Geològic", url: ICGC("geologic"), attr: ICGC_ATTR, maxZoom: 20 },
+  { id: "ign_mtn", name: "IGN Topogràfic (Espanya)", url: "https://tms-mapa-raster.idee.es/1.0.0/mapa-raster/{z}/{y}/{x}.jpeg", attr: "© Instituto Geográfico Nacional (IGN España)", maxZoom: 18, tms: true },
+  { id: "esri_imagery", name: "Esri Satèl·lit", url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", attr: "© Esri, Maxar, Earthstar Geographics", maxZoom: 19 },
+  { id: "opentopomap", name: "OpenTopoMap", url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", attr: "© OpenTopoMap (CC-BY-SA) · © OpenStreetMap", maxZoom: 17, subdomains: "abc" },
+  { id: "cyclosm", name: "CyclOSM", url: "https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png", attr: "© CyclOSM · © OpenStreetMap", maxZoom: 20, subdomains: "abc" },
   { id: "osm", name: "OpenStreetMap", url: TILE_URL, attr: TILE_ATTR, maxZoom: 19 },
 ];
 const DEFAULT_BASE_MAP = "icgc_topografic";
@@ -389,7 +393,10 @@ function newMap(el, key) {
   const preferred = preferredBaseMap();
   const overlays = {};
   BASE_MAPS.forEach((b) => {
-    const layer = L.tileLayer(b.url, { attribution: b.attr, maxZoom: b.maxZoom });
+    const opts = { attribution: b.attr, maxZoom: b.maxZoom };
+    if (b.subdomains) opts.subdomains = b.subdomains;
+    if (b.tms) opts.tms = true;
+    const layer = L.tileLayer(b.url, opts);
     overlays[b.name] = layer;
     if (b.id === preferred) layer.addTo(map);
   });
