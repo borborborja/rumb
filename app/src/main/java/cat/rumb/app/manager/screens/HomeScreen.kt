@@ -126,6 +126,8 @@ fun HomeScreen(
     onOpenRecords: () -> Unit = {},
     onOpenHeatmap: () -> Unit = {},
     onOpenDesktop: () -> Unit = {},
+    importUri: android.net.Uri? = null,
+    onImportHandled: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val app = remember { RumbApplication.from(context) }
@@ -171,6 +173,7 @@ fun HomeScreen(
     var moveFor by remember { mutableStateOf<FollowTrackEntity?>(null) }
     var renameFor by remember { mutableStateOf<FollowTrackEntity?>(null) }
     var deleteFor by remember { mutableStateOf<FollowTrackEntity?>(null) }
+    var shareFor by remember { mutableStateOf<FollowTrackEntity?>(null) }
     var newFolder by remember { mutableStateOf(false) }
     var folderRename by remember { mutableStateOf<String?>(null) }
     var folderDelete by remember { mutableStateOf<String?>(null) }
@@ -191,14 +194,29 @@ fun HomeScreen(
         }
     }
 
+    // A track file opened/shared into Rumb (VIEW/SEND): resolve its format and route it into the
+    // same import dialog as the file picker.
+    androidx.compose.runtime.LaunchedEffect(importUri) {
+        val uri = importUri ?: return@LaunchedEffect
+        val name = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            val display = context.contentResolver.query(uri, null, null, null, null)?.use { c ->
+                val idx = c.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                if (idx >= 0 && c.moveToFirst()) c.getString(idx) else null
+            }
+            cat.rumb.app.data.gpx.resolveTrackFileName(context.contentResolver, uri, display)
+        }
+        if (name != null) {
+            pendingImport = uri to name
+        } else {
+            android.widget.Toast.makeText(context, context.getString(R.string.home_import_unsupported), android.widget.Toast.LENGTH_LONG).show()
+        }
+        onImportHandled()
+    }
+
     // In tile mode, being inside a folder captures the back gesture (step out, don't exit).
     BackHandler(enabled = currentFolder != null) { currentFolder = null }
 
-    fun exportTrack(t: FollowTrackEntity) {
-        scope.launch {
-            app.trackRepository.get(t.id)?.let { GpxShare.share(context, it.name, it.gpx) }
-        }
-    }
+    fun exportTrack(t: FollowTrackEntity) { shareFor = t }
 
     val routeActions = RouteActions(
         onOpen = { if (it.kind == TrackKind.TRAINING) onOpenTraining(it.id) else onOpenRoute(it.id) },
@@ -479,6 +497,24 @@ fun HomeScreen(
                 scope.launch { app.trackRepository.setCollection(track.id, folder) }
                 if (folder != ROOT) saveFolderSet(folderSet() + folder)
                 moveFor = null
+            },
+        )
+    }
+
+    shareFor?.let { track ->
+        ShareFormatDialog(
+            onDismiss = { shareFor = null },
+            onPick = { format ->
+                shareFor = null
+                scope.launch {
+                    val points = app.trackRepository.loadGpxRoute(track.id)
+                    val laps = cat.rumb.app.data.tracks.Laps.decode(track.laps)
+                    val built = cat.rumb.app.data.gpx.TrackExport.build(
+                        format, cat.rumb.app.data.sync.SyncTargets.safeName(track.name),
+                        points, laps, track.activityType, prefs.userWeightKg, prefs.userAge, prefs.userSex,
+                    )
+                    GpxShare.shareFile(context, built.fileName, built.content, built.mime, track.name)
+                }
             },
         )
     }

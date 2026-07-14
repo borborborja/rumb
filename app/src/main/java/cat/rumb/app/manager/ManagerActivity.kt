@@ -1,10 +1,13 @@
 package cat.rumb.app.manager
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import cat.rumb.app.ui.theme.RumbTheme
 import cat.rumb.app.viewer.MapViewerActivity
 
@@ -19,11 +22,16 @@ class ManagerActivity : ComponentActivity() {
             Intent(context, ManagerActivity::class.java).putExtra(EXTRA_ROUTE, route)
     }
 
+    // A track file opened/shared into Rumb (VIEW/SEND). Reactive so onNewIntent re-triggers import.
+    private val importUri = mutableStateOf<Uri?>(null)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        importUri.value = incomingTrackUri(intent)
         enableEdgeToEdge()
         setContent {
             RumbTheme {
+                val uri by importUri
                 ManagerApp(
                     onOpenViewer = {
                         startActivity(Intent(this, MapViewerActivity::class.java))
@@ -35,8 +43,26 @@ class ManagerActivity : ComponentActivity() {
                                 .putExtra(MapViewerActivity.EXTRA_COMPETITION_REF_ID, refId),
                         )
                     },
+                    importUri = uri,
+                    onImportHandled = { importUri.value = null },
                 )
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        incomingTrackUri(intent)?.let { importUri.value = it }
+    }
+
+    /** Pulls a track Uri from an ACTION_VIEW (data) or ACTION_SEND (EXTRA_STREAM) intent. */
+    private fun incomingTrackUri(intent: Intent?): Uri? = when (intent?.action) {
+        Intent.ACTION_VIEW -> intent.data
+        Intent.ACTION_SEND -> {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra(Intent.EXTRA_STREAM) as? Uri
+        }
+        else -> null
     }
 }

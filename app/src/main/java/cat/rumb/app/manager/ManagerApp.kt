@@ -47,7 +47,13 @@ object Routes {
 }
 
 @Composable
-fun ManagerApp(onOpenViewer: () -> Unit, startRoute: String? = null, onStartCompetition: (Long) -> Unit = {}) {
+fun ManagerApp(
+    onOpenViewer: () -> Unit,
+    startRoute: String? = null,
+    onStartCompetition: (Long) -> Unit = {},
+    importUri: android.net.Uri? = null,
+    onImportHandled: () -> Unit = {},
+) {
     val nav = rememberNavController()
     androidx.compose.runtime.LaunchedEffect(nav) {
         nav.currentBackStackEntryFlow.collect { entry ->
@@ -75,6 +81,8 @@ fun ManagerApp(onOpenViewer: () -> Unit, startRoute: String? = null, onStartComp
                 onOpenRecords = { nav.navigate(Routes.RECORDS) },
                 onOpenHeatmap = { nav.navigate(Routes.HEATMAP) },
                 onOpenDesktop = { nav.navigate(Routes.DESKTOP) },
+                importUri = importUri,
+                onImportHandled = onImportHandled,
             )
         }
         composable(Routes.DESKTOP) { DesktopModeScreen(onBack = { nav.popBackStack() }) }

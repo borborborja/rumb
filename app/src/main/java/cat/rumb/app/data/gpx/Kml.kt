@@ -1,6 +1,7 @@
 package cat.rumb.app.data.gpx
 
 import java.io.InputStream
+import java.util.Locale
 import java.util.zip.ZipInputStream
 import javax.xml.parsers.DocumentBuilderFactory
 
@@ -57,6 +58,27 @@ object Kml {
 
         return GpxRoute(name, points)
     }
+
+    /**
+     * Serializes points to a KML document with a single `<LineString>` (lon,lat,ele). KML carries only
+     * geometry here — no laps or sensor data — which is enough for Google Earth / Maps.
+     */
+    fun write(name: String, points: List<GpxPoint>): String {
+        val sb = StringBuilder()
+        sb.append("""<?xml version="1.0" encoding="UTF-8"?>""").append('\n')
+        sb.append("<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n  <Document>\n")
+        sb.append("    <name>").append(escape(name)).append("</name>\n")
+        sb.append("    <Placemark>\n      <name>").append(escape(name)).append("</name>\n")
+        sb.append("      <LineString>\n        <tessellate>1</tessellate>\n        <coordinates>\n")
+        for (p in points) {
+            sb.append(String.format(Locale.US, "          %.7f,%.7f,%.1f%n", p.longitude, p.latitude, p.elevation ?: 0.0))
+        }
+        sb.append("        </coordinates>\n      </LineString>\n    </Placemark>\n  </Document>\n</kml>\n")
+        return sb.toString()
+    }
+
+    private fun escape(s: String) = s
+        .replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
     /** Reads a KMZ archive: the first `*.kml` entry is parsed as KML. */
     fun readKmz(input: InputStream): GpxRoute {

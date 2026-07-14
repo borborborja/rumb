@@ -91,6 +91,7 @@ fun TrainingDetailScreen(trackId: Long, onBack: () -> Unit, onCompare: (Long) ->
     var reloadTick by remember { mutableStateOf(0) }
 
     var showMenu by remember { mutableStateOf(false) }
+    var showShare by remember { mutableStateOf(false) }
     var showViewMenu by remember { mutableStateOf(false) }
     var mapSourceId by remember { mutableStateOf(prefs.statsMapSourceId) }
     var trackPaint by remember { mutableStateOf(prefs.statsTrackPaint) }
@@ -146,9 +147,7 @@ fun TrainingDetailScreen(trackId: Long, onBack: () -> Unit, onCompare: (Long) ->
         title = entity?.name ?: stringResource(R.string.training_fallback_title),
         onBack = onBack,
         actions = {
-            IconButton(onClick = {
-                scope.launch { app.trackRepository.get(trackId)?.let { GpxShare.share(context, it.name, it.gpx) } }
-            }) {
+            IconButton(onClick = { showShare = true }) {
                 Icon(Icons.Filled.IosShare, contentDescription = stringResource(R.string.training_action_export))
             }
             if (entity?.archived == true) {
@@ -349,6 +348,21 @@ fun TrainingDetailScreen(trackId: Long, onBack: () -> Unit, onCompare: (Long) ->
         }
     }
 
+    if (showShare) {
+        ShareFormatDialog(
+            onDismiss = { showShare = false },
+            onPick = { format ->
+                showShare = false
+                scope.launch {
+                    val built = cat.rumb.app.data.gpx.TrackExport.build(
+                        format, cat.rumb.app.data.sync.SyncTargets.safeName(entity?.name ?: "activitat"),
+                        points, laps, entity?.activityType, prefs.userWeightKg, prefs.userAge, prefs.userSex,
+                    )
+                    GpxShare.shareFile(context, built.fileName, built.content, built.mime, entity?.name ?: "")
+                }
+            },
+        )
+    }
     if (showRename) {
         TextDialog(
             title = stringResource(R.string.training_action_rename),

@@ -31,6 +31,7 @@
     <string name="home_import_error">Error al importar</string>
     <string name="home_imported">Importado ✓</string>
     <string name="home_imported_default_name">Importado</string>
+    <string name="home_import_unsupported">Archivo no compatible. Rumb importa GPX, TCX, KML y KMZ.</string>
     <string name="home_cd_folder_actions">Acciones de carpeta</string>
     <string name="home_cd_actions">Acciones</string>
     <string name="home_open">Abrir</string>

@@ -31,6 +31,7 @@
     <string name="home_import_error">Error en importar</string>
     <string name="home_imported">Importat ✓</string>
     <string name="home_imported_default_name">Importat</string>
+    <string name="home_import_unsupported">Fitxer no compatible. Rumb importa GPX, TCX, KML i KMZ.</string>
     <string name="home_cd_folder_actions">Accions de carpeta</string>
     <string name="home_cd_actions">Accions</string>
     <string name="home_open">Obrir</string>

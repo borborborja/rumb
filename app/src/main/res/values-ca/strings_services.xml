@@ -15,4 +15,9 @@
     <string name="ot_launch_failed">No s\'ha pogut obrir OpenTracks. Activa l\'«API pública» als seus ajustos.</string>
     <string name="share_export_title">Exportar «%1$s»</string>
     <string name="rec_low_accuracy_start">Iniciat amb precisió GPS baixa</string>
+    <string name="share_format_title">Format per compartir</string>
+    <string name="share_format_auto">Automàtic (el millor)</string>
+    <string name="share_format_gpx">GPX · ruta + sensors</string>
+    <string name="share_format_tcx">TCX · amb voltes</string>
+    <string name="share_format_kml">KML · només ruta (Google Earth)</string>
 </resources>
