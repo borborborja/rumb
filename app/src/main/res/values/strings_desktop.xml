@@ -5,7 +5,9 @@
     <string name="desktop_url_label">Open this address in your computer\'s browser:</string>
     <string name="desktop_pin_label">PIN</string>
     <string name="desktop_hint">Your computer must be on the same WiFi. The server runs only while this screen is open.</string>
-    <string name="desktop_no_wifi">Connect the phone to a WiFi network to use desktop mode.</string>
+    <string name="desktop_no_wifi">Desktop mode needs the phone and computer on the same network, and there\'s no WiFi right now.</string>
+    <string name="desktop_hotspot_hint">No WiFi nearby? Turn on your phone\'s hotspot, connect the computer to it, and the address will appear here.</string>
+    <string name="desktop_open_hotspot">Open hotspot settings</string>
     <string name="desktop_running">Server running</string>
     <string name="desktop_stop">Stop and exit</string>
     <string name="desktop_server_error">Could not start the server.</string>

@@ -5,7 +5,9 @@
     <string name="desktop_url_label">Obre aquesta adreça al navegador del teu ordinador:</string>
     <string name="desktop_pin_label">PIN</string>
     <string name="desktop_hint">L\'ordinador ha d\'estar a la mateixa WiFi. El servidor només funciona mentre aquesta pantalla és oberta.</string>
-    <string name="desktop_no_wifi">Connecta el telèfon a una WiFi per usar el mode escriptori.</string>
+    <string name="desktop_no_wifi">El mode escriptori necessita el mòbil i l\'ordinador a la mateixa xarxa, i ara no hi ha WiFi.</string>
+    <string name="desktop_hotspot_hint">Sense WiFi a prop? Activa el punt d\'accés del mòbil, connecta-hi l\'ordinador i aquí apareixerà l\'adreça.</string>
+    <string name="desktop_open_hotspot">Obre la configuració del punt d\'accés</string>
     <string name="desktop_running">Servidor actiu</string>
     <string name="desktop_stop">Atura i surt</string>
     <string name="desktop_server_error">No s\'ha pogut iniciar el servidor.</string>

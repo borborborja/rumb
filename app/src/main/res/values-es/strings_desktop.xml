@@ -5,7 +5,9 @@
     <string name="desktop_url_label">Abre esta dirección en el navegador de tu ordenador:</string>
     <string name="desktop_pin_label">PIN</string>
     <string name="desktop_hint">El ordenador debe estar en la misma WiFi. El servidor solo funciona mientras esta pantalla está abierta.</string>
-    <string name="desktop_no_wifi">Conecta el teléfono a una WiFi para usar el modo escritorio.</string>
+    <string name="desktop_no_wifi">El modo escritorio necesita el móvil y el ordenador en la misma red, y ahora no hay WiFi.</string>
+    <string name="desktop_hotspot_hint">¿Sin WiFi cerca? Activa el punto de acceso del móvil, conecta el ordenador a él y aquí aparecerá la dirección.</string>
+    <string name="desktop_open_hotspot">Abrir ajustes del punto de acceso</string>
     <string name="desktop_running">Servidor activo</string>
     <string name="desktop_stop">Detener y salir</string>
     <string name="desktop_server_error">No se pudo iniciar el servidor.</string>
