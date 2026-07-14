@@ -204,6 +204,7 @@ class MapViewerActivity : ComponentActivity() {
 
         val prefs = ViewerPreferences.get(this)
         hudLayoutFlow.value = HudLayoutStore.load(prefs)
+        hudDataFlow.value = hudDataFlow.value.copy(lapManagementEnabled = prefs.lapManagementEnabled)
         units = cat.rumb.app.viewer.hud.UnitsStore.load(prefs)
         adaptiveZoom = prefs.adaptiveZoom
         turnVoiceOn = prefs.turnVoice
@@ -375,6 +376,12 @@ class MapViewerActivity : ComponentActivity() {
                                     DebugLog.i("UI", "quick-settings · auto-pausa llindar → ${secs}s")
                                     prefs.recAutoPauseSec = secs
                                     RecordingService.refreshAutoPause(this@MapViewerActivity)
+                                },
+                                lapManagement = prefs.lapManagementEnabled,
+                                onLapManagement = { b ->
+                                    DebugLog.i("UI", "quick-settings · gestió voltes → $b")
+                                    prefs.lapManagementEnabled = b
+                                    hudDataFlow.value = hudDataFlow.value.copy(lapManagementEnabled = b)
                                 },
                                 onDismiss = { settingsOpenFlow.value = false },
                                 competing = competing,
@@ -1262,6 +1269,7 @@ class MapViewerActivity : ComponentActivity() {
             following = following,
             offRouteThresholdM = offRouteThreshold,
             isPaused = isPaused,
+            lapManagementEnabled = hudDataFlow.value.lapManagementEnabled,
             competing = competing || lapRacing,
             ghostHalo = ghostHaloOn,
             ghostShowSeconds = ghostSecondsOn,

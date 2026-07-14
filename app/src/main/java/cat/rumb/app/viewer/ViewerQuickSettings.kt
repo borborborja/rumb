@@ -77,6 +77,8 @@ fun ViewerQuickSettings(
     onShowSeconds: (Boolean) -> Unit = {},
     turnVoice: Boolean = true,
     onTurnVoice: (Boolean) -> Unit = {},
+    lapManagement: Boolean = true,
+    onLapManagement: (Boolean) -> Unit = {},
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var tab by remember { mutableIntStateOf(0) }
@@ -89,6 +91,7 @@ fun ViewerQuickSettings(
     var ap by remember { mutableStateOf(autoPause) }
     var apSec by remember { mutableStateOf(autoPauseSec) }
     var autoZoom by remember { mutableStateOf(adaptiveZoom) }
+    var lapMgmt by remember { mutableStateOf(lapManagement) }
 
     val tabs = TABS + if (competing) listOf(R.string.viewer_qs_tab_competition) else emptyList()
 
@@ -122,6 +125,8 @@ fun ViewerQuickSettings(
                     autoPauseSec = apSec,
                     onAutoPauseSec = { apSec = it; onAutoPauseSec(it) },
                     onAdaptiveZoom = { autoZoom = it; onAdaptiveZoom(it) },
+                    lapManagement = lapMgmt,
+                    onLapManagement = { lapMgmt = it; onLapManagement(it) },
                 )
             }
         }
@@ -189,6 +194,8 @@ private fun OptionsTab(
     autoPauseSec: Int = 5,
     onAutoPauseSec: (Int) -> Unit = {},
     onAdaptiveZoom: (Boolean) -> Unit,
+    lapManagement: Boolean = true,
+    onLapManagement: (Boolean) -> Unit = {},
 ) {
     Text(stringResource(R.string.viewer_qs_map_orientation), style = MaterialTheme.typography.labelLarge)
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -206,6 +213,7 @@ private fun OptionsTab(
     ToggleRow(stringResource(R.string.viewer_qs_keep_screen_on), keepScreenOn, onKeepScreenOn)
     ToggleRow(stringResource(R.string.viewer_qs_fullscreen), fullscreen, onFullscreen)
     ToggleRow(stringResource(R.string.viewer_qs_countdown), countdown, onCountdown)
+    ToggleRow(stringResource(R.string.viewer_qs_lap_management), lapManagement, onLapManagement)
     ToggleRow(stringResource(R.string.viewer_qs_auto_pause), autoPause, onAutoPause)
     if (autoPause) {
         Text(

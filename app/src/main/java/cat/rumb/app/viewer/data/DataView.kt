@@ -184,6 +184,7 @@ fun DataView(
             isRecording = data.metrics.isRecording,
             isPaused = data.isPaused,
             lapsActive = data.metrics.lapsActive,
+            lapManagement = data.lapManagementEnabled,
             onStart = onStartRecording,
             onStop = onStopRecording,
             onPause = onPauseRecording,
@@ -321,6 +322,7 @@ private fun RecordBar(
     isRecording: Boolean,
     isPaused: Boolean,
     lapsActive: Boolean,
+    lapManagement: Boolean,
     onStart: () -> Unit,
     onStop: () -> Unit,
     onPause: () -> Unit,
@@ -343,8 +345,8 @@ private fun RecordBar(
                     modifier = Modifier.size(28.dp),
                 )
             }
-            // Lap controls only while actively recording (not paused): mark a lap / end the block.
-            if (!isPaused) {
+            // Lap controls only while actively recording (not paused) and lap management is enabled.
+            if (lapManagement && !isPaused) {
                 RecordFab(MaterialTheme.colorScheme.primary, onLap) {
                     Icon(Icons.Filled.Flag, contentDescription = androidx.compose.ui.res.stringResource(R.string.data_record_lap), tint = MaterialTheme.colorScheme.onPrimary, modifier = Modifier.size(26.dp))
                 }

@@ -67,6 +67,7 @@
     <string name="comp_start_distance">Start point: %1$d m away</string>
     <string name="comp_start_distance_km">Start point: %1$.1f km away</string>
     <string name="viewer_qs_auto_pause">Auto-pause when stopped</string>
+    <string name="viewer_qs_lap_management">Lap management</string>
     <string name="viewer_qs_auto_pause_secs">Pause after standing still for:</string>
     <string name="viewer_qs_turn_voice">Turn warnings (voice/beeps)</string>
     <!-- Dades: fixed record button, graph tiles, settings-toggle tiles -->

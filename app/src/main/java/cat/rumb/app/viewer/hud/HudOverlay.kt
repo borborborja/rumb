@@ -18,6 +18,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material.icons.filled.Navigation
+import androidx.compose.material.icons.filled.Flag
+import androidx.compose.material.icons.filled.FlagCircle
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Remove
@@ -275,7 +277,10 @@ fun HudWidgetContent(
             HudCatalog.CONTROL_RECENTER -> RecenterControl(controls, scale)
             HudCatalog.CONTROL_COMPASS -> CompassControl(controls, data.metrics.bearingDeg, scale)
             HudCatalog.CONTROL_ZOOM -> ZoomControl(controls, scale)
-            HudCatalog.CONTROL_RECORD -> RecordControl(controls, data.metrics.isRecording, data.isPaused, scale)
+            HudCatalog.CONTROL_RECORD -> RecordControl(
+                controls, data.metrics.isRecording, data.isPaused,
+                data.metrics.lapsActive, data.lapManagementEnabled, scale,
+            )
         }
         HudCategory.EXTRA -> when (element.id) {
             HudCatalog.WIDGET_CLOCK -> ClockTile(scale, options)
@@ -434,7 +439,14 @@ private fun CompassControl(controls: HudControls, bearingDeg: Double?, scale: Fl
 }
 
 @Composable
-private fun RecordControl(controls: HudControls, isRecording: Boolean, isPaused: Boolean, scale: Float) {
+private fun RecordControl(
+    controls: HudControls,
+    isRecording: Boolean,
+    isPaused: Boolean,
+    lapsActive: Boolean,
+    lapManagement: Boolean,
+    scale: Float,
+) {
     if (!isRecording) {
         // Filled red circle = start recording.
         RoundButton(scale = scale, onClick = controls.onStartRecording) {
@@ -447,7 +459,7 @@ private fun RecordControl(controls: HudControls, isRecording: Boolean, isPaused:
         }
         return
     }
-    // Recording: pause/resume + stop, stacked like the zoom control.
+    // Recording: pause/resume + (lap) + stop, stacked like the zoom control.
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         RoundButton(
             scale = scale,
@@ -461,6 +473,27 @@ private fun RecordControl(controls: HudControls, isRecording: Boolean, isPaused:
                 tint = if (isPaused) Color(0xFFFFD166) else Color.White,
                 modifier = Modifier.size((22 * scale).dp),
             )
+        }
+        // Lap controls, only while recording (not paused) and lap management is enabled.
+        if (lapManagement && !isPaused) {
+            RoundButton(scale = scale, onClick = controls.onLap) {
+                Icon(
+                    Icons.Filled.Flag,
+                    contentDescription = androidx.compose.ui.res.stringResource(cat.rumb.app.R.string.data_record_lap),
+                    tint = Color.White,
+                    modifier = Modifier.size((22 * scale).dp),
+                )
+            }
+            if (lapsActive) {
+                RoundButton(scale = scale, onClick = controls.onEndLaps) {
+                    Icon(
+                        Icons.Filled.FlagCircle,
+                        contentDescription = androidx.compose.ui.res.stringResource(cat.rumb.app.R.string.data_record_lap_end),
+                        tint = Color(0xFFFFD166),
+                        modifier = Modifier.size((22 * scale).dp),
+                    )
+                }
+            }
         }
         RoundButton(scale = scale, onClick = controls.onStopRecording) {
             // Red square = stop.

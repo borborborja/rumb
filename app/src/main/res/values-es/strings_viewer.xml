@@ -67,6 +67,7 @@
     <string name="comp_start_distance">Salida a %1$d m</string>
     <string name="comp_start_distance_km">Salida a %1$.1f km</string>
     <string name="viewer_qs_auto_pause">Auto-pausa al detenerte</string>
+    <string name="viewer_qs_lap_management">Gestión de vueltas</string>
     <string name="viewer_qs_auto_pause_secs">Pausa tras estar parado:</string>
     <string name="viewer_qs_turn_voice">Avisos de giro (voz/pitidos)</string>
     <string name="data_record_start">Registrar</string>

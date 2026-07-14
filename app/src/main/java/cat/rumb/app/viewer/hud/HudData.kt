@@ -23,6 +23,8 @@ data class HudData(
     val units: Units = Units(),
     /** True while a native recording is paused (drives the record control's play button). */
     val isPaused: Boolean = false,
+    /** When true, the lap (mark/end-lap) buttons show next to the record control in both views. */
+    val lapManagementEnabled: Boolean = true,
     // Competition (ghost race) state — only meaningful when [competing] is true.
     val competing: Boolean = false,
     val ghostHalo: Boolean = true,

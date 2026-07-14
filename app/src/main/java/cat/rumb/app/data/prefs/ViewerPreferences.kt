@@ -82,6 +82,11 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         get() = prefs.getBoolean(KEY_REC_AUTO_PAUSE, false)
         set(value) = prefs.edit().putBoolean(KEY_REC_AUTO_PAUSE, value).apply()
 
+    /** Whether the lap (mark/end-lap) buttons show next to the record control in both views. */
+    var lapManagementEnabled: Boolean
+        get() = prefs.getBoolean(KEY_LAP_MANAGEMENT, true)
+        set(value) = prefs.edit().putBoolean(KEY_LAP_MANAGEMENT, value).apply()
+
     var recBarometer: Boolean
         get() = prefs.getBoolean(KEY_REC_BAROMETER, true)
         set(value) = prefs.edit().putBoolean(KEY_REC_BAROMETER, value).apply()
@@ -312,6 +317,7 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         private const val KEY_REC_MIN_DISTANCE = "rec_min_distance"
         private const val KEY_REC_MAX_ACCURACY = "rec_max_accuracy"
         private const val KEY_REC_AUTO_PAUSE = "rec_auto_pause"
+        private const val KEY_LAP_MANAGEMENT = "lap_management"
         private const val KEY_REC_BAROMETER = "rec_barometer"
         private const val KEY_BLE_SENSORS = "ble_sensors"
         private const val KEY_ROUTE_VIEW_MODE = "route_view_mode"

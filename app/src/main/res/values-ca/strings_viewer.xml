@@ -67,6 +67,7 @@
     <string name="comp_start_distance">Sortida a %1$d m</string>
     <string name="comp_start_distance_km">Sortida a %1$.1f km</string>
     <string name="viewer_qs_auto_pause">Auto-pausa en aturar-te</string>
+    <string name="viewer_qs_lap_management">Gestió de voltes</string>
     <string name="viewer_qs_auto_pause_secs">Pausa després d\'estar aturat:</string>
     <string name="viewer_qs_turn_voice">Avisos de gir (veu/xiulets)</string>
     <string name="data_record_start">Registra</string>
