@@ -179,6 +179,16 @@ class MapViewerActivity : ComponentActivity() {
     private var ghostHaloOn = true
     private var ghostSecondsOn = true
 
+    // Live "race your laps": ephemeral per-recording state. The ghost is the best previous lap,
+    // re-based to each lap's start. No persistence — the saved track stays a normal lapped track.
+    private var lapCompeting = false
+    private var lapGhost: cat.rumb.app.data.competition.GhostEngine? = null
+    private var lapStartInstant: java.time.Instant? = null
+    private var bestLapMs: Long? = null
+    private var lastSeenLapCount = 0
+    private var lapCompetePrompted = false
+    private val competePromptFlow = MutableStateFlow(false)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DebugLog.i("Viewer", "onCreate · dashboard=${intent.isDashboardAction()} · action=${intent.action}")
@@ -419,6 +429,20 @@ class MapViewerActivity : ComponentActivity() {
                                 DebugLog.i("Record", "compte enrere cancel·lat")
                                 countdownFlow.value = null
                             }
+                        }
+                        // "Race your laps?" prompt on the 2nd (or later) lap. Shown over map and Dades.
+                        val showCompete by competePromptFlow.collectAsState()
+                        if (showCompete) {
+                            LapCompetePrompt(
+                                onYes = {
+                                    lapCompeting = true
+                                    competePromptFlow.value = false
+                                    DebugLog.i("Record", "carrera de vueltas activada")
+                                    refreshRecordingHud()
+                                },
+                                onNo = { competePromptFlow.value = false },
+                                modifier = Modifier.align(Alignment.TopCenter).padding(top = 56.dp),
+                            )
                         }
                     }
                 }
@@ -706,6 +730,14 @@ class MapViewerActivity : ComponentActivity() {
         announceScheduler?.reset()
         announcedTurns.clear()
         offRouteAlerter.reset()
+        // Lap racing is per-recording and ephemeral.
+        lapCompeting = false
+        lapGhost = null
+        lapStartInstant = null
+        bestLapMs = null
+        lastSeenLapCount = 0
+        lapCompetePrompted = false
+        competePromptFlow.value = false
         requestNotificationPermission()
         DebugLog.i("Record", "native start")
         RecordingService.start(this)
@@ -1056,16 +1088,49 @@ class MapViewerActivity : ComponentActivity() {
             announcedTurns.removeAll { it.first < state.nearestIndex }
         }
 
-        // Ghost race: place the ghost at its own elapsed-time position and compute the delta vs us.
-        if (competing) {
-            val ghost = ghostEngine
+        // Lap racing: when a new lap starts, keep a ghost of the best previous lap and offer to race.
+        lapSnapshot?.let { ls ->
+            if (ls.lapsActive && ls.lapCount > lastSeenLapCount) {
+                lastSeenLapCount = ls.lapCount
+                lapStartInstant = java.time.Instant.now().minusMillis(ls.currentLapTimeMs)
+                // Slice the just-completed lap (between the last two open marks) and, if it's the
+                // fastest so far, make it the ghost to chase.
+                val opens = ls.lapMarks.filter {
+                    it.type == cat.rumb.app.data.recording.LapMarkType.START ||
+                        it.type == cat.rumb.app.data.recording.LapMarkType.SPLIT
+                }
+                val lastLap = ls.lastLapMs
+                if (opens.size >= 2 && lastLap != null && (bestLapMs == null || lastLap < bestLapMs!!)) {
+                    val startSeq = opens[opens.size - 2].seq
+                    val endSeq = opens[opens.size - 1].seq
+                    val slice = ls.points()
+                        .filter { it.latLong != null && !it.isPause && it.id in startSeq until endSeq }
+                        .map { GpxPoint(it.latLong!!.latitude, it.latLong.longitude, it.altitude, it.time, heartRate = it.heartRate, cadence = it.cadence, power = it.power) }
+                    if (cat.rumb.app.data.competition.GhostEngine.isTimed(slice)) {
+                        bestLapMs = lastLap
+                        lapGhost = cat.rumb.app.data.competition.GhostEngine(slice)
+                        DebugLog.i("Record", "ghost de vuelta actualizado · millor ${lastLap}ms")
+                    }
+                }
+                if (ls.lapCount >= 2 && !lapCompeting && !lapCompetePrompted && lapGhost != null) {
+                    competePromptFlow.value = true
+                    lapCompetePrompted = true
+                }
+            }
+        }
+
+        // Ghost race (cross-day competition OR live lap race): place the ghost and compute the delta.
+        val racing = competing || lapCompeting
+        if (racing) {
+            val ghost = if (lapCompeting) lapGhost else ghostEngine
             if (ghost != null) {
-                val startTime = stats?.startTime?.takeIf { recording }
-                val elapsed = startTime?.let { java.time.Duration.between(it, java.time.Instant.now()).toMillis() } ?: 0L
+                val baseInstant = if (lapCompeting) lapStartInstant else stats?.startTime?.takeIf { recording }
+                val elapsed = baseInstant?.let { java.time.Duration.between(it, java.time.Instant.now()).toMillis() } ?: 0L
                 ctrl.setGhost(ghost.positionAt(elapsed))
-                val offRoute = (state?.offRouteMeters ?: 0.0) > offRouteThreshold
-                if (startTime != null && state != null && !offRoute) {
-                    val delta = state.progressMeters - ghost.distanceAt(elapsed)
+                val progress = if (lapCompeting) lapSnapshot?.currentLapDistanceM else state?.progressMeters
+                val offRoute = !lapCompeting && (state?.offRouteMeters ?: 0.0) > offRouteThreshold
+                if (baseInstant != null && progress != null && !offRoute) {
+                    val delta = progress - ghost.distanceAt(elapsed)
                     // Rough seconds equivalent at the current speed (skip when nearly stopped).
                     val secs = metrics.speedKmh?.takeIf { it > 1.0 }?.let { delta / (it / 3.6) }
                     metrics = metrics.copy(ghostDeltaMeters = delta, ghostSecondsEst = secs)
@@ -1112,7 +1177,7 @@ class MapViewerActivity : ComponentActivity() {
             following = following,
             offRouteThresholdM = offRouteThreshold,
             isPaused = isPaused,
-            competing = competing,
+            competing = competing || lapCompeting,
             ghostHalo = ghostHaloOn,
             ghostShowSeconds = ghostSecondsOn,
         )
@@ -1316,6 +1381,36 @@ private fun StartPointPill(state: MapViewerActivity.StartPointState, modifier: a
             .background(bg)
             .padding(horizontal = 16.dp, vertical = 8.dp),
     )
+}
+
+/** Transient "race your laps?" prompt shown on the 2nd+ lap (over map or Dades). */
+@Composable
+private fun LapCompetePrompt(onYes: () -> Unit, onNo: () -> Unit, modifier: androidx.compose.ui.Modifier) {
+    androidx.compose.foundation.layout.Column(
+        modifier
+            .clip(androidx.compose.foundation.shape.RoundedCornerShape(16.dp))
+            .background(androidx.compose.ui.graphics.Color(0xF21D3557))
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
+        verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp),
+    ) {
+        androidx.compose.material3.Text(
+            androidx.compose.ui.res.stringResource(R.string.lap_compete_prompt),
+            color = androidx.compose.ui.graphics.Color.White,
+            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+        )
+        androidx.compose.foundation.layout.Row(horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(12.dp)) {
+            androidx.compose.material3.TextButton(onClick = onNo) {
+                androidx.compose.material3.Text(
+                    androidx.compose.ui.res.stringResource(R.string.lap_compete_no),
+                    color = androidx.compose.ui.graphics.Color.White,
+                )
+            }
+            androidx.compose.material3.Button(onClick = onYes) {
+                androidx.compose.material3.Text(androidx.compose.ui.res.stringResource(R.string.lap_compete_yes))
+            }
+        }
+    }
 }
 
 /** A subtle dark→transparent gradient covering the status bar, giving its icons contrast on light maps. */

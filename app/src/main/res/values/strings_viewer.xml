@@ -73,6 +73,9 @@
     <string name="data_record_start">Record</string>
     <string name="data_record_lap">Lap</string>
     <string name="data_record_lap_end">End laps</string>
+    <string name="lap_compete_prompt">Race your best lap?</string>
+    <string name="lap_compete_yes">Compete</string>
+    <string name="lap_compete_no">No</string>
     <string name="data_chart_speed">Speed graph</string>
     <string name="data_chart_elevation">Elevation profile</string>
     <string name="data_toggle_auto_pause">Auto-pause</string>

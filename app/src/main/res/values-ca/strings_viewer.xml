@@ -72,6 +72,9 @@
     <string name="data_record_start">Registra</string>
     <string name="data_record_lap">Volta</string>
     <string name="data_record_lap_end">Fi voltes</string>
+    <string name="lap_compete_prompt">Competeixes contra la teva millor volta?</string>
+    <string name="lap_compete_yes">Competeix</string>
+    <string name="lap_compete_no">No</string>
     <string name="data_chart_speed">Gràfica de velocitat</string>
     <string name="data_chart_elevation">Perfil d\'altitud</string>
     <string name="data_toggle_auto_pause">Auto-pausa</string>

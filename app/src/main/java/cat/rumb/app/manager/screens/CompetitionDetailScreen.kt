@@ -375,7 +375,7 @@ private fun EvolutionCard(candidates: List<FollowTrackEntity>, statsById: Map<Lo
                 }
             }
             // Lower time is better; higher speed is better; HR is informational (treat as neutral/higher).
-            EvolutionChart(series.map { it.second.toFloat() }, lowerBetter = metric == EvoMetric.TIME, Modifier.fillMaxWidth().height(140.dp))
+            EvolutionBars(series.map { it.second.toFloat() }, lowerBetter = metric == EvoMetric.TIME, Modifier.fillMaxWidth().height(140.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(formatDayMonthYearShort(series.first().first.createdAt), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text(formatDayMonthYearShort(series.last().first.createdAt), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -388,33 +388,6 @@ private fun evoMetricLabel(m: EvoMetric): Int = when (m) {
     EvoMetric.TIME -> R.string.comp_metric_time
     EvoMetric.SPEED -> R.string.comp_metric_speed
     EvoMetric.HR -> R.string.comp_metric_hr
-}
-
-@Composable
-private fun EvolutionChart(values: List<Float>, lowerBetter: Boolean, modifier: Modifier) {
-    val best = MaterialTheme.colorScheme.primary
-    val muted = MaterialTheme.colorScheme.surfaceVariant
-    val bestIdx = if (lowerBetter) values.indices.minByOrNull { values[it] } else values.indices.maxByOrNull { values[it] }
-    Canvas(modifier) {
-        if (values.isEmpty()) return@Canvas
-        val min = values.min()
-        val max = values.max()
-        val range = (max - min).takeIf { it > 0.0001f } ?: 1f
-        val n = values.size
-        val gap = 6f
-        val barW = ((size.width - gap * (n - 1)) / n).coerceAtLeast(1f)
-        values.forEachIndexed { i, v ->
-            val norm = (v - min) / range
-            val hFrac = if (lowerBetter) 1f - norm else norm
-            val barH = (0.15f + 0.85f * hFrac) * size.height
-            val x = i * (barW + gap)
-            drawRect(
-                color = if (i == bestIdx) best else muted,
-                topLeft = Offset(x, size.height - barH),
-                size = Size(barW, barH),
-            )
-        }
-    }
 }
 
 // --- HR zones ---

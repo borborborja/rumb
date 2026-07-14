@@ -72,6 +72,9 @@
     <string name="data_record_start">Registrar</string>
     <string name="data_record_lap">Vuelta</string>
     <string name="data_record_lap_end">Fin vueltas</string>
+    <string name="lap_compete_prompt">¿Compites contra tu mejor vuelta?</string>
+    <string name="lap_compete_yes">Competir</string>
+    <string name="lap_compete_no">No</string>
     <string name="data_chart_speed">Gráfica de velocidad</string>
     <string name="data_chart_elevation">Perfil de altitud</string>
     <string name="data_toggle_auto_pause">Auto-pausa</string>

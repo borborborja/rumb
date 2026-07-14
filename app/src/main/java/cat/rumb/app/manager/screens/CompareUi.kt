@@ -68,6 +68,34 @@ internal fun GapChart(series: List<GapSample>, modifier: Modifier) {
     }
 }
 
+/** Trend bars across a sequence (e.g. per-attempt or per-lap): best entry highlighted. */
+@Composable
+internal fun EvolutionBars(values: List<Float>, lowerBetter: Boolean, modifier: Modifier) {
+    val best = MaterialTheme.colorScheme.primary
+    val muted = MaterialTheme.colorScheme.surfaceVariant
+    val bestIdx = if (lowerBetter) values.indices.minByOrNull { values[it] } else values.indices.maxByOrNull { values[it] }
+    Canvas(modifier) {
+        if (values.isEmpty()) return@Canvas
+        val min = values.min()
+        val max = values.max()
+        val range = (max - min).takeIf { it > 0.0001f } ?: 1f
+        val n = values.size
+        val gap = 6f
+        val barW = ((size.width - gap * (n - 1)) / n).coerceAtLeast(1f)
+        values.forEachIndexed { i, v ->
+            val norm = (v - min) / range
+            val hFrac = if (lowerBetter) 1f - norm else norm
+            val barH = (0.15f + 0.85f * hFrac) * size.height
+            val x = i * (barW + gap)
+            drawRect(
+                color = if (i == bestIdx) best else muted,
+                topLeft = Offset(x, size.height - barH),
+                size = Size(barW, barH),
+            )
+        }
+    }
+}
+
 @Composable
 internal fun LegendDot(color: Color, label: String) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {

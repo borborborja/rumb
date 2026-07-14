@@ -178,6 +178,17 @@ fun CompareScreen(trackId: Long, onBack: () -> Unit) {
                 )
             } else {
                 UnitsTable(units, baselineKey)
+                if (mode == CompareMode.LAPS) {
+                    val lapTimes = units.mapNotNull { it.durationMs?.toFloat() }
+                    if (lapTimes.size >= 2) {
+                        Card {
+                            Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                Text(stringResource(R.string.comp_evolution_title), style = MaterialTheme.typography.titleSmall)
+                                EvolutionBars(lapTimes, lowerBetter = true, Modifier.fillMaxWidth().height(120.dp))
+                            }
+                        }
+                    }
+                }
                 Card {
                     Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text(stringResource(R.string.competition_gap_chart_title), style = MaterialTheme.typography.titleSmall)
