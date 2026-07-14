@@ -25,21 +25,19 @@ import androidx.compose.foundation.lazy.grid.items as gridItems
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.DirectionsRun
 import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.automirrored.filled.ViewList
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Computer
 import androidx.compose.material.icons.filled.CreateNewFolder
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.FileDownload
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.GridView
-import androidx.compose.material.icons.filled.Insights
 import androidx.compose.material.icons.filled.Inventory2
 import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.filled.Map
@@ -48,7 +46,6 @@ import androidx.compose.material.icons.filled.Route
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarBorder
-import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.automirrored.filled.ViewQuilt
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AssistChip
@@ -60,7 +57,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
@@ -243,6 +239,13 @@ fun HomeScreen(
                 title = { Text(stringResource(R.string.home_title)) },
                 actions = {
                     IconButton(onClick = onOpenDesktop) { Icon(Icons.Filled.Computer, contentDescription = stringResource(R.string.home_cd_desktop)) }
+                    IconButton(onClick = { tab = 1; currentFolder = null }) {
+                        Icon(
+                            Icons.Filled.Route,
+                            contentDescription = stringResource(R.string.home_tab_to_follow),
+                            tint = if (tab == 1) MaterialTheme.colorScheme.primary else LocalContentColor.current,
+                        )
+                    }
                     IconButton(onClick = onOpenLayers) { Icon(Icons.Filled.Layers, contentDescription = stringResource(R.string.home_cd_map_layers)) }
                     IconButton(onClick = onOpenSettings) { Icon(Icons.Filled.Settings, contentDescription = stringResource(R.string.home_cd_settings)) }
                 },
@@ -252,19 +255,36 @@ fun HomeScreen(
         Column(Modifier.fillMaxSize().padding(padding).padding(horizontal = 16.dp)) {
             ViewerMapButton(onClick = onOpenViewer)
 
-            TabRow(selectedTabIndex = tab, modifier = Modifier.padding(top = 12.dp)) {
-                Tab(tab == 0, onClick = { tab = 0; currentFolder = null }, icon = {
-                    Icon(Icons.AutoMirrored.Filled.DirectionsRun, contentDescription = stringResource(R.string.home_tab_recorded))
-                })
-                Tab(tab == 1, onClick = { tab = 1; currentFolder = null }, icon = {
-                    Icon(Icons.Filled.Route, contentDescription = stringResource(R.string.home_tab_to_follow))
-                })
-                Tab(tab == 2, onClick = { tab = 2; currentFolder = null }, icon = {
-                    Icon(Icons.Filled.Timer, contentDescription = stringResource(R.string.home_tab_competition))
-                })
-                Tab(tab == 3, onClick = { tab = 3; currentFolder = null }, icon = {
-                    Icon(Icons.Filled.Insights, contentDescription = stringResource(R.string.home_tab_progress))
-                })
+            // Routes-to-follow (tab 1) lives in the top bar now; the tab strip shows the other three
+            // sections as text. In routes mode, a header with a back-to-tabs affordance replaces it.
+            if (tab == 1) {
+                Row(
+                    Modifier.fillMaxWidth().padding(top = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    IconButton(onClick = { tab = 0; currentFolder = null }) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.home_cd_exit_folder))
+                    }
+                    Text(stringResource(R.string.home_tab_to_follow), style = MaterialTheme.typography.titleMedium)
+                }
+            } else {
+                val homeTabs = listOf(
+                    0 to R.string.home_tab_recorded,
+                    2 to R.string.home_tab_competition,
+                    3 to R.string.home_tab_progress,
+                )
+                TabRow(
+                    selectedTabIndex = homeTabs.indexOfFirst { it.first == tab }.coerceAtLeast(0),
+                    modifier = Modifier.padding(top = 12.dp),
+                ) {
+                    homeTabs.forEach { (index, labelRes) ->
+                        Tab(
+                            selected = tab == index,
+                            onClick = { tab = index; currentFolder = null },
+                            text = { Text(stringResource(labelRes)) },
+                        )
+                    }
+                }
             }
 
             if (tab < 2) {
@@ -308,9 +328,8 @@ fun HomeScreen(
                         )
                     }
                     Spacer(Modifier.weight(1f))
-                    OutlinedButton(onClick = { importLauncher.launch(arrayOf("*/*")) }) {
-                        Icon(Icons.Filled.Add, contentDescription = null, Modifier.size(18.dp))
-                        Text(" " + stringResource(R.string.home_import))
+                    IconButton(onClick = { importLauncher.launch(arrayOf("*/*")) }) {
+                        Icon(Icons.Filled.FileDownload, contentDescription = stringResource(R.string.home_import))
                     }
                     if (kind == TrackKind.ROUTE) {
                         IconButton(onClick = onCreateRoute) { Icon(Icons.Filled.Edit, contentDescription = stringResource(R.string.home_cd_create_route)) }
