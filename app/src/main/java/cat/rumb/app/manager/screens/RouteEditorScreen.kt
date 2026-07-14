@@ -44,7 +44,9 @@ import androidx.compose.ui.viewinterop.AndroidView
 import cat.rumb.app.RumbApplication
 import cat.rumb.app.R
 import cat.rumb.app.data.gpx.GpxPoint
+import cat.rumb.app.data.map.MapSource
 import cat.rumb.app.data.opentracks.model.GeoPoint
+import cat.rumb.app.data.prefs.ViewerPreferences
 import cat.rumb.app.data.routing.RoutedPath
 import cat.rumb.app.data.routing.RoutingProfile
 import cat.rumb.app.data.tracks.TrackSource
@@ -56,9 +58,11 @@ import kotlinx.coroutines.launch
 fun RouteEditorScreen(trackId: Long? = null, onBack: () -> Unit, onSaved: () -> Unit) {
     val context = LocalContext.current
     val app = remember { RumbApplication.from(context) }
+    val prefs = remember { ViewerPreferences.get(context) }
     val scope = rememberCoroutineScope()
     val mapView = rememberMapViewWithLifecycle()
     val editing = trackId != null
+    var mapSourceId by remember { mutableStateOf(prefs.statsMapSourceId) }
 
     val waypoints = remember { mutableStateListOf<GeoPoint>() }
     var controller by remember { mutableStateOf<RouteEditorController?>(null) }
@@ -144,15 +148,21 @@ fun RouteEditorScreen(trackId: Long? = null, onBack: () -> Unit, onSaved: () -> 
                     mapView.getMapAsync { map ->
                         val c = RouteEditorController(map)
                         controller = c
-                        c.init { c.onMapClick { p -> waypoints.add(p); dirty = true } }
+                        c.init(source = MapSource.byId(mapSourceId)) { c.onMapClick { p -> waypoints.add(p); dirty = true } }
                     }
                     mapView
                 },
                 modifier = Modifier.fillMaxSize(),
             )
 
+            BaseMapPicker(
+                currentId = mapSourceId,
+                onSelect = { src -> mapSourceId = src.id; prefs.statsMapSourceId = src.id; controller?.setBaseMap(src) },
+                modifier = Modifier.align(Alignment.TopEnd).padding(8.dp),
+            )
+
             if (loading) {
-                CircularProgressIndicator(Modifier.align(Alignment.TopEnd).padding(16.dp))
+                CircularProgressIndicator(Modifier.align(Alignment.TopStart).padding(16.dp))
             }
 
             // Bottom control panel.

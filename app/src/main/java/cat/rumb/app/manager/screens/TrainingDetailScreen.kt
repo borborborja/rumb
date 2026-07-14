@@ -20,7 +20,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.ui.draw.clip
 import cat.rumb.app.data.map.MapSource
@@ -221,7 +221,7 @@ fun TrainingDetailScreen(trackId: Long, onBack: () -> Unit, onCompare: (Long) ->
                             .background(Color(0x99000000)),
                     ) {
                         Icon(
-                            Icons.Filled.Visibility,
+                            Icons.Filled.Layers,
                             contentDescription = stringResource(R.string.training_cd_view_options),
                             tint = Color.White,
                             modifier = Modifier.size(20.dp),
@@ -234,20 +234,10 @@ fun TrainingDetailScreen(trackId: Long, onBack: () -> Unit, onCompare: (Long) ->
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
                         )
-                        MapSource.entries.filter { it.kind == MapSource.Kind.RASTER }.forEach { src ->
-                            DropdownMenuItem(
-                                text = { Text(src.displayName) },
-                                leadingIcon = {
-                                    if (MapSource.byId(mapSourceId) == src) {
-                                        Icon(Icons.Filled.Check, contentDescription = null, Modifier.size(18.dp))
-                                    }
-                                },
-                                onClick = {
-                                    mapSourceId = src.id
-                                    prefs.statsMapSourceId = src.id
-                                    controller?.setBaseMap(src)
-                                },
-                            )
+                        BaseMapMenu(mapSourceId) { src ->
+                            mapSourceId = src.id
+                            prefs.statsMapSourceId = src.id
+                            controller?.setBaseMap(src)
                         }
                         HorizontalDivider(Modifier.padding(vertical = 4.dp))
                         Text(

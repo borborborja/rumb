@@ -5,6 +5,7 @@
     <string name="routes_edit_trace">Editar trazado</string>
     <string name="routes_stat_distance">Distancia</string>
     <string name="routes_stat_ascent">Desnivel +</string>
+    <string name="routes_history_title">Historial</string>
     <string name="routes_stat_points">Puntos</string>
     <string name="routes_distance_km_format">%1$.2f km</string>
     <string name="routes_ascent_m_format">%1$d m</string>

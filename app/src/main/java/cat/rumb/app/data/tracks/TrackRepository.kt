@@ -68,6 +68,7 @@ class TrackRepository(
         collection: String = "General",
         activityType: String? = null,
         competitionRefId: Long? = null,
+        followedRouteId: Long? = null,
     ): Long = withContext(Dispatchers.IO) {
         val gpxText = Gpx.write(name, points)
         dao.insert(
@@ -88,9 +89,14 @@ class TrackRepository(
                 metaDone = true,
                 competitionRefId = competitionRefId,
                 durationMs = durationMs(points),
+                followedRouteId = followedRouteId,
             ),
         )
     }
+
+    /** Trainings recorded while following [routeId] (for the route's follow-history). */
+    suspend fun trainingsForRoute(routeId: Long): List<FollowTrackEntity> =
+        withContext(Dispatchers.IO) { dao.trainingsForRoute(routeId) }
 
     suspend fun renameCollection(oldName: String, newName: String, kind: String) =
         withContext(Dispatchers.IO) { dao.renameCollection(oldName, newName, kind) }

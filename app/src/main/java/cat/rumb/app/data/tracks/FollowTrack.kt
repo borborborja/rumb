@@ -63,6 +63,8 @@ data class FollowTrackEntity(
     @ColumnInfo(name = "competition_archived") val competitionArchived: Boolean = false,
     /** Lap ranges (JSON of [cat.rumb.app.data.tracks.LapRange]); null/blank = no laps. */
     val laps: String? = null,
+    /** On trainings: the route id this activity was recorded while following (null = free recording). */
+    @ColumnInfo(name = "followed_route_id") val followedRouteId: Long? = null,
 )
 
 /** Projection for the municipality backfill queue. */
@@ -77,10 +79,21 @@ interface FollowTrackDao {
     @Query(
         "SELECT id, name, collection, source, distance_meters, point_count, created_at, remote_id, kind, " +
             "activity_type, municipality, ascent_m, start_lat, start_lon, meta_done, " +
-            "is_competition, competition_ref_id, duration_ms, archived, competition_archived, laps, '' AS gpx " +
+            "is_competition, competition_ref_id, duration_ms, archived, competition_archived, laps, " +
+            "followed_route_id, '' AS gpx " +
             "FROM follow_tracks ORDER BY created_at DESC",
     )
     fun observeSummaries(): Flow<List<FollowTrackEntity>>
+
+    /** Trainings recorded while following [routeId], newest first (GPX blob omitted). */
+    @Query(
+        "SELECT id, name, collection, source, distance_meters, point_count, created_at, remote_id, kind, " +
+            "activity_type, municipality, ascent_m, start_lat, start_lon, meta_done, " +
+            "is_competition, competition_ref_id, duration_ms, archived, competition_archived, laps, " +
+            "followed_route_id, '' AS gpx " +
+            "FROM follow_tracks WHERE followed_route_id = :routeId AND kind = 'TRAINING' ORDER BY created_at DESC",
+    )
+    suspend fun trainingsForRoute(routeId: Long): List<FollowTrackEntity>
 
     @Query("UPDATE follow_tracks SET collection = :newName WHERE collection = :oldName AND kind = :kind")
     suspend fun renameCollection(oldName: String, newName: String, kind: String)
@@ -153,7 +166,7 @@ interface FollowTrackDao {
         cat.rumb.app.data.recording.RecordingEntity::class,
         cat.rumb.app.data.recording.RecordingPointEntity::class,
     ],
-    version = 7,
+    version = 8,
     exportSchema = false,
 )
 @TypeConverters(Converters::class)
@@ -162,6 +175,13 @@ abstract class RumbDatabase : RoomDatabase() {
     abstract fun recordingDao(): cat.rumb.app.data.recording.RecordingDao
 
     companion object {
+        /** v8: link a training to the route it was recorded while following. */
+        val MIGRATION_7_8 = object : androidx.room.migration.Migration(7, 8) {
+            override fun migrate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE follow_tracks ADD COLUMN followed_route_id INTEGER")
+            }
+        }
+
         /** v7: manual laps — boundary marks on recordings, lap ranges on saved tracks. */
         val MIGRATION_6_7 = object : androidx.room.migration.Migration(6, 7) {
             override fun migrate(db: androidx.sqlite.db.SupportSQLiteDatabase) {

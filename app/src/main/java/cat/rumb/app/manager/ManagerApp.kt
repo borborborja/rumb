@@ -154,6 +154,7 @@ fun ManagerApp(onOpenViewer: () -> Unit, startRoute: String? = null, onStartComp
                 onDownloadMap = { bbox ->
                     nav.navigate("${Routes.DOWNLOAD_AREA}?w=${bbox.west}&s=${bbox.south}&e=${bbox.east}&n=${bbox.north}")
                 },
+                onOpenTraining = { id -> nav.navigate("${Routes.TRAINING_DETAIL}/$id") },
             )
         }
         composable(

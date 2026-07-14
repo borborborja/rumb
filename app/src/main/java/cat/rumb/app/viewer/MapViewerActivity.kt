@@ -821,6 +821,8 @@ class MapViewerActivity : ComponentActivity() {
                     kind = cat.rumb.app.data.tracks.TrackKind.TRAINING,
                     collection = folder, activityType = activityType,
                     competitionRefId = competitionRefId.takeIf { competing },
+                    followedRouteId = cat.rumb.app.data.prefs.ViewerPreferences.get(this@MapViewerActivity)
+                        .activeFollowTrackId.takeIf { it > 0 },
                 )
                 // Persist lap ranges (boundary marks → point indices in the saved list).
                 val ranges = cat.rumb.app.data.tracks.Laps.fromMarks(state.lapMarks, kept.map { it.id })

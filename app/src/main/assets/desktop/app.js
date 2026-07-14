@@ -364,13 +364,42 @@ const TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
 const TILE_ATTR = '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 const maps = {}; // id -> L.Map (so we can tear down)
 
+// Base maps mirror the native app's MapSource catalogue (OSM + ICGC raster layers).
+const ICGC_ATTR = '© <a href="https://www.icgc.cat">ICGC</a>';
+const ICGC = (layer) => `https://geoserveis.icgc.cat/servei/catalunya/mapa-base/wmts/${layer}/MON3857NW/{z}/{x}/{y}.png`;
+const BASE_MAPS = [
+  { id: "icgc_topografic", name: "ICGC Topogràfic", url: ICGC("topografic"), attr: ICGC_ATTR, maxZoom: 20 },
+  { id: "icgc_topografic_gris", name: "ICGC Topogràfic gris", url: ICGC("topografic-gris"), attr: ICGC_ATTR, maxZoom: 20 },
+  { id: "icgc_orto", name: "ICGC Ortofoto", url: ICGC("orto"), attr: ICGC_ATTR, maxZoom: 20 },
+  { id: "icgc_orto_hibrida", name: "ICGC Ortofoto híbrida", url: ICGC("orto-hibrida"), attr: ICGC_ATTR, maxZoom: 20 },
+  { id: "icgc_geologic", name: "ICGC Geològic", url: ICGC("geologic"), attr: ICGC_ATTR, maxZoom: 20 },
+  { id: "osm", name: "OpenStreetMap", url: TILE_URL, attr: TILE_ATTR, maxZoom: 19 },
+];
+const DEFAULT_BASE_MAP = "icgc_topografic";
+function preferredBaseMap() {
+  try { return localStorage.getItem("baseMapId") || DEFAULT_BASE_MAP; } catch (e) { return DEFAULT_BASE_MAP; }
+}
+
 function destroyMap(key) {
   if (maps[key]) { maps[key].remove(); delete maps[key]; }
 }
 function newMap(el, key) {
   destroyMap(key);
   const map = L.map(el, { attributionControl: true, zoomControl: true });
-  L.tileLayer(TILE_URL, { attribution: TILE_ATTR, maxZoom: 19 }).addTo(map);
+  const preferred = preferredBaseMap();
+  const overlays = {};
+  BASE_MAPS.forEach((b) => {
+    const layer = L.tileLayer(b.url, { attribution: b.attr, maxZoom: b.maxZoom });
+    overlays[b.name] = layer;
+    if (b.id === preferred) layer.addTo(map);
+  });
+  // Fallback if the stored id no longer matches any layer.
+  if (!Object.values(overlays).some((l) => map.hasLayer(l))) overlays[BASE_MAPS[0].name].addTo(map);
+  L.control.layers(overlays, null, { collapsed: true }).addTo(map);
+  map.on("baselayerchange", (e) => {
+    const found = BASE_MAPS.find((b) => b.name === e.name);
+    if (found) { try { localStorage.setItem("baseMapId", found.id); } catch (err) {} }
+  });
   maps[key] = map;
   return map;
 }

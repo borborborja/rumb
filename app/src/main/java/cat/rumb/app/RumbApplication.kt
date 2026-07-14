@@ -19,7 +19,7 @@ class RumbApplication : Application() {
 
     val database: RumbDatabase by lazy {
         Room.databaseBuilder(this, RumbDatabase::class.java, "rumb.db")
-            .addMigrations(RumbDatabase.MIGRATION_1_2, RumbDatabase.MIGRATION_2_3, RumbDatabase.MIGRATION_3_4, RumbDatabase.MIGRATION_4_5, RumbDatabase.MIGRATION_5_6, RumbDatabase.MIGRATION_6_7)
+            .addMigrations(RumbDatabase.MIGRATION_1_2, RumbDatabase.MIGRATION_2_3, RumbDatabase.MIGRATION_3_4, RumbDatabase.MIGRATION_4_5, RumbDatabase.MIGRATION_5_6, RumbDatabase.MIGRATION_6_7, RumbDatabase.MIGRATION_7_8)
             .build()
     }
     val trackRepository: TrackRepository by lazy {
