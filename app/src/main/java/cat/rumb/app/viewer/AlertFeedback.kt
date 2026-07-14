@@ -8,6 +8,19 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 
+/** Selectable synthesized beep patterns (no audio files). [tone] is a ToneGenerator constant. */
+enum class BeepSound(val tone: Int, val durationMs: Int) {
+    BEEP(ToneGenerator.TONE_PROP_BEEP, 200),
+    DOUBLE(ToneGenerator.TONE_PROP_BEEP2, 250),
+    ACK(ToneGenerator.TONE_PROP_ACK, 250),
+    PROMPT(ToneGenerator.TONE_PROP_PROMPT, 300),
+    CHIME(ToneGenerator.TONE_CDMA_ABBR_ALERT, 300);
+
+    companion object {
+        fun byIndex(i: Int): BeepSound = entries.getOrElse(i) { DOUBLE }
+    }
+}
+
 /** Physical feedback (haptic + tone) for viewer alerts. No audio resources required. */
 object AlertFeedback {
 
@@ -26,21 +39,27 @@ object AlertFeedback {
         }
     }
 
-    /** Short alert tone. Best-effort; ignores audio failures. */
-    fun beep() = beeps(1)
+    /** Short alert tone. Best-effort. */
+    fun beep(sound: BeepSound = BeepSound.DOUBLE) = beeps(1, sound)
 
-    /** Plays [count] short tones in sequence (e.g. one per milestone). Best-effort. */
-    fun beeps(count: Int) {
+    /**
+     * Plays [count] tones of [sound] in sequence (e.g. one per milestone). Uses the ALARM stream so it
+     * is audible outdoors regardless of the media volume; best-effort but logs failures.
+     */
+    fun beeps(count: Int, sound: BeepSound = BeepSound.DOUBLE) {
         val n = count.coerceIn(1, 5)
         runCatching {
-            val tone = ToneGenerator(AudioManager.STREAM_MUSIC, 90)
+            val tone = ToneGenerator(AudioManager.STREAM_ALARM, ToneGenerator.MAX_VOLUME)
             Thread {
+                // Small warm-up so the first startTone isn't dropped before the AudioTrack is ready.
+                Thread.sleep(120)
                 repeat(n) {
-                    tone.startTone(ToneGenerator.TONE_PROP_BEEP2, 250)
-                    Thread.sleep(400)
+                    tone.startTone(sound.tone, sound.durationMs)
+                    Thread.sleep((sound.durationMs + 150).toLong())
                 }
+                Thread.sleep(60) // let the last tone finish before releasing
                 runCatching { tone.release() }
             }.start()
-        }
+        }.onFailure { cat.rumb.app.data.debug.DebugLog.e("Audio", "beep fallit", it) }
     }
 }

@@ -121,6 +121,14 @@
     <string name="settings_audio_enable">Enable audio announcements</string>
     <string name="settings_audio_voice">Voice</string>
     <string name="settings_audio_beeps">Beeps</string>
+    <string name="settings_audio_beep_sound">Beep sound</string>
+    <string name="settings_audio_preview">▶ Preview</string>
+    <string name="settings_audio_sound_1">Beep</string>
+    <string name="settings_audio_sound_2">Double</string>
+    <string name="settings_audio_sound_3">Ack</string>
+    <string name="settings_audio_sound_4">Prompt</string>
+    <string name="settings_audio_sound_5">Chime</string>
+    <string name="settings_audio_turn_heads_up">Early turn warning (~150 m)</string>
     <string name="settings_audio_language">Language</string>
     <string name="settings_every_km">Every %1$d km</string>
     <string name="settings_every_min">Every %1$d min</string>

@@ -121,6 +121,14 @@
     <string name="settings_audio_enable">Activar avisos de audio</string>
     <string name="settings_audio_voice">Voz</string>
     <string name="settings_audio_beeps">Pitidos</string>
+    <string name="settings_audio_beep_sound">Sonido del pitido</string>
+    <string name="settings_audio_preview">▶ Preescuchar</string>
+    <string name="settings_audio_sound_1">Pitido</string>
+    <string name="settings_audio_sound_2">Doble</string>
+    <string name="settings_audio_sound_3">Ack</string>
+    <string name="settings_audio_sound_4">Aviso</string>
+    <string name="settings_audio_sound_5">Campanilla</string>
+    <string name="settings_audio_turn_heads_up">Aviso previo de giro (~150 m)</string>
     <string name="settings_audio_language">Idioma</string>
     <string name="settings_every_km">Cada %1$d km</string>
     <string name="settings_every_min">Cada %1$d min</string>

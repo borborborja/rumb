@@ -121,6 +121,14 @@
     <string name="settings_audio_enable">Activar avisos d\'àudio</string>
     <string name="settings_audio_voice">Veu</string>
     <string name="settings_audio_beeps">Xiulets</string>
+    <string name="settings_audio_beep_sound">So del xiulet</string>
+    <string name="settings_audio_preview">▶ Preescolta</string>
+    <string name="settings_audio_sound_1">Xiulet</string>
+    <string name="settings_audio_sound_2">Doble</string>
+    <string name="settings_audio_sound_3">Ack</string>
+    <string name="settings_audio_sound_4">Avís</string>
+    <string name="settings_audio_sound_5">Carilló</string>
+    <string name="settings_audio_turn_heads_up">Avís previ de gir (~150 m)</string>
     <string name="settings_audio_language">Idioma</string>
     <string name="settings_every_km">Cada %1$d km</string>
     <string name="settings_every_min">Cada %1$d min</string>

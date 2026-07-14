@@ -730,6 +730,8 @@ private fun AudioAnnouncementsSection(prefs: ViewerPreferences) {
     var fElev by remember { mutableStateOf(prefs.annElevation) }
     var fHr by remember { mutableStateOf(prefs.annHeartRate) }
     var offSpoken by remember { mutableStateOf(prefs.offRouteSpoken) }
+    var beepIdx by remember { mutableIntStateOf(prefs.announceBeepSound) }
+    var headsUp by remember { mutableStateOf(prefs.turnHeadsUp) }
 
     Text(stringResource(R.string.settings_audio_title), style = MaterialTheme.typography.labelLarge)
     ToggleRow(stringResource(R.string.settings_audio_enable), enabled) { enabled = it; prefs.announceEnabled = it }
@@ -746,7 +748,31 @@ private fun AudioAnnouncementsSection(prefs: ViewerPreferences) {
                 FilterChip(lang == l, { lang = l; prefs.announceLang = l.code }, label = { Text(l.label) })
             }
         }
+    } else {
+        Text(stringResource(R.string.settings_audio_beep_sound), style = MaterialTheme.typography.bodySmall)
+        Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            val soundLabels = listOf(
+                R.string.settings_audio_sound_1, R.string.settings_audio_sound_2,
+                R.string.settings_audio_sound_3, R.string.settings_audio_sound_4,
+                R.string.settings_audio_sound_5,
+            )
+            soundLabels.forEachIndexed { i, label ->
+                FilterChip(
+                    selected = beepIdx == i,
+                    onClick = {
+                        beepIdx = i; prefs.announceBeepSound = i
+                        cat.rumb.app.viewer.AlertFeedback.beeps(1, cat.rumb.app.viewer.BeepSound.byIndex(i))
+                    },
+                    label = { Text(stringResource(label)) },
+                )
+            }
+        }
+        OutlinedButton(
+            onClick = { cat.rumb.app.viewer.AlertFeedback.beeps(1, cat.rumb.app.viewer.BeepSound.byIndex(beepIdx)) },
+        ) { Text(stringResource(R.string.settings_audio_preview)) }
     }
+
+    ToggleRow(stringResource(R.string.settings_audio_turn_heads_up), headsUp) { headsUp = it; prefs.turnHeadsUp = it }
 
     ToggleRow(stringResource(R.string.settings_every_km, distKm.toInt()), byDist) { byDist = it; prefs.announceByDistance = it }
     if (byDist) {

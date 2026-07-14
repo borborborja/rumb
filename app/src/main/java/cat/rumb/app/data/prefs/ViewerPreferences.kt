@@ -272,6 +272,16 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         get() = prefs.getString(KEY_ANN_LANG, "ca") ?: "ca"
         set(value) = prefs.edit().putString(KEY_ANN_LANG, value).apply()
 
+    /** Beep-mode tone index (see BeepSound); default 1 = DOUBLE (previous behaviour). */
+    var announceBeepSound: Int
+        get() = prefs.getInt(KEY_ANN_BEEP_SOUND, 1)
+        set(value) = prefs.edit().putInt(KEY_ANN_BEEP_SOUND, value).apply()
+
+    /** Play the ~150 m heads-up turn warning (in addition to the at-turn one). */
+    var turnHeadsUp: Boolean
+        get() = prefs.getBoolean(KEY_TURN_HEADS_UP, true)
+        set(value) = prefs.edit().putBoolean(KEY_TURN_HEADS_UP, value).apply()
+
     var announceByDistance: Boolean
         get() = prefs.getBoolean(KEY_ANN_BY_DIST, true)
         set(value) = prefs.edit().putBoolean(KEY_ANN_BY_DIST, value).apply()
@@ -369,6 +379,8 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         private const val KEY_ANN_ENABLED = "ann_enabled"
         private const val KEY_ANN_MODE = "ann_mode"
         private const val KEY_ANN_LANG = "ann_lang"
+        private const val KEY_ANN_BEEP_SOUND = "ann_beep_sound"
+        private const val KEY_TURN_HEADS_UP = "turn_heads_up"
         private const val KEY_ANN_BY_DIST = "ann_by_dist"
         private const val KEY_ANN_DIST_KM = "ann_dist_km"
         private const val KEY_ANN_BY_TIME = "ann_by_time"

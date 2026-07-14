@@ -136,6 +136,7 @@ class MapViewerActivity : ComponentActivity() {
     // Turn-by-turn warnings: (turnIndex, tier) pairs already announced (tier 0 = heads-up, 1 = now).
     private val announcedTurns = mutableSetOf<Pair<Int, Int>>()
     private var turnVoiceOn = true
+    private var turnHeadsUp = true
     private var weightKg = 75
     private var following = false
     private var offRouteThreshold = 40
@@ -149,6 +150,7 @@ class MapViewerActivity : ComponentActivity() {
     private var announceVoice = false
     private var announceLang = cat.rumb.app.viewer.audio.AnnounceLang.CA
     private var announceFields = cat.rumb.app.viewer.audio.AnnounceFields()
+    private var beepSound = cat.rumb.app.viewer.BeepSound.DOUBLE
 
     private var recordingWasActive = false
 
@@ -835,6 +837,8 @@ class MapViewerActivity : ComponentActivity() {
 
     private fun setupAnnouncements(prefs: ViewerPreferences) {
         offRouteSpoken = prefs.offRouteSpoken
+        beepSound = cat.rumb.app.viewer.BeepSound.byIndex(prefs.announceBeepSound)
+        turnHeadsUp = prefs.turnHeadsUp
         if (!prefs.announceEnabled) return
         announceScheduler = cat.rumb.app.viewer.audio.AnnouncementScheduler(
             cat.rumb.app.viewer.audio.AnnounceConfig(
@@ -874,7 +878,7 @@ class MapViewerActivity : ComponentActivity() {
                 )
                 announcer?.speak(cat.rumb.app.viewer.audio.AnnouncementText.progress(announceLang, announceFields, snap))
             } else {
-                AlertFeedback.beeps(1)
+                AlertFeedback.beeps(1, beepSound)
             }
         }
     }
@@ -1054,7 +1058,7 @@ class MapViewerActivity : ComponentActivity() {
                     if (spoken) {
                         announcer?.speak(cat.rumb.app.viewer.audio.AnnouncementText.offRoute(announceLang))
                     } else if (offRouteSound) {
-                        AlertFeedback.beep()
+                        AlertFeedback.beep(beepSound)
                     }
                 }
                 cat.rumb.app.viewer.follow.OffRouteAlerter.Event.EXITED ->
@@ -1069,7 +1073,7 @@ class MapViewerActivity : ComponentActivity() {
             if (turnVoiceOn && turn != null && onRoute) {
                 val tier = when {
                     turn.distanceM <= 60 -> 1
-                    turn.distanceM <= 170 -> 0
+                    turn.distanceM <= 170 && turnHeadsUp -> 0
                     else -> null
                 }
                 if (tier != null && announcedTurns.add(turn.index to tier)) {
@@ -1080,7 +1084,7 @@ class MapViewerActivity : ComponentActivity() {
                             ),
                         )
                     } else {
-                        AlertFeedback.beeps(if (tier == 0) 2 else 3)
+                        AlertFeedback.beeps(if (tier == 0) 2 else 3, beepSound)
                     }
                     DebugLog.d("Follow", "gir ${if (turn.left) "esquerra" else "dreta"} · tier$tier · ${turn.distanceM.toInt()}m")
                 }
