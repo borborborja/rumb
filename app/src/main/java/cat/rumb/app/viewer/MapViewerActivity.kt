@@ -1455,7 +1455,14 @@ class MapViewerActivity : ComponentActivity() {
                             DebugLog.i("Record", "ghost de vuelta actualizado · millor ${lastLap}ms")
                         }
                     }
-                    if (ls.lapCount >= 2 && !lapCompeting && !lapCompetePrompted && lapGhost != null) {
+                    // Not for distance splits: chasing "your best km" on a point-to-point run is
+                    // nonsense, and with splits on this would ask on every single outing. The prompt
+                    // is for going round the same loop, where laps are actually comparable.
+                    val distanceSplits = ViewerPreferences.get(this@MapViewerActivity)
+                        .autoLapEveryMFor(ViewerPreferences.get(this@MapViewerActivity).activeSportId) > 0f
+                    if (ls.lapCount >= 2 && !lapCompeting && !lapCompetePrompted &&
+                        lapGhost != null && !distanceSplits
+                    ) {
                         competePromptFlow.value = true
                         lapCompetePrompted = true
                     }
