@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="competition_title">Competiție</string>
+    <string name="competition_play_cd">Cursă acum</string>
+    <string name="competition_col_date">Dată</string>
+    <string name="competition_col_time">Timp</string>
+    <string name="competition_col_speed">Viteză</string>
+    <string name="competition_col_hr">FC</string>
+    <string name="competition_col_diff">Dif.</string>
+    <string name="competition_row_average">Medie</string>
+    <string name="competition_best_badge">Cel mai bun</string>
+    <string name="competition_gap_chart_title">Decalaj față de cel mai bun (unde câștigi sau pierzi)</string>
+    <string name="comp_evolution_title">Evoluție</string>
+    <string name="comp_metric_time">Timp</string>
+    <string name="comp_metric_speed">Viteză medie</string>
+    <string name="comp_metric_hr">FC medie</string>
+    <string name="competition_gap_ahead">Mai rapid decât cel mai bun</string>
+    <string name="competition_gap_behind">Mai lent decât cel mai bun</string>
+    <string name="competition_hr_zones_title">Zone de frecvență cardiacă</string>
+    <string name="competition_hr_no_data">Nicio dată de frecvență cardiacă în nicio încercare</string>
+    <string name="competition_attempts_count">%1$d încercări</string>
+    <string name="competition_type_route">Traseu</string>
+    <string name="competition_type_lap">Ture</string>
+    <string name="competition_empty">Încă nu există competiții. Deschide un antrenament și «Trimite la competiție», sau folosește un antrenament cu ture pentru a crea un circuit de ture.</string>
+    <string name="competition_zone_fmt">Z%1$d</string>
+    <string name="competition_archived_section">Arhivate</string>
+    <string name="competition_archive">Arhivează competiția</string>
+    <string name="competition_unarchive">Dezarhivează</string>
+    <string name="competition_delete">Șterge competiția</string>
+    <string name="competition_delete_msg">Traseele în sine rămân în bibliotecă.</string>
+    <string name="competition_remove_attempt">Elimină din competiție</string>
+    <string name="competition_cd_menu">Opțiuni competiție</string>
+</resources>

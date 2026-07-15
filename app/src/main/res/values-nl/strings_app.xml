@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lang_title">App-taal</string>
+    <string name="lang_system">Systeemstandaard</string>
+    <string name="lang_hint_old">Wijzig op deze Android-versie de app-taal via de taalinstellingen van het systeem.</string>
+</resources>

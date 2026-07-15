@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tab_progress">Edistyminen</string>
+    <string name="progress_all">Kaikki</string>
+    <string name="progress_this_week">Tällä viikolla</string>
+    <string name="progress_vs_last_week">vs. viime viikko</string>
+    <string name="progress_km">km</string>
+    <string name="progress_hours">Tunnit</string>
+    <string name="progress_ascent">Nousu</string>
+    <string name="progress_activities">Aktiviteetit</string>
+    <string name="progress_weeks_chart">Viimeiset 12 viikkoa (km)</string>
+    <string name="progress_streak_weeks">%1$d viikkoa putkeen</string>
+    <string name="progress_totals">Kaikkiaan</string>
+    <string name="records_entry">Ennätykset</string>
+    <string name="heatmap_entry">Lämpökartta</string>
+</resources>

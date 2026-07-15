@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Personal records -->
+    <string name="records_title">Ρεκόρ</string>
+    <string name="records_computing">Ανάλυση %1$d/%2$d…</string>
+    <string name="records_empty">Δεν υπάρχουν ρεκόρ ακόμη. Καταγράψτε ή εισαγάγετε προπονήσεις για να δείτε τα προσωπικά σας ρεκόρ.</string>
+    <string name="records_fastest_1k">Ταχύτερο 1 km</string>
+    <string name="records_fastest_5k">Ταχύτερο 5 km</string>
+    <string name="records_fastest_10k">Ταχύτερο 10 km</string>
+    <string name="records_fastest_half">Ταχύτερος ημιμαραθώνιος</string>
+    <string name="records_longest">Μεγαλύτερη δραστηριότητα</string>
+    <string name="records_max_ascent">Περισσότερη ανάβαση</string>
+    <string name="records_max_speed">Μέγ. ταχύτητα</string>
+    <string name="records_longest_time">Μεγαλύτερος χρόνος</string>
+    <string name="records_stat_calories">Θερμίδες</string>
+
+    <!-- Heatmap -->
+    <string name="heatmap_title">Θερμικός χάρτης</string>
+    <string name="heatmap_include_routes">Συμπερίληψη διαδρομών</string>
+    <string name="heatmap_loading">%1$d/%2$d ίχνη</string>
+</resources>

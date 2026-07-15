@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="common_back">Terug</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Instellingen</string>
+    <string name="settings_tab_units">Eenheden</string>
+    <string name="settings_tab_recording">Opnemen</string>
+    <string name="settings_tab_sync">Synchronisatie</string>
+    <string name="settings_tab_appearance">Weergave</string>
+    <string name="settings_tab_route">Route</string>
+    <string name="settings_tab_map">Kaarten</string>
+    <string name="settings_map_cache">Online kaartcache</string>
+    <string name="settings_map_cache_size">Cachegrootte: %1$d MB</string>
+    <string name="settings_map_clear_cache">Cache wissen</string>
+    <string name="settings_map_cache_cleared">Cache gewist</string>
+    <string name="settings_map_prefetch">Route vooraf downloaden</string>
+    <string name="settings_map_prefetch_follow">Kaart downloaden bij het volgen van een route</string>
+    <string name="settings_map_prefetch_hint">Downloadt alle tegels van de route wanneer je hem gaat volgen (elke verbinding), zodat het werkt zonder dekking.</string>
+    <string name="settings_tab_audio">Audio</string>
+    <string name="settings_tab_activity_types">Types</string>
+    <string name="settings_tab_app">App</string>
+    <string name="settings_tab_profile">Profiel</string>
+    <string name="settings_tab_map_routes">Kaart &amp; routes</string>
+    <string name="settings_profile_personal">Persoonlijke gegevens</string>
+
+    <!-- Activity types -->
+    <string name="settings_types_predefined_header">Vooraf ingestelde types</string>
+    <string name="settings_types_custom_header">Aangepaste types</string>
+    <string name="settings_types_add">Aangepast type toevoegen</string>
+    <string name="settings_types_add_title">Nieuw aangepast type</string>
+    <string name="settings_types_edit_title">Aangepast type bewerken</string>
+    <string name="settings_types_name_label">Naam</string>
+    <string name="settings_types_icon_label">Pictogram</string>
+    <string name="settings_types_delete">Verwijderen</string>
+    <string name="settings_types_delete_confirm">Het aangepaste type «%1$s» verwijderen? Tracks die het gebruiken tonen geen type.</string>
+    <string name="settings_types_empty_custom">Geen aangepaste types. Voeg er een toe met de knop hieronder.</string>
+    <string name="settings_types_save">Opslaan</string>
+    <string name="settings_types_cancel">Annuleren</string>
+
+    <!-- Units -->
+    <string name="settings_units_distance">Afstand</string>
+    <string name="settings_units_kilometers">Kilometer (km)</string>
+    <string name="settings_units_miles">Mijl (mi)</string>
+    <string name="settings_units_elevation">Hoogte en stijging</string>
+    <string name="settings_units_meters">Meter (m)</string>
+    <string name="settings_units_feet">Voet (ft)</string>
+    <string name="settings_units_speed">Snelheid</string>
+    <string name="settings_units_note">Tempo gebruikt de afstandseenheid (min/km of min/mi); VAM en afwijking gebruiken de hoogte-eenheid.</string>
+
+    <!-- Sync -->
+    <string name="settings_sync_endurain">Endurain</string>
+    <string name="settings_sync_server_label">Server (https://…)</string>
+    <string name="settings_sync_api_key_label">API-sleutel (scope activities:upload)</string>
+    <string name="settings_sync_saved_testing">Opgeslagen. Verbinding testen…</string>
+    <string name="settings_sync_connected">Verbonden ✓ (%1$s activiteiten op de server)</string>
+    <string name="settings_error">Fout: %1$s</string>
+    <string name="settings_sync_save_test">Opslaan en verbinding testen</string>
+    <string name="settings_sync_upload_note">Opgenomen workouts worden automatisch naar Endurain geüpload wanneer de opname stopt (als de verbinding is ingesteld). De wachtrij probeert het opnieuw wanneer er geen netwerk is.</string>
+    <string name="settings_sync_coming_soon">Binnenkort</string>
+    <string name="settings_sync_coming_soon_items">· Strava\n· Automatische upload naar Google Drive</string>
+    <string name="settings_sync_status">Synchronisatiestatus</string>
+    <string name="settings_sync_last_upload">Laatste upload: %1$s</string>
+    <string name="settings_sync_pending_failed">%1$d in wachtrij · %2$d mislukt</string>
+    <string name="settings_sync_retry_failed">Mislukte opnieuw proberen</string>
+    <string name="settings_sync_folder">Opslaan in map</string>
+    <string name="settings_sync_folder_choose">Map kiezen</string>
+    <string name="settings_sync_folder_none">Geen map gekozen</string>
+    <string name="settings_sync_folder_enable">Elke GPX automatisch opslaan</string>
+    <string name="settings_sync_webdav">WebDAV (Nextcloud/ownCloud)</string>
+    <string name="settings_sync_webdav_url">URL (…/dav/files/user/Rumb)</string>
+    <string name="settings_sync_webdav_user">Gebruiker</string>
+    <string name="settings_sync_webdav_pass">Wachtwoord</string>
+    <string name="settings_sync_webdav_test">Opslaan en testen</string>
+
+    <!-- Recording -->
+    <string name="settings_rec_gps_interval">GPS-interval</string>
+    <string name="settings_rec_min_distance">Minimale afstand tussen punten: %1$d m</string>
+    <string name="settings_rec_max_accuracy">Maximale GPS-nauwkeurigheid: %1$d m</string>
+    <string name="settings_rec_accuracy_note">Posities met slechtere nauwkeurigheid worden verworpen.</string>
+    <string name="settings_rec_auto_pause">Automatisch pauzeren wanneer je stilstaat</string>
+    <string name="settings_rec_barometer">Barometer gebruiken voor stijging</string>
+    <string name="settings_rec_ble_sensors">BLE-sensoren (HS · cadans · vermogen)</string>
+    <string name="settings_rec_paired_sensors">Gekoppelde sensoren: %1$d</string>
+    <string name="settings_rec_apply_note">Wijzigingen gelden voor de volgende opname.</string>
+
+    <!-- App / update -->
+    <string name="settings_app_installed_version">Geïnstalleerde versie</string>
+    <string name="settings_check_update">Controleren op update</string>
+    <string name="settings_update_checking">Controleren…</string>
+    <string name="settings_update_up_to_date">Je hebt de nieuwste versie ✓</string>
+    <string name="settings_update_network_error">Netwerkfout</string>
+    <string name="settings_update_downloading">Downloaden… %1$d%%</string>
+    <string name="settings_update_new_version">Nieuwe versie v%1$s</string>
+    <string name="settings_update_download_install">Downloaden en installeren</string>
+    <string name="settings_update_download_error">Downloadfout</string>
+    <string name="settings_debug_section">Foutopsporing</string>
+    <string name="settings_debug_log_button">Debuglog (volledig log)</string>
+    <string name="settings_debug_full">Volledige diagnostiek</string>
+    <string name="settings_debug_copy">Diagnostiek kopiëren</string>
+    <string name="settings_about">Over</string>
+    <string name="settings_about_desc">Rumb — GPS-activiteitenrecorder met live HUD, ICGC-kaarten en Endurain-sync.</string>
+
+    <!-- Track appearance -->
+    <string name="settings_appearance_track">Trackweergave</string>
+
+    <!-- Follow route -->
+    <string name="settings_route_follow">Te volgen route</string>
+    <string name="settings_route_width">Breedte %1$d</string>
+    <string name="settings_route_arrows">Richtingspijlen</string>
+    <string name="settings_route_progress">Voortgang tonen (afgelegd deel gedimd)</string>
+    <string name="settings_route_tracking_point">Volgpunt</string>
+    <string name="settings_tracking_dot">Stip</string>
+    <string name="settings_tracking_arrow">Pijl</string>
+    <string name="settings_route_tracking_size">Grootte</string>
+    <string name="settings_route_off_route">Buiten-route-melding</string>
+    <string name="settings_route_threshold">Afwijkingsdrempel: %1$d m</string>
+    <string name="settings_route_sound">Geluid</string>
+    <string name="settings_route_vibration">Trillen</string>
+
+    <!-- Audio announcements -->
+    <string name="settings_audio_title">Audio en meldingen</string>
+    <string name="settings_audio_enable">Gesproken meldingen inschakelen</string>
+    <string name="settings_audio_voice">Stem</string>
+    <string name="settings_audio_beeps">Pieptonen</string>
+    <string name="settings_audio_beep_sound">Piepgeluid</string>
+    <string name="settings_audio_preview">▶ Voorbeeld</string>
+    <string name="settings_audio_sound_1">Piep</string>
+    <string name="settings_audio_sound_2">Dubbel</string>
+    <string name="settings_audio_sound_3">Ack</string>
+    <string name="settings_audio_sound_4">Prompt</string>
+    <string name="settings_audio_sound_5">Chime</string>
+    <string name="settings_audio_turn_heads_up">Vroege afslagwaarschuwing (~150 m)</string>
+    <string name="settings_audio_language">Taal</string>
+    <string name="settings_every_km">Elke %1$d km</string>
+    <string name="settings_every_min">Elke %1$d min</string>
+    <string name="settings_audio_announce_what">Wat wordt aangekondigd</string>
+    <string name="settings_audio_distance_time">Afstand en tijd</string>
+    <string name="settings_audio_pace">Tempo</string>
+    <string name="settings_audio_split_pace">Tempo laatste km</string>
+    <string name="settings_audio_elevation">Stijging</string>
+    <string name="settings_audio_heart_rate">Hartslag</string>
+    <string name="settings_audio_off_route_spoken">\'Buiten route\' gesproken zeggen</string>
+
+    <!-- Sensors screen -->
+    <string name="sensors_title">BLE-sensoren</string>
+    <string name="sensors_intro">Koppel hartslagbanden, cadanssensoren en vermogensmeters. Ze verbinden automatisch wanneer een opname start.</string>
+    <string name="sensors_scan">Zoeken naar sensoren</string>
+    <string name="sensors_stop_scan">Stoppen met zoeken</string>
+    <string name="sensors_scan_error">Zoekfout (%1$d)</string>
+    <string name="sensors_bluetooth_off">Bluetooth is uit</string>
+    <string name="sensors_default_name">Sensor</string>
+    <string name="sensors_paired_name">Gekoppelde sensor</string>
+    <string name="sensors_scanning_hint">Zoeken… zet de sensor aan en breng hem dichtbij.</string>
+    <string name="sensors_none">Geen sensoren. Tik op «Zoeken naar sensoren».</string>
+
+    <!-- Debug log screen -->
+    <string name="debug_title">Debuglog</string>
+    <string name="debug_loading">Laden…</string>
+    <string name="debug_no_lines">(geen Rumb-regels)</string>
+    <string name="debug_refresh">Vernieuwen</string>
+    <string name="debug_share">Delen</string>
+    <string name="debug_clear">Wissen</string>
+    <string name="debug_share_subject">Rumb · debuglog</string>
+    <string name="debug_share_chooser">Log delen</string>
+    <string name="debug_only_app">Alleen Rumb</string>
+    <string name="debug_copy">Kopiëren</string>
+    <string name="debug_lines">%1$d regels</string>
+
+    <!-- Track color modes -->
+    <string name="trackcolor_single">Eén kleur</string>
+    <string name="trackcolor_speed">Op snelheid</string>
+    <string name="trackcolor_altitude">Op hoogte</string>
+    <string name="trackcolor_heart_rate">Op hartslag</string>
+    <string name="settings_licenses_title">Opensource-licenties</string>
+    <string name="settings_licenses_show">Licenties en vermeldingen tonen</string>
+    <string name="settings_licenses_hide">Verbergen</string>
+    <string name="settings_licenses_body">Rumb bevat code afgeleid van de volgende opensourceprojecten:\n\n· OpenTracks — logica van de opname-engine (GPS-filtering, trackstatistieken). Apache License 2.0. github.com/OpenTracksApp/OpenTracks\n· OSMDashboard — integratie van de OpenTracks Dashboard-API. Apache License 2.0. codeberg.org/OpenTracksApp/OSMDashboard\n· MapLibre GL Native — kaartweergave. BSD 2-Clause.\n· AndroidX / Jetpack Compose, Kotlin, OkHttp, kotlinx.serialization — Apache License 2.0.\n\nGegevens en diensten:\n· Kaartgegevens © OpenStreetMap-bijdragers (ODbL)\n· Kaarten © Institut Cartogràfic i Geològic de Catalunya (ICGC), CC-BY 4.0\n· Geocodering door Nominatim © OpenStreetMap-bijdragers\n\nVolledige teksten: LICENSE- en NOTICE-bestanden in de broncoderepository.</string>
+    <string name="settings_max_hr">Maximale hartslag: %1$d bpm</string>
+    <string name="settings_max_hr_help">Gebruikt voor de analyse van hartslagzones in de competitie.</string>
+    <string name="settings_weight">Gewicht: %1$d kg</string>
+    <string name="settings_weight_help">Gebruikt voor de calorieschatting.</string>
+    <string name="settings_age">Leeftijd: %1$d jaar</string>
+    <string name="settings_age_unset">Leeftijd: niet ingesteld</string>
+    <string name="settings_sex">Geslacht</string>
+    <string name="settings_sex_unset">Niet ingesteld</string>
+    <string name="settings_sex_male">Man</string>
+    <string name="settings_sex_female">Vrouw</string>
+    <string name="settings_calories_hr_help">Met leeftijd en geslacht worden calorieën geschat op basis van je hartslag (nauwkeuriger). Anders wordt een MET-schatting op basis van activiteitstype en gewicht gebruikt.</string>
+</resources>

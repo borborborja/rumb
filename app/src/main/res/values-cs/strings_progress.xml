@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tab_progress">Pokrok</string>
+    <string name="progress_all">Vše</string>
+    <string name="progress_this_week">Tento týden</string>
+    <string name="progress_vs_last_week">vs minulý týden</string>
+    <string name="progress_km">km</string>
+    <string name="progress_hours">Hodiny</string>
+    <string name="progress_ascent">Stoupání</string>
+    <string name="progress_activities">Aktivity</string>
+    <string name="progress_weeks_chart">Posledních 12 týdnů (km)</string>
+    <string name="progress_streak_weeks">%1$d týdnů v řadě</string>
+    <string name="progress_totals">Za celou dobu</string>
+    <string name="records_entry">Rekordy</string>
+    <string name="heatmap_entry">Teplotní mapa</string>
+</resources>

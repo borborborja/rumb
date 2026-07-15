@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_type_walk">Wandelen</string>
+    <string name="activity_type_run">Hardlopen</string>
+    <string name="activity_type_trail_run">Trailrunning</string>
+    <string name="activity_type_road_bike">Wielrennen</string>
+    <string name="activity_type_mtb">MTB</string>
+    <string name="activity_type_hike">Wandeltocht</string>
+    <string name="activity_type_ski">Skiën</string>
+    <string name="activity_type_skate">Skaten</string>
+    <string name="activity_type_kayak">Kajak</string>
+    <string name="activity_type_swim">Zwemmen</string>
+    <string name="activity_type_none">Geen type</string>
+    <string name="difficulty_easy">Makkelijk</string>
+    <string name="difficulty_moderate">Gemiddeld</string>
+    <string name="difficulty_hard">Zwaar</string>
+    <string name="difficulty_very_hard">Zeer zwaar</string>
+</resources>

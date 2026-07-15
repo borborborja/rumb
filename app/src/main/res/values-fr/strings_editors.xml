@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — French. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Quitter</string>
+    <string name="editor_configure">Configurer</string>
+    <string name="editor_remove">Retirer</string>
+    <string name="editor_resize">Redimensionner</string>
+    <string name="editor_move">Déplacer</string>
+    <string name="editor_done">Terminé</string>
+    <string name="editor_global_settings">Paramètres généraux</string>
+    <string name="editor_show_graph">Graphique</string>
+    <string name="editor_tab_general">Général</string>
+    <string name="editor_tab_competition">Compétition</string>
+    <string name="editor_tab_settings">Paramètres</string>
+    <string name="editor_competition_hint">Ajouté maintenant, affiché pendant une compétition active.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Widgets</string>
+    <string name="editor_widget">Widget</string>
+    <string name="editor_metrics">Mesures</string>
+    <string name="editor_charts">Graphiques</string>
+    <string name="editor_controls">Commandes</string>
+    <string name="editor_presets">Préréglages</string>
+    <string name="editor_global_size">Taille globale</string>
+    <string name="editor_font_size">Taille de police : %1$.0f%%</string>
+    <string name="editor_value_color">Couleur de la valeur</string>
+    <string name="editor_show_chart">Afficher le graphique</string>
+    <string name="editor_time_format">Format de l\'heure</string>
+    <string name="editor_zone">Zone</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Colonnes</string>
+    <string name="editor_format">Format</string>
+    <string name="editor_width">Largeur</string>
+    <string name="editor_no_tiles">Aucune tuile. Ajoutez des mesures depuis «Mesures ▾».</string>
+    <string name="preset_cycling">Vélo</string>
+    <string name="preset_trail">Trail</string>
+    <string name="preset_ski">Ski</string>
+    <string name="editor_extra">Autres</string>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — Swedish. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Avsluta</string>
+    <string name="editor_configure">Konfigurera</string>
+    <string name="editor_remove">Ta bort</string>
+    <string name="editor_resize">Ändra storlek</string>
+    <string name="editor_move">Flytta</string>
+    <string name="editor_done">Klar</string>
+    <string name="editor_global_settings">Globala inställningar</string>
+    <string name="editor_show_graph">Diagram</string>
+    <string name="editor_tab_general">Allmänt</string>
+    <string name="editor_tab_competition">Tävling</string>
+    <string name="editor_tab_settings">Inställningar</string>
+    <string name="editor_competition_hint">Läggs till nu, visas medan en tävling pågår.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Widgetar</string>
+    <string name="editor_widget">Widget</string>
+    <string name="editor_metrics">Mätvärden</string>
+    <string name="editor_charts">Diagram</string>
+    <string name="editor_controls">Kontroller</string>
+    <string name="editor_presets">Förval</string>
+    <string name="editor_global_size">Global storlek</string>
+    <string name="editor_font_size">Teckenstorlek: %1$.0f%%</string>
+    <string name="editor_value_color">Värdefärg</string>
+    <string name="editor_show_chart">Visa diagram</string>
+    <string name="editor_time_format">Tidsformat</string>
+    <string name="editor_zone">Zon</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Kolumner</string>
+    <string name="editor_format">Format</string>
+    <string name="editor_width">Bredd</string>
+    <string name="editor_no_tiles">Inga rutor. Lägg till mätvärden från «Mätvärden ▾».</string>
+    <string name="preset_cycling">Cykling</string>
+    <string name="preset_trail">Terräng</string>
+    <string name="preset_ski">Skidor</string>
+    <string name="editor_extra">Övriga</string>
+</resources>

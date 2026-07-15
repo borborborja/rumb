@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="competition_title">Соревнование</string>
+    <string name="competition_play_cd">Гонка сейчас</string>
+    <string name="competition_col_date">Дата</string>
+    <string name="competition_col_time">Время</string>
+    <string name="competition_col_speed">Скорость</string>
+    <string name="competition_col_hr">ЧСС</string>
+    <string name="competition_col_diff">Разн.</string>
+    <string name="competition_row_average">Среднее</string>
+    <string name="competition_best_badge">Лучший</string>
+    <string name="competition_gap_chart_title">Отрыв от лучшего (где выигрыш и потери)</string>
+    <string name="comp_evolution_title">Динамика</string>
+    <string name="comp_metric_time">Время</string>
+    <string name="comp_metric_speed">Ср. скорость</string>
+    <string name="comp_metric_hr">Ср. ЧСС</string>
+    <string name="competition_gap_ahead">Быстрее лучшего</string>
+    <string name="competition_gap_behind">Медленнее лучшего</string>
+    <string name="competition_hr_zones_title">Зоны пульса</string>
+    <string name="competition_hr_no_data">Нет данных пульса ни в одной попытке</string>
+    <string name="competition_attempts_count">Попыток: %1$d</string>
+    <string name="competition_type_route">Маршрут</string>
+    <string name="competition_type_lap">Круги</string>
+    <string name="competition_empty">Пока нет соревнований. Откройте тренировку и «Отправить в соревнование» или используйте тренировку с кругами, чтобы создать круговую трассу.</string>
+    <string name="competition_zone_fmt">З%1$d</string>
+    <string name="competition_archived_section">Архив</string>
+    <string name="competition_archive">Архивировать соревнование</string>
+    <string name="competition_unarchive">Разархивировать</string>
+    <string name="competition_delete">Удалить соревнование</string>
+    <string name="competition_delete_msg">Сами треки остаются в библиотеке.</string>
+    <string name="competition_remove_attempt">Убрать из соревнования</string>
+    <string name="competition_cd_menu">Параметры соревнования</string>
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="competition_title">Yarış</string>
+    <string name="competition_play_cd">Şimdi yarış</string>
+    <string name="competition_col_date">Tarih</string>
+    <string name="competition_col_time">Süre</string>
+    <string name="competition_col_speed">Hız</string>
+    <string name="competition_col_hr">KH</string>
+    <string name="competition_col_diff">Fark</string>
+    <string name="competition_row_average">Ortalama</string>
+    <string name="competition_best_badge">En iyi</string>
+    <string name="competition_gap_chart_title">En iyiye göre fark (nerede kazanıyor veya kaybediyorsun)</string>
+    <string name="comp_evolution_title">Gelişim</string>
+    <string name="comp_metric_time">Süre</string>
+    <string name="comp_metric_speed">Ort. hız</string>
+    <string name="comp_metric_hr">Ort. KH</string>
+    <string name="competition_gap_ahead">En iyiden hızlı</string>
+    <string name="competition_gap_behind">En iyiden yavaş</string>
+    <string name="competition_hr_zones_title">Kalp hızı bölgeleri</string>
+    <string name="competition_hr_no_data">Hiçbir denemede kalp hızı verisi yok</string>
+    <string name="competition_attempts_count">%1$d deneme</string>
+    <string name="competition_type_route">Rota</string>
+    <string name="competition_type_lap">Turlar</string>
+    <string name="competition_empty">Henüz yarış yok. Bir antrenman açıp «Yarışa gönder» seçin ya da tur devresi oluşturmak için turlu bir antrenman kullanın.</string>
+    <string name="competition_zone_fmt">B%1$d</string>
+    <string name="competition_archived_section">Arşivlenmiş</string>
+    <string name="competition_archive">Yarışı arşivle</string>
+    <string name="competition_unarchive">Arşivden çıkar</string>
+    <string name="competition_delete">Yarışı sil</string>
+    <string name="competition_delete_msg">Kayıtların kendisi kitaplıkta kalır.</string>
+    <string name="competition_remove_attempt">Yarıştan çıkar</string>
+    <string name="competition_cd_menu">Yarış seçenekleri</string>
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="competition_title">Wettkampf</string>
+    <string name="competition_play_cd">Jetzt starten</string>
+    <string name="competition_col_date">Datum</string>
+    <string name="competition_col_time">Zeit</string>
+    <string name="competition_col_speed">Tempo</string>
+    <string name="competition_col_hr">HF</string>
+    <string name="competition_col_diff">Diff.</string>
+    <string name="competition_row_average">Durchschnitt</string>
+    <string name="competition_best_badge">Bestzeit</string>
+    <string name="competition_gap_chart_title">Abstand zur Bestzeit (wo du gewinnst oder verlierst)</string>
+    <string name="comp_evolution_title">Verlauf</string>
+    <string name="comp_metric_time">Zeit</string>
+    <string name="comp_metric_speed">Ø-Tempo</string>
+    <string name="comp_metric_hr">Ø-HF</string>
+    <string name="competition_gap_ahead">Schneller als Bestzeit</string>
+    <string name="competition_gap_behind">Langsamer als Bestzeit</string>
+    <string name="competition_hr_zones_title">Herzfrequenzzonen</string>
+    <string name="competition_hr_no_data">Keine Herzfrequenzdaten in einem Versuch</string>
+    <string name="competition_attempts_count">%1$d Versuche</string>
+    <string name="competition_type_route">Route</string>
+    <string name="competition_type_lap">Runden</string>
+    <string name="competition_empty">Noch keine Wettkämpfe. Öffne ein Training und «An Wettkampf senden» oder nutze ein Training mit Runden für einen Rundenkurs.</string>
+    <string name="competition_zone_fmt">Z%1$d</string>
+    <string name="competition_archived_section">Archiviert</string>
+    <string name="competition_archive">Wettkampf archivieren</string>
+    <string name="competition_unarchive">Wiederherstellen</string>
+    <string name="competition_delete">Wettkampf löschen</string>
+    <string name="competition_delete_msg">Die Tracks selbst bleiben in der Bibliothek.</string>
+    <string name="competition_remove_attempt">Aus Wettkampf entfernen</string>
+    <string name="competition_cd_menu">Wettkampfoptionen</string>
+</resources>

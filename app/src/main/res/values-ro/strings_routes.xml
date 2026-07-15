@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Route detail screen -->
+    <string name="routes_route_fallback_title">Traseu</string>
+    <string name="routes_edit_trace">Editează traseul</string>
+    <string name="routes_stat_distance">Distanță</string>
+    <string name="routes_stat_ascent">Diferență nivel +</string>
+    <string name="routes_history_title">Istoric</string>
+    <string name="routes_stat_points">Puncte</string>
+    <string name="routes_distance_km_format">%1$.2f km</string>
+    <string name="routes_ascent_m_format">%1$d m</string>
+    <string name="routes_source_collection">Sursă: %1$s · Colecție: %2$s</string>
+    <string name="routes_follow_this_route">Urmează acest traseu</string>
+    <string name="routes_active_follow_toast">Traseu activ pentru urmat</string>
+    <string name="routes_rename">Redenumește</string>
+    <string name="routes_collection">Colecție</string>
+    <string name="routes_download_route_map">Descarcă harta traseului</string>
+    <string name="routes_delete">Șterge</string>
+    <string name="routes_rename_route_title">Redenumește traseul</string>
+    <string name="routes_delete_route_title">Șterge traseul</string>
+    <string name="routes_delete_confirm">Sigur vrei să ștergi «%1$s»?</string>
+
+    <!-- Route editor screen -->
+    <string name="routes_create_route">Creează traseu</string>
+    <string name="routes_edit_route">Editează traseul</string>
+    <string name="routes_back">Înapoi</string>
+    <string name="routes_undo">Anulează</string>
+    <string name="routes_save">Salvează</string>
+    <string name="routes_cancel">Anulează</string>
+    <string name="routes_save_route_title">Salvează traseul</string>
+    <string name="routes_save_changes_title">Salvează modificările</string>
+    <string name="routes_name_label">Nume</string>
+    <string name="routes_snap_to_path">Aliniază la potecă</string>
+    <string name="routes_tap_map_to_add_points">Atinge harta pentru a adăuga puncte.</string>
+    <string name="routes_new_route_default_name">Traseu nou</string>
+
+    <!-- Routing profiles -->
+    <string name="routing_hiking">Drumeție</string>
+    <string name="routing_trekking">Bicicletă/trekking</string>
+    <string name="routing_mtb">MTB</string>
+    <string name="routing_shortest">Cel mai scurt</string>
+    <string name="routes_type">Tip</string>
+    <string name="routes_assign_type_title">Tip activitate</string>
+    <string name="routes_stat_time">Timp</string>
+    <string name="routes_stat_avg_speed">Medie km/h</string>
+    <string name="routes_stat_avg_hr">FC medie</string>
+</resources>

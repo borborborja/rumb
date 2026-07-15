@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lang_title">Мова застосунку</string>
+    <string name="lang_system">Системна за замовчуванням</string>
+    <string name="lang_hint_old">У цій версії Android змініть мову застосунку в системних налаштуваннях мови.</string>
+</resources>

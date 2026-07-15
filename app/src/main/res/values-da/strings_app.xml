@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lang_title">Appsprog</string>
+    <string name="lang_system">Systemstandard</string>
+    <string name="lang_hint_old">På denne Android-version skal du ændre appens sprog i systemets sprogindstillinger.</string>
+</resources>

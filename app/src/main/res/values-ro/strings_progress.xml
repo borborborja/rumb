@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tab_progress">Progres</string>
+    <string name="progress_all">Toate</string>
+    <string name="progress_this_week">Săptămâna aceasta</string>
+    <string name="progress_vs_last_week">față de săptămâna trecută</string>
+    <string name="progress_km">km</string>
+    <string name="progress_hours">Ore</string>
+    <string name="progress_ascent">Urcare</string>
+    <string name="progress_activities">Activități</string>
+    <string name="progress_weeks_chart">Ultimele 12 săptămâni (km)</string>
+    <string name="progress_streak_weeks">%1$d săptămâni la rând</string>
+    <string name="progress_totals">Din totdeauna</string>
+    <string name="records_entry">Recorduri</string>
+    <string name="heatmap_entry">Hartă termică</string>
+</resources>

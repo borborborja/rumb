@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — Danish. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Afslut</string>
+    <string name="editor_configure">Konfigurér</string>
+    <string name="editor_remove">Fjern</string>
+    <string name="editor_resize">Tilpas størrelse</string>
+    <string name="editor_move">Flyt</string>
+    <string name="editor_done">Færdig</string>
+    <string name="editor_global_settings">Globale indstillinger</string>
+    <string name="editor_show_graph">Graf</string>
+    <string name="editor_tab_general">Generelt</string>
+    <string name="editor_tab_competition">Konkurrence</string>
+    <string name="editor_tab_settings">Indstillinger</string>
+    <string name="editor_competition_hint">Tilføjet nu, vises mens en konkurrence er aktiv.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Widgets</string>
+    <string name="editor_widget">Widget</string>
+    <string name="editor_metrics">Målinger</string>
+    <string name="editor_charts">Diagrammer</string>
+    <string name="editor_controls">Kontroller</string>
+    <string name="editor_presets">Forudindstillinger</string>
+    <string name="editor_global_size">Global størrelse</string>
+    <string name="editor_font_size">Skriftstørrelse: %1$.0f%%</string>
+    <string name="editor_value_color">Værdifarve</string>
+    <string name="editor_show_chart">Vis diagram</string>
+    <string name="editor_time_format">Tidsformat</string>
+    <string name="editor_zone">Zone</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Kolonner</string>
+    <string name="editor_format">Format</string>
+    <string name="editor_width">Bredde</string>
+    <string name="editor_no_tiles">Ingen felter. Tilføj målinger fra «Målinger ▾».</string>
+    <string name="preset_cycling">Cykling</string>
+    <string name="preset_trail">Trail</string>
+    <string name="preset_ski">Ski</string>
+    <string name="editor_extra">Andre</string>
+</resources>

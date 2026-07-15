@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_speed">Prędkość</string>
+    <string name="metric_avg_speed">Śr. prędkość</string>
+    <string name="metric_max_speed">Maks. prędkość</string>
+    <string name="metric_distance">Dystans</string>
+    <string name="metric_duration">Czas</string>
+    <string name="metric_moving_time">Czas w ruchu</string>
+    <string name="metric_pace">Tempo</string>
+    <string name="metric_heading">Kierunek</string>
+    <string name="metric_elev_gain">Przewyższenie</string>
+    <string name="metric_altitude">Wysokość</string>
+    <string name="metric_slope">Nachylenie</string>
+    <string name="metric_vam">VAM</string>
+    <string name="metric_heart_rate">Tętno</string>
+    <string name="metric_cadence">Kadencja</string>
+    <string name="metric_power">Moc</string>
+    <string name="metric_remaining">Pozostało</string>
+    <string name="metric_off_route">Odchylenie</string>
+    <string name="hudel_chart_speed">Wykres prędkości</string>
+    <string name="hudel_chart_elevation">Profil wysokości</string>
+    <string name="hudel_recenter">Wyśrodkuj/śledź</string>
+    <string name="hudel_compass">Kompas</string>
+    <string name="hudel_zoom">Powiększenie</string>
+    <string name="hudel_record">Nagrywanie</string>
+    <string name="hudel_clock">Zegar</string>
+    <string name="metric_ghost_delta">Duch</string>
+    <string name="metric_ghost_seconds">Duch (czas)</string>
+    <string name="metric_calories">Kalorie</string>
+    <string name="metric_lap_count">Okrążenie</string>
+    <string name="metric_lap_time">Czas okrążenia</string>
+    <string name="metric_lap_distance">Dyst. okrążenia</string>
+    <string name="metric_last_lap">Ostatnie okrążenie</string>
+</resources>

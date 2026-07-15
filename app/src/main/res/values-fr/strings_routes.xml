@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Route detail screen -->
+    <string name="routes_route_fallback_title">Itinéraire</string>
+    <string name="routes_edit_trace">Modifier le tracé</string>
+    <string name="routes_stat_distance">Distance</string>
+    <string name="routes_stat_ascent">Dénivelé +</string>
+    <string name="routes_history_title">Historique</string>
+    <string name="routes_stat_points">Points</string>
+    <string name="routes_distance_km_format">%1$.2f km</string>
+    <string name="routes_ascent_m_format">%1$d m</string>
+    <string name="routes_source_collection">Source : %1$s · Collection : %2$s</string>
+    <string name="routes_follow_this_route">Suivre cet itinéraire</string>
+    <string name="routes_active_follow_toast">Itinéraire actif à suivre</string>
+    <string name="routes_rename">Renommer</string>
+    <string name="routes_collection">Collection</string>
+    <string name="routes_download_route_map">Télécharger la carte de l\'itinéraire</string>
+    <string name="routes_delete">Supprimer</string>
+    <string name="routes_rename_route_title">Renommer l\'itinéraire</string>
+    <string name="routes_delete_route_title">Supprimer l\'itinéraire</string>
+    <string name="routes_delete_confirm">Voulez-vous vraiment supprimer «%1$s» ?</string>
+
+    <!-- Route editor screen -->
+    <string name="routes_create_route">Créer un itinéraire</string>
+    <string name="routes_edit_route">Modifier l\'itinéraire</string>
+    <string name="routes_back">Retour</string>
+    <string name="routes_undo">Annuler</string>
+    <string name="routes_save">Enregistrer</string>
+    <string name="routes_cancel">Annuler</string>
+    <string name="routes_save_route_title">Enregistrer l\'itinéraire</string>
+    <string name="routes_save_changes_title">Enregistrer les modifications</string>
+    <string name="routes_name_label">Nom</string>
+    <string name="routes_snap_to_path">Aligner sur le chemin</string>
+    <string name="routes_tap_map_to_add_points">Appuyez sur la carte pour ajouter des points.</string>
+    <string name="routes_new_route_default_name">Nouvel itinéraire</string>
+
+    <!-- Routing profiles -->
+    <string name="routing_hiking">Randonnée</string>
+    <string name="routing_trekking">Vélo/trekking</string>
+    <string name="routing_mtb">VTT</string>
+    <string name="routing_shortest">Le plus court</string>
+    <string name="routes_type">Type</string>
+    <string name="routes_assign_type_title">Type d\'activité</string>
+    <string name="routes_stat_time">Temps</string>
+    <string name="routes_stat_avg_speed">km/h moy.</string>
+    <string name="routes_stat_avg_hr">FC moy.</string>
+</resources>

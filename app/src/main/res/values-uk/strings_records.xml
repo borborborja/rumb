@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Personal records -->
+    <string name="records_title">Рекорди</string>
+    <string name="records_computing">Аналіз %1$d/%2$d…</string>
+    <string name="records_empty">Ще немає рекордів. Запишіть або імпортуйте тренування, щоб побачити особисті досягнення.</string>
+    <string name="records_fastest_1k">Найшвидший 1 км</string>
+    <string name="records_fastest_5k">Найшвидші 5 км</string>
+    <string name="records_fastest_10k">Найшвидші 10 км</string>
+    <string name="records_fastest_half">Найшвидший напівмарафон</string>
+    <string name="records_longest">Найдовша активність</string>
+    <string name="records_max_ascent">Найбільший набір</string>
+    <string name="records_max_speed">Макс. швидкість</string>
+    <string name="records_longest_time">Найдовший час</string>
+    <string name="records_stat_calories">Калорії</string>
+
+    <!-- Heatmap -->
+    <string name="heatmap_title">Теплокарта</string>
+    <string name="heatmap_include_routes">Включати маршрути</string>
+    <string name="heatmap_loading">%1$d/%2$d треків</string>
+</resources>

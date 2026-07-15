@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Modalità desktop</string>
+    <string name="home_cd_desktop">Modalità desktop</string>
+    <string name="desktop_url_label">Apri questo indirizzo nel browser del computer:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Il computer deve essere sulla stessa rete WiFi. Il server è attivo solo mentre questa schermata è aperta.</string>
+    <string name="desktop_no_wifi">La modalità desktop richiede telefono e computer sulla stessa rete, e al momento non c\'è WiFi.</string>
+    <string name="desktop_hotspot_hint">Nessun WiFi nelle vicinanze? Attiva l\'hotspot del telefono, collega il computer e l\'indirizzo apparirà qui.</string>
+    <string name="desktop_open_hotspot">Apri impostazioni hotspot</string>
+    <string name="desktop_running">Server attivo</string>
+    <string name="desktop_stop">Ferma ed esci</string>
+    <string name="desktop_server_error">Impossibile avviare il server.</string>
+</resources>

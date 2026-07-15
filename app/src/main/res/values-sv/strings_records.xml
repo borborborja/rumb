@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Personal records -->
+    <string name="records_title">Rekord</string>
+    <string name="records_computing">Analyserar %1$d/%2$d…</string>
+    <string name="records_empty">Inga rekord än. Spela in eller importera pass för att se dina personbästa.</string>
+    <string name="records_fastest_1k">Snabbaste 1 km</string>
+    <string name="records_fastest_5k">Snabbaste 5 km</string>
+    <string name="records_fastest_10k">Snabbaste 10 km</string>
+    <string name="records_fastest_half">Snabbaste halvmaraton</string>
+    <string name="records_longest">Längsta aktivitet</string>
+    <string name="records_max_ascent">Mest klättring</string>
+    <string name="records_max_speed">Maxfart</string>
+    <string name="records_longest_time">Längsta tid</string>
+    <string name="records_stat_calories">Kalorier</string>
+
+    <!-- Heatmap -->
+    <string name="heatmap_title">Värmekarta</string>
+    <string name="heatmap_include_routes">Inkludera rutter</string>
+    <string name="heatmap_loading">%1$d/%2$d spår</string>
+</resources>

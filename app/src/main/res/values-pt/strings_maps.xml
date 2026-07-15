@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Camadas do mapa</string>
+    <string name="maps_tab_online">Online</string>
+    <string name="maps_tab_offline">Offline</string>
+    <string name="maps_base_map_title">Mapa base do visualizador</string>
+    <string name="maps_default_map_name">mapa</string>
+    <string name="maps_download_area">Transferir área</string>
+    <string name="maps_import_mbtiles">Importar</string>
+    <string name="maps_empty_offline">Ainda não há mapas offline. Transfere uma área ou importa um ficheiro .mbtiles (por exemplo, os mapas topográficos ou ortofotos oficiais do ICGC em visors.icgc.cat/appdownloads).</string>
+    <string name="maps_size_sectors">%1$.1f MB · %2$d setores</string>
+    <string name="maps_delete">Eliminar</string>
+    <string name="maps_manage_sectors">Gerir setores</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Setores offline</string>
+    <string name="maps_add_sector">Adicionar setor</string>
+    <string name="maps_no_sectors">Sem setores. Adiciona um transferindo uma área.</string>
+    <string name="maps_unknown_map_type">Tipo de mapa desconhecido</string>
+    <string name="maps_redownloading">A transferir setor de novo…</string>
+    <string name="maps_area_name">%1$s · área</string>
+    <string name="maps_delete_sector_title">Eliminar setor</string>
+    <string name="maps_delete_sector_msg">Os blocos deste setor que não sejam partilhados com outro setor serão eliminados.</string>
+    <string name="maps_cancel">Cancelar</string>
+    <string name="maps_sector_n">Setor %1$d</string>
+    <string name="maps_sector_meta">zoom %1$d–%2$d · %3$,d blocos · %4$.0f×%5$.0f km</string>
+    <string name="maps_redownload">Transferir de novo</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Voltar</string>
+    <string name="maps_mode_route">Rota</string>
+    <string name="maps_mode_province">Província</string>
+    <string name="maps_mode_visible">Área visível</string>
+    <string name="maps_mode_draw">Desenhar</string>
+    <string name="maps_route_hint">Área da rota selecionada. Escolhe a fonte e o zoom e transfere.</string>
+    <string name="maps_visible_hint">Enquadra o mapa e toca em «Área visível» de novo para atualizar.</string>
+    <string name="maps_draw_hint">Arrasta no mapa para desenhar o retângulo.</string>
+    <string name="maps_zoom_range">Zoom %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d blocos · %2$.0f MB</string>
+    <string name="maps_over_limit">Área/zoom demasiado grande (máx. %1$dk). Reduz o zoom.</string>
+    <string name="maps_osm_warning">O OSM desaconselha transferências em massa; para áreas grandes usa o ICGC.</string>
+    <string name="maps_downloading">A transferir… %1$d / %2$d</string>
+    <string name="maps_download_done">Transferência concluída ✓ — já a podes selecionar em Mapas offline.</string>
+    <string name="maps_download">Transferir</string>
+</resources>

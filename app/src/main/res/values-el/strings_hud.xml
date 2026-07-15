@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_speed">Ταχύτητα</string>
+    <string name="metric_avg_speed">Μέση ταχύτ.</string>
+    <string name="metric_max_speed">Μέγ. ταχύτ.</string>
+    <string name="metric_distance">Απόσταση</string>
+    <string name="metric_duration">Χρόνος</string>
+    <string name="metric_moving_time">Χρόνος κίνησης</string>
+    <string name="metric_pace">Ρυθμός</string>
+    <string name="metric_heading">Κατεύθυνση</string>
+    <string name="metric_elev_gain">Ανάβαση</string>
+    <string name="metric_altitude">Υψόμετρο</string>
+    <string name="metric_slope">Κλίση</string>
+    <string name="metric_vam">VAM</string>
+    <string name="metric_heart_rate">ΚΣ</string>
+    <string name="metric_cadence">Καντάνς</string>
+    <string name="metric_power">Ισχύς</string>
+    <string name="metric_remaining">Απομένουν</string>
+    <string name="metric_off_route">Απόκλιση</string>
+    <string name="hudel_chart_speed">Γράφημα ταχύτητας</string>
+    <string name="hudel_chart_elevation">Προφίλ υψομέτρου</string>
+    <string name="hudel_recenter">Επανακέντρ./ακολούθηση</string>
+    <string name="hudel_compass">Πυξίδα</string>
+    <string name="hudel_zoom">Ζουμ</string>
+    <string name="hudel_record">Καταγραφή</string>
+    <string name="hudel_clock">Ρολόι</string>
+    <string name="metric_ghost_delta">Ghost</string>
+    <string name="metric_ghost_seconds">Ghost (χρόνος)</string>
+    <string name="metric_calories">Θερμίδες</string>
+    <string name="metric_lap_count">Γύρος</string>
+    <string name="metric_lap_time">Χρόνος γύρου</string>
+    <string name="metric_lap_distance">Απόστ. γύρου</string>
+    <string name="metric_last_lap">Τελ. γύρος</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_type_walk">Kävely</string>
+    <string name="activity_type_run">Juoksu</string>
+    <string name="activity_type_trail_run">Polkujuoksu</string>
+    <string name="activity_type_road_bike">Maantiepyöräily</string>
+    <string name="activity_type_mtb">Maastopyöräily</string>
+    <string name="activity_type_hike">Vaellus</string>
+    <string name="activity_type_ski">Hiihto</string>
+    <string name="activity_type_skate">Luistelu</string>
+    <string name="activity_type_kayak">Melonta</string>
+    <string name="activity_type_swim">Uinti</string>
+    <string name="activity_type_none">Ei tyyppiä</string>
+    <string name="difficulty_easy">Helppo</string>
+    <string name="difficulty_moderate">Kohtalainen</string>
+    <string name="difficulty_hard">Vaikea</string>
+    <string name="difficulty_very_hard">Erittäin vaikea</string>
+</resources>

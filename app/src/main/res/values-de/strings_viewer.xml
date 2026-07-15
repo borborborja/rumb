@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Viewer top bar -->
+    <string name="viewer_tab_map">Karte</string>
+    <string name="viewer_tab_data">Daten</string>
+    <string name="viewer_cd_exit">Ansicht beenden</string>
+    <string name="viewer_cd_edit_page">Aktuellen Bildschirm bearbeiten</string>
+    <string name="viewer_cd_settings">Ansichtseinstellungen</string>
+
+    <!-- HUD controls -->
+    <string name="viewer_cd_center">Zentrieren</string>
+    <string name="viewer_cd_north">Norden</string>
+    <string name="viewer_cd_zoom_in">Vergrößern</string>
+    <string name="viewer_cd_zoom_out">Verkleinern</string>
+    <string name="viewer_cd_pause">Pause</string>
+    <string name="viewer_cd_resume">Fortsetzen</string>
+    <string name="viewer_off_route">Abseits der Route · %1$d m</string>
+
+    <!-- Quick-settings sheet -->
+    <string name="viewer_qs_tab_map">Karte</string>
+    <string name="viewer_qs_tab_route">Route</string>
+    <string name="viewer_qs_tab_options">Optionen</string>
+    <string name="viewer_qs_online_map">Online-Karte</string>
+    <string name="viewer_qs_offline_map">Offline-Karte</string>
+    <string name="viewer_qs_offline_subtitle">offline</string>
+    <string name="viewer_qs_route_to_follow">Route zum Folgen</string>
+    <string name="viewer_qs_route_none">Keine</string>
+    <string name="viewer_qs_route_none_subtitle">keine Route</string>
+    <string name="viewer_qs_no_routes_yet">Noch keine Routen. Erstelle oder importiere sie über «Tracks zum Folgen».</string>
+    <string name="viewer_qs_map_orientation">Kartenausrichtung</string>
+    <string name="viewer_qs_north_up">Norden oben</string>
+    <string name="viewer_qs_heading_up">Fahrtrichtung oben</string>
+    <string name="viewer_qs_adaptive_zoom">Automatischer Zoom an Routenkurven</string>
+    <string name="viewer_qs_adaptive_zoom_help">Beim Folgen: zoomt die Karte heran, wenn du dich einer Kurve/Kreuzung der Route näherst, und heraus auf geraden Abschnitten.</string>
+    <string name="viewer_qs_keep_screen_on">Bildschirm anlassen</string>
+    <string name="viewer_qs_fullscreen">Vollbild</string>
+
+    <!-- Toasts -->
+    <string name="viewer_toast_location_permission_record">Zum Aufzeichnen wird die Standortberechtigung benötigt</string>
+    <string name="viewer_toast_activity_no_points">Aktivität ohne Punkte, verworfen</string>
+    <string name="viewer_toast_activity_saved">Aktivität gespeichert</string>
+    <string name="viewer_toast_follow_route_empty">Route zum Folgen ist leer (id=%1$d)</string>
+
+    <!-- Save recording dialog -->
+    <string name="viewer_save_dialog_title">Aktivität speichern</string>
+    <string name="viewer_save_name_label">Name</string>
+    <string name="viewer_save">Speichern</string>
+    <string name="viewer_discard">Verwerfen</string>
+    <string name="viewer_default_activity_name">Aktivität %1$s</string>
+    <string name="viewer_qs_route_meta">%1$.1f km · %2$d Punkte</string>
+
+    <!-- Competition (ghost) mode -->
+    <string name="viewer_qs_tab_competition">Wettkampf</string>
+    <string name="viewer_qs_opponent">Ghost (Gegner)</string>
+    <string name="viewer_qs_opponent_best">Bestzeit</string>
+    <string name="viewer_qs_halo">Farbiger Rand am Bildschirmrand</string>
+    <string name="viewer_qs_halo_help">Grün: du bist vor dem Ghost. Rot: du bist zurück. Blau: gleichauf (innerhalb ±5 m).</string>
+    <string name="viewer_qs_ghost_seconds">Geschätzte Sekunden anzeigen</string>
+    <string name="viewer_toast_ghost_failed">Ghost konnte nicht geladen werden (Track ohne Zeitstempel)</string>
+    <string name="viewer_qs_countdown">3-2-1-Countdown beim Start</string>
+    <string name="countdown_waiting_gps">Warte auf GPS-Signal…</string>
+    <string name="countdown_go">LOS!</string>
+    <string name="countdown_cancel_hint">Zum Abbrechen tippen</string>
+    <string name="countdown_gps_timeout">Kein genaues GPS-Signal — Aufzeichnung nicht gestartet</string>
+    <string name="comp_at_start">Am Startpunkt</string>
+    <string name="comp_start_distance">Startpunkt: %1$d m entfernt</string>
+    <string name="comp_start_distance_km">Startpunkt: %1$.1f km entfernt</string>
+    <string name="viewer_qs_auto_pause">Auto-Pause bei Stillstand</string>
+    <string name="viewer_qs_lap_management">Rundenverwaltung</string>
+    <string name="viewer_qs_auto_lap">Auto-Runde nach Position</string>
+    <string name="viewer_qs_auto_lap_help">Wenn du Runden startest, wird dieser Punkt zur Start-/Ziellinie und jede Überquerung schließt automatisch eine Runde ab. Die manuelle Markierung funktioniert weiterhin.</string>
+    <string name="viewer_qs_auto_pause_secs">Pause nach Stillstand von:</string>
+    <string name="viewer_qs_turn_voice">Abbiegehinweise (Stimme/Töne)</string>
+    <!-- Dades: fixed record button, graph tiles, settings-toggle tiles -->
+    <string name="data_record_start">Aufzeichnen</string>
+    <string name="data_record_lap">Runde</string>
+    <string name="data_record_lap_end">Runden beenden</string>
+    <string name="lap_compete_prompt">Gegen deine beste Runde antreten?</string>
+    <string name="lap_compete_yes">Antreten</string>
+    <string name="lap_compete_no">Nein</string>
+    <string name="data_chart_speed">Tempodiagramm</string>
+    <string name="data_chart_elevation">Höhenprofil</string>
+    <string name="data_toggle_auto_pause">Auto-Pause</string>
+    <string name="data_toggle_turn_voice">Abbiegehinweise</string>
+    <string name="data_toggle_adaptive_zoom">Adaptiver Zoom</string>
+    <string name="data_toggle_keep_screen">Bildschirm anlassen</string>
+    <string name="data_toggle_barometer">Barometer</string>
+    <string name="data_toggle_barometer_hint">Gilt für die nächste Aufzeichnung</string>
+</resources>

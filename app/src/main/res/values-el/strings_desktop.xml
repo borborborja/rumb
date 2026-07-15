@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Λειτουργία υπολογιστή</string>
+    <string name="home_cd_desktop">Λειτουργία υπολογιστή</string>
+    <string name="desktop_url_label">Ανοίξτε αυτή τη διεύθυνση στο πρόγραμμα περιήγησης του υπολογιστή σας:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Ο υπολογιστής σας πρέπει να είναι στο ίδιο WiFi. Ο διακομιστής λειτουργεί μόνο όσο είναι ανοιχτή αυτή η οθόνη.</string>
+    <string name="desktop_no_wifi">Η λειτουργία υπολογιστή χρειάζεται το τηλέφωνο και τον υπολογιστή στο ίδιο δίκτυο, και δεν υπάρχει WiFi αυτή τη στιγμή.</string>
+    <string name="desktop_hotspot_hint">Δεν υπάρχει WiFi κοντά; Ενεργοποιήστε το hotspot του τηλεφώνου, συνδέστε τον υπολογιστή σε αυτό και η διεύθυνση θα εμφανιστεί εδώ.</string>
+    <string name="desktop_open_hotspot">Άνοιγμα ρυθμίσεων hotspot</string>
+    <string name="desktop_running">Ο διακομιστής λειτουργεί</string>
+    <string name="desktop_stop">Διακοπή και έξοδος</string>
+    <string name="desktop_server_error">Δεν ήταν δυνατή η εκκίνηση του διακομιστή.</string>
+</resources>

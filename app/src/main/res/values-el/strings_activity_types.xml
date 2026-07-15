@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_type_walk">Περπάτημα</string>
+    <string name="activity_type_run">Τρέξιμο</string>
+    <string name="activity_type_trail_run">Ορεινό τρέξιμο</string>
+    <string name="activity_type_road_bike">Ποδηλασία δρόμου</string>
+    <string name="activity_type_mtb">MTB</string>
+    <string name="activity_type_hike">Πεζοπορία</string>
+    <string name="activity_type_ski">Σκι</string>
+    <string name="activity_type_skate">Πατινάζ</string>
+    <string name="activity_type_kayak">Καγιάκ</string>
+    <string name="activity_type_swim">Κολύμβηση</string>
+    <string name="activity_type_none">Χωρίς τύπο</string>
+    <string name="difficulty_easy">Εύκολο</string>
+    <string name="difficulty_moderate">Μέτριο</string>
+    <string name="difficulty_hard">Δύσκολο</string>
+    <string name="difficulty_very_hard">Πολύ δύσκολο</string>
+</resources>

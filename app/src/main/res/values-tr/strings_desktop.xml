@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Masaüstü modu</string>
+    <string name="home_cd_desktop">Masaüstü modu</string>
+    <string name="desktop_url_label">Bu adresi bilgisayarınızın tarayıcısında açın:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Bilgisayarınız aynı WiFi ağında olmalı. Sunucu yalnızca bu ekran açıkken çalışır.</string>
+    <string name="desktop_no_wifi">Masaüstü modu için telefon ile bilgisayarın aynı ağda olması gerekir ve şu anda WiFi yok.</string>
+    <string name="desktop_hotspot_hint">Yakında WiFi yok mu? Telefonunuzun ortak erişim noktasını açın, bilgisayarı ona bağlayın; adres burada görünecek.</string>
+    <string name="desktop_open_hotspot">Ortak erişim ayarlarını aç</string>
+    <string name="desktop_running">Sunucu çalışıyor</string>
+    <string name="desktop_stop">Durdur ve çık</string>
+    <string name="desktop_server_error">Sunucu başlatılamadı.</string>
+</resources>

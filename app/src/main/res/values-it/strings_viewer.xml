@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Viewer top bar -->
+    <string name="viewer_tab_map">Mappa</string>
+    <string name="viewer_tab_data">Dati</string>
+    <string name="viewer_cd_exit">Esci dal visualizzatore</string>
+    <string name="viewer_cd_edit_page">Modifica la schermata corrente</string>
+    <string name="viewer_cd_settings">Impostazioni visualizzatore</string>
+
+    <!-- HUD controls -->
+    <string name="viewer_cd_center">Centra</string>
+    <string name="viewer_cd_north">Nord</string>
+    <string name="viewer_cd_zoom_in">Ingrandisci</string>
+    <string name="viewer_cd_zoom_out">Riduci</string>
+    <string name="viewer_cd_pause">Pausa</string>
+    <string name="viewer_cd_resume">Riprendi</string>
+    <string name="viewer_off_route">Fuori percorso · %1$d m</string>
+
+    <!-- Quick-settings sheet -->
+    <string name="viewer_qs_tab_map">Mappa</string>
+    <string name="viewer_qs_tab_route">Percorso</string>
+    <string name="viewer_qs_tab_options">Opzioni</string>
+    <string name="viewer_qs_online_map">Mappa online</string>
+    <string name="viewer_qs_offline_map">Mappa offline</string>
+    <string name="viewer_qs_offline_subtitle">offline</string>
+    <string name="viewer_qs_route_to_follow">Percorso da seguire</string>
+    <string name="viewer_qs_route_none">Nessuno</string>
+    <string name="viewer_qs_route_none_subtitle">nessun percorso</string>
+    <string name="viewer_qs_no_routes_yet">Ancora nessun percorso. Creane o importane da «Tracce da seguire».</string>
+    <string name="viewer_qs_map_orientation">Orientamento mappa</string>
+    <string name="viewer_qs_north_up">Nord in alto</string>
+    <string name="viewer_qs_heading_up">Direzione in alto</string>
+    <string name="viewer_qs_adaptive_zoom">Zoom automatico alle svolte del percorso</string>
+    <string name="viewer_qs_adaptive_zoom_help">Durante il tracciamento: ingrandisce la mappa quando ti avvicini a una svolta/incrocio del percorso e la riduce nei tratti dritti.</string>
+    <string name="viewer_qs_keep_screen_on">Mantieni lo schermo acceso</string>
+    <string name="viewer_qs_fullscreen">Schermo intero</string>
+
+    <!-- Toasts -->
+    <string name="viewer_toast_location_permission_record">È necessario il permesso di posizione per registrare</string>
+    <string name="viewer_toast_activity_no_points">Attività senza punti, scartata</string>
+    <string name="viewer_toast_activity_saved">Attività salvata</string>
+    <string name="viewer_toast_follow_route_empty">Il percorso da seguire è vuoto (id=%1$d)</string>
+
+    <!-- Save recording dialog -->
+    <string name="viewer_save_dialog_title">Salva attività</string>
+    <string name="viewer_save_name_label">Nome</string>
+    <string name="viewer_save">Salva</string>
+    <string name="viewer_discard">Scarta</string>
+    <string name="viewer_default_activity_name">Attività %1$s</string>
+    <string name="viewer_qs_route_meta">%1$.1f km · %2$d punti</string>
+
+    <!-- Competition (ghost) mode -->
+    <string name="viewer_qs_tab_competition">Competizione</string>
+    <string name="viewer_qs_opponent">Ghost (avversario)</string>
+    <string name="viewer_qs_opponent_best">miglior tempo</string>
+    <string name="viewer_qs_halo">Alone colorato ai bordi dello schermo</string>
+    <string name="viewer_qs_halo_help">Verde: sei davanti al ghost. Rosso: sei indietro. Blu: pari (entro ±5 m).</string>
+    <string name="viewer_qs_ghost_seconds">Mostra secondi stimati</string>
+    <string name="viewer_toast_ghost_failed">Impossibile caricare il ghost (traccia senza timestamp)</string>
+    <string name="viewer_qs_countdown">Conto alla rovescia 3-2-1 alla partenza</string>
+    <string name="countdown_waiting_gps">In attesa del segnale GPS…</string>
+    <string name="countdown_go">VIA!</string>
+    <string name="countdown_cancel_hint">Tocca per annullare</string>
+    <string name="countdown_gps_timeout">Nessun fix GPS preciso — registrazione non avviata</string>
+    <string name="comp_at_start">Al punto di partenza</string>
+    <string name="comp_start_distance">Punto di partenza: a %1$d m</string>
+    <string name="comp_start_distance_km">Punto di partenza: a %1$.1f km</string>
+    <string name="viewer_qs_auto_pause">Pausa automatica da fermo</string>
+    <string name="viewer_qs_lap_management">Gestione giri</string>
+    <string name="viewer_qs_auto_lap">Giro automatico per posizione</string>
+    <string name="viewer_qs_auto_lap_help">Quando avvii i giri, quel punto diventa la linea di partenza/arrivo e ogni passaggio chiude un giro automaticamente. Il flag manuale funziona comunque.</string>
+    <string name="viewer_qs_auto_pause_secs">Pausa dopo essere fermo per:</string>
+    <string name="viewer_qs_turn_voice">Avvisi di svolta (voce/beep)</string>
+    <!-- Dades: fixed record button, graph tiles, settings-toggle tiles -->
+    <string name="data_record_start">Registra</string>
+    <string name="data_record_lap">Giro</string>
+    <string name="data_record_lap_end">Termina giri</string>
+    <string name="lap_compete_prompt">Gareggia col tuo miglior giro?</string>
+    <string name="lap_compete_yes">Gareggia</string>
+    <string name="lap_compete_no">No</string>
+    <string name="data_chart_speed">Grafico velocità</string>
+    <string name="data_chart_elevation">Profilo altimetrico</string>
+    <string name="data_toggle_auto_pause">Pausa automatica</string>
+    <string name="data_toggle_turn_voice">Avvisi di svolta</string>
+    <string name="data_toggle_adaptive_zoom">Zoom adattivo</string>
+    <string name="data_toggle_keep_screen">Mantieni schermo acceso</string>
+    <string name="data_toggle_barometer">Barometro</string>
+    <string name="data_toggle_barometer_hint">Si applica alla prossima registrazione</string>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — Turkish. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Çık</string>
+    <string name="editor_configure">Yapılandır</string>
+    <string name="editor_remove">Kaldır</string>
+    <string name="editor_resize">Yeniden boyutlandır</string>
+    <string name="editor_move">Taşı</string>
+    <string name="editor_done">Bitti</string>
+    <string name="editor_global_settings">Genel ayarlar</string>
+    <string name="editor_show_graph">Grafik</string>
+    <string name="editor_tab_general">Genel</string>
+    <string name="editor_tab_competition">Yarış</string>
+    <string name="editor_tab_settings">Ayarlar</string>
+    <string name="editor_competition_hint">Şimdi eklenir, yarış etkinken gösterilir.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Widget\'lar</string>
+    <string name="editor_widget">Widget</string>
+    <string name="editor_metrics">Metrikler</string>
+    <string name="editor_charts">Grafikler</string>
+    <string name="editor_controls">Kontroller</string>
+    <string name="editor_presets">Hazır ayarlar</string>
+    <string name="editor_global_size">Genel boyut</string>
+    <string name="editor_font_size">Yazı boyutu: %1$.0f%%</string>
+    <string name="editor_value_color">Değer rengi</string>
+    <string name="editor_show_chart">Grafiği göster</string>
+    <string name="editor_time_format">Saat biçimi</string>
+    <string name="editor_zone">Bölge</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Sütunlar</string>
+    <string name="editor_format">Biçim</string>
+    <string name="editor_width">Genişlik</string>
+    <string name="editor_no_tiles">Kutu yok. «Metrikler ▾» menüsünden metrik ekleyin.</string>
+    <string name="preset_cycling">Bisiklet</string>
+    <string name="preset_trail">Patika</string>
+    <string name="preset_ski">Kayak</string>
+    <string name="editor_extra">Diğerleri</string>
+</resources>

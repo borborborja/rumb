@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Route detail screen -->
+    <string name="routes_route_fallback_title">Rota</string>
+    <string name="routes_edit_trace">İzi düzenle</string>
+    <string name="routes_stat_distance">Mesafe</string>
+    <string name="routes_stat_ascent">Tırmanış +</string>
+    <string name="routes_history_title">Geçmiş</string>
+    <string name="routes_stat_points">Nokta</string>
+    <string name="routes_distance_km_format">%1$.2f km</string>
+    <string name="routes_ascent_m_format">%1$d m</string>
+    <string name="routes_source_collection">Kaynak: %1$s · Koleksiyon: %2$s</string>
+    <string name="routes_follow_this_route">Bu rotayı takip et</string>
+    <string name="routes_active_follow_toast">Rota takip için etkin</string>
+    <string name="routes_rename">Yeniden adlandır</string>
+    <string name="routes_collection">Koleksiyon</string>
+    <string name="routes_download_route_map">Rota haritasını indir</string>
+    <string name="routes_delete">Sil</string>
+    <string name="routes_rename_route_title">Rotayı yeniden adlandır</string>
+    <string name="routes_delete_route_title">Rotayı sil</string>
+    <string name="routes_delete_confirm">«%1$s» silinsin mi?</string>
+
+    <!-- Route editor screen -->
+    <string name="routes_create_route">Rota oluştur</string>
+    <string name="routes_edit_route">Rotayı düzenle</string>
+    <string name="routes_back">Geri</string>
+    <string name="routes_undo">Geri al</string>
+    <string name="routes_save">Kaydet</string>
+    <string name="routes_cancel">İptal</string>
+    <string name="routes_save_route_title">Rotayı kaydet</string>
+    <string name="routes_save_changes_title">Değişiklikleri kaydet</string>
+    <string name="routes_name_label">Ad</string>
+    <string name="routes_snap_to_path">Yola oturt</string>
+    <string name="routes_tap_map_to_add_points">Nokta eklemek için haritaya dokunun.</string>
+    <string name="routes_new_route_default_name">Yeni rota</string>
+
+    <!-- Routing profiles -->
+    <string name="routing_hiking">Doğa yürüyüşü</string>
+    <string name="routing_trekking">Bisiklet/trekking</string>
+    <string name="routing_mtb">MTB</string>
+    <string name="routing_shortest">En kısa</string>
+    <string name="routes_type">Tür</string>
+    <string name="routes_assign_type_title">Etkinlik türü</string>
+    <string name="routes_stat_time">Süre</string>
+    <string name="routes_stat_avg_speed">Ort. km/s</string>
+    <string name="routes_stat_avg_hr">Ort. KH</string>
+</resources>

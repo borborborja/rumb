@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="competition_title">Tävling</string>
+    <string name="competition_play_cd">Tävla nu</string>
+    <string name="competition_col_date">Datum</string>
+    <string name="competition_col_time">Tid</string>
+    <string name="competition_col_speed">Fart</string>
+    <string name="competition_col_hr">Puls</string>
+    <string name="competition_col_diff">Diff</string>
+    <string name="competition_row_average">Snitt</string>
+    <string name="competition_best_badge">Bäst</string>
+    <string name="competition_gap_chart_title">Gap mot bästa (var du vinner eller tappar)</string>
+    <string name="comp_evolution_title">Utveckling</string>
+    <string name="comp_metric_time">Tid</string>
+    <string name="comp_metric_speed">Snittfart</string>
+    <string name="comp_metric_hr">Snittpuls</string>
+    <string name="competition_gap_ahead">Snabbare än bästa</string>
+    <string name="competition_gap_behind">Långsammare än bästa</string>
+    <string name="competition_hr_zones_title">Pulszoner</string>
+    <string name="competition_hr_no_data">Inga pulsdata i något försök</string>
+    <string name="competition_attempts_count">%1$d försök</string>
+    <string name="competition_type_route">Rutt</string>
+    <string name="competition_type_lap">Varv</string>
+    <string name="competition_empty">Inga tävlingar än. Öppna ett träningspass och «Skicka till tävling», eller använd ett pass med varv för att skapa en varvbana.</string>
+    <string name="competition_zone_fmt">Z%1$d</string>
+    <string name="competition_archived_section">Arkiverade</string>
+    <string name="competition_archive">Arkivera tävling</string>
+    <string name="competition_unarchive">Avarkivera</string>
+    <string name="competition_delete">Ta bort tävling</string>
+    <string name="competition_delete_msg">Själva spåren finns kvar i biblioteket.</string>
+    <string name="competition_remove_attempt">Ta bort från tävling</string>
+    <string name="competition_cd_menu">Tävlingsalternativ</string>
+</resources>

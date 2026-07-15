@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Kortlag</string>
+    <string name="maps_tab_online">Online</string>
+    <string name="maps_tab_offline">Offline</string>
+    <string name="maps_base_map_title">Basiskort til visningen</string>
+    <string name="maps_default_map_name">kort</string>
+    <string name="maps_download_area">Download område</string>
+    <string name="maps_import_mbtiles">Importér</string>
+    <string name="maps_empty_offline">Ingen offlinekort endnu. Download et område eller importér en .mbtiles-fil (f.eks. de officielle ICGC topografiske eller ortofoto-kort fra visors.icgc.cat/appdownloads).</string>
+    <string name="maps_size_sectors">%1$.1f MB · %2$d sektorer</string>
+    <string name="maps_delete">Slet</string>
+    <string name="maps_manage_sectors">Administrér sektorer</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Offlinesektorer</string>
+    <string name="maps_add_sector">Tilføj sektor</string>
+    <string name="maps_no_sectors">Ingen sektorer. Tilføj en ved at downloade et område.</string>
+    <string name="maps_unknown_map_type">Ukendt korttype</string>
+    <string name="maps_redownloading">Downloader sektor igen…</string>
+    <string name="maps_area_name">%1$s · område</string>
+    <string name="maps_delete_sector_title">Slet sektor</string>
+    <string name="maps_delete_sector_msg">Fliser i denne sektor, der ikke deles med andre sektorer, slettes.</string>
+    <string name="maps_cancel">Annuller</string>
+    <string name="maps_sector_n">Sektor %1$d</string>
+    <string name="maps_sector_meta">zoom %1$d–%2$d · %3$,d fliser · %4$.0f×%5$.0f km</string>
+    <string name="maps_redownload">Download igen</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Tilbage</string>
+    <string name="maps_mode_route">Rute</string>
+    <string name="maps_mode_province">Provins</string>
+    <string name="maps_mode_visible">Synligt område</string>
+    <string name="maps_mode_draw">Tegn</string>
+    <string name="maps_route_hint">Område for den valgte rute. Vælg kilde og zoom, og download derefter.</string>
+    <string name="maps_visible_hint">Placér kortet, og tryk på «Synligt område» igen for at opdatere.</string>
+    <string name="maps_draw_hint">Træk på kortet for at tegne rektanglet.</string>
+    <string name="maps_zoom_range">Zoom %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d fliser · %2$.0f MB</string>
+    <string name="maps_over_limit">Område/zoom for stort (maks. %1$dk). Reducer zoom.</string>
+    <string name="maps_osm_warning">OSM fraråder masseoverførsler; brug ICGC til store områder.</string>
+    <string name="maps_downloading">Downloader… %1$d / %2$d</string>
+    <string name="maps_download_done">Download fuldført ✓ — du kan nu vælge det under Offlinekort.</string>
+    <string name="maps_download">Download</string>
+</resources>

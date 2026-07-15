@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Warstwy mapy</string>
+    <string name="maps_tab_online">Online</string>
+    <string name="maps_tab_offline">Offline</string>
+    <string name="maps_base_map_title">Mapa bazowa dla podglądu</string>
+    <string name="maps_default_map_name">mapa</string>
+    <string name="maps_download_area">Pobierz obszar</string>
+    <string name="maps_import_mbtiles">Importuj</string>
+    <string name="maps_empty_offline">Brak map offline. Pobierz obszar lub zaimportuj plik .mbtiles (np. oficjalne mapy topograficzne lub ortofoto ICGC z visors.icgc.cat/appdownloads).</string>
+    <string name="maps_size_sectors">%1$.1f MB · %2$d sektorów</string>
+    <string name="maps_delete">Usuń</string>
+    <string name="maps_manage_sectors">Zarządzaj sektorami</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Sektory offline</string>
+    <string name="maps_add_sector">Dodaj sektor</string>
+    <string name="maps_no_sectors">Brak sektorów. Dodaj jeden, pobierając obszar.</string>
+    <string name="maps_unknown_map_type">Nieznany typ mapy</string>
+    <string name="maps_redownloading">Ponowne pobieranie sektora…</string>
+    <string name="maps_area_name">%1$s · obszar</string>
+    <string name="maps_delete_sector_title">Usuń sektor</string>
+    <string name="maps_delete_sector_msg">Kafelki tego sektora niewspółdzielone z innym sektorem zostaną usunięte.</string>
+    <string name="maps_cancel">Anuluj</string>
+    <string name="maps_sector_n">Sektor %1$d</string>
+    <string name="maps_sector_meta">zoom %1$d–%2$d · %3$,d kafelków · %4$.0f×%5$.0f km</string>
+    <string name="maps_redownload">Pobierz ponownie</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Wstecz</string>
+    <string name="maps_mode_route">Trasa</string>
+    <string name="maps_mode_province">Prowincja</string>
+    <string name="maps_mode_visible">Widoczny obszar</string>
+    <string name="maps_mode_draw">Rysuj</string>
+    <string name="maps_route_hint">Obszar wybranej trasy. Wybierz źródło i zoom, potem pobierz.</string>
+    <string name="maps_visible_hint">Wykadruj mapę i naciśnij «Widoczny obszar» ponownie, aby zaktualizować.</string>
+    <string name="maps_draw_hint">Przeciągnij po mapie, aby narysować prostokąt.</string>
+    <string name="maps_zoom_range">Zoom %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d kafelków · %2$.0f MB</string>
+    <string name="maps_over_limit">Obszar/zoom za duży (maks. %1$dk). Zmniejsz zoom.</string>
+    <string name="maps_osm_warning">OSM odradza masowe pobieranie; dla dużych obszarów użyj ICGC.</string>
+    <string name="maps_downloading">Pobieranie… %1$d / %2$d</string>
+    <string name="maps_download_done">Pobieranie zakończone ✓ — możesz je teraz wybrać w Mapach offline.</string>
+    <string name="maps_download">Pobierz</string>
+</resources>

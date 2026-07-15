@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Viewer top bar -->
+    <string name="viewer_tab_map">Kartta</string>
+    <string name="viewer_tab_data">Data</string>
+    <string name="viewer_cd_exit">Poistu katselimesta</string>
+    <string name="viewer_cd_edit_page">Muokkaa nykyistä näyttöä</string>
+    <string name="viewer_cd_settings">Katselimen asetukset</string>
+
+    <!-- HUD controls -->
+    <string name="viewer_cd_center">Keskitä</string>
+    <string name="viewer_cd_north">Pohjoinen</string>
+    <string name="viewer_cd_zoom_in">Lähennä</string>
+    <string name="viewer_cd_zoom_out">Loitonna</string>
+    <string name="viewer_cd_pause">Keskeytä</string>
+    <string name="viewer_cd_resume">Jatka</string>
+    <string name="viewer_off_route">Poissa reitiltä · %1$d m</string>
+
+    <!-- Quick-settings sheet -->
+    <string name="viewer_qs_tab_map">Kartta</string>
+    <string name="viewer_qs_tab_route">Reitti</string>
+    <string name="viewer_qs_tab_options">Asetukset</string>
+    <string name="viewer_qs_online_map">Verkkokartta</string>
+    <string name="viewer_qs_offline_map">Offline-kartta</string>
+    <string name="viewer_qs_offline_subtitle">offline</string>
+    <string name="viewer_qs_route_to_follow">Seurattava reitti</string>
+    <string name="viewer_qs_route_none">Ei mitään</string>
+    <string name="viewer_qs_route_none_subtitle">ei reittiä</string>
+    <string name="viewer_qs_no_routes_yet">Ei vielä reittejä. Luo tai tuo niitä «Seurattavat reitit» -näkymästä.</string>
+    <string name="viewer_qs_map_orientation">Kartan suuntaus</string>
+    <string name="viewer_qs_north_up">Pohjoinen ylös</string>
+    <string name="viewer_qs_heading_up">Kulkusuunta ylös</string>
+    <string name="viewer_qs_adaptive_zoom">Automaattinen zoom reitin käännöksissä</string>
+    <string name="viewer_qs_adaptive_zoom_help">Seurattaessa: lähentää karttaa lähestyessäsi reitin käännöstä/risteystä ja loitontaa suorilla osuuksilla.</string>
+    <string name="viewer_qs_keep_screen_on">Pidä näyttö päällä</string>
+    <string name="viewer_qs_fullscreen">Koko näyttö</string>
+
+    <!-- Toasts -->
+    <string name="viewer_toast_location_permission_record">Tallennus vaatii sijaintiluvan</string>
+    <string name="viewer_toast_activity_no_points">Aktiviteetti ilman pisteitä, hylätty</string>
+    <string name="viewer_toast_activity_saved">Aktiviteetti tallennettu</string>
+    <string name="viewer_toast_follow_route_empty">Seurattava reitti on tyhjä (id=%1$d)</string>
+
+    <!-- Save recording dialog -->
+    <string name="viewer_save_dialog_title">Tallenna aktiviteetti</string>
+    <string name="viewer_save_name_label">Nimi</string>
+    <string name="viewer_save">Tallenna</string>
+    <string name="viewer_discard">Hylkää</string>
+    <string name="viewer_default_activity_name">Aktiviteetti %1$s</string>
+    <string name="viewer_qs_route_meta">%1$.1f km · %2$d pistettä</string>
+
+    <!-- Competition (ghost) mode -->
+    <string name="viewer_qs_tab_competition">Kilpailu</string>
+    <string name="viewer_qs_opponent">Haamu (vastustaja)</string>
+    <string name="viewer_qs_opponent_best">paras aika</string>
+    <string name="viewer_qs_halo">Näytön reunan värikehä</string>
+    <string name="viewer_qs_halo_help">Vihreä: olet haamun edellä. Punainen: olet jäljessä. Sininen: tasan (±5 m).</string>
+    <string name="viewer_qs_ghost_seconds">Näytä arvioidut sekunnit</string>
+    <string name="viewer_toast_ghost_failed">Haamua ei voitu ladata (reitti ilman aikaleimoja)</string>
+    <string name="viewer_qs_countdown">3-2-1-lähtölaskenta aloitettaessa</string>
+    <string name="countdown_waiting_gps">Odotetaan GPS-signaalia…</string>
+    <string name="countdown_go">LÄHDE!</string>
+    <string name="countdown_cancel_hint">Peruuta napauttamalla</string>
+    <string name="countdown_gps_timeout">Ei tarkkaa GPS-paikannusta — tallennusta ei aloitettu</string>
+    <string name="comp_at_start">Lähtöpisteessä</string>
+    <string name="comp_start_distance">Lähtöpiste: %1$d m päässä</string>
+    <string name="comp_start_distance_km">Lähtöpiste: %1$.1f km päässä</string>
+    <string name="viewer_qs_auto_pause">Keskeytä automaattisesti pysähdyksissä</string>
+    <string name="viewer_qs_lap_management">Kierrosten hallinta</string>
+    <string name="viewer_qs_auto_lap">Automaattinen kierros sijainnin mukaan</string>
+    <string name="viewer_qs_auto_lap_help">Kun aloitat kierrokset, siitä kohdasta tulee lähtö-/maaliviiva ja jokainen ylitys sulkee kierroksen automaattisesti. Manuaalinen merkintä toimii yhä.</string>
+    <string name="viewer_qs_auto_pause_secs">Keskeytä paikallaan olon jälkeen:</string>
+    <string name="viewer_qs_turn_voice">Käännösvaroitukset (ääni/piippaukset)</string>
+    <!-- Dades: fixed record button, graph tiles, settings-toggle tiles -->
+    <string name="data_record_start">Tallenna</string>
+    <string name="data_record_lap">Kierros</string>
+    <string name="data_record_lap_end">Lopeta kierrokset</string>
+    <string name="lap_compete_prompt">Kilpaile parasta kierrostasi vastaan?</string>
+    <string name="lap_compete_yes">Kilpaile</string>
+    <string name="lap_compete_no">Ei</string>
+    <string name="data_chart_speed">Nopeuskaavio</string>
+    <string name="data_chart_elevation">Korkeusprofiili</string>
+    <string name="data_toggle_auto_pause">Automaattinen tauko</string>
+    <string name="data_toggle_turn_voice">Käännösvaroitukset</string>
+    <string name="data_toggle_adaptive_zoom">Mukautuva zoom</string>
+    <string name="data_toggle_keep_screen">Pidä näyttö päällä</string>
+    <string name="data_toggle_barometer">Barometri</string>
+    <string name="data_toggle_barometer_hint">Koskee seuraavaa tallennusta</string>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — English (default). -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Beenden</string>
+    <string name="editor_configure">Konfigurieren</string>
+    <string name="editor_remove">Entfernen</string>
+    <string name="editor_resize">Größe ändern</string>
+    <string name="editor_move">Verschieben</string>
+    <string name="editor_done">Fertig</string>
+    <string name="editor_global_settings">Globale Einstellungen</string>
+    <string name="editor_show_graph">Diagramm</string>
+    <string name="editor_tab_general">Allgemein</string>
+    <string name="editor_tab_competition">Wettkampf</string>
+    <string name="editor_tab_settings">Einstellungen</string>
+    <string name="editor_competition_hint">Jetzt hinzugefügt, wird bei aktivem Wettkampf angezeigt.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Widgets</string>
+    <string name="editor_widget">Widget</string>
+    <string name="editor_metrics">Metriken</string>
+    <string name="editor_charts">Diagramme</string>
+    <string name="editor_controls">Steuerung</string>
+    <string name="editor_presets">Vorlagen</string>
+    <string name="editor_global_size">Globale Größe</string>
+    <string name="editor_font_size">Schriftgröße: %1$.0f%%</string>
+    <string name="editor_value_color">Wertfarbe</string>
+    <string name="editor_show_chart">Diagramm anzeigen</string>
+    <string name="editor_time_format">Zeitformat</string>
+    <string name="editor_zone">Zone</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Spalten</string>
+    <string name="editor_format">Format</string>
+    <string name="editor_width">Breite</string>
+    <string name="editor_no_tiles">Keine Kacheln. Füge Metriken über «Metriken ▾» hinzu.</string>
+    <string name="preset_cycling">Radfahren</string>
+    <string name="preset_trail">Trail</string>
+    <string name="preset_ski">Ski</string>
+    <string name="editor_extra">Weitere</string>
+</resources>

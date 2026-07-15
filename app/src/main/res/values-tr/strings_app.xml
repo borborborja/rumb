@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lang_title">Uygulama dili</string>
+    <string name="lang_system">Sistem varsayılanı</string>
+    <string name="lang_hint_old">Bu Android sürümünde uygulama dilini sistemin dil ayarlarından değiştirin.</string>
+</resources>

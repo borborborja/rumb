@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tab_progress">Framsteg</string>
+    <string name="progress_all">Alla</string>
+    <string name="progress_this_week">Denna vecka</string>
+    <string name="progress_vs_last_week">mot förra veckan</string>
+    <string name="progress_km">km</string>
+    <string name="progress_hours">Timmar</string>
+    <string name="progress_ascent">Stigning</string>
+    <string name="progress_activities">Aktiviteter</string>
+    <string name="progress_weeks_chart">Senaste 12 veckorna (km)</string>
+    <string name="progress_streak_weeks">%1$d veckor i rad</string>
+    <string name="progress_totals">Totalt</string>
+    <string name="records_entry">Rekord</string>
+    <string name="heatmap_entry">Värmekarta</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Personal records -->
+    <string name="records_title">Record</string>
+    <string name="records_computing">Analisi %1$d/%2$d…</string>
+    <string name="records_empty">Ancora nessun record. Registra o importa allenamenti per vedere i tuoi primati personali.</string>
+    <string name="records_fastest_1k">1 km più veloce</string>
+    <string name="records_fastest_5k">5 km più veloci</string>
+    <string name="records_fastest_10k">10 km più veloci</string>
+    <string name="records_fastest_half">Mezza maratona più veloce</string>
+    <string name="records_longest">Attività più lunga</string>
+    <string name="records_max_ascent">Maggior dislivello</string>
+    <string name="records_max_speed">Velocità massima</string>
+    <string name="records_longest_time">Tempo più lungo</string>
+    <string name="records_stat_calories">Calorie</string>
+
+    <!-- Heatmap -->
+    <string name="heatmap_title">Mappa di calore</string>
+    <string name="heatmap_include_routes">Includi percorsi</string>
+    <string name="heatmap_loading">%1$d/%2$d tracce</string>
+</resources>

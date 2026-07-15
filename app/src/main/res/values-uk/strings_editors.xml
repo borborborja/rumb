@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — Ukrainian. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Вийти</string>
+    <string name="editor_configure">Налаштувати</string>
+    <string name="editor_remove">Прибрати</string>
+    <string name="editor_resize">Змінити розмір</string>
+    <string name="editor_move">Перемістити</string>
+    <string name="editor_done">Готово</string>
+    <string name="editor_global_settings">Загальні налаштування</string>
+    <string name="editor_show_graph">Графік</string>
+    <string name="editor_tab_general">Загальне</string>
+    <string name="editor_tab_competition">Змагання</string>
+    <string name="editor_tab_settings">Налаштування</string>
+    <string name="editor_competition_hint">Додається зараз, показується під час активного змагання.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Віджети</string>
+    <string name="editor_widget">Віджет</string>
+    <string name="editor_metrics">Показники</string>
+    <string name="editor_charts">Графіки</string>
+    <string name="editor_controls">Керування</string>
+    <string name="editor_presets">Пресети</string>
+    <string name="editor_global_size">Загальний розмір</string>
+    <string name="editor_font_size">Розмір шрифту: %1$.0f%%</string>
+    <string name="editor_value_color">Колір значення</string>
+    <string name="editor_show_chart">Показати графік</string>
+    <string name="editor_time_format">Формат часу</string>
+    <string name="editor_zone">Зона</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Стовпці</string>
+    <string name="editor_format">Формат</string>
+    <string name="editor_width">Ширина</string>
+    <string name="editor_no_tiles">Немає плиток. Додайте показники з «Показники ▾».</string>
+    <string name="preset_cycling">Велоспорт</string>
+    <string name="preset_trail">Трейл</string>
+    <string name="preset_ski">Лижі</string>
+    <string name="editor_extra">Інше</string>
+</resources>

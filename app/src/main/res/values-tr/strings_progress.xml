@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tab_progress">İlerleme</string>
+    <string name="progress_all">Tümü</string>
+    <string name="progress_this_week">Bu hafta</string>
+    <string name="progress_vs_last_week">geçen haftaya göre</string>
+    <string name="progress_km">km</string>
+    <string name="progress_hours">Saat</string>
+    <string name="progress_ascent">Tırmanış</string>
+    <string name="progress_activities">Etkinlikler</string>
+    <string name="progress_weeks_chart">Son 12 hafta (km)</string>
+    <string name="progress_streak_weeks">%1$d hafta üst üste</string>
+    <string name="progress_totals">Tüm zamanlar</string>
+    <string name="records_entry">Rekorlar</string>
+    <string name="heatmap_entry">Isı haritası</string>
+</resources>

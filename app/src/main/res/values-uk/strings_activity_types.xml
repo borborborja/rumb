@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_type_walk">Ходьба</string>
+    <string name="activity_type_run">Біг</string>
+    <string name="activity_type_trail_run">Трейлраннінг</string>
+    <string name="activity_type_road_bike">Шосейний велоспорт</string>
+    <string name="activity_type_mtb">MTB</string>
+    <string name="activity_type_hike">Похід</string>
+    <string name="activity_type_ski">Лижі</string>
+    <string name="activity_type_skate">Ковзани</string>
+    <string name="activity_type_kayak">Каяк</string>
+    <string name="activity_type_swim">Плавання</string>
+    <string name="activity_type_none">Без типу</string>
+    <string name="difficulty_easy">Легко</string>
+    <string name="difficulty_moderate">Помірно</string>
+    <string name="difficulty_hard">Важко</string>
+    <string name="difficulty_very_hard">Дуже важко</string>
+</resources>

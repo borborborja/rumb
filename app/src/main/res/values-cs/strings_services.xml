@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rec_notif_channel">Nahrávání aktivity</string>
+    <string name="rec_notif_recording">Nahrávání aktivity</string>
+    <string name="rec_notif_paused">Nahrávání pozastaveno</string>
+    <string name="rec_notif_on_pause_suffix"> · POZASTAVENO</string>
+    <string name="rec_action_pause">Pozastavit</string>
+    <string name="rec_action_resume">Pokračovat</string>
+    <string name="rec_action_stop">Zastavit</string>
+    <string name="dl_notif_channel">Stahování map</string>
+    <string name="dl_notif_title">Stahování offline mapy</string>
+    <string name="prefetch_notif_title">Stahování mapy trasy</string>
+    <string name="dl_notif_progress">%1$d / %2$d dlaždic</string>
+    <string name="share_export_title">Exportovat "%1$s"</string>
+    <string name="rec_low_accuracy_start">Zahájeno s nízkou přesností GPS</string>
+    <string name="share_format_title">Formát sdílení</string>
+    <string name="share_format_auto">Automaticky (nejlepší)</string>
+    <string name="share_format_gpx">GPX · trasa + senzory</string>
+    <string name="share_format_tcx">TCX · s okruhy</string>
+    <string name="share_format_kml">KML · jen trasa (Google Earth)</string>
+</resources>

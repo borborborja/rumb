@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Desktop-Modus</string>
+    <string name="home_cd_desktop">Desktop-Modus</string>
+    <string name="desktop_url_label">Öffne diese Adresse im Browser deines Computers:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Dein Computer muss im selben WLAN sein. Der Server läuft nur, solange dieser Bildschirm offen ist.</string>
+    <string name="desktop_no_wifi">Der Desktop-Modus benötigt Telefon und Computer im selben Netzwerk, aber gerade gibt es kein WLAN.</string>
+    <string name="desktop_hotspot_hint">Kein WLAN in der Nähe? Aktiviere den Hotspot deines Telefons, verbinde den Computer damit, und die Adresse erscheint hier.</string>
+    <string name="desktop_open_hotspot">Hotspot-Einstellungen öffnen</string>
+    <string name="desktop_running">Server läuft</string>
+    <string name="desktop_stop">Stoppen und beenden</string>
+    <string name="desktop_server_error">Server konnte nicht gestartet werden.</string>
+</resources>

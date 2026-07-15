@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="common_back">Înapoi</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Setări</string>
+    <string name="settings_tab_units">Unități</string>
+    <string name="settings_tab_recording">Înregistrare</string>
+    <string name="settings_tab_sync">Sincronizare</string>
+    <string name="settings_tab_appearance">Aspect</string>
+    <string name="settings_tab_route">Traseu</string>
+    <string name="settings_tab_map">Hărți</string>
+    <string name="settings_map_cache">Cache hartă online</string>
+    <string name="settings_map_cache_size">Dimensiune cache: %1$d MB</string>
+    <string name="settings_map_clear_cache">Golește cache-ul</string>
+    <string name="settings_map_cache_cleared">Cache golit</string>
+    <string name="settings_map_prefetch">Preîncărcare traseu</string>
+    <string name="settings_map_prefetch_follow">Descarcă harta când urmezi un traseu</string>
+    <string name="settings_map_prefetch_hint">Descarcă toate dalele traseului când începi să-l urmezi (orice conexiune), astfel încât funcționează fără acoperire.</string>
+    <string name="settings_tab_audio">Audio</string>
+    <string name="settings_tab_activity_types">Tipuri</string>
+    <string name="settings_tab_app">Aplicație</string>
+    <string name="settings_tab_profile">Profil</string>
+    <string name="settings_tab_map_routes">Hartă &amp; trasee</string>
+    <string name="settings_profile_personal">Date personale</string>
+
+    <!-- Activity types -->
+    <string name="settings_types_predefined_header">Tipuri predefinite</string>
+    <string name="settings_types_custom_header">Tipuri personalizate</string>
+    <string name="settings_types_add">Adaugă tip personalizat</string>
+    <string name="settings_types_add_title">Tip personalizat nou</string>
+    <string name="settings_types_edit_title">Editează tipul personalizat</string>
+    <string name="settings_types_name_label">Nume</string>
+    <string name="settings_types_icon_label">Pictogramă</string>
+    <string name="settings_types_delete">Șterge</string>
+    <string name="settings_types_delete_confirm">Ștergi tipul personalizat «%1$s»? Traseele care îl folosesc vor apărea fără tip.</string>
+    <string name="settings_types_empty_custom">Fără tipuri personalizate. Adaugă unul cu butonul de mai jos.</string>
+    <string name="settings_types_save">Salvează</string>
+    <string name="settings_types_cancel">Anulează</string>
+
+    <!-- Units -->
+    <string name="settings_units_distance">Distanță</string>
+    <string name="settings_units_kilometers">Kilometri (km)</string>
+    <string name="settings_units_miles">Mile (mi)</string>
+    <string name="settings_units_elevation">Altitudine și diferență de nivel</string>
+    <string name="settings_units_meters">Metri (m)</string>
+    <string name="settings_units_feet">Picioare (ft)</string>
+    <string name="settings_units_speed">Viteză</string>
+    <string name="settings_units_note">Ritmul folosește unitatea de distanță (min/km sau min/mi); VAM și abaterea folosesc unitatea de altitudine.</string>
+
+    <!-- Sync -->
+    <string name="settings_sync_endurain">Endurain</string>
+    <string name="settings_sync_server_label">Server (https://…)</string>
+    <string name="settings_sync_api_key_label">Cheie API (scope activities:upload)</string>
+    <string name="settings_sync_saved_testing">Salvat. Se testează conexiunea…</string>
+    <string name="settings_sync_connected">Conectat ✓ (%1$s activități pe server)</string>
+    <string name="settings_error">Eroare: %1$s</string>
+    <string name="settings_sync_save_test">Salvează și testează conexiunea</string>
+    <string name="settings_sync_upload_note">Antrenamentele înregistrate se încarcă automat pe Endurain când înregistrarea se oprește (dacă conexiunea este configurată). Coada reîncearcă atunci când nu există rețea.</string>
+    <string name="settings_sync_coming_soon">În curând</string>
+    <string name="settings_sync_coming_soon_items">· Strava\n· Încărcare automată pe Google Drive</string>
+    <string name="settings_sync_status">Stare sincronizare</string>
+    <string name="settings_sync_last_upload">Ultima încărcare: %1$s</string>
+    <string name="settings_sync_pending_failed">%1$d în așteptare · %2$d eșuate</string>
+    <string name="settings_sync_retry_failed">Reîncearcă eșuate</string>
+    <string name="settings_sync_folder">Salvează în dosar</string>
+    <string name="settings_sync_folder_choose">Alege dosarul</string>
+    <string name="settings_sync_folder_none">Niciun dosar ales</string>
+    <string name="settings_sync_folder_enable">Salvează fiecare GPX automat</string>
+    <string name="settings_sync_webdav">WebDAV (Nextcloud/ownCloud)</string>
+    <string name="settings_sync_webdav_url">URL (…/dav/files/user/Rumb)</string>
+    <string name="settings_sync_webdav_user">Utilizator</string>
+    <string name="settings_sync_webdav_pass">Parolă</string>
+    <string name="settings_sync_webdav_test">Salvează și testează</string>
+
+    <!-- Recording -->
+    <string name="settings_rec_gps_interval">Interval GPS</string>
+    <string name="settings_rec_min_distance">Distanță minimă între puncte: %1$d m</string>
+    <string name="settings_rec_max_accuracy">Precizie GPS maximă: %1$d m</string>
+    <string name="settings_rec_accuracy_note">Pozițiile cu precizie mai slabă sunt ignorate.</string>
+    <string name="settings_rec_auto_pause">Pauză automată când ești oprit</string>
+    <string name="settings_rec_barometer">Folosește barometrul pentru diferența de nivel</string>
+    <string name="settings_rec_ble_sensors">Senzori BLE (FC · cadență · putere)</string>
+    <string name="settings_rec_paired_sensors">Senzori împerecheați: %1$d</string>
+    <string name="settings_rec_apply_note">Modificările se aplică la următoarea înregistrare.</string>
+
+    <!-- App / update -->
+    <string name="settings_app_installed_version">Versiune instalată</string>
+    <string name="settings_check_update">Verifică actualizări</string>
+    <string name="settings_update_checking">Se verifică…</string>
+    <string name="settings_update_up_to_date">Ești pe cea mai recentă versiune ✓</string>
+    <string name="settings_update_network_error">Eroare de rețea</string>
+    <string name="settings_update_downloading">Se descarcă… %1$d%%</string>
+    <string name="settings_update_new_version">Versiune nouă v%1$s</string>
+    <string name="settings_update_download_install">Descarcă și instalează</string>
+    <string name="settings_update_download_error">Eroare la descărcare</string>
+    <string name="settings_debug_section">Depanare</string>
+    <string name="settings_debug_log_button">Jurnal depanare (jurnal complet)</string>
+    <string name="settings_debug_full">Diagnostice complete</string>
+    <string name="settings_debug_copy">Copiază diagnosticele</string>
+    <string name="settings_about">Despre</string>
+    <string name="settings_about_desc">Rumb — înregistrator de activități GPS cu HUD live, hărți ICGC și sincronizare Endurain.</string>
+
+    <!-- Track appearance -->
+    <string name="settings_appearance_track">Aspect traseu</string>
+
+    <!-- Follow route -->
+    <string name="settings_route_follow">Traseu de urmat</string>
+    <string name="settings_route_width">Lățime %1$d</string>
+    <string name="settings_route_arrows">Săgeți de direcție</string>
+    <string name="settings_route_progress">Afișează progresul (traseu parcurs estompat)</string>
+    <string name="settings_route_tracking_point">Punct de urmărire</string>
+    <string name="settings_tracking_dot">Punct</string>
+    <string name="settings_tracking_arrow">Săgeată</string>
+    <string name="settings_route_tracking_size">Dimensiune</string>
+    <string name="settings_route_off_route">Alertă abatere de la traseu</string>
+    <string name="settings_route_threshold">Prag abatere: %1$d m</string>
+    <string name="settings_route_sound">Sunet</string>
+    <string name="settings_route_vibration">Vibrație</string>
+
+    <!-- Audio announcements -->
+    <string name="settings_audio_title">Audio și alerte</string>
+    <string name="settings_audio_enable">Activează anunțurile audio</string>
+    <string name="settings_audio_voice">Voce</string>
+    <string name="settings_audio_beeps">Bipuri</string>
+    <string name="settings_audio_beep_sound">Sunet bip</string>
+    <string name="settings_audio_preview">▶ Previzualizare</string>
+    <string name="settings_audio_sound_1">Bip</string>
+    <string name="settings_audio_sound_2">Dublu</string>
+    <string name="settings_audio_sound_3">Confirmare</string>
+    <string name="settings_audio_sound_4">Solicitare</string>
+    <string name="settings_audio_sound_5">Clopoțel</string>
+    <string name="settings_audio_turn_heads_up">Avertizare timpurie viraj (~150 m)</string>
+    <string name="settings_audio_language">Limbă</string>
+    <string name="settings_every_km">La fiecare %1$d km</string>
+    <string name="settings_every_min">La fiecare %1$d min</string>
+    <string name="settings_audio_announce_what">Ce se anunță</string>
+    <string name="settings_audio_distance_time">Distanță și timp</string>
+    <string name="settings_audio_pace">Ritm</string>
+    <string name="settings_audio_split_pace">Ritm ultimul km</string>
+    <string name="settings_audio_elevation">Diferență de nivel</string>
+    <string name="settings_audio_heart_rate">Frecvență cardiacă</string>
+    <string name="settings_audio_off_route_spoken">Spune \'În afara traseului\' prin voce</string>
+
+    <!-- Sensors screen -->
+    <string name="sensors_title">Senzori BLE</string>
+    <string name="sensors_intro">Împerechează centuri de puls, senzori de cadență și măsurătoare de putere. Se conectează automat când începe o înregistrare.</string>
+    <string name="sensors_scan">Caută senzori</string>
+    <string name="sensors_stop_scan">Oprește căutarea</string>
+    <string name="sensors_scan_error">Eroare la scanare (%1$d)</string>
+    <string name="sensors_bluetooth_off">Bluetooth este oprit</string>
+    <string name="sensors_default_name">Senzor</string>
+    <string name="sensors_paired_name">Senzor împerecheat</string>
+    <string name="sensors_scanning_hint">Se caută… pornește senzorul și apropie-l.</string>
+    <string name="sensors_none">Fără senzori. Apasă «Caută senzori».</string>
+
+    <!-- Debug log screen -->
+    <string name="debug_title">Jurnal depanare</string>
+    <string name="debug_loading">Se încarcă…</string>
+    <string name="debug_no_lines">(nicio linie Rumb)</string>
+    <string name="debug_refresh">Reîmprospătează</string>
+    <string name="debug_share">Partajează</string>
+    <string name="debug_clear">Golește</string>
+    <string name="debug_share_subject">Rumb · jurnal depanare</string>
+    <string name="debug_share_chooser">Partajează jurnalul</string>
+    <string name="debug_only_app">Doar Rumb</string>
+    <string name="debug_copy">Copiază</string>
+    <string name="debug_lines">%1$d linii</string>
+
+    <!-- Track color modes -->
+    <string name="trackcolor_single">Culoare unică</string>
+    <string name="trackcolor_speed">După viteză</string>
+    <string name="trackcolor_altitude">După altitudine</string>
+    <string name="trackcolor_heart_rate">După frecvență cardiacă</string>
+    <string name="settings_licenses_title">Licențe open-source</string>
+    <string name="settings_licenses_show">Afișează licențele și atribuirile</string>
+    <string name="settings_licenses_hide">Ascunde</string>
+    <string name="settings_licenses_body">Rumb conține cod derivat din următoarele proiecte open-source:\n\n· OpenTracks — logica motorului de înregistrare (filtrare GPS, statistici traseu). Apache License 2.0. github.com/OpenTracksApp/OpenTracks\n· OSMDashboard — integrare API OpenTracks Dashboard. Apache License 2.0. codeberg.org/OpenTracksApp/OSMDashboard\n· MapLibre GL Native — randare hărți. BSD 2-Clause.\n· AndroidX / Jetpack Compose, Kotlin, OkHttp, kotlinx.serialization — Apache License 2.0.\n\nDate și servicii:\n· Date de hartă © colaboratorii OpenStreetMap (ODbL)\n· Hărți © Institut Cartogràfic i Geològic de Catalunya (ICGC), CC-BY 4.0\n· Geocodare prin Nominatim © colaboratorii OpenStreetMap\n\nTexte complete: fișierele LICENSE și NOTICE din depozitul sursă.</string>
+    <string name="settings_max_hr">Frecvență cardiacă maximă: %1$d bpm</string>
+    <string name="settings_max_hr_help">Folosită pentru analiza zonelor de frecvență cardiacă din competiție.</string>
+    <string name="settings_weight">Greutate: %1$d kg</string>
+    <string name="settings_weight_help">Folosită pentru estimarea caloriilor.</string>
+    <string name="settings_age">Vârstă: %1$d ani</string>
+    <string name="settings_age_unset">Vârstă: nesetată</string>
+    <string name="settings_sex">Sex</string>
+    <string name="settings_sex_unset">Nesetat</string>
+    <string name="settings_sex_male">Masculin</string>
+    <string name="settings_sex_female">Feminin</string>
+    <string name="settings_calories_hr_help">Cu vârstă și sex, caloriile sunt estimate din frecvența cardiacă (mai precis). Altfel se folosește o estimare MET pe baza tipului de activitate și a greutății.</string>
+</resources>

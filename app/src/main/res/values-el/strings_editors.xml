@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — Greek. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Έξοδος</string>
+    <string name="editor_configure">Ρύθμιση</string>
+    <string name="editor_remove">Αφαίρεση</string>
+    <string name="editor_resize">Αλλαγή μεγέθους</string>
+    <string name="editor_move">Μετακίνηση</string>
+    <string name="editor_done">Τέλος</string>
+    <string name="editor_global_settings">Γενικές ρυθμίσεις</string>
+    <string name="editor_show_graph">Γράφημα</string>
+    <string name="editor_tab_general">Γενικά</string>
+    <string name="editor_tab_competition">Αγώνας</string>
+    <string name="editor_tab_settings">Ρυθμίσεις</string>
+    <string name="editor_competition_hint">Προστίθεται τώρα, εμφανίζεται όσο είναι ενεργός ένας αγώνας.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Widget</string>
+    <string name="editor_widget">Widget</string>
+    <string name="editor_metrics">Μετρήσεις</string>
+    <string name="editor_charts">Γραφήματα</string>
+    <string name="editor_controls">Χειριστήρια</string>
+    <string name="editor_presets">Προεπιλογές</string>
+    <string name="editor_global_size">Γενικό μέγεθος</string>
+    <string name="editor_font_size">Μέγεθος γραμματοσειράς: %1$.0f%%</string>
+    <string name="editor_value_color">Χρώμα τιμής</string>
+    <string name="editor_show_chart">Εμφάνιση γραφήματος</string>
+    <string name="editor_time_format">Μορφή ώρας</string>
+    <string name="editor_zone">Ζώνη</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Στήλες</string>
+    <string name="editor_format">Μορφή</string>
+    <string name="editor_width">Πλάτος</string>
+    <string name="editor_no_tiles">Χωρίς πλακίδια. Προσθέστε μετρήσεις από «Μετρήσεις ▾».</string>
+    <string name="preset_cycling">Ποδηλασία</string>
+    <string name="preset_trail">Ορεινό</string>
+    <string name="preset_ski">Σκι</string>
+    <string name="editor_extra">Άλλα</string>
+</resources>

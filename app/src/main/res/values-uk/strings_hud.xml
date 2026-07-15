@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_speed">Швидкість</string>
+    <string name="metric_avg_speed">Сер. швидкість</string>
+    <string name="metric_max_speed">Макс. швидкість</string>
+    <string name="metric_distance">Відстань</string>
+    <string name="metric_duration">Час</string>
+    <string name="metric_moving_time">Час руху</string>
+    <string name="metric_pace">Темп</string>
+    <string name="metric_heading">Курс</string>
+    <string name="metric_elev_gain">Набір висоти</string>
+    <string name="metric_altitude">Висота</string>
+    <string name="metric_slope">Ухил</string>
+    <string name="metric_vam">VAM</string>
+    <string name="metric_heart_rate">ЧСС</string>
+    <string name="metric_cadence">Каденс</string>
+    <string name="metric_power">Потужність</string>
+    <string name="metric_remaining">Залишилось</string>
+    <string name="metric_off_route">Відхилення</string>
+    <string name="hudel_chart_speed">Графік швидкості</string>
+    <string name="hudel_chart_elevation">Профіль висоти</string>
+    <string name="hudel_recenter">Центрувати/стежити</string>
+    <string name="hudel_compass">Компас</string>
+    <string name="hudel_zoom">Масштаб</string>
+    <string name="hudel_record">Запис</string>
+    <string name="hudel_clock">Годинник</string>
+    <string name="metric_ghost_delta">Привид</string>
+    <string name="metric_ghost_seconds">Привид (час)</string>
+    <string name="metric_calories">Калорії</string>
+    <string name="metric_lap_count">Коло</string>
+    <string name="metric_lap_time">Час кола</string>
+    <string name="metric_lap_distance">Відст. кола</string>
+    <string name="metric_last_lap">Останнє коло</string>
+</resources>

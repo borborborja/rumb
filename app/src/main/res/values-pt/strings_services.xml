@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rec_notif_channel">Gravação de atividade</string>
+    <string name="rec_notif_recording">A gravar atividade</string>
+    <string name="rec_notif_paused">Gravação em pausa</string>
+    <string name="rec_notif_on_pause_suffix"> · EM PAUSA</string>
+    <string name="rec_action_pause">Pausar</string>
+    <string name="rec_action_resume">Retomar</string>
+    <string name="rec_action_stop">Parar</string>
+    <string name="dl_notif_channel">Transferências de mapas</string>
+    <string name="dl_notif_title">A transferir mapa offline</string>
+    <string name="prefetch_notif_title">A transferir mapa da rota</string>
+    <string name="dl_notif_progress">%1$d / %2$d blocos</string>
+    <string name="share_export_title">Exportar "%1$s"</string>
+    <string name="rec_low_accuracy_start">Iniciado com baixa precisão de GPS</string>
+    <string name="share_format_title">Formato de partilha</string>
+    <string name="share_format_auto">Automático (melhor)</string>
+    <string name="share_format_gpx">GPX · rota + sensores</string>
+    <string name="share_format_tcx">TCX · com voltas</string>
+    <string name="share_format_kml">KML · apenas rota (Google Earth)</string>
+</resources>

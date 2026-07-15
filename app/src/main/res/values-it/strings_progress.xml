@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tab_progress">Progressi</string>
+    <string name="progress_all">Tutto</string>
+    <string name="progress_this_week">Questa settimana</string>
+    <string name="progress_vs_last_week">rispetto alla scorsa</string>
+    <string name="progress_km">km</string>
+    <string name="progress_hours">Ore</string>
+    <string name="progress_ascent">Dislivello</string>
+    <string name="progress_activities">Attività</string>
+    <string name="progress_weeks_chart">Ultime 12 settimane (km)</string>
+    <string name="progress_streak_weeks">%1$d settimane di fila</string>
+    <string name="progress_totals">Da sempre</string>
+    <string name="records_entry">Record</string>
+    <string name="heatmap_entry">Mappa di calore</string>
+</resources>

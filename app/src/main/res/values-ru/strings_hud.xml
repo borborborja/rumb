@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_speed">Скорость</string>
+    <string name="metric_avg_speed">Ср. скорость</string>
+    <string name="metric_max_speed">Макс. скорость</string>
+    <string name="metric_distance">Дистанция</string>
+    <string name="metric_duration">Время</string>
+    <string name="metric_moving_time">Время в движении</string>
+    <string name="metric_pace">Темп</string>
+    <string name="metric_heading">Курс</string>
+    <string name="metric_elev_gain">Набор высоты</string>
+    <string name="metric_altitude">Высота</string>
+    <string name="metric_slope">Уклон</string>
+    <string name="metric_vam">VAM</string>
+    <string name="metric_heart_rate">ЧСС</string>
+    <string name="metric_cadence">Каденс</string>
+    <string name="metric_power">Мощность</string>
+    <string name="metric_remaining">Осталось</string>
+    <string name="metric_off_route">Отклонение</string>
+    <string name="hudel_chart_speed">График скорости</string>
+    <string name="hudel_chart_elevation">Профиль высоты</string>
+    <string name="hudel_recenter">Центр/следование</string>
+    <string name="hudel_compass">Компас</string>
+    <string name="hudel_zoom">Масштаб</string>
+    <string name="hudel_record">Запись</string>
+    <string name="hudel_clock">Часы</string>
+    <string name="metric_ghost_delta">Призрак</string>
+    <string name="metric_ghost_seconds">Призрак (время)</string>
+    <string name="metric_calories">Калории</string>
+    <string name="metric_lap_count">Круг</string>
+    <string name="metric_lap_time">Время круга</string>
+    <string name="metric_lap_distance">Дист. круга</string>
+    <string name="metric_last_lap">Посл. круг</string>
+</resources>

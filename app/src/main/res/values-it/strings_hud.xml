@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_speed">Velocità</string>
+    <string name="metric_avg_speed">Vel. media</string>
+    <string name="metric_max_speed">Vel. max</string>
+    <string name="metric_distance">Distanza</string>
+    <string name="metric_duration">Tempo</string>
+    <string name="metric_moving_time">Tempo in movimento</string>
+    <string name="metric_pace">Ritmo</string>
+    <string name="metric_heading">Direzione</string>
+    <string name="metric_elev_gain">Dislivello +</string>
+    <string name="metric_altitude">Altitudine</string>
+    <string name="metric_slope">Pendenza</string>
+    <string name="metric_vam">VAM</string>
+    <string name="metric_heart_rate">FC</string>
+    <string name="metric_cadence">Cadenza</string>
+    <string name="metric_power">Potenza</string>
+    <string name="metric_remaining">Restante</string>
+    <string name="metric_off_route">Deviazione</string>
+    <string name="hudel_chart_speed">Grafico velocità</string>
+    <string name="hudel_chart_elevation">Profilo altimetrico</string>
+    <string name="hudel_recenter">Ricentra/segui</string>
+    <string name="hudel_compass">Bussola</string>
+    <string name="hudel_zoom">Zoom</string>
+    <string name="hudel_record">Registrazione</string>
+    <string name="hudel_clock">Orologio</string>
+    <string name="metric_ghost_delta">Ghost</string>
+    <string name="metric_ghost_seconds">Ghost (tempo)</string>
+    <string name="metric_calories">Calorie</string>
+    <string name="metric_lap_count">Giro</string>
+    <string name="metric_lap_time">Tempo giro</string>
+    <string name="metric_lap_distance">Dist. giro</string>
+    <string name="metric_last_lap">Ultimo giro</string>
+</resources>

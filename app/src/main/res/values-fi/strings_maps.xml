@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Karttatasot</string>
+    <string name="maps_tab_online">Verkossa</string>
+    <string name="maps_tab_offline">Offline</string>
+    <string name="maps_base_map_title">Katselimen pohjakartta</string>
+    <string name="maps_default_map_name">kartta</string>
+    <string name="maps_download_area">Lataa alue</string>
+    <string name="maps_import_mbtiles">Tuo</string>
+    <string name="maps_empty_offline">Ei vielä offline-karttoja. Lataa alue tai tuo .mbtiles-tiedosto (esim. ICGC:n viralliset topografiset tai ilmakuvat osoitteesta visors.icgc.cat/appdownloads).</string>
+    <string name="maps_size_sectors">%1$.1f MB · %2$d sektoria</string>
+    <string name="maps_delete">Poista</string>
+    <string name="maps_manage_sectors">Hallitse sektoreita</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Offline-sektorit</string>
+    <string name="maps_add_sector">Lisää sektori</string>
+    <string name="maps_no_sectors">Ei sektoreita. Lisää yksi lataamalla alue.</string>
+    <string name="maps_unknown_map_type">Tuntematon karttatyyppi</string>
+    <string name="maps_redownloading">Ladataan sektoria uudelleen…</string>
+    <string name="maps_area_name">%1$s · alue</string>
+    <string name="maps_delete_sector_title">Poista sektori</string>
+    <string name="maps_delete_sector_msg">Tämän sektorin ruudut, joita ei jaeta muiden sektorien kanssa, poistetaan.</string>
+    <string name="maps_cancel">Peruuta</string>
+    <string name="maps_sector_n">Sektori %1$d</string>
+    <string name="maps_sector_meta">zoom %1$d–%2$d · %3$,d ruutua · %4$.0f×%5$.0f km</string>
+    <string name="maps_redownload">Lataa uudelleen</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Takaisin</string>
+    <string name="maps_mode_route">Reitti</string>
+    <string name="maps_mode_province">Maakunta</string>
+    <string name="maps_mode_visible">Näkyvä alue</string>
+    <string name="maps_mode_draw">Piirrä</string>
+    <string name="maps_route_hint">Valitun reitin alue. Valitse lähde ja zoom, lataa sitten.</string>
+    <string name="maps_visible_hint">Rajaa kartta ja napauta «Näkyvä alue» uudelleen päivittääksesi.</string>
+    <string name="maps_draw_hint">Vedä kartalla piirtääksesi suorakulmion.</string>
+    <string name="maps_zoom_range">Zoom %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d ruutua · %2$.0f MB</string>
+    <string name="maps_over_limit">Alue/zoom liian suuri (enint. %1$dk). Pienennä zoomia.</string>
+    <string name="maps_osm_warning">OSM ei suosittele massalatauksia; käytä suurille alueille ICGC:tä.</string>
+    <string name="maps_downloading">Ladataan… %1$d / %2$d</string>
+    <string name="maps_download_done">Lataus valmis ✓ — voit nyt valita sen offline-kartoista.</string>
+    <string name="maps_download">Lataa</string>
+</resources>

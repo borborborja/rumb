@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lang_title">Limba aplicației</string>
+    <string name="lang_system">Cea a sistemului</string>
+    <string name="lang_hint_old">Pe această versiune de Android, schimbă limba aplicației din setările de limbă ale sistemului.</string>
+</resources>

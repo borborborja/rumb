@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_speed">Tempo</string>
+    <string name="metric_avg_speed">Ø-Tempo</string>
+    <string name="metric_max_speed">Max. Tempo</string>
+    <string name="metric_distance">Distanz</string>
+    <string name="metric_duration">Zeit</string>
+    <string name="metric_moving_time">Bewegungszeit</string>
+    <string name="metric_pace">Pace</string>
+    <string name="metric_heading">Richtung</string>
+    <string name="metric_elev_gain">Höhengew.</string>
+    <string name="metric_altitude">Höhe</string>
+    <string name="metric_slope">Steigung</string>
+    <string name="metric_vam">VAM</string>
+    <string name="metric_heart_rate">HF</string>
+    <string name="metric_cadence">Trittfrequenz</string>
+    <string name="metric_power">Leistung</string>
+    <string name="metric_remaining">Verbleibend</string>
+    <string name="metric_off_route">Abweichung</string>
+    <string name="hudel_chart_speed">Tempodiagramm</string>
+    <string name="hudel_chart_elevation">Höhenprofil</string>
+    <string name="hudel_recenter">Zentrieren/folgen</string>
+    <string name="hudel_compass">Kompass</string>
+    <string name="hudel_zoom">Zoom</string>
+    <string name="hudel_record">Aufnahme</string>
+    <string name="hudel_clock">Uhr</string>
+    <string name="metric_ghost_delta">Ghost</string>
+    <string name="metric_ghost_seconds">Ghost (Zeit)</string>
+    <string name="metric_calories">Kalorien</string>
+    <string name="metric_lap_count">Runde</string>
+    <string name="metric_lap_time">Rundenzeit</string>
+    <string name="metric_lap_distance">Rundendist.</string>
+    <string name="metric_last_lap">Letzte Runde</string>
+</resources>

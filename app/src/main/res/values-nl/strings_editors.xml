@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — Dutch. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Afsluiten</string>
+    <string name="editor_configure">Instellen</string>
+    <string name="editor_remove">Verwijderen</string>
+    <string name="editor_resize">Formaat wijzigen</string>
+    <string name="editor_move">Verplaatsen</string>
+    <string name="editor_done">Klaar</string>
+    <string name="editor_global_settings">Algemene instellingen</string>
+    <string name="editor_show_graph">Grafiek</string>
+    <string name="editor_tab_general">Algemeen</string>
+    <string name="editor_tab_competition">Competitie</string>
+    <string name="editor_tab_settings">Instellingen</string>
+    <string name="editor_competition_hint">Nu toegevoegd, getoond zolang een competitie actief is.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Widgets</string>
+    <string name="editor_widget">Widget</string>
+    <string name="editor_metrics">Waarden</string>
+    <string name="editor_charts">Grafieken</string>
+    <string name="editor_controls">Bediening</string>
+    <string name="editor_presets">Presets</string>
+    <string name="editor_global_size">Algemene grootte</string>
+    <string name="editor_font_size">Tekstgrootte: %1$.0f%%</string>
+    <string name="editor_value_color">Waardekleur</string>
+    <string name="editor_show_chart">Grafiek tonen</string>
+    <string name="editor_time_format">Tijdnotatie</string>
+    <string name="editor_zone">Zone</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Kolommen</string>
+    <string name="editor_format">Notatie</string>
+    <string name="editor_width">Breedte</string>
+    <string name="editor_no_tiles">Geen tegels. Voeg waarden toe via «Waarden ▾».</string>
+    <string name="preset_cycling">Fietsen</string>
+    <string name="preset_trail">Trail</string>
+    <string name="preset_ski">Ski</string>
+    <string name="editor_extra">Overige</string>
+</resources>

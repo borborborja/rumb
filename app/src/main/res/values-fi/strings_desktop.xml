@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Työpöytätila</string>
+    <string name="home_cd_desktop">Työpöytätila</string>
+    <string name="desktop_url_label">Avaa tämä osoite tietokoneesi selaimessa:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Tietokoneen on oltava samassa WiFi-verkossa. Palvelin toimii vain tämän näytön ollessa auki.</string>
+    <string name="desktop_no_wifi">Työpöytätila vaatii puhelimen ja tietokoneen samaan verkkoon, eikä WiFiä ole nyt saatavilla.</string>
+    <string name="desktop_hotspot_hint">Ei WiFiä lähellä? Kytke puhelimen yhteyspiste päälle, yhdistä tietokone siihen, niin osoite ilmestyy tähän.</string>
+    <string name="desktop_open_hotspot">Avaa yhteyspisteasetukset</string>
+    <string name="desktop_running">Palvelin käynnissä</string>
+    <string name="desktop_stop">Pysäytä ja poistu</string>
+    <string name="desktop_server_error">Palvelimen käynnistys epäonnistui.</string>
+</resources>

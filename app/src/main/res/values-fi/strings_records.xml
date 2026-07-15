@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Personal records -->
+    <string name="records_title">Ennätykset</string>
+    <string name="records_computing">Analysoidaan %1$d/%2$d…</string>
+    <string name="records_empty">Ei vielä ennätyksiä. Tallenna tai tuo harjoituksia nähdäksesi henkilökohtaiset ennätyksesi.</string>
+    <string name="records_fastest_1k">Nopein 1 km</string>
+    <string name="records_fastest_5k">Nopein 5 km</string>
+    <string name="records_fastest_10k">Nopein 10 km</string>
+    <string name="records_fastest_half">Nopein puolimaraton</string>
+    <string name="records_longest">Pisin aktiviteetti</string>
+    <string name="records_max_ascent">Eniten nousua</string>
+    <string name="records_max_speed">Maksiminopeus</string>
+    <string name="records_longest_time">Pisin aika</string>
+    <string name="records_stat_calories">Kalorit</string>
+
+    <!-- Heatmap -->
+    <string name="heatmap_title">Lämpökartta</string>
+    <string name="heatmap_include_routes">Sisällytä reitit</string>
+    <string name="heatmap_loading">%1$d/%2$d reittiä</string>
+</resources>

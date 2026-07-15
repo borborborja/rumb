@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rec_notif_channel">Aktivitetsinspelning</string>
+    <string name="rec_notif_recording">Spelar in aktivitet</string>
+    <string name="rec_notif_paused">Inspelning pausad</string>
+    <string name="rec_notif_on_pause_suffix"> · PAUSAD</string>
+    <string name="rec_action_pause">Pausa</string>
+    <string name="rec_action_resume">Återuppta</string>
+    <string name="rec_action_stop">Stoppa</string>
+    <string name="dl_notif_channel">Kartnedladdningar</string>
+    <string name="dl_notif_title">Laddar ner offlinekarta</string>
+    <string name="prefetch_notif_title">Laddar ner ruttkarta</string>
+    <string name="dl_notif_progress">%1$d / %2$d rutor</string>
+    <string name="share_export_title">Exportera \u0022%1$s\u0022</string>
+    <string name="rec_low_accuracy_start">Startade med låg GPS-noggrannhet</string>
+    <string name="share_format_title">Delningsformat</string>
+    <string name="share_format_auto">Automatiskt (bäst)</string>
+    <string name="share_format_gpx">GPX · rutt + sensorer</string>
+    <string name="share_format_tcx">TCX · med varv</string>
+    <string name="share_format_kml">KML · endast rutt (Google Earth)</string>
+</resources>

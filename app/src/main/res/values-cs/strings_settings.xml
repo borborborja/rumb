@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="common_back">Zpět</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Nastavení</string>
+    <string name="settings_tab_units">Jednotky</string>
+    <string name="settings_tab_recording">Nahrávání</string>
+    <string name="settings_tab_sync">Synchronizace</string>
+    <string name="settings_tab_appearance">Vzhled</string>
+    <string name="settings_tab_route">Trasa</string>
+    <string name="settings_tab_map">Mapy</string>
+    <string name="settings_map_cache">Mezipaměť online map</string>
+    <string name="settings_map_cache_size">Velikost mezipaměti: %1$d MB</string>
+    <string name="settings_map_clear_cache">Vymazat mezipaměť</string>
+    <string name="settings_map_cache_cleared">Mezipaměť vymazána</string>
+    <string name="settings_map_prefetch">Předstažení trasy</string>
+    <string name="settings_map_prefetch_follow">Stáhnout mapu při sledování trasy</string>
+    <string name="settings_map_prefetch_hint">Stáhne dlaždice celé trasy při začátku jejího sledování (jakékoli připojení), aby fungovala bez signálu.</string>
+    <string name="settings_tab_audio">Audio</string>
+    <string name="settings_tab_activity_types">Typy</string>
+    <string name="settings_tab_app">Aplikace</string>
+    <string name="settings_tab_profile">Profil</string>
+    <string name="settings_tab_map_routes">Mapa a trasy</string>
+    <string name="settings_profile_personal">Osobní údaje</string>
+
+    <!-- Activity types -->
+    <string name="settings_types_predefined_header">Předdefinované typy</string>
+    <string name="settings_types_custom_header">Vlastní typy</string>
+    <string name="settings_types_add">Přidat vlastní typ</string>
+    <string name="settings_types_add_title">Nový vlastní typ</string>
+    <string name="settings_types_edit_title">Upravit vlastní typ</string>
+    <string name="settings_types_name_label">Název</string>
+    <string name="settings_types_icon_label">Ikona</string>
+    <string name="settings_types_delete">Smazat</string>
+    <string name="settings_types_delete_confirm">Smazat vlastní typ «%1$s»? Trasy, které jej používají, budou bez typu.</string>
+    <string name="settings_types_empty_custom">Žádné vlastní typy. Přidej jeden tlačítkem níže.</string>
+    <string name="settings_types_save">Uložit</string>
+    <string name="settings_types_cancel">Zrušit</string>
+
+    <!-- Units -->
+    <string name="settings_units_distance">Vzdálenost</string>
+    <string name="settings_units_kilometers">Kilometry (km)</string>
+    <string name="settings_units_miles">Míle (mi)</string>
+    <string name="settings_units_elevation">Nadm. výška a převýšení</string>
+    <string name="settings_units_meters">Metry (m)</string>
+    <string name="settings_units_feet">Stopy (ft)</string>
+    <string name="settings_units_speed">Rychlost</string>
+    <string name="settings_units_note">Tempo používá jednotku vzdálenosti (min/km nebo min/mi); VAM a odchylka používají jednotku nadm. výšky.</string>
+
+    <!-- Sync -->
+    <string name="settings_sync_endurain">Endurain</string>
+    <string name="settings_sync_server_label">Server (https://…)</string>
+    <string name="settings_sync_api_key_label">API klíč (scope activities:upload)</string>
+    <string name="settings_sync_saved_testing">Uloženo. Testuji připojení…</string>
+    <string name="settings_sync_connected">Připojeno ✓ (%1$s aktivit na serveru)</string>
+    <string name="settings_error">Chyba: %1$s</string>
+    <string name="settings_sync_save_test">Uložit a otestovat připojení</string>
+    <string name="settings_sync_upload_note">Nahrané tréninky se po zastavení nahrávání automaticky odešlou do Endurainu (pokud je připojení nastaveno). Fronta to zkusí znovu, když není síť.</string>
+    <string name="settings_sync_coming_soon">Již brzy</string>
+    <string name="settings_sync_coming_soon_items">· Strava\n· Automatické odesílání na Google Drive</string>
+    <string name="settings_sync_status">Stav synchronizace</string>
+    <string name="settings_sync_last_upload">Poslední odeslání: %1$s</string>
+    <string name="settings_sync_pending_failed">%1$d čeká · %2$d selhalo</string>
+    <string name="settings_sync_retry_failed">Zkusit znovu neúspěšné</string>
+    <string name="settings_sync_folder">Uložit do složky</string>
+    <string name="settings_sync_folder_choose">Vybrat složku</string>
+    <string name="settings_sync_folder_none">Žádná složka nevybrána</string>
+    <string name="settings_sync_folder_enable">Automaticky ukládat každý GPX</string>
+    <string name="settings_sync_webdav">WebDAV (Nextcloud/ownCloud)</string>
+    <string name="settings_sync_webdav_url">URL (…/dav/files/uživatel/Rumb)</string>
+    <string name="settings_sync_webdav_user">Uživatel</string>
+    <string name="settings_sync_webdav_pass">Heslo</string>
+    <string name="settings_sync_webdav_test">Uložit a otestovat</string>
+
+    <!-- Recording -->
+    <string name="settings_rec_gps_interval">Interval GPS</string>
+    <string name="settings_rec_min_distance">Minimální vzdálenost mezi body: %1$d m</string>
+    <string name="settings_rec_max_accuracy">Maximální přesnost GPS: %1$d m</string>
+    <string name="settings_rec_accuracy_note">Pozice s horší přesností se zahazují.</string>
+    <string name="settings_rec_auto_pause">Auto-pauza, když stojíš</string>
+    <string name="settings_rec_barometer">Použít barometr pro převýšení</string>
+    <string name="settings_rec_ble_sensors">Senzory BLE (TF · kadence · výkon)</string>
+    <string name="settings_rec_paired_sensors">Spárované senzory: %1$d</string>
+    <string name="settings_rec_apply_note">Změny se projeví při dalším nahrávání.</string>
+
+    <!-- App / update -->
+    <string name="settings_app_installed_version">Nainstalovaná verze</string>
+    <string name="settings_check_update">Zkontrolovat aktualizaci</string>
+    <string name="settings_update_checking">Kontroluji…</string>
+    <string name="settings_update_up_to_date">Máš nejnovější verzi ✓</string>
+    <string name="settings_update_network_error">Chyba sítě</string>
+    <string name="settings_update_downloading">Stahování… %1$d%%</string>
+    <string name="settings_update_new_version">Nová verze v%1$s</string>
+    <string name="settings_update_download_install">Stáhnout a nainstalovat</string>
+    <string name="settings_update_download_error">Chyba stahování</string>
+    <string name="settings_debug_section">Ladění</string>
+    <string name="settings_debug_log_button">Ladicí záznam (úplný log)</string>
+    <string name="settings_debug_full">Úplná diagnostika</string>
+    <string name="settings_debug_copy">Kopírovat diagnostiku</string>
+    <string name="settings_about">O aplikaci</string>
+    <string name="settings_about_desc">Rumb — záznamník GPS aktivit s živým HUD, mapami ICGC a synchronizací s Endurainem.</string>
+
+    <!-- Track appearance -->
+    <string name="settings_appearance_track">Vzhled trasy</string>
+
+    <!-- Follow route -->
+    <string name="settings_route_follow">Trasa ke sledování</string>
+    <string name="settings_route_width">Šířka %1$d</string>
+    <string name="settings_route_arrows">Směrové šipky</string>
+    <string name="settings_route_progress">Zobrazit průběh (ztlumit projetou trasu)</string>
+    <string name="settings_route_tracking_point">Sledovací bod</string>
+    <string name="settings_tracking_dot">Tečka</string>
+    <string name="settings_tracking_arrow">Šipka</string>
+    <string name="settings_route_tracking_size">Velikost</string>
+    <string name="settings_route_off_route">Upozornění mimo trasu</string>
+    <string name="settings_route_threshold">Práh odchylky: %1$d m</string>
+    <string name="settings_route_sound">Zvuk</string>
+    <string name="settings_route_vibration">Vibrace</string>
+
+    <!-- Audio announcements -->
+    <string name="settings_audio_title">Audio a upozornění</string>
+    <string name="settings_audio_enable">Zapnout zvuková hlášení</string>
+    <string name="settings_audio_voice">Hlas</string>
+    <string name="settings_audio_beeps">Pípnutí</string>
+    <string name="settings_audio_beep_sound">Zvuk pípnutí</string>
+    <string name="settings_audio_preview">▶ Ukázka</string>
+    <string name="settings_audio_sound_1">Pípnutí</string>
+    <string name="settings_audio_sound_2">Dvojité</string>
+    <string name="settings_audio_sound_3">Ack</string>
+    <string name="settings_audio_sound_4">Výzva</string>
+    <string name="settings_audio_sound_5">Zvonkohra</string>
+    <string name="settings_audio_turn_heads_up">Předběžné upozornění na zatáčku (~150 m)</string>
+    <string name="settings_audio_language">Jazyk</string>
+    <string name="settings_every_km">Každých %1$d km</string>
+    <string name="settings_every_min">Každých %1$d min</string>
+    <string name="settings_audio_announce_what">Co se hlásí</string>
+    <string name="settings_audio_distance_time">Vzdálenost a čas</string>
+    <string name="settings_audio_pace">Tempo</string>
+    <string name="settings_audio_split_pace">Tempo posledního km</string>
+    <string name="settings_audio_elevation">Převýšení</string>
+    <string name="settings_audio_heart_rate">Tepová frekvence</string>
+    <string name="settings_audio_off_route_spoken">Říct \'Mimo trasu\' hlasem</string>
+
+    <!-- Sensors screen -->
+    <string name="sensors_title">Senzory BLE</string>
+    <string name="sensors_intro">Spáruj hrudní pásy TF, senzory kadence a měřiče výkonu. Při začátku nahrávání se připojí automaticky.</string>
+    <string name="sensors_scan">Vyhledat senzory</string>
+    <string name="sensors_stop_scan">Zastavit hledání</string>
+    <string name="sensors_scan_error">Chyba hledání (%1$d)</string>
+    <string name="sensors_bluetooth_off">Bluetooth je vypnutý</string>
+    <string name="sensors_default_name">Senzor</string>
+    <string name="sensors_paired_name">Spárovaný senzor</string>
+    <string name="sensors_scanning_hint">Hledání… zapni senzor a přibliž ho.</string>
+    <string name="sensors_none">Žádné senzory. Klepni na «Vyhledat senzory».</string>
+
+    <!-- Debug log screen -->
+    <string name="debug_title">Ladicí záznam</string>
+    <string name="debug_loading">Načítání…</string>
+    <string name="debug_no_lines">(žádné řádky Rumb)</string>
+    <string name="debug_refresh">Obnovit</string>
+    <string name="debug_share">Sdílet</string>
+    <string name="debug_clear">Vymazat</string>
+    <string name="debug_share_subject">Rumb · ladicí záznam</string>
+    <string name="debug_share_chooser">Sdílet záznam</string>
+    <string name="debug_only_app">Jen Rumb</string>
+    <string name="debug_copy">Kopírovat</string>
+    <string name="debug_lines">%1$d řádků</string>
+
+    <!-- Track color modes -->
+    <string name="trackcolor_single">Jedna barva</string>
+    <string name="trackcolor_speed">Podle rychlosti</string>
+    <string name="trackcolor_altitude">Podle nadm. výšky</string>
+    <string name="trackcolor_heart_rate">Podle tepové frekvence</string>
+    <string name="settings_licenses_title">Licence open source</string>
+    <string name="settings_licenses_show">Zobrazit licence a atribuce</string>
+    <string name="settings_licenses_hide">Skrýt</string>
+    <string name="settings_licenses_body">Rumb obsahuje kód odvozený z těchto open-source projektů:\n\n· OpenTracks — logika nahrávacího jádra (filtrování GPS, statistiky tras). Apache License 2.0. github.com/OpenTracksApp/OpenTracks\n· OSMDashboard — integrace Dashboard API OpenTracks. Apache License 2.0. codeberg.org/OpenTracksApp/OSMDashboard\n· MapLibre GL Native — vykreslování map. BSD 2-Clause.\n· AndroidX / Jetpack Compose, Kotlin, OkHttp, kotlinx.serialization — Apache License 2.0.\n\nData a služby:\n· Data map © přispěvatelé OpenStreetMap (ODbL)\n· Mapy © Institut Cartogràfic i Geològic de Catalunya (ICGC), CC-BY 4.0\n· Geokódování Nominatim © přispěvatelé OpenStreetMap\n\nÚplné texty: soubory LICENSE a NOTICE ve zdrojovém repozitáři.</string>
+    <string name="settings_max_hr">Maximální tepová frekvence: %1$d bpm</string>
+    <string name="settings_max_hr_help">Používá se pro analýzu soutěžních zón tepové frekvence.</string>
+    <string name="settings_weight">Váha: %1$d kg</string>
+    <string name="settings_weight_help">Používá se pro odhad kalorií.</string>
+    <string name="settings_age">Věk: %1$d let</string>
+    <string name="settings_age_unset">Věk: nenastaven</string>
+    <string name="settings_sex">Pohlaví</string>
+    <string name="settings_sex_unset">Nenastaveno</string>
+    <string name="settings_sex_male">Muž</string>
+    <string name="settings_sex_female">Žena</string>
+    <string name="settings_calories_hr_help">S věkem a pohlavím se kalorie odhadují z tepové frekvence (přesnější). Jinak se použije odhad MET podle typu aktivity a váhy.</string>
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Viewer top bar -->
+    <string name="viewer_tab_map">Mapa</string>
+    <string name="viewer_tab_data">Data</string>
+    <string name="viewer_cd_exit">Ukončit prohlížeč</string>
+    <string name="viewer_cd_edit_page">Upravit aktuální obrazovku</string>
+    <string name="viewer_cd_settings">Nastavení prohlížeče</string>
+
+    <!-- HUD controls -->
+    <string name="viewer_cd_center">Vycentrovat</string>
+    <string name="viewer_cd_north">Sever</string>
+    <string name="viewer_cd_zoom_in">Přiblížit</string>
+    <string name="viewer_cd_zoom_out">Oddálit</string>
+    <string name="viewer_cd_pause">Pozastavit</string>
+    <string name="viewer_cd_resume">Pokračovat</string>
+    <string name="viewer_off_route">Mimo trasu · %1$d m</string>
+
+    <!-- Quick-settings sheet -->
+    <string name="viewer_qs_tab_map">Mapa</string>
+    <string name="viewer_qs_tab_route">Trasa</string>
+    <string name="viewer_qs_tab_options">Možnosti</string>
+    <string name="viewer_qs_online_map">Online mapa</string>
+    <string name="viewer_qs_offline_map">Offline mapa</string>
+    <string name="viewer_qs_offline_subtitle">offline</string>
+    <string name="viewer_qs_route_to_follow">Trasa ke sledování</string>
+    <string name="viewer_qs_route_none">Žádná</string>
+    <string name="viewer_qs_route_none_subtitle">bez trasy</string>
+    <string name="viewer_qs_no_routes_yet">Zatím žádné trasy. Vytvoř nebo importuj je v «Trasy ke sledování».</string>
+    <string name="viewer_qs_map_orientation">Orientace mapy</string>
+    <string name="viewer_qs_north_up">Sever nahoře</string>
+    <string name="viewer_qs_heading_up">Směr nahoře</string>
+    <string name="viewer_qs_adaptive_zoom">Automatické přiblížení v zatáčkách trasy</string>
+    <string name="viewer_qs_adaptive_zoom_help">Při sledování: přiblíží mapu, když se blížíš k zatáčce/křižovatce trasy, a oddálí na rovných úsecích.</string>
+    <string name="viewer_qs_keep_screen_on">Nechat obrazovku zapnutou</string>
+    <string name="viewer_qs_fullscreen">Celá obrazovka</string>
+
+    <!-- Toasts -->
+    <string name="viewer_toast_location_permission_record">K nahrávání je potřeba oprávnění k poloze</string>
+    <string name="viewer_toast_activity_no_points">Aktivita bez bodů, zahozena</string>
+    <string name="viewer_toast_activity_saved">Aktivita uložena</string>
+    <string name="viewer_toast_follow_route_empty">Trasa ke sledování je prázdná (id=%1$d)</string>
+
+    <!-- Save recording dialog -->
+    <string name="viewer_save_dialog_title">Uložit aktivitu</string>
+    <string name="viewer_save_name_label">Název</string>
+    <string name="viewer_save">Uložit</string>
+    <string name="viewer_discard">Zahodit</string>
+    <string name="viewer_default_activity_name">Aktivita %1$s</string>
+    <string name="viewer_qs_route_meta">%1$.1f km · %2$d bodů</string>
+
+    <!-- Competition (ghost) mode -->
+    <string name="viewer_qs_tab_competition">Soutěž</string>
+    <string name="viewer_qs_opponent">Duch (soupeř)</string>
+    <string name="viewer_qs_opponent_best">nejlepší čas</string>
+    <string name="viewer_qs_halo">Barevná záře na okraji obrazovky</string>
+    <string name="viewer_qs_halo_help">Zelená: jsi před duchem. Červená: jsi za. Modrá: nastejno (do ±5 m).</string>
+    <string name="viewer_qs_ghost_seconds">Zobrazit odhadované sekundy</string>
+    <string name="viewer_toast_ghost_failed">Ducha se nepodařilo načíst (trasa bez časových značek)</string>
+    <string name="viewer_qs_countdown">Odpočet 3-2-1 při startu</string>
+    <string name="countdown_waiting_gps">Čekání na signál GPS…</string>
+    <string name="countdown_go">START!</string>
+    <string name="countdown_cancel_hint">Klepnutím zrušíš</string>
+    <string name="countdown_gps_timeout">Bez přesného GPS signálu — nahrávání nezahájeno</string>
+    <string name="comp_at_start">Na startovním bodě</string>
+    <string name="comp_start_distance">Startovní bod: %1$d m daleko</string>
+    <string name="comp_start_distance_km">Startovní bod: %1$.1f km daleko</string>
+    <string name="viewer_qs_auto_pause">Auto-pauza při zastavení</string>
+    <string name="viewer_qs_lap_management">Správa okruhů</string>
+    <string name="viewer_qs_auto_lap">Auto-okruh podle polohy</string>
+    <string name="viewer_qs_auto_lap_help">Když spustíš okruhy, dané místo se stane startem/cílem a každé projetí automaticky uzavře okruh. Manuální značka stále funguje.</string>
+    <string name="viewer_qs_auto_pause_secs">Pauza po zastavení na:</string>
+    <string name="viewer_qs_turn_voice">Upozornění na zatáčky (hlas/pípnutí)</string>
+    <!-- Dades: fixed record button, graph tiles, settings-toggle tiles -->
+    <string name="data_record_start">Nahrávat</string>
+    <string name="data_record_lap">Okruh</string>
+    <string name="data_record_lap_end">Ukončit okruhy</string>
+    <string name="lap_compete_prompt">Závodit s tvým nejlepším okruhem?</string>
+    <string name="lap_compete_yes">Soutěžit</string>
+    <string name="lap_compete_no">Ne</string>
+    <string name="data_chart_speed">Graf rychlosti</string>
+    <string name="data_chart_elevation">Výškový profil</string>
+    <string name="data_toggle_auto_pause">Auto-pauza</string>
+    <string name="data_toggle_turn_voice">Upozornění na zatáčky</string>
+    <string name="data_toggle_adaptive_zoom">Adaptivní přiblížení</string>
+    <string name="data_toggle_keep_screen">Nechat obrazovku zapnutou</string>
+    <string name="data_toggle_barometer">Barometr</string>
+    <string name="data_toggle_barometer_hint">Platí pro další nahrávání</string>
+</resources>

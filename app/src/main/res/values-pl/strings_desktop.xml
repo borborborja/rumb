@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Tryb komputera</string>
+    <string name="home_cd_desktop">Tryb komputera</string>
+    <string name="desktop_url_label">Otwórz ten adres w przeglądarce na komputerze:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Komputer musi być w tej samej sieci WiFi. Serwer działa tylko przy otwartym tym ekranie.</string>
+    <string name="desktop_no_wifi">Tryb komputera wymaga telefonu i komputera w tej samej sieci, a teraz nie ma WiFi.</string>
+    <string name="desktop_hotspot_hint">Brak WiFi w pobliżu? Włącz hotspot w telefonie, połącz z nim komputer, a adres pojawi się tutaj.</string>
+    <string name="desktop_open_hotspot">Otwórz ustawienia hotspotu</string>
+    <string name="desktop_running">Serwer działa</string>
+    <string name="desktop_stop">Zatrzymaj i wyjdź</string>
+    <string name="desktop_server_error">Nie udało się uruchomić serwera.</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rec_notif_channel">Etkinlik kaydı</string>
+    <string name="rec_notif_recording">Etkinlik kaydediliyor</string>
+    <string name="rec_notif_paused">Kayıt duraklatıldı</string>
+    <string name="rec_notif_on_pause_suffix"> · DURAKLATILDI</string>
+    <string name="rec_action_pause">Duraklat</string>
+    <string name="rec_action_resume">Devam et</string>
+    <string name="rec_action_stop">Durdur</string>
+    <string name="dl_notif_channel">Harita indirmeleri</string>
+    <string name="dl_notif_title">Çevrimdışı harita indiriliyor</string>
+    <string name="prefetch_notif_title">Rota haritası indiriliyor</string>
+    <string name="dl_notif_progress">%1$d / %2$d karo</string>
+    <string name="share_export_title">"%1$s" dışa aktar</string>
+    <string name="rec_low_accuracy_start">Düşük GPS doğruluğuyla başlatıldı</string>
+    <string name="share_format_title">Paylaşım biçimi</string>
+    <string name="share_format_auto">Otomatik (en iyi)</string>
+    <string name="share_format_gpx">GPX · rota + sensörler</string>
+    <string name="share_format_tcx">TCX · turlarla</string>
+    <string name="share_format_kml">KML · yalnızca rota (Google Earth)</string>
+</resources>

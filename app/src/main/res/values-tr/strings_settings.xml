@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="common_back">Geri</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_tab_units">Birimler</string>
+    <string name="settings_tab_recording">Kayıt</string>
+    <string name="settings_tab_sync">Eşitleme</string>
+    <string name="settings_tab_appearance">Görünüm</string>
+    <string name="settings_tab_route">Rota</string>
+    <string name="settings_tab_map">Haritalar</string>
+    <string name="settings_map_cache">Çevrimiçi harita önbelleği</string>
+    <string name="settings_map_cache_size">Önbellek boyutu: %1$d MB</string>
+    <string name="settings_map_clear_cache">Önbelleği temizle</string>
+    <string name="settings_map_cache_cleared">Önbellek temizlendi</string>
+    <string name="settings_map_prefetch">Rota ön yüklemesi</string>
+    <string name="settings_map_prefetch_follow">Bir rotayı takip ederken haritayı indir</string>
+    <string name="settings_map_prefetch_hint">Bir rotayı takip etmeye başladığınızda tüm rotanın karolarını indirir (herhangi bir bağlantı), böylece kapsama olmadan da çalışır.</string>
+    <string name="settings_tab_audio">Ses</string>
+    <string name="settings_tab_activity_types">Türler</string>
+    <string name="settings_tab_app">Uygulama</string>
+    <string name="settings_tab_profile">Profil</string>
+    <string name="settings_tab_map_routes">Harita ve rotalar</string>
+    <string name="settings_profile_personal">Kişisel veriler</string>
+
+    <!-- Activity types -->
+    <string name="settings_types_predefined_header">Ön tanımlı türler</string>
+    <string name="settings_types_custom_header">Özel türler</string>
+    <string name="settings_types_add">Özel tür ekle</string>
+    <string name="settings_types_add_title">Yeni özel tür</string>
+    <string name="settings_types_edit_title">Özel türü düzenle</string>
+    <string name="settings_types_name_label">Ad</string>
+    <string name="settings_types_icon_label">Simge</string>
+    <string name="settings_types_delete">Sil</string>
+    <string name="settings_types_delete_confirm">«%1$s» özel türü silinsin mi? Onu kullanan kayıtlar türsüz görünür.</string>
+    <string name="settings_types_empty_custom">Özel tür yok. Aşağıdaki düğmeyle bir tane ekleyin.</string>
+    <string name="settings_types_save">Kaydet</string>
+    <string name="settings_types_cancel">İptal</string>
+
+    <!-- Units -->
+    <string name="settings_units_distance">Mesafe</string>
+    <string name="settings_units_kilometers">Kilometre (km)</string>
+    <string name="settings_units_miles">Mil (mi)</string>
+    <string name="settings_units_elevation">Yükseklik ve tırmanış</string>
+    <string name="settings_units_meters">Metre (m)</string>
+    <string name="settings_units_feet">Fit (ft)</string>
+    <string name="settings_units_speed">Hız</string>
+    <string name="settings_units_note">Tempo mesafe birimini kullanır (dk/km veya dk/mi); VAM ve sapma yükseklik birimini kullanır.</string>
+
+    <!-- Sync -->
+    <string name="settings_sync_endurain">Endurain</string>
+    <string name="settings_sync_server_label">Sunucu (https://…)</string>
+    <string name="settings_sync_api_key_label">API anahtarı (kapsam activities:upload)</string>
+    <string name="settings_sync_saved_testing">Kaydedildi. Bağlantı test ediliyor…</string>
+    <string name="settings_sync_connected">Bağlandı ✓ (sunucuda %1$s etkinlik)</string>
+    <string name="settings_error">Hata: %1$s</string>
+    <string name="settings_sync_save_test">Kaydet ve bağlantıyı test et</string>
+    <string name="settings_sync_upload_note">Kaydedilen antrenmanlar kayıt durduğunda otomatik olarak Endurain\'e yüklenir (bağlantı yapılandırılmışsa). Kuyruk, ağ olmadığında yeniden dener.</string>
+    <string name="settings_sync_coming_soon">Yakında</string>
+    <string name="settings_sync_coming_soon_items">· Strava\n· Google Drive\'a otomatik yükleme</string>
+    <string name="settings_sync_status">Eşitleme durumu</string>
+    <string name="settings_sync_last_upload">Son yükleme: %1$s</string>
+    <string name="settings_sync_pending_failed">%1$d beklemede · %2$d başarısız</string>
+    <string name="settings_sync_retry_failed">Başarısızları yeniden dene</string>
+    <string name="settings_sync_folder">Klasöre kaydet</string>
+    <string name="settings_sync_folder_choose">Klasör seç</string>
+    <string name="settings_sync_folder_none">Klasör seçilmedi</string>
+    <string name="settings_sync_folder_enable">Her GPX\'i otomatik kaydet</string>
+    <string name="settings_sync_webdav">WebDAV (Nextcloud/ownCloud)</string>
+    <string name="settings_sync_webdav_url">URL (…/dav/files/kullanıcı/Rumb)</string>
+    <string name="settings_sync_webdav_user">Kullanıcı</string>
+    <string name="settings_sync_webdav_pass">Parola</string>
+    <string name="settings_sync_webdav_test">Kaydet ve test et</string>
+
+    <!-- Recording -->
+    <string name="settings_rec_gps_interval">GPS aralığı</string>
+    <string name="settings_rec_min_distance">Noktalar arası en az mesafe: %1$d m</string>
+    <string name="settings_rec_max_accuracy">En fazla GPS doğruluğu: %1$d m</string>
+    <string name="settings_rec_accuracy_note">Daha kötü doğruluktaki konumlar atılır.</string>
+    <string name="settings_rec_auto_pause">Durduğunuzda otomatik duraklat</string>
+    <string name="settings_rec_barometer">Tırmanış için barometre kullan</string>
+    <string name="settings_rec_ble_sensors">BLE sensörleri (KH · kadans · güç)</string>
+    <string name="settings_rec_paired_sensors">Eşleşen sensörler: %1$d</string>
+    <string name="settings_rec_apply_note">Değişiklikler sonraki kayda uygulanır.</string>
+
+    <!-- App / update -->
+    <string name="settings_app_installed_version">Kurulu sürüm</string>
+    <string name="settings_check_update">Güncelleme denetle</string>
+    <string name="settings_update_checking">Denetleniyor…</string>
+    <string name="settings_update_up_to_date">En son sürümdesiniz ✓</string>
+    <string name="settings_update_network_error">Ağ hatası</string>
+    <string name="settings_update_downloading">İndiriliyor… %1$d%%</string>
+    <string name="settings_update_new_version">Yeni sürüm v%1$s</string>
+    <string name="settings_update_download_install">İndir ve kur</string>
+    <string name="settings_update_download_error">İndirme hatası</string>
+    <string name="settings_debug_section">Hata ayıklama</string>
+    <string name="settings_debug_log_button">Hata ayıklama günlüğü (tam günlük)</string>
+    <string name="settings_debug_full">Tam tanılama</string>
+    <string name="settings_debug_copy">Tanılamayı kopyala</string>
+    <string name="settings_about">Hakkında</string>
+    <string name="settings_about_desc">Rumb — canlı HUD, ICGC haritaları ve Endurain eşitlemeli GPS etkinlik kaydedici.</string>
+
+    <!-- Track appearance -->
+    <string name="settings_appearance_track">Kayıt görünümü</string>
+
+    <!-- Follow route -->
+    <string name="settings_route_follow">Takip edilecek rota</string>
+    <string name="settings_route_width">Genişlik %1$d</string>
+    <string name="settings_route_arrows">Yön okları</string>
+    <string name="settings_route_progress">İlerlemeyi göster (geçilen kısım soluk)</string>
+    <string name="settings_route_tracking_point">Takip noktası</string>
+    <string name="settings_tracking_dot">Nokta</string>
+    <string name="settings_tracking_arrow">Ok</string>
+    <string name="settings_route_tracking_size">Boyut</string>
+    <string name="settings_route_off_route">Rota dışı uyarısı</string>
+    <string name="settings_route_threshold">Sapma eşiği: %1$d m</string>
+    <string name="settings_route_sound">Ses</string>
+    <string name="settings_route_vibration">Titreşim</string>
+
+    <!-- Audio announcements -->
+    <string name="settings_audio_title">Ses ve uyarılar</string>
+    <string name="settings_audio_enable">Sesli anonsları etkinleştir</string>
+    <string name="settings_audio_voice">Ses</string>
+    <string name="settings_audio_beeps">Bip sesleri</string>
+    <string name="settings_audio_beep_sound">Bip sesi</string>
+    <string name="settings_audio_preview">▶ Önizle</string>
+    <string name="settings_audio_sound_1">Bip</string>
+    <string name="settings_audio_sound_2">Çift</string>
+    <string name="settings_audio_sound_3">Onay</string>
+    <string name="settings_audio_sound_4">Uyarı</string>
+    <string name="settings_audio_sound_5">Çan</string>
+    <string name="settings_audio_turn_heads_up">Erken dönüş uyarısı (~150 m)</string>
+    <string name="settings_audio_language">Dil</string>
+    <string name="settings_every_km">Her %1$d km</string>
+    <string name="settings_every_min">Her %1$d dk</string>
+    <string name="settings_audio_announce_what">Ne duyurulur</string>
+    <string name="settings_audio_distance_time">Mesafe ve süre</string>
+    <string name="settings_audio_pace">Tempo</string>
+    <string name="settings_audio_split_pace">Son km temposu</string>
+    <string name="settings_audio_elevation">Tırmanış</string>
+    <string name="settings_audio_heart_rate">Kalp hızı</string>
+    <string name="settings_audio_off_route_spoken">\'Rota dışı\' sesle söyle</string>
+
+    <!-- Sensors screen -->
+    <string name="sensors_title">BLE sensörleri</string>
+    <string name="sensors_intro">Kalp hızı bantları, kadans sensörleri ve güç ölçerleri eşleştirin. Kayıt başladığında otomatik bağlanırlar.</string>
+    <string name="sensors_scan">Sensör tara</string>
+    <string name="sensors_stop_scan">Taramayı durdur</string>
+    <string name="sensors_scan_error">Tarama hatası (%1$d)</string>
+    <string name="sensors_bluetooth_off">Bluetooth kapalı</string>
+    <string name="sensors_default_name">Sensör</string>
+    <string name="sensors_paired_name">Eşleşen sensör</string>
+    <string name="sensors_scanning_hint">Taranıyor… sensörü açın ve yaklaştırın.</string>
+    <string name="sensors_none">Sensör yok. «Sensör tara»ya dokunun.</string>
+
+    <!-- Debug log screen -->
+    <string name="debug_title">Hata ayıklama günlüğü</string>
+    <string name="debug_loading">Yükleniyor…</string>
+    <string name="debug_no_lines">(Rumb satırı yok)</string>
+    <string name="debug_refresh">Yenile</string>
+    <string name="debug_share">Paylaş</string>
+    <string name="debug_clear">Temizle</string>
+    <string name="debug_share_subject">Rumb · hata ayıklama günlüğü</string>
+    <string name="debug_share_chooser">Günlüğü paylaş</string>
+    <string name="debug_only_app">Yalnızca Rumb</string>
+    <string name="debug_copy">Kopyala</string>
+    <string name="debug_lines">%1$d satır</string>
+
+    <!-- Track color modes -->
+    <string name="trackcolor_single">Tek renk</string>
+    <string name="trackcolor_speed">Hıza göre</string>
+    <string name="trackcolor_altitude">Yüksekliğe göre</string>
+    <string name="trackcolor_heart_rate">Kalp hızına göre</string>
+    <string name="settings_licenses_title">Açık kaynak lisansları</string>
+    <string name="settings_licenses_show">Lisansları ve atıfları göster</string>
+    <string name="settings_licenses_hide">Gizle</string>
+    <string name="settings_licenses_body">Rumb, aşağıdaki açık kaynak projelerinden türetilmiş kod içerir:\n\n· OpenTracks — kayıt motoru mantığı (GPS filtreleme, kayıt istatistikleri). Apache License 2.0. github.com/OpenTracksApp/OpenTracks\n· OSMDashboard — OpenTracks Dashboard API entegrasyonu. Apache License 2.0. codeberg.org/OpenTracksApp/OSMDashboard\n· MapLibre GL Native — harita işleme. BSD 2-Clause.\n· AndroidX / Jetpack Compose, Kotlin, OkHttp, kotlinx.serialization — Apache License 2.0.\n\nVeri ve hizmetler:\n· Harita verileri © OpenStreetMap katkıda bulunanlar (ODbL)\n· Haritalar © Institut Cartogràfic i Geològic de Catalunya (ICGC), CC-BY 4.0\n· Geocoding: Nominatim © OpenStreetMap katkıda bulunanlar\n\nTam metinler: kaynak deposundaki LICENSE ve NOTICE dosyaları.</string>
+    <string name="settings_max_hr">En yüksek kalp hızı: %1$d bpm</string>
+    <string name="settings_max_hr_help">Yarış kalp hızı bölgesi analizi için kullanılır.</string>
+    <string name="settings_weight">Kilo: %1$d kg</string>
+    <string name="settings_weight_help">Kalori tahmini için kullanılır.</string>
+    <string name="settings_age">Yaş: %1$d yıl</string>
+    <string name="settings_age_unset">Yaş: ayarlanmadı</string>
+    <string name="settings_sex">Cinsiyet</string>
+    <string name="settings_sex_unset">Ayarlanmadı</string>
+    <string name="settings_sex_male">Erkek</string>
+    <string name="settings_sex_female">Kadın</string>
+    <string name="settings_calories_hr_help">Yaş ve cinsiyetle birlikte kaloriler kalp hızınızdan tahmin edilir (daha doğru). Aksi halde etkinlik türü ve kilodan MET tahmini kullanılır.</string>
+</resources>

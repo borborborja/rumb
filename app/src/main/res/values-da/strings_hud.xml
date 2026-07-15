@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_speed">Fart</string>
+    <string name="metric_avg_speed">Gns. fart</string>
+    <string name="metric_max_speed">Maks. fart</string>
+    <string name="metric_distance">Distance</string>
+    <string name="metric_duration">Tid</string>
+    <string name="metric_moving_time">Bevægelsestid</string>
+    <string name="metric_pace">Tempo</string>
+    <string name="metric_heading">Retning</string>
+    <string name="metric_elev_gain">Stigning</string>
+    <string name="metric_altitude">Højde</string>
+    <string name="metric_slope">Hældning</string>
+    <string name="metric_vam">VAM</string>
+    <string name="metric_heart_rate">Puls</string>
+    <string name="metric_cadence">Kadence</string>
+    <string name="metric_power">Effekt</string>
+    <string name="metric_remaining">Resterende</string>
+    <string name="metric_off_route">Afvigelse</string>
+    <string name="hudel_chart_speed">Fartdiagram</string>
+    <string name="hudel_chart_elevation">Højdeprofil</string>
+    <string name="hudel_recenter">Centrér/følg</string>
+    <string name="hudel_compass">Kompas</string>
+    <string name="hudel_zoom">Zoom</string>
+    <string name="hudel_record">Optager</string>
+    <string name="hudel_clock">Ur</string>
+    <string name="metric_ghost_delta">Ghost</string>
+    <string name="metric_ghost_seconds">Ghost (tid)</string>
+    <string name="metric_calories">Kalorier</string>
+    <string name="metric_lap_count">Omgang</string>
+    <string name="metric_lap_time">Omgangstid</string>
+    <string name="metric_lap_distance">Omgangsdist.</string>
+    <string name="metric_last_lap">Sidste omgang</string>
+</resources>

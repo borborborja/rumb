@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Viewer top bar -->
+    <string name="viewer_tab_map">Карта</string>
+    <string name="viewer_tab_data">Дані</string>
+    <string name="viewer_cd_exit">Вийти з перегляду</string>
+    <string name="viewer_cd_edit_page">Редагувати поточний екран</string>
+    <string name="viewer_cd_settings">Налаштування перегляду</string>
+
+    <!-- HUD controls -->
+    <string name="viewer_cd_center">Центрувати</string>
+    <string name="viewer_cd_north">Північ</string>
+    <string name="viewer_cd_zoom_in">Збільшити</string>
+    <string name="viewer_cd_zoom_out">Зменшити</string>
+    <string name="viewer_cd_pause">Пауза</string>
+    <string name="viewer_cd_resume">Продовжити</string>
+    <string name="viewer_off_route">Поза маршрутом · %1$d м</string>
+
+    <!-- Quick-settings sheet -->
+    <string name="viewer_qs_tab_map">Карта</string>
+    <string name="viewer_qs_tab_route">Маршрут</string>
+    <string name="viewer_qs_tab_options">Параметри</string>
+    <string name="viewer_qs_online_map">Онлайн-карта</string>
+    <string name="viewer_qs_offline_map">Офлайн-карта</string>
+    <string name="viewer_qs_offline_subtitle">офлайн</string>
+    <string name="viewer_qs_route_to_follow">Маршрут для проходження</string>
+    <string name="viewer_qs_route_none">Немає</string>
+    <string name="viewer_qs_route_none_subtitle">без маршруту</string>
+    <string name="viewer_qs_no_routes_yet">Ще немає маршрутів. Створіть або імпортуйте їх з «Треки для проходження».</string>
+    <string name="viewer_qs_map_orientation">Орієнтація карти</string>
+    <string name="viewer_qs_north_up">Північ угорі</string>
+    <string name="viewer_qs_heading_up">За курсом</string>
+    <string name="viewer_qs_adaptive_zoom">Автомасштаб на поворотах маршруту</string>
+    <string name="viewer_qs_adaptive_zoom_help">Під час проходження: наближає карту біля повороту/розвилки маршруту й віддаляє на прямих ділянках.</string>
+    <string name="viewer_qs_keep_screen_on">Не вимикати екран</string>
+    <string name="viewer_qs_fullscreen">На весь екран</string>
+
+    <!-- Toasts -->
+    <string name="viewer_toast_location_permission_record">Для запису потрібен дозвіл на геолокацію</string>
+    <string name="viewer_toast_activity_no_points">Активність без точок, відхилено</string>
+    <string name="viewer_toast_activity_saved">Активність збережено</string>
+    <string name="viewer_toast_follow_route_empty">Маршрут для проходження порожній (id=%1$d)</string>
+
+    <!-- Save recording dialog -->
+    <string name="viewer_save_dialog_title">Зберегти активність</string>
+    <string name="viewer_save_name_label">Назва</string>
+    <string name="viewer_save">Зберегти</string>
+    <string name="viewer_discard">Відхилити</string>
+    <string name="viewer_default_activity_name">Активність %1$s</string>
+    <string name="viewer_qs_route_meta">%1$.1f км · %2$d точок</string>
+
+    <!-- Competition (ghost) mode -->
+    <string name="viewer_qs_tab_competition">Змагання</string>
+    <string name="viewer_qs_opponent">Привид (суперник)</string>
+    <string name="viewer_qs_opponent_best">найкращий час</string>
+    <string name="viewer_qs_halo">Кольорове сяйво по краях екрана</string>
+    <string name="viewer_qs_halo_help">Зелений: ви попереду привида. Червоний: позаду. Синій: нарівні (у межах ±5 м).</string>
+    <string name="viewer_qs_ghost_seconds">Показувати орієнтовні секунди</string>
+    <string name="viewer_toast_ghost_failed">Не вдалося завантажити привида (трек без міток часу)</string>
+    <string name="viewer_qs_countdown">Відлік 3-2-1 на старті</string>
+    <string name="countdown_waiting_gps">Очікування сигналу GPS…</string>
+    <string name="countdown_go">СТАРТ!</string>
+    <string name="countdown_cancel_hint">Торкніться, щоб скасувати</string>
+    <string name="countdown_gps_timeout">Немає точного GPS — запис не розпочато</string>
+    <string name="comp_at_start">На точці старту</string>
+    <string name="comp_start_distance">Точка старту: за %1$d м</string>
+    <string name="comp_start_distance_km">Точка старту: за %1$.1f км</string>
+    <string name="viewer_qs_auto_pause">Автопауза при зупинці</string>
+    <string name="viewer_qs_lap_management">Керування колами</string>
+    <string name="viewer_qs_auto_lap">Автоколо за позицією</string>
+    <string name="viewer_qs_auto_lap_help">Коли ви починаєте кола, це місце стає лінією старту/фінішу, і кожен перетин автоматично закриває коло. Ручна позначка теж працює.</string>
+    <string name="viewer_qs_auto_pause_secs">Пауза після зупинки на:</string>
+    <string name="viewer_qs_turn_voice">Попередження про повороти (голос/сигнали)</string>
+    <!-- Dades: fixed record button, graph tiles, settings-toggle tiles -->
+    <string name="data_record_start">Запис</string>
+    <string name="data_record_lap">Коло</string>
+    <string name="data_record_lap_end">Завершити кола</string>
+    <string name="lap_compete_prompt">Змагатися з вашим найкращим колом?</string>
+    <string name="lap_compete_yes">Змагатися</string>
+    <string name="lap_compete_no">Ні</string>
+    <string name="data_chart_speed">Графік швидкості</string>
+    <string name="data_chart_elevation">Профіль висоти</string>
+    <string name="data_toggle_auto_pause">Автопауза</string>
+    <string name="data_toggle_turn_voice">Попередження про повороти</string>
+    <string name="data_toggle_adaptive_zoom">Адаптивний масштаб</string>
+    <string name="data_toggle_keep_screen">Не вимикати екран</string>
+    <string name="data_toggle_barometer">Барометр</string>
+    <string name="data_toggle_barometer_hint">Застосується до наступного запису</string>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Vrstvy mapy</string>
+    <string name="maps_tab_online">Online</string>
+    <string name="maps_tab_offline">Offline</string>
+    <string name="maps_base_map_title">Podkladová mapa pro prohlížeč</string>
+    <string name="maps_default_map_name">mapa</string>
+    <string name="maps_download_area">Stáhnout oblast</string>
+    <string name="maps_import_mbtiles">Importovat</string>
+    <string name="maps_empty_offline">Zatím žádné offline mapy. Stáhni oblast nebo importuj soubor .mbtiles (např. oficiální topografické či ortofoto mapy ICGC z visors.icgc.cat/appdownloads).</string>
+    <string name="maps_size_sectors">%1$.1f MB · %2$d sektorů</string>
+    <string name="maps_delete">Smazat</string>
+    <string name="maps_manage_sectors">Spravovat sektory</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Offline sektory</string>
+    <string name="maps_add_sector">Přidat sektor</string>
+    <string name="maps_no_sectors">Žádné sektory. Přidej jeden stažením oblasti.</string>
+    <string name="maps_unknown_map_type">Neznámý typ mapy</string>
+    <string name="maps_redownloading">Znovu se stahuje sektor…</string>
+    <string name="maps_area_name">%1$s · oblast</string>
+    <string name="maps_delete_sector_title">Smazat sektor</string>
+    <string name="maps_delete_sector_msg">Dlaždice tohoto sektoru, které nesdílí žádný jiný sektor, budou smazány.</string>
+    <string name="maps_cancel">Zrušit</string>
+    <string name="maps_sector_n">Sektor %1$d</string>
+    <string name="maps_sector_meta">přiblížení %1$d–%2$d · %3$,d dlaždic · %4$.0f×%5$.0f km</string>
+    <string name="maps_redownload">Stáhnout znovu</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Zpět</string>
+    <string name="maps_mode_route">Trasa</string>
+    <string name="maps_mode_province">Kraj</string>
+    <string name="maps_mode_visible">Viditelná oblast</string>
+    <string name="maps_mode_draw">Nakreslit</string>
+    <string name="maps_route_hint">Oblast vybrané trasy. Vyber zdroj a přiblížení, pak stáhni.</string>
+    <string name="maps_visible_hint">Zaměř mapu a znovu klepni na «Viditelná oblast» pro aktualizaci.</string>
+    <string name="maps_draw_hint">Tažením po mapě nakresli obdélník.</string>
+    <string name="maps_zoom_range">Přiblížení %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d dlaždic · %2$.0f MB</string>
+    <string name="maps_over_limit">Oblast/přiblížení příliš velké (max %1$dk). Sniž přiblížení.</string>
+    <string name="maps_osm_warning">OSM nedoporučuje hromadné stahování; pro velké oblasti použij ICGC.</string>
+    <string name="maps_downloading">Stahování… %1$d / %2$d</string>
+    <string name="maps_download_done">Stahování dokončeno ✓ — nyní ji můžeš vybrat v Offline mapách.</string>
+    <string name="maps_download">Stáhnout</string>
+</resources>

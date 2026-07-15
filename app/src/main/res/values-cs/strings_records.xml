@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Personal records -->
+    <string name="records_title">Rekordy</string>
+    <string name="records_computing">Analyzuji %1$d/%2$d…</string>
+    <string name="records_empty">Zatím žádné rekordy. Nahraj nebo importuj tréninky a uvidíš svá osobní maxima.</string>
+    <string name="records_fastest_1k">Nejrychlejší 1 km</string>
+    <string name="records_fastest_5k">Nejrychlejší 5 km</string>
+    <string name="records_fastest_10k">Nejrychlejší 10 km</string>
+    <string name="records_fastest_half">Nejrychlejší půlmaraton</string>
+    <string name="records_longest">Nejdelší aktivita</string>
+    <string name="records_max_ascent">Nejvíc stoupání</string>
+    <string name="records_max_speed">Max. rychlost</string>
+    <string name="records_longest_time">Nejdelší čas</string>
+    <string name="records_stat_calories">Kalorie</string>
+
+    <!-- Heatmap -->
+    <string name="heatmap_title">Teplotní mapa</string>
+    <string name="heatmap_include_routes">Zahrnout trasy</string>
+    <string name="heatmap_loading">%1$d/%2$d tras</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Desktopmodus</string>
+    <string name="home_cd_desktop">Desktopmodus</string>
+    <string name="desktop_url_label">Open dit adres in de browser van je computer:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Je computer moet op hetzelfde wifi-netwerk zitten. De server draait alleen zolang dit scherm open is.</string>
+    <string name="desktop_no_wifi">Desktopmodus vereist dat telefoon en computer op hetzelfde netwerk zitten, en er is nu geen wifi.</string>
+    <string name="desktop_hotspot_hint">Geen wifi in de buurt? Zet de hotspot van je telefoon aan, verbind de computer ermee en het adres verschijnt hier.</string>
+    <string name="desktop_open_hotspot">Hotspot-instellingen openen</string>
+    <string name="desktop_running">Server actief</string>
+    <string name="desktop_stop">Stoppen en afsluiten</string>
+    <string name="desktop_server_error">Kan de server niet starten.</string>
+</resources>

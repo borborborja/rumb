@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Mod desktop</string>
+    <string name="home_cd_desktop">Mod desktop</string>
+    <string name="desktop_url_label">Deschide această adresă în browserul computerului tău:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Computerul tău trebuie să fie pe aceeași rețea WiFi. Serverul rulează doar cât acest ecran este deschis.</string>
+    <string name="desktop_no_wifi">Modul desktop are nevoie ca telefonul și computerul să fie pe aceeași rețea, iar acum nu există WiFi.</string>
+    <string name="desktop_hotspot_hint">Fără WiFi în apropiere? Pornește hotspotul telefonului, conectează computerul la el, iar adresa va apărea aici.</string>
+    <string name="desktop_open_hotspot">Deschide setările hotspot</string>
+    <string name="desktop_running">Serverul rulează</string>
+    <string name="desktop_stop">Oprește și ieși</string>
+    <string name="desktop_server_error">Serverul nu a putut porni.</string>
+</resources>

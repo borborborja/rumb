@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Personal records -->
+    <string name="records_title">Records</string>
+    <string name="records_computing">Analyse %1$d/%2$d…</string>
+    <string name="records_empty">Aucun record. Enregistrez ou importez des entraînements pour voir vos meilleures performances.</string>
+    <string name="records_fastest_1k">1 km le plus rapide</string>
+    <string name="records_fastest_5k">5 km le plus rapide</string>
+    <string name="records_fastest_10k">10 km le plus rapide</string>
+    <string name="records_fastest_half">Semi-marathon le plus rapide</string>
+    <string name="records_longest">Activité la plus longue</string>
+    <string name="records_max_ascent">Plus fort dénivelé</string>
+    <string name="records_max_speed">Vitesse max</string>
+    <string name="records_longest_time">Plus longue durée</string>
+    <string name="records_stat_calories">Calories</string>
+
+    <!-- Heatmap -->
+    <string name="heatmap_title">Carte de chaleur</string>
+    <string name="heatmap_include_routes">Inclure les itinéraires</string>
+    <string name="heatmap_loading">%1$d/%2$d traces</string>
+</resources>

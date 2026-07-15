@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Viewer top bar -->
+    <string name="viewer_tab_map">Karta</string>
+    <string name="viewer_tab_data">Data</string>
+    <string name="viewer_cd_exit">Avsluta visaren</string>
+    <string name="viewer_cd_edit_page">Redigera aktuell skärm</string>
+    <string name="viewer_cd_settings">Visarinställningar</string>
+
+    <!-- HUD controls -->
+    <string name="viewer_cd_center">Centrera</string>
+    <string name="viewer_cd_north">Norr</string>
+    <string name="viewer_cd_zoom_in">Zooma in</string>
+    <string name="viewer_cd_zoom_out">Zooma ut</string>
+    <string name="viewer_cd_pause">Pausa</string>
+    <string name="viewer_cd_resume">Återuppta</string>
+    <string name="viewer_off_route">Utanför rutt · %1$d m</string>
+
+    <!-- Quick-settings sheet -->
+    <string name="viewer_qs_tab_map">Karta</string>
+    <string name="viewer_qs_tab_route">Rutt</string>
+    <string name="viewer_qs_tab_options">Alternativ</string>
+    <string name="viewer_qs_online_map">Onlinekarta</string>
+    <string name="viewer_qs_offline_map">Offlinekarta</string>
+    <string name="viewer_qs_offline_subtitle">offline</string>
+    <string name="viewer_qs_route_to_follow">Rutt att följa</string>
+    <string name="viewer_qs_route_none">Ingen</string>
+    <string name="viewer_qs_route_none_subtitle">ingen rutt</string>
+    <string name="viewer_qs_no_routes_yet">Inga rutter än. Skapa eller importera dem från «Spår att följa».</string>
+    <string name="viewer_qs_map_orientation">Kartorientering</string>
+    <string name="viewer_qs_north_up">Norr uppåt</string>
+    <string name="viewer_qs_heading_up">Kurs uppåt</string>
+    <string name="viewer_qs_adaptive_zoom">Automatisk zoom vid ruttsvängar</string>
+    <string name="viewer_qs_adaptive_zoom_help">Under följning: zoomar in kartan när du närmar dig en sväng/korsning på rutten och ut på raka sträckor.</string>
+    <string name="viewer_qs_keep_screen_on">Håll skärmen på</string>
+    <string name="viewer_qs_fullscreen">Helskärm</string>
+
+    <!-- Toasts -->
+    <string name="viewer_toast_location_permission_record">Platsbehörighet krävs för att spela in</string>
+    <string name="viewer_toast_activity_no_points">Aktivitet utan punkter, kasserad</string>
+    <string name="viewer_toast_activity_saved">Aktivitet sparad</string>
+    <string name="viewer_toast_follow_route_empty">Rutten att följa är tom (id=%1$d)</string>
+
+    <!-- Save recording dialog -->
+    <string name="viewer_save_dialog_title">Spara aktivitet</string>
+    <string name="viewer_save_name_label">Namn</string>
+    <string name="viewer_save">Spara</string>
+    <string name="viewer_discard">Kasta</string>
+    <string name="viewer_default_activity_name">Aktivitet %1$s</string>
+    <string name="viewer_qs_route_meta">%1$.1f km · %2$d punkter</string>
+
+    <!-- Competition (ghost) mode -->
+    <string name="viewer_qs_tab_competition">Tävling</string>
+    <string name="viewer_qs_opponent">Ghost (motståndare)</string>
+    <string name="viewer_qs_opponent_best">bästa tid</string>
+    <string name="viewer_qs_halo">Färghalo vid skärmkant</string>
+    <string name="viewer_qs_halo_help">Grön: du är före ghosten. Röd: du är efter. Blå: jämnt (inom ±5 m).</string>
+    <string name="viewer_qs_ghost_seconds">Visa uppskattade sekunder</string>
+    <string name="viewer_toast_ghost_failed">Kunde inte ladda ghosten (spår utan tidsstämplar)</string>
+    <string name="viewer_qs_countdown">3-2-1-nedräkning vid start</string>
+    <string name="countdown_waiting_gps">Väntar på GPS-signal…</string>
+    <string name="countdown_go">KÖR!</string>
+    <string name="countdown_cancel_hint">Tryck för att avbryta</string>
+    <string name="countdown_gps_timeout">Ingen exakt GPS-position — inspelning ej startad</string>
+    <string name="comp_at_start">Vid startpunkten</string>
+    <string name="comp_start_distance">Startpunkt: %1$d m bort</string>
+    <string name="comp_start_distance_km">Startpunkt: %1$.1f km bort</string>
+    <string name="viewer_qs_auto_pause">Pausa automatiskt vid stopp</string>
+    <string name="viewer_qs_lap_management">Varvhantering</string>
+    <string name="viewer_qs_auto_lap">Auto-varv efter position</string>
+    <string name="viewer_qs_auto_lap_help">När du startar varv blir den platsen start/mållinje och varje passage stänger ett varv automatiskt. Den manuella flaggan fungerar fortfarande.</string>
+    <string name="viewer_qs_auto_pause_secs">Pausa efter att ha stått still i:</string>
+    <string name="viewer_qs_turn_voice">Svängvarningar (röst/pip)</string>
+    <!-- Dades: fixed record button, graph tiles, settings-toggle tiles -->
+    <string name="data_record_start">Spela in</string>
+    <string name="data_record_lap">Varv</string>
+    <string name="data_record_lap_end">Avsluta varv</string>
+    <string name="lap_compete_prompt">Tävla mot ditt bästa varv?</string>
+    <string name="lap_compete_yes">Tävla</string>
+    <string name="lap_compete_no">Nej</string>
+    <string name="data_chart_speed">Fartdiagram</string>
+    <string name="data_chart_elevation">Höjdprofil</string>
+    <string name="data_toggle_auto_pause">Auto-paus</string>
+    <string name="data_toggle_turn_voice">Svängvarningar</string>
+    <string name="data_toggle_adaptive_zoom">Adaptiv zoom</string>
+    <string name="data_toggle_keep_screen">Håll skärmen på</string>
+    <string name="data_toggle_barometer">Barometer</string>
+    <string name="data_toggle_barometer_hint">Gäller nästa inspelning</string>
+</resources>

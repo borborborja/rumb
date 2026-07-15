@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="competition_title">Competição</string>
+    <string name="competition_play_cd">Correr agora</string>
+    <string name="competition_col_date">Data</string>
+    <string name="competition_col_time">Tempo</string>
+    <string name="competition_col_speed">Velocidade</string>
+    <string name="competition_col_hr">FC</string>
+    <string name="competition_col_diff">Dif.</string>
+    <string name="competition_row_average">Média</string>
+    <string name="competition_best_badge">Melhor</string>
+    <string name="competition_gap_chart_title">Diferença vs melhor (onde ganha ou perde)</string>
+    <string name="comp_evolution_title">Evolução</string>
+    <string name="comp_metric_time">Tempo</string>
+    <string name="comp_metric_speed">Vel. média</string>
+    <string name="comp_metric_hr">FC média</string>
+    <string name="competition_gap_ahead">Mais rápido que o melhor</string>
+    <string name="competition_gap_behind">Mais lento que o melhor</string>
+    <string name="competition_hr_zones_title">Zonas de frequência cardíaca</string>
+    <string name="competition_hr_no_data">Sem dados de FC em nenhuma tentativa</string>
+    <string name="competition_attempts_count">%1$d tentativas</string>
+    <string name="competition_type_route">Rota</string>
+    <string name="competition_type_lap">Voltas</string>
+    <string name="competition_empty">Ainda não há competições. Abre um treino e «Enviar para competição», ou usa um treino com voltas para criar um circuito.</string>
+    <string name="competition_zone_fmt">Z%1$d</string>
+    <string name="competition_archived_section">Arquivadas</string>
+    <string name="competition_archive">Arquivar competição</string>
+    <string name="competition_unarchive">Desarquivar</string>
+    <string name="competition_delete">Eliminar competição</string>
+    <string name="competition_delete_msg">Os percursos permanecem na biblioteca.</string>
+    <string name="competition_remove_attempt">Remover da competição</string>
+    <string name="competition_cd_menu">Opções da competição</string>
+</resources>

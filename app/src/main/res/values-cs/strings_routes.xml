@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Route detail screen -->
+    <string name="routes_route_fallback_title">Trasa</string>
+    <string name="routes_edit_trace">Upravit stopu</string>
+    <string name="routes_stat_distance">Vzdálenost</string>
+    <string name="routes_stat_ascent">Převýšení +</string>
+    <string name="routes_history_title">Historie</string>
+    <string name="routes_stat_points">Body</string>
+    <string name="routes_distance_km_format">%1$.2f km</string>
+    <string name="routes_ascent_m_format">%1$d m</string>
+    <string name="routes_source_collection">Zdroj: %1$s · Sbírka: %2$s</string>
+    <string name="routes_follow_this_route">Sledovat tuto trasu</string>
+    <string name="routes_active_follow_toast">Trasa aktivní ke sledování</string>
+    <string name="routes_rename">Přejmenovat</string>
+    <string name="routes_collection">Sbírka</string>
+    <string name="routes_download_route_map">Stáhnout mapu trasy</string>
+    <string name="routes_delete">Smazat</string>
+    <string name="routes_rename_route_title">Přejmenovat trasu</string>
+    <string name="routes_delete_route_title">Smazat trasu</string>
+    <string name="routes_delete_confirm">Opravdu chceš smazat «%1$s»?</string>
+
+    <!-- Route editor screen -->
+    <string name="routes_create_route">Vytvořit trasu</string>
+    <string name="routes_edit_route">Upravit trasu</string>
+    <string name="routes_back">Zpět</string>
+    <string name="routes_undo">Zpět</string>
+    <string name="routes_save">Uložit</string>
+    <string name="routes_cancel">Zrušit</string>
+    <string name="routes_save_route_title">Uložit trasu</string>
+    <string name="routes_save_changes_title">Uložit změny</string>
+    <string name="routes_name_label">Název</string>
+    <string name="routes_snap_to_path">Přichytit k cestě</string>
+    <string name="routes_tap_map_to_add_points">Klepnutím na mapu přidáš body.</string>
+    <string name="routes_new_route_default_name">Nová trasa</string>
+
+    <!-- Routing profiles -->
+    <string name="routing_hiking">Turistika</string>
+    <string name="routing_trekking">Kolo/trekking</string>
+    <string name="routing_mtb">MTB</string>
+    <string name="routing_shortest">Nejkratší</string>
+    <string name="routes_type">Typ</string>
+    <string name="routes_assign_type_title">Typ aktivity</string>
+    <string name="routes_stat_time">Čas</string>
+    <string name="routes_stat_avg_speed">Prům. km/h</string>
+    <string name="routes_stat_avg_hr">Prům. TF</string>
+</resources>

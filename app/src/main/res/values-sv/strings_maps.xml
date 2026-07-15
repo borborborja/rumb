@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Kartlager</string>
+    <string name="maps_tab_online">Online</string>
+    <string name="maps_tab_offline">Offline</string>
+    <string name="maps_base_map_title">Baskarta för visaren</string>
+    <string name="maps_default_map_name">karta</string>
+    <string name="maps_download_area">Ladda ner område</string>
+    <string name="maps_import_mbtiles">Importera</string>
+    <string name="maps_empty_offline">Inga offlinekartor än. Ladda ner ett område eller importera en .mbtiles-fil (t.ex. ICGC:s officiella topografiska kartor eller ortofoton från visors.icgc.cat/appdownloads).</string>
+    <string name="maps_size_sectors">%1$.1f MB · %2$d sektorer</string>
+    <string name="maps_delete">Ta bort</string>
+    <string name="maps_manage_sectors">Hantera sektorer</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Offlinesektorer</string>
+    <string name="maps_add_sector">Lägg till sektor</string>
+    <string name="maps_no_sectors">Inga sektorer. Lägg till en genom att ladda ner ett område.</string>
+    <string name="maps_unknown_map_type">Okänd karttyp</string>
+    <string name="maps_redownloading">Laddar ner sektorn igen…</string>
+    <string name="maps_area_name">%1$s · område</string>
+    <string name="maps_delete_sector_title">Ta bort sektor</string>
+    <string name="maps_delete_sector_msg">Rutor i den här sektorn som inte delas med någon annan sektor tas bort.</string>
+    <string name="maps_cancel">Avbryt</string>
+    <string name="maps_sector_n">Sektor %1$d</string>
+    <string name="maps_sector_meta">zoom %1$d–%2$d · %3$,d rutor · %4$.0f×%5$.0f km</string>
+    <string name="maps_redownload">Ladda ner igen</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Tillbaka</string>
+    <string name="maps_mode_route">Rutt</string>
+    <string name="maps_mode_province">Provins</string>
+    <string name="maps_mode_visible">Synligt område</string>
+    <string name="maps_mode_draw">Rita</string>
+    <string name="maps_route_hint">Området för den valda rutten. Välj källa och zoom, ladda sedan ner.</string>
+    <string name="maps_visible_hint">Rama in kartan och tryck på «Synligt område» igen för att uppdatera.</string>
+    <string name="maps_draw_hint">Dra på kartan för att rita rektangeln.</string>
+    <string name="maps_zoom_range">Zoom %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d rutor · %2$.0f MB</string>
+    <string name="maps_over_limit">Området/zoomen är för stor (max %1$dk). Minska zoomen.</string>
+    <string name="maps_osm_warning">OSM avråder från massnedladdningar; använd ICGC för stora områden.</string>
+    <string name="maps_downloading">Laddar ner… %1$d / %2$d</string>
+    <string name="maps_download_done">Nedladdning klar ✓ — du kan nu välja den under Offlinekartor.</string>
+    <string name="maps_download">Ladda ner</string>
+</resources>

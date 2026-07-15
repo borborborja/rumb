@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Route detail screen -->
+    <string name="routes_route_fallback_title">Reitti</string>
+    <string name="routes_edit_trace">Muokkaa jälkeä</string>
+    <string name="routes_stat_distance">Matka</string>
+    <string name="routes_stat_ascent">Nousu +</string>
+    <string name="routes_history_title">Historia</string>
+    <string name="routes_stat_points">Pisteet</string>
+    <string name="routes_distance_km_format">%1$.2f km</string>
+    <string name="routes_ascent_m_format">%1$d m</string>
+    <string name="routes_source_collection">Lähde: %1$s · Kokoelma: %2$s</string>
+    <string name="routes_follow_this_route">Seuraa tätä reittiä</string>
+    <string name="routes_active_follow_toast">Reitti aktiivinen seurattavaksi</string>
+    <string name="routes_rename">Nimeä uudelleen</string>
+    <string name="routes_collection">Kokoelma</string>
+    <string name="routes_download_route_map">Lataa reitin kartta</string>
+    <string name="routes_delete">Poista</string>
+    <string name="routes_rename_route_title">Nimeä reitti uudelleen</string>
+    <string name="routes_delete_route_title">Poista reitti</string>
+    <string name="routes_delete_confirm">Haluatko varmasti poistaa «%1$s»?</string>
+
+    <!-- Route editor screen -->
+    <string name="routes_create_route">Luo reitti</string>
+    <string name="routes_edit_route">Muokkaa reittiä</string>
+    <string name="routes_back">Takaisin</string>
+    <string name="routes_undo">Kumoa</string>
+    <string name="routes_save">Tallenna</string>
+    <string name="routes_cancel">Peruuta</string>
+    <string name="routes_save_route_title">Tallenna reitti</string>
+    <string name="routes_save_changes_title">Tallenna muutokset</string>
+    <string name="routes_name_label">Nimi</string>
+    <string name="routes_snap_to_path">Kiinnitä polkuun</string>
+    <string name="routes_tap_map_to_add_points">Lisää pisteitä napauttamalla karttaa.</string>
+    <string name="routes_new_route_default_name">Uusi reitti</string>
+
+    <!-- Routing profiles -->
+    <string name="routing_hiking">Vaellus</string>
+    <string name="routing_trekking">Pyörä/patikointi</string>
+    <string name="routing_mtb">Maastopyörä</string>
+    <string name="routing_shortest">Lyhin</string>
+    <string name="routes_type">Tyyppi</string>
+    <string name="routes_assign_type_title">Aktiviteetin tyyppi</string>
+    <string name="routes_stat_time">Aika</string>
+    <string name="routes_stat_avg_speed">Keskim. km/h</string>
+    <string name="routes_stat_avg_hr">Keskisyke</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_type_walk">Yürüyüş</string>
+    <string name="activity_type_run">Koşu</string>
+    <string name="activity_type_trail_run">Patika koşusu</string>
+    <string name="activity_type_road_bike">Yol bisikleti</string>
+    <string name="activity_type_mtb">MTB</string>
+    <string name="activity_type_hike">Doğa yürüyüşü</string>
+    <string name="activity_type_ski">Kayak</string>
+    <string name="activity_type_skate">Paten</string>
+    <string name="activity_type_kayak">Kano</string>
+    <string name="activity_type_swim">Yüzme</string>
+    <string name="activity_type_none">Tür yok</string>
+    <string name="difficulty_easy">Kolay</string>
+    <string name="difficulty_moderate">Orta</string>
+    <string name="difficulty_hard">Zor</string>
+    <string name="difficulty_very_hard">Çok zor</string>
+</resources>

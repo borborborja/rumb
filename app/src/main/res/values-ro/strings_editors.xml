@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — Romanian. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Ieși</string>
+    <string name="editor_configure">Configurează</string>
+    <string name="editor_remove">Elimină</string>
+    <string name="editor_resize">Redimensionează</string>
+    <string name="editor_move">Mută</string>
+    <string name="editor_done">Gata</string>
+    <string name="editor_global_settings">Setări globale</string>
+    <string name="editor_show_graph">Grafic</string>
+    <string name="editor_tab_general">General</string>
+    <string name="editor_tab_competition">Competiție</string>
+    <string name="editor_tab_settings">Setări</string>
+    <string name="editor_competition_hint">Adăugat acum, afișat cât timp o competiție este activă.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Widgeturi</string>
+    <string name="editor_widget">Widget</string>
+    <string name="editor_metrics">Valori</string>
+    <string name="editor_charts">Grafice</string>
+    <string name="editor_controls">Comenzi</string>
+    <string name="editor_presets">Presetări</string>
+    <string name="editor_global_size">Dimensiune globală</string>
+    <string name="editor_font_size">Dimensiune font: %1$.0f%%</string>
+    <string name="editor_value_color">Culoare valoare</string>
+    <string name="editor_show_chart">Afișează graficul</string>
+    <string name="editor_time_format">Format oră</string>
+    <string name="editor_zone">Zonă</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Coloane</string>
+    <string name="editor_format">Format</string>
+    <string name="editor_width">Lățime</string>
+    <string name="editor_no_tiles">Fără dale. Adaugă valori din «Valori ▾».</string>
+    <string name="preset_cycling">Ciclism</string>
+    <string name="preset_trail">Traseu</string>
+    <string name="preset_ski">Schi</string>
+    <string name="editor_extra">Altele</string>
+</resources>

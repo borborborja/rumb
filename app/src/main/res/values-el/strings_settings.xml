@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="common_back">Πίσω</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Ρυθμίσεις</string>
+    <string name="settings_tab_units">Μονάδες</string>
+    <string name="settings_tab_recording">Καταγραφή</string>
+    <string name="settings_tab_sync">Συγχρονισμός</string>
+    <string name="settings_tab_appearance">Εμφάνιση</string>
+    <string name="settings_tab_route">Διαδρομή</string>
+    <string name="settings_tab_map">Χάρτες</string>
+    <string name="settings_map_cache">Προσωρινή μνήμη χάρτη</string>
+    <string name="settings_map_cache_size">Μέγεθος μνήμης: %1$d MB</string>
+    <string name="settings_map_clear_cache">Εκκαθάριση μνήμης</string>
+    <string name="settings_map_cache_cleared">Η μνήμη εκκαθαρίστηκε</string>
+    <string name="settings_map_prefetch">Προλήψη διαδρομής</string>
+    <string name="settings_map_prefetch_follow">Λήψη του χάρτη όταν ακολουθείτε μια διαδρομή</string>
+    <string name="settings_map_prefetch_hint">Κατεβάζει όλα τα πλακίδια της διαδρομής όταν ξεκινάτε να την ακολουθείτε (οποιαδήποτε σύνδεση), ώστε να λειτουργεί χωρίς κάλυψη.</string>
+    <string name="settings_tab_audio">Ήχος</string>
+    <string name="settings_tab_activity_types">Τύποι</string>
+    <string name="settings_tab_app">Εφαρμογή</string>
+    <string name="settings_tab_profile">Προφίλ</string>
+    <string name="settings_tab_map_routes">Χάρτης &amp; διαδρομές</string>
+    <string name="settings_profile_personal">Προσωπικά δεδομένα</string>
+
+    <!-- Activity types -->
+    <string name="settings_types_predefined_header">Προκαθορισμένοι τύποι</string>
+    <string name="settings_types_custom_header">Προσαρμοσμένοι τύποι</string>
+    <string name="settings_types_add">Προσθήκη προσαρμοσμένου τύπου</string>
+    <string name="settings_types_add_title">Νέος προσαρμοσμένος τύπος</string>
+    <string name="settings_types_edit_title">Επεξεργασία προσαρμοσμένου τύπου</string>
+    <string name="settings_types_name_label">Όνομα</string>
+    <string name="settings_types_icon_label">Εικονίδιο</string>
+    <string name="settings_types_delete">Διαγραφή</string>
+    <string name="settings_types_delete_confirm">Διαγραφή του προσαρμοσμένου τύπου «%1$s»; Τα ίχνη που τον χρησιμοποιούν δεν θα εμφανίζουν τύπο.</string>
+    <string name="settings_types_empty_custom">Δεν υπάρχουν προσαρμοσμένοι τύποι. Προσθέστε έναν με το κουμπί παρακάτω.</string>
+    <string name="settings_types_save">Αποθήκευση</string>
+    <string name="settings_types_cancel">Ακύρωση</string>
+
+    <!-- Units -->
+    <string name="settings_units_distance">Απόσταση</string>
+    <string name="settings_units_kilometers">Χιλιόμετρα (km)</string>
+    <string name="settings_units_miles">Μίλια (mi)</string>
+    <string name="settings_units_elevation">Υψόμετρο και ανάβαση</string>
+    <string name="settings_units_meters">Μέτρα (m)</string>
+    <string name="settings_units_feet">Πόδια (ft)</string>
+    <string name="settings_units_speed">Ταχύτητα</string>
+    <string name="settings_units_note">Ο ρυθμός χρησιμοποιεί τη μονάδα απόστασης (λεπτά/km ή λεπτά/mi)· τα VAM και απόκλιση χρησιμοποιούν τη μονάδα υψομέτρου.</string>
+
+    <!-- Sync -->
+    <string name="settings_sync_endurain">Endurain</string>
+    <string name="settings_sync_server_label">Διακομιστής (https://…)</string>
+    <string name="settings_sync_api_key_label">Κλειδί API (scope activities:upload)</string>
+    <string name="settings_sync_saved_testing">Αποθηκεύτηκε. Δοκιμή σύνδεσης…</string>
+    <string name="settings_sync_connected">Συνδέθηκε ✓ (%1$s δραστηριότητες στον διακομιστή)</string>
+    <string name="settings_error">Σφάλμα: %1$s</string>
+    <string name="settings_sync_save_test">Αποθήκευση και δοκιμή σύνδεσης</string>
+    <string name="settings_sync_upload_note">Οι καταγεγραμμένες προπονήσεις ανεβαίνουν αυτόματα στο Endurain όταν σταματά η καταγραφή (αν είναι ρυθμισμένη η σύνδεση). Η ουρά επαναλαμβάνει όταν δεν υπάρχει δίκτυο.</string>
+    <string name="settings_sync_coming_soon">Σύντομα</string>
+    <string name="settings_sync_coming_soon_items">· Strava\n· Αυτόματη μεταφόρτωση στο Google Drive</string>
+    <string name="settings_sync_status">Κατάσταση συγχρονισμού</string>
+    <string name="settings_sync_last_upload">Τελευταία μεταφόρτωση: %1$s</string>
+    <string name="settings_sync_pending_failed">%1$d σε εκκρεμότητα · %2$d απέτυχαν</string>
+    <string name="settings_sync_retry_failed">Επανάληψη αποτυχημένων</string>
+    <string name="settings_sync_folder">Αποθήκευση σε φάκελο</string>
+    <string name="settings_sync_folder_choose">Επιλογή φακέλου</string>
+    <string name="settings_sync_folder_none">Δεν επιλέχθηκε φάκελος</string>
+    <string name="settings_sync_folder_enable">Αυτόματη αποθήκευση κάθε GPX</string>
+    <string name="settings_sync_webdav">WebDAV (Nextcloud/ownCloud)</string>
+    <string name="settings_sync_webdav_url">URL (…/dav/files/user/Rumb)</string>
+    <string name="settings_sync_webdav_user">Χρήστης</string>
+    <string name="settings_sync_webdav_pass">Κωδικός</string>
+    <string name="settings_sync_webdav_test">Αποθήκευση και δοκιμή</string>
+
+    <!-- Recording -->
+    <string name="settings_rec_gps_interval">Διάστημα GPS</string>
+    <string name="settings_rec_min_distance">Ελάχιστη απόσταση μεταξύ σημείων: %1$d m</string>
+    <string name="settings_rec_max_accuracy">Μέγιστη ακρίβεια GPS: %1$d m</string>
+    <string name="settings_rec_accuracy_note">Οι θέσεις με χειρότερη ακρίβεια απορρίπτονται.</string>
+    <string name="settings_rec_auto_pause">Αυτόματη παύση όταν είστε σταματημένοι</string>
+    <string name="settings_rec_barometer">Χρήση βαρόμετρου για την ανάβαση</string>
+    <string name="settings_rec_ble_sensors">Αισθητήρες BLE (ΚΣ · καντάνς · ισχύς)</string>
+    <string name="settings_rec_paired_sensors">Συζευγμένοι αισθητήρες: %1$d</string>
+    <string name="settings_rec_apply_note">Οι αλλαγές ισχύουν για την επόμενη καταγραφή.</string>
+
+    <!-- App / update -->
+    <string name="settings_app_installed_version">Εγκατεστημένη έκδοση</string>
+    <string name="settings_check_update">Έλεγχος για ενημέρωση</string>
+    <string name="settings_update_checking">Έλεγχος…</string>
+    <string name="settings_update_up_to_date">Έχετε την πιο πρόσφατη έκδοση ✓</string>
+    <string name="settings_update_network_error">Σφάλμα δικτύου</string>
+    <string name="settings_update_downloading">Λήψη… %1$d%%</string>
+    <string name="settings_update_new_version">Νέα έκδοση v%1$s</string>
+    <string name="settings_update_download_install">Λήψη και εγκατάσταση</string>
+    <string name="settings_update_download_error">Σφάλμα λήψης</string>
+    <string name="settings_debug_section">Αποσφαλμάτωση</string>
+    <string name="settings_debug_log_button">Αρχείο καταγραφής (πλήρες)</string>
+    <string name="settings_debug_full">Πλήρη διαγνωστικά</string>
+    <string name="settings_debug_copy">Αντιγραφή διαγνωστικών</string>
+    <string name="settings_about">Σχετικά</string>
+    <string name="settings_about_desc">Rumb — καταγραφέας δραστηριότητας GPS με ζωντανό HUD, χάρτες ICGC και συγχρονισμό Endurain.</string>
+
+    <!-- Track appearance -->
+    <string name="settings_appearance_track">Εμφάνιση ίχνους</string>
+
+    <!-- Follow route -->
+    <string name="settings_route_follow">Διαδρομή προς ακολούθηση</string>
+    <string name="settings_route_width">Πλάτος %1$d</string>
+    <string name="settings_route_arrows">Βέλη κατεύθυνσης</string>
+    <string name="settings_route_progress">Εμφάνιση προόδου (θαμπό διανυμένο τμήμα)</string>
+    <string name="settings_route_tracking_point">Σημείο εντοπισμού</string>
+    <string name="settings_tracking_dot">Κουκκίδα</string>
+    <string name="settings_tracking_arrow">Βέλος</string>
+    <string name="settings_route_tracking_size">Μέγεθος</string>
+    <string name="settings_route_off_route">Ειδοποίηση εκτός διαδρομής</string>
+    <string name="settings_route_threshold">Όριο απόκλισης: %1$d m</string>
+    <string name="settings_route_sound">Ήχος</string>
+    <string name="settings_route_vibration">Δόνηση</string>
+
+    <!-- Audio announcements -->
+    <string name="settings_audio_title">Ήχος και ειδοποιήσεις</string>
+    <string name="settings_audio_enable">Ενεργοποίηση φωνητικών ανακοινώσεων</string>
+    <string name="settings_audio_voice">Φωνή</string>
+    <string name="settings_audio_beeps">Μπιπ</string>
+    <string name="settings_audio_beep_sound">Ήχος μπιπ</string>
+    <string name="settings_audio_preview">▶ Προεπισκόπηση</string>
+    <string name="settings_audio_sound_1">Μπιπ</string>
+    <string name="settings_audio_sound_2">Διπλό</string>
+    <string name="settings_audio_sound_3">Ack</string>
+    <string name="settings_audio_sound_4">Prompt</string>
+    <string name="settings_audio_sound_5">Chime</string>
+    <string name="settings_audio_turn_heads_up">Έγκαιρη προειδοποίηση στροφής (~150 m)</string>
+    <string name="settings_audio_language">Γλώσσα</string>
+    <string name="settings_every_km">Κάθε %1$d km</string>
+    <string name="settings_every_min">Κάθε %1$d λεπτά</string>
+    <string name="settings_audio_announce_what">Τι ανακοινώνεται</string>
+    <string name="settings_audio_distance_time">Απόσταση και χρόνος</string>
+    <string name="settings_audio_pace">Ρυθμός</string>
+    <string name="settings_audio_split_pace">Ρυθμός τελευταίου km</string>
+    <string name="settings_audio_elevation">Ανάβαση</string>
+    <string name="settings_audio_heart_rate">Καρδιακοί παλμοί</string>
+    <string name="settings_audio_off_route_spoken">Φωνητικό «Εκτός διαδρομής»</string>
+
+    <!-- Sensors screen -->
+    <string name="sensors_title">Αισθητήρες BLE</string>
+    <string name="sensors_intro">Συζεύξτε ζώνες καρδιακών παλμών, αισθητήρες καντάνς και μετρητές ισχύος. Συνδέονται αυτόματα όταν ξεκινά μια καταγραφή.</string>
+    <string name="sensors_scan">Σάρωση για αισθητήρες</string>
+    <string name="sensors_stop_scan">Διακοπή σάρωσης</string>
+    <string name="sensors_scan_error">Σφάλμα σάρωσης (%1$d)</string>
+    <string name="sensors_bluetooth_off">Το Bluetooth είναι απενεργοποιημένο</string>
+    <string name="sensors_default_name">Αισθητήρας</string>
+    <string name="sensors_paired_name">Συζευγμένος αισθητήρας</string>
+    <string name="sensors_scanning_hint">Σάρωση… ενεργοποιήστε τον αισθητήρα και φέρτε τον κοντά.</string>
+    <string name="sensors_none">Χωρίς αισθητήρες. Πατήστε «Σάρωση για αισθητήρες».</string>
+
+    <!-- Debug log screen -->
+    <string name="debug_title">Αρχείο καταγραφής</string>
+    <string name="debug_loading">Φόρτωση…</string>
+    <string name="debug_no_lines">(δεν υπάρχουν γραμμές Rumb)</string>
+    <string name="debug_refresh">Ανανέωση</string>
+    <string name="debug_share">Κοινοποίηση</string>
+    <string name="debug_clear">Εκκαθάριση</string>
+    <string name="debug_share_subject">Rumb · αρχείο καταγραφής</string>
+    <string name="debug_share_chooser">Κοινοποίηση αρχείου</string>
+    <string name="debug_only_app">Μόνο Rumb</string>
+    <string name="debug_copy">Αντιγραφή</string>
+    <string name="debug_lines">%1$d γραμμές</string>
+
+    <!-- Track color modes -->
+    <string name="trackcolor_single">Ενιαίο χρώμα</string>
+    <string name="trackcolor_speed">Κατά ταχύτητα</string>
+    <string name="trackcolor_altitude">Κατά υψόμετρο</string>
+    <string name="trackcolor_heart_rate">Κατά καρδιακούς παλμούς</string>
+    <string name="settings_licenses_title">Άδειες ανοιχτού κώδικα</string>
+    <string name="settings_licenses_show">Εμφάνιση αδειών και αναφορών</string>
+    <string name="settings_licenses_hide">Απόκρυψη</string>
+    <string name="settings_licenses_body">Το Rumb περιέχει κώδικα προερχόμενο από τα ακόλουθα έργα ανοιχτού κώδικα:\n\n· OpenTracks — λογική μηχανής καταγραφής (φιλτράρισμα GPS, στατιστικά ίχνους). Apache License 2.0. github.com/OpenTracksApp/OpenTracks\n· OSMDashboard — ενσωμάτωση OpenTracks Dashboard API. Apache License 2.0. codeberg.org/OpenTracksApp/OSMDashboard\n· MapLibre GL Native — απόδοση χαρτών. BSD 2-Clause.\n· AndroidX / Jetpack Compose, Kotlin, OkHttp, kotlinx.serialization — Apache License 2.0.\n\nΔεδομένα και υπηρεσίες:\n· Δεδομένα χάρτη © συνεισφέροντες OpenStreetMap (ODbL)\n· Χάρτες © Institut Cartogràfic i Geològic de Catalunya (ICGC), CC-BY 4.0\n· Γεωκωδικοποίηση από Nominatim © συνεισφέροντες OpenStreetMap\n\nΠλήρη κείμενα: αρχεία LICENSE και NOTICE στο αποθετήριο πηγαίου κώδικα.</string>
+    <string name="settings_max_hr">Μέγιστοι καρδιακοί παλμοί: %1$d bpm</string>
+    <string name="settings_max_hr_help">Χρησιμοποιείται για την ανάλυση ζωνών παλμών του αγώνα.</string>
+    <string name="settings_weight">Βάρος: %1$d kg</string>
+    <string name="settings_weight_help">Χρησιμοποιείται για την εκτίμηση θερμίδων.</string>
+    <string name="settings_age">Ηλικία: %1$d έτη</string>
+    <string name="settings_age_unset">Ηλικία: μη ορισμένη</string>
+    <string name="settings_sex">Φύλο</string>
+    <string name="settings_sex_unset">Μη ορισμένο</string>
+    <string name="settings_sex_male">Άνδρας</string>
+    <string name="settings_sex_female">Γυναίκα</string>
+    <string name="settings_calories_hr_help">Με ηλικία και φύλο, οι θερμίδες εκτιμώνται από τους καρδιακούς παλμούς (πιο ακριβές). Διαφορετικά χρησιμοποιείται εκτίμηση MET από τον τύπο δραστηριότητας και το βάρος.</string>
+</resources>

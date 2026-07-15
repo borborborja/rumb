@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Mode ordinateur</string>
+    <string name="home_cd_desktop">Mode ordinateur</string>
+    <string name="desktop_url_label">Ouvrez cette adresse dans le navigateur de votre ordinateur :</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Votre ordinateur doit être sur le même WiFi. Le serveur ne fonctionne que tant que cet écran est ouvert.</string>
+    <string name="desktop_no_wifi">Le mode ordinateur nécessite le téléphone et l\'ordinateur sur le même réseau, et il n\'y a pas de WiFi actuellement.</string>
+    <string name="desktop_hotspot_hint">Pas de WiFi à proximité ? Activez le point d\'accès de votre téléphone, connectez-y l\'ordinateur, et l\'adresse apparaîtra ici.</string>
+    <string name="desktop_open_hotspot">Ouvrir les paramètres du point d\'accès</string>
+    <string name="desktop_running">Serveur actif</string>
+    <string name="desktop_stop">Arrêter et quitter</string>
+    <string name="desktop_server_error">Impossible de démarrer le serveur.</string>
+</resources>

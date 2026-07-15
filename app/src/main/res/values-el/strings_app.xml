@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lang_title">Γλώσσα εφαρμογής</string>
+    <string name="lang_system">Προεπιλογή συστήματος</string>
+    <string name="lang_hint_old">Σε αυτή την έκδοση Android, αλλάξτε τη γλώσσα της εφαρμογής από τις ρυθμίσεις γλώσσας του συστήματος.</string>
+</resources>

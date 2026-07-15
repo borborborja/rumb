@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="competition_title">Compétition</string>
+    <string name="competition_play_cd">Courir maintenant</string>
+    <string name="competition_col_date">Date</string>
+    <string name="competition_col_time">Temps</string>
+    <string name="competition_col_speed">Vitesse</string>
+    <string name="competition_col_hr">FC</string>
+    <string name="competition_col_diff">Écart</string>
+    <string name="competition_row_average">Moyenne</string>
+    <string name="competition_best_badge">Meilleur</string>
+    <string name="competition_gap_chart_title">Écart au meilleur (où vous gagnez ou perdez)</string>
+    <string name="comp_evolution_title">Évolution</string>
+    <string name="comp_metric_time">Temps</string>
+    <string name="comp_metric_speed">Vitesse moy.</string>
+    <string name="comp_metric_hr">FC moy.</string>
+    <string name="competition_gap_ahead">Plus rapide que le meilleur</string>
+    <string name="competition_gap_behind">Plus lent que le meilleur</string>
+    <string name="competition_hr_zones_title">Zones de fréquence cardiaque</string>
+    <string name="competition_hr_no_data">Aucune donnée de FC dans aucune tentative</string>
+    <string name="competition_attempts_count">%1$d tentatives</string>
+    <string name="competition_type_route">Itinéraire</string>
+    <string name="competition_type_lap">Tours</string>
+    <string name="competition_empty">Aucune compétition. Ouvrez un entraînement et «Envoyer en compétition», ou utilisez un entraînement avec tours pour créer un circuit.</string>
+    <string name="competition_zone_fmt">Z%1$d</string>
+    <string name="competition_archived_section">Archivées</string>
+    <string name="competition_archive">Archiver la compétition</string>
+    <string name="competition_unarchive">Désarchiver</string>
+    <string name="competition_delete">Supprimer la compétition</string>
+    <string name="competition_delete_msg">Les traces elles-mêmes restent dans la bibliothèque.</string>
+    <string name="competition_remove_attempt">Retirer de la compétition</string>
+    <string name="competition_cd_menu">Options de compétition</string>
+</resources>

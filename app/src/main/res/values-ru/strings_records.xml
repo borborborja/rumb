@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Personal records -->
+    <string name="records_title">Рекорды</string>
+    <string name="records_computing">Анализ %1$d/%2$d…</string>
+    <string name="records_empty">Пока нет рекордов. Записывайте или импортируйте тренировки, чтобы увидеть личные достижения.</string>
+    <string name="records_fastest_1k">Быстрейший 1 км</string>
+    <string name="records_fastest_5k">Быстрейшие 5 км</string>
+    <string name="records_fastest_10k">Быстрейшие 10 км</string>
+    <string name="records_fastest_half">Быстрейший полумарафон</string>
+    <string name="records_longest">Самая длинная активность</string>
+    <string name="records_max_ascent">Наибольший набор</string>
+    <string name="records_max_speed">Макс. скорость</string>
+    <string name="records_longest_time">Самое долгое время</string>
+    <string name="records_stat_calories">Калории</string>
+
+    <!-- Heatmap -->
+    <string name="heatmap_title">Тепловая карта</string>
+    <string name="heatmap_include_routes">Включить маршруты</string>
+    <string name="heatmap_loading">%1$d/%2$d треков</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rec_notif_channel">Aktivitetsoptagelse</string>
+    <string name="rec_notif_recording">Optager aktivitet</string>
+    <string name="rec_notif_paused">Optagelse sat på pause</string>
+    <string name="rec_notif_on_pause_suffix"> · PÅ PAUSE</string>
+    <string name="rec_action_pause">Pause</string>
+    <string name="rec_action_resume">Fortsæt</string>
+    <string name="rec_action_stop">Stop</string>
+    <string name="dl_notif_channel">Kortdownloads</string>
+    <string name="dl_notif_title">Downloader offlinekort</string>
+    <string name="prefetch_notif_title">Downloader rutekort</string>
+    <string name="dl_notif_progress">%1$d / %2$d fliser</string>
+    <string name="share_export_title">Eksportér "%1$s"</string>
+    <string name="rec_low_accuracy_start">Startet med lav GPS-nøjagtighed</string>
+    <string name="share_format_title">Delingsformat</string>
+    <string name="share_format_auto">Automatisk (bedste)</string>
+    <string name="share_format_gpx">GPX · rute + sensorer</string>
+    <string name="share_format_tcx">TCX · med omgange</string>
+    <string name="share_format_kml">KML · kun rute (Google Earth)</string>
+</resources>

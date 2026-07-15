@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — Russian. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Выход</string>
+    <string name="editor_configure">Настроить</string>
+    <string name="editor_remove">Убрать</string>
+    <string name="editor_resize">Размер</string>
+    <string name="editor_move">Переместить</string>
+    <string name="editor_done">Готово</string>
+    <string name="editor_global_settings">Общие настройки</string>
+    <string name="editor_show_graph">График</string>
+    <string name="editor_tab_general">Основные</string>
+    <string name="editor_tab_competition">Соревнование</string>
+    <string name="editor_tab_settings">Настройки</string>
+    <string name="editor_competition_hint">Добавлено сейчас, показывается во время соревнования.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Виджеты</string>
+    <string name="editor_widget">Виджет</string>
+    <string name="editor_metrics">Показатели</string>
+    <string name="editor_charts">Графики</string>
+    <string name="editor_controls">Элементы</string>
+    <string name="editor_presets">Пресеты</string>
+    <string name="editor_global_size">Общий размер</string>
+    <string name="editor_font_size">Размер шрифта: %1$.0f%%</string>
+    <string name="editor_value_color">Цвет значения</string>
+    <string name="editor_show_chart">Показать график</string>
+    <string name="editor_time_format">Формат времени</string>
+    <string name="editor_zone">Зона</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Столбцы</string>
+    <string name="editor_format">Формат</string>
+    <string name="editor_width">Ширина</string>
+    <string name="editor_no_tiles">Нет плиток. Добавьте показатели из «Показатели ▾».</string>
+    <string name="preset_cycling">Велосипед</string>
+    <string name="preset_trail">Трейл</string>
+    <string name="preset_ski">Лыжи</string>
+    <string name="editor_extra">Прочее</string>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — Finnish. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Poistu</string>
+    <string name="editor_configure">Määritä</string>
+    <string name="editor_remove">Poista</string>
+    <string name="editor_resize">Muuta kokoa</string>
+    <string name="editor_move">Siirrä</string>
+    <string name="editor_done">Valmis</string>
+    <string name="editor_global_settings">Yleisasetukset</string>
+    <string name="editor_show_graph">Kaavio</string>
+    <string name="editor_tab_general">Yleiset</string>
+    <string name="editor_tab_competition">Kilpailu</string>
+    <string name="editor_tab_settings">Asetukset</string>
+    <string name="editor_competition_hint">Lisätty nyt, näkyy kilpailun ollessa käynnissä.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Vimpaimet</string>
+    <string name="editor_widget">Vimpain</string>
+    <string name="editor_metrics">Mittarit</string>
+    <string name="editor_charts">Kaaviot</string>
+    <string name="editor_controls">Säätimet</string>
+    <string name="editor_presets">Esiasetukset</string>
+    <string name="editor_global_size">Yleiskoko</string>
+    <string name="editor_font_size">Fonttikoko: %1$.0f%%</string>
+    <string name="editor_value_color">Arvon väri</string>
+    <string name="editor_show_chart">Näytä kaavio</string>
+    <string name="editor_time_format">Ajan muoto</string>
+    <string name="editor_zone">Alue</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Sarakkeet</string>
+    <string name="editor_format">Muoto</string>
+    <string name="editor_width">Leveys</string>
+    <string name="editor_no_tiles">Ei ruutuja. Lisää mittareita «Mittarit ▾» -valikosta.</string>
+    <string name="preset_cycling">Pyöräily</string>
+    <string name="preset_trail">Polku</string>
+    <string name="preset_ski">Hiihto</string>
+    <string name="editor_extra">Muut</string>
+</resources>

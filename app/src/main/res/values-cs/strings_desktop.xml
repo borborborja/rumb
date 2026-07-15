@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Režim počítače</string>
+    <string name="home_cd_desktop">Režim počítače</string>
+    <string name="desktop_url_label">Otevři tuto adresu v prohlížeči na počítači:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Počítač musí být na stejné WiFi. Server běží jen po dobu otevření této obrazovky.</string>
+    <string name="desktop_no_wifi">Režim počítače potřebuje telefon a počítač ve stejné síti a teď není žádná WiFi.</string>
+    <string name="desktop_hotspot_hint">Není WiFi poblíž? Zapni hotspot telefonu, připoj k němu počítač a adresa se objeví zde.</string>
+    <string name="desktop_open_hotspot">Otevřít nastavení hotspotu</string>
+    <string name="desktop_running">Server běží</string>
+    <string name="desktop_stop">Zastavit a ukončit</string>
+    <string name="desktop_server_error">Server se nepodařilo spustit.</string>
+</resources>

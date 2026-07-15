@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Kartenebenen</string>
+    <string name="maps_tab_online">Online</string>
+    <string name="maps_tab_offline">Offline</string>
+    <string name="maps_base_map_title">Basiskarte für die Ansicht</string>
+    <string name="maps_default_map_name">Karte</string>
+    <string name="maps_download_area">Gebiet herunterladen</string>
+    <string name="maps_import_mbtiles">Importieren</string>
+    <string name="maps_empty_offline">Noch keine Offline-Karten. Lade ein Gebiet herunter oder importiere eine .mbtiles-Datei (z. B. die offiziellen topografischen oder Orthofoto-Karten des ICGC von visors.icgc.cat/appdownloads).</string>
+    <string name="maps_size_sectors">%1$.1f MB · %2$d Sektoren</string>
+    <string name="maps_delete">Löschen</string>
+    <string name="maps_manage_sectors">Sektoren verwalten</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Offline-Sektoren</string>
+    <string name="maps_add_sector">Sektor hinzufügen</string>
+    <string name="maps_no_sectors">Keine Sektoren. Füge einen hinzu, indem du ein Gebiet herunterlädst.</string>
+    <string name="maps_unknown_map_type">Unbekannter Kartentyp</string>
+    <string name="maps_redownloading">Sektor wird erneut heruntergeladen…</string>
+    <string name="maps_area_name">%1$s · Gebiet</string>
+    <string name="maps_delete_sector_title">Sektor löschen</string>
+    <string name="maps_delete_sector_msg">Kacheln dieses Sektors, die mit keinem anderen Sektor geteilt werden, werden gelöscht.</string>
+    <string name="maps_cancel">Abbrechen</string>
+    <string name="maps_sector_n">Sektor %1$d</string>
+    <string name="maps_sector_meta">Zoom %1$d–%2$d · %3$,d Kacheln · %4$.0f×%5$.0f km</string>
+    <string name="maps_redownload">Erneut laden</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Zurück</string>
+    <string name="maps_mode_route">Route</string>
+    <string name="maps_mode_province">Provinz</string>
+    <string name="maps_mode_visible">Sichtbarer Bereich</string>
+    <string name="maps_mode_draw">Zeichnen</string>
+    <string name="maps_route_hint">Gebiet der ausgewählten Route. Wähle Quelle und Zoom, dann herunterladen.</string>
+    <string name="maps_visible_hint">Richte die Karte aus und tippe erneut auf «Sichtbarer Bereich», um zu aktualisieren.</string>
+    <string name="maps_draw_hint">Ziehe auf der Karte, um das Rechteck zu zeichnen.</string>
+    <string name="maps_zoom_range">Zoom %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d Kacheln · %2$.0f MB</string>
+    <string name="maps_over_limit">Gebiet/Zoom zu groß (max. %1$dk). Reduziere den Zoom.</string>
+    <string name="maps_osm_warning">OSM rät von Massen-Downloads ab; nutze für große Gebiete ICGC.</string>
+    <string name="maps_downloading">Wird heruntergeladen… %1$d / %2$d</string>
+    <string name="maps_download_done">Download abgeschlossen ✓ — du kannst sie jetzt in den Offline-Karten auswählen.</string>
+    <string name="maps_download">Herunterladen</string>
+</resources>

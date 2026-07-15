@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Personal records -->
+    <string name="records_title">Records</string>
+    <string name="records_computing">Analyseren %1$d/%2$d…</string>
+    <string name="records_empty">Nog geen records. Neem trainingen op of importeer ze om je persoonlijke bests te zien.</string>
+    <string name="records_fastest_1k">Snelste 1 km</string>
+    <string name="records_fastest_5k">Snelste 5 km</string>
+    <string name="records_fastest_10k">Snelste 10 km</string>
+    <string name="records_fastest_half">Snelste halve marathon</string>
+    <string name="records_longest">Langste activiteit</string>
+    <string name="records_max_ascent">Meeste klim</string>
+    <string name="records_max_speed">Max. snelheid</string>
+    <string name="records_longest_time">Langste tijd</string>
+    <string name="records_stat_calories">Calorieën</string>
+
+    <!-- Heatmap -->
+    <string name="heatmap_title">Heatmap</string>
+    <string name="heatmap_include_routes">Routes meenemen</string>
+    <string name="heatmap_loading">%1$d/%2$d tracks</string>
+</resources>

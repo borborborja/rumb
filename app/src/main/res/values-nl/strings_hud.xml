@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_speed">Snelheid</string>
+    <string name="metric_avg_speed">Gem. snelheid</string>
+    <string name="metric_max_speed">Max. snelheid</string>
+    <string name="metric_distance">Afstand</string>
+    <string name="metric_duration">Tijd</string>
+    <string name="metric_moving_time">Bewegingstijd</string>
+    <string name="metric_pace">Tempo</string>
+    <string name="metric_heading">Koers</string>
+    <string name="metric_elev_gain">Stijging</string>
+    <string name="metric_altitude">Hoogte</string>
+    <string name="metric_slope">Helling</string>
+    <string name="metric_vam">VAM</string>
+    <string name="metric_heart_rate">HS</string>
+    <string name="metric_cadence">Cadans</string>
+    <string name="metric_power">Vermogen</string>
+    <string name="metric_remaining">Resterend</string>
+    <string name="metric_off_route">Afwijking</string>
+    <string name="hudel_chart_speed">Snelheidsgrafiek</string>
+    <string name="hudel_chart_elevation">Hoogteprofiel</string>
+    <string name="hudel_recenter">Centreren/volgen</string>
+    <string name="hudel_compass">Kompas</string>
+    <string name="hudel_zoom">Zoom</string>
+    <string name="hudel_record">Opnemen</string>
+    <string name="hudel_clock">Klok</string>
+    <string name="metric_ghost_delta">Ghost</string>
+    <string name="metric_ghost_seconds">Ghost (tijd)</string>
+    <string name="metric_calories">Calorieën</string>
+    <string name="metric_lap_count">Ronde</string>
+    <string name="metric_lap_time">Rondetijd</string>
+    <string name="metric_lap_distance">Ronde-afst.</string>
+    <string name="metric_last_lap">Laatste ronde</string>
+</resources>

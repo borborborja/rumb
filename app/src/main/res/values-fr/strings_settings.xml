@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="common_back">Retour</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Paramètres</string>
+    <string name="settings_tab_units">Unités</string>
+    <string name="settings_tab_recording">Enregistrement</string>
+    <string name="settings_tab_sync">Sync</string>
+    <string name="settings_tab_appearance">Apparence</string>
+    <string name="settings_tab_route">Itinéraire</string>
+    <string name="settings_tab_map">Cartes</string>
+    <string name="settings_map_cache">Cache des cartes en ligne</string>
+    <string name="settings_map_cache_size">Taille du cache : %1$d Mo</string>
+    <string name="settings_map_clear_cache">Vider le cache</string>
+    <string name="settings_map_cache_cleared">Cache vidé</string>
+    <string name="settings_map_prefetch">Préchargement de l\'itinéraire</string>
+    <string name="settings_map_prefetch_follow">Télécharger la carte en suivant un itinéraire</string>
+    <string name="settings_map_prefetch_hint">Télécharge toutes les tuiles de l\'itinéraire au début du suivi (toute connexion), pour fonctionner sans couverture.</string>
+    <string name="settings_tab_audio">Audio</string>
+    <string name="settings_tab_activity_types">Types</string>
+    <string name="settings_tab_app">App</string>
+    <string name="settings_tab_profile">Profil</string>
+    <string name="settings_tab_map_routes">Cartes &amp; itinéraires</string>
+    <string name="settings_profile_personal">Données personnelles</string>
+
+    <!-- Activity types -->
+    <string name="settings_types_predefined_header">Types prédéfinis</string>
+    <string name="settings_types_custom_header">Types personnalisés</string>
+    <string name="settings_types_add">Ajouter un type personnalisé</string>
+    <string name="settings_types_add_title">Nouveau type personnalisé</string>
+    <string name="settings_types_edit_title">Modifier le type personnalisé</string>
+    <string name="settings_types_name_label">Nom</string>
+    <string name="settings_types_icon_label">Icône</string>
+    <string name="settings_types_delete">Supprimer</string>
+    <string name="settings_types_delete_confirm">Supprimer le type personnalisé «%1$s» ? Les traces qui l\'utilisent n\'auront aucun type.</string>
+    <string name="settings_types_empty_custom">Aucun type personnalisé. Ajoutez-en un avec le bouton ci-dessous.</string>
+    <string name="settings_types_save">Enregistrer</string>
+    <string name="settings_types_cancel">Annuler</string>
+
+    <!-- Units -->
+    <string name="settings_units_distance">Distance</string>
+    <string name="settings_units_kilometers">Kilomètres (km)</string>
+    <string name="settings_units_miles">Miles (mi)</string>
+    <string name="settings_units_elevation">Altitude et dénivelé positif</string>
+    <string name="settings_units_meters">Mètres (m)</string>
+    <string name="settings_units_feet">Pieds (ft)</string>
+    <string name="settings_units_speed">Vitesse</string>
+    <string name="settings_units_note">L\'allure utilise l\'unité de distance (min/km ou min/mi) ; la VAM et la déviation utilisent l\'unité d\'altitude.</string>
+
+    <!-- Sync -->
+    <string name="settings_sync_endurain">Endurain</string>
+    <string name="settings_sync_server_label">Serveur (https://…)</string>
+    <string name="settings_sync_api_key_label">Clé API (portée activities:upload)</string>
+    <string name="settings_sync_saved_testing">Enregistré. Test de connexion…</string>
+    <string name="settings_sync_connected">Connecté ✓ (%1$s activités sur le serveur)</string>
+    <string name="settings_error">Erreur : %1$s</string>
+    <string name="settings_sync_save_test">Enregistrer et tester la connexion</string>
+    <string name="settings_sync_upload_note">Les séances enregistrées sont envoyées à Endurain automatiquement à l\'arrêt de l\'enregistrement (si la connexion est configurée). La file d\'attente réessaie en l\'absence de réseau.</string>
+    <string name="settings_sync_coming_soon">Bientôt disponible</string>
+    <string name="settings_sync_coming_soon_items">· Strava\n· Envoi automatique vers Google Drive</string>
+    <string name="settings_sync_status">État de la sync</string>
+    <string name="settings_sync_last_upload">Dernier envoi : %1$s</string>
+    <string name="settings_sync_pending_failed">%1$d en attente · %2$d échoués</string>
+    <string name="settings_sync_retry_failed">Réessayer les échecs</string>
+    <string name="settings_sync_folder">Enregistrer dans un dossier</string>
+    <string name="settings_sync_folder_choose">Choisir un dossier</string>
+    <string name="settings_sync_folder_none">Aucun dossier choisi</string>
+    <string name="settings_sync_folder_enable">Enregistrer chaque GPX automatiquement</string>
+    <string name="settings_sync_webdav">WebDAV (Nextcloud/ownCloud)</string>
+    <string name="settings_sync_webdav_url">URL (…/dav/files/user/Rumb)</string>
+    <string name="settings_sync_webdav_user">Utilisateur</string>
+    <string name="settings_sync_webdav_pass">Mot de passe</string>
+    <string name="settings_sync_webdav_test">Enregistrer et tester</string>
+
+    <!-- Recording -->
+    <string name="settings_rec_gps_interval">Intervalle GPS</string>
+    <string name="settings_rec_min_distance">Distance minimale entre les points : %1$d m</string>
+    <string name="settings_rec_max_accuracy">Précision GPS maximale : %1$d m</string>
+    <string name="settings_rec_accuracy_note">Les positions moins précises sont ignorées.</string>
+    <string name="settings_rec_auto_pause">Pause auto à l\'arrêt</string>
+    <string name="settings_rec_barometer">Utiliser le baromètre pour le dénivelé</string>
+    <string name="settings_rec_ble_sensors">Capteurs BLE (FC · cadence · puissance)</string>
+    <string name="settings_rec_paired_sensors">Capteurs appairés : %1$d</string>
+    <string name="settings_rec_apply_note">Les changements s\'appliquent au prochain enregistrement.</string>
+
+    <!-- App / update -->
+    <string name="settings_app_installed_version">Version installée</string>
+    <string name="settings_check_update">Rechercher une mise à jour</string>
+    <string name="settings_update_checking">Vérification…</string>
+    <string name="settings_update_up_to_date">Vous avez la dernière version ✓</string>
+    <string name="settings_update_network_error">Erreur réseau</string>
+    <string name="settings_update_downloading">Téléchargement… %1$d%%</string>
+    <string name="settings_update_new_version">Nouvelle version v%1$s</string>
+    <string name="settings_update_download_install">Télécharger et installer</string>
+    <string name="settings_update_download_error">Erreur de téléchargement</string>
+    <string name="settings_debug_section">Débogage</string>
+    <string name="settings_debug_log_button">Journal de débogage (complet)</string>
+    <string name="settings_debug_full">Diagnostics complets</string>
+    <string name="settings_debug_copy">Copier les diagnostics</string>
+    <string name="settings_about">À propos</string>
+    <string name="settings_about_desc">Rumb — enregistreur d\'activité GPS avec HUD en direct, cartes ICGC et sync Endurain.</string>
+
+    <!-- Track appearance -->
+    <string name="settings_appearance_track">Apparence de la trace</string>
+
+    <!-- Follow route -->
+    <string name="settings_route_follow">Itinéraire à suivre</string>
+    <string name="settings_route_width">Largeur %1$d</string>
+    <string name="settings_route_arrows">Flèches de direction</string>
+    <string name="settings_route_progress">Afficher la progression (trace parcourue atténuée)</string>
+    <string name="settings_route_tracking_point">Point de suivi</string>
+    <string name="settings_tracking_dot">Point</string>
+    <string name="settings_tracking_arrow">Flèche</string>
+    <string name="settings_route_tracking_size">Taille</string>
+    <string name="settings_route_off_route">Alerte hors itinéraire</string>
+    <string name="settings_route_threshold">Seuil de déviation : %1$d m</string>
+    <string name="settings_route_sound">Son</string>
+    <string name="settings_route_vibration">Vibration</string>
+
+    <!-- Audio announcements -->
+    <string name="settings_audio_title">Audio et alertes</string>
+    <string name="settings_audio_enable">Activer les annonces audio</string>
+    <string name="settings_audio_voice">Voix</string>
+    <string name="settings_audio_beeps">Bips</string>
+    <string name="settings_audio_beep_sound">Son du bip</string>
+    <string name="settings_audio_preview">▶ Aperçu</string>
+    <string name="settings_audio_sound_1">Bip</string>
+    <string name="settings_audio_sound_2">Double</string>
+    <string name="settings_audio_sound_3">Acquittement</string>
+    <string name="settings_audio_sound_4">Invite</string>
+    <string name="settings_audio_sound_5">Carillon</string>
+    <string name="settings_audio_turn_heads_up">Alerte de virage anticipée (~150 m)</string>
+    <string name="settings_audio_language">Langue</string>
+    <string name="settings_every_km">Tous les %1$d km</string>
+    <string name="settings_every_min">Toutes les %1$d min</string>
+    <string name="settings_audio_announce_what">Ce qui est annoncé</string>
+    <string name="settings_audio_distance_time">Distance et temps</string>
+    <string name="settings_audio_pace">Allure</string>
+    <string name="settings_audio_split_pace">Allure du dernier km</string>
+    <string name="settings_audio_elevation">Dénivelé positif</string>
+    <string name="settings_audio_heart_rate">Fréquence cardiaque</string>
+    <string name="settings_audio_off_route_spoken">Annoncer «Hors itinéraire» par la voix</string>
+
+    <!-- Sensors screen -->
+    <string name="sensors_title">Capteurs BLE</string>
+    <string name="sensors_intro">Appairez les ceintures cardio, capteurs de cadence et capteurs de puissance. Ils se connectent automatiquement au début d\'un enregistrement.</string>
+    <string name="sensors_scan">Rechercher des capteurs</string>
+    <string name="sensors_stop_scan">Arrêter la recherche</string>
+    <string name="sensors_scan_error">Erreur de recherche (%1$d)</string>
+    <string name="sensors_bluetooth_off">Le Bluetooth est désactivé</string>
+    <string name="sensors_default_name">Capteur</string>
+    <string name="sensors_paired_name">Capteur appairé</string>
+    <string name="sensors_scanning_hint">Recherche… allumez le capteur et approchez-le.</string>
+    <string name="sensors_none">Aucun capteur. Appuyez sur «Rechercher des capteurs».</string>
+
+    <!-- Debug log screen -->
+    <string name="debug_title">Journal de débogage</string>
+    <string name="debug_loading">Chargement…</string>
+    <string name="debug_no_lines">(aucune ligne Rumb)</string>
+    <string name="debug_refresh">Actualiser</string>
+    <string name="debug_share">Partager</string>
+    <string name="debug_clear">Effacer</string>
+    <string name="debug_share_subject">Rumb · journal de débogage</string>
+    <string name="debug_share_chooser">Partager le journal</string>
+    <string name="debug_only_app">Rumb uniquement</string>
+    <string name="debug_copy">Copier</string>
+    <string name="debug_lines">%1$d lignes</string>
+
+    <!-- Track color modes -->
+    <string name="trackcolor_single">Couleur unique</string>
+    <string name="trackcolor_speed">Par vitesse</string>
+    <string name="trackcolor_altitude">Par altitude</string>
+    <string name="trackcolor_heart_rate">Par fréquence cardiaque</string>
+    <string name="settings_licenses_title">Licences open source</string>
+    <string name="settings_licenses_show">Afficher les licences et attributions</string>
+    <string name="settings_licenses_hide">Masquer</string>
+    <string name="settings_licenses_body">Rumb contient du code dérivé des projets open source suivants :\n\n· OpenTracks — logique du moteur d\'enregistrement (filtrage GPS, statistiques de trace). Licence Apache 2.0. github.com/OpenTracksApp/OpenTracks\n· OSMDashboard — intégration de l\'API OpenTracks Dashboard. Licence Apache 2.0. codeberg.org/OpenTracksApp/OSMDashboard\n· MapLibre GL Native — rendu de carte. BSD 2-Clause.\n· AndroidX / Jetpack Compose, Kotlin, OkHttp, kotlinx.serialization — Licence Apache 2.0.\n\nDonnées et services :\n· Données cartographiques © contributeurs OpenStreetMap (ODbL)\n· Cartes © Institut Cartogràfic i Geològic de Catalunya (ICGC), CC-BY 4.0\n· Géocodage par Nominatim © contributeurs OpenStreetMap\n\nTextes complets : fichiers LICENSE et NOTICE dans le dépôt source.</string>
+    <string name="settings_max_hr">Fréquence cardiaque maximale : %1$d bpm</string>
+    <string name="settings_max_hr_help">Utilisée pour l\'analyse des zones cardiaques en compétition.</string>
+    <string name="settings_weight">Poids : %1$d kg</string>
+    <string name="settings_weight_help">Utilisé pour l\'estimation des calories.</string>
+    <string name="settings_age">Âge : %1$d ans</string>
+    <string name="settings_age_unset">Âge : non défini</string>
+    <string name="settings_sex">Sexe</string>
+    <string name="settings_sex_unset">Non défini</string>
+    <string name="settings_sex_male">Homme</string>
+    <string name="settings_sex_female">Femme</string>
+    <string name="settings_calories_hr_help">Avec l\'âge et le sexe, les calories sont estimées à partir de votre fréquence cardiaque (plus précis). Sinon, une estimation MET selon le type d\'activité et le poids est utilisée.</string>
+</resources>

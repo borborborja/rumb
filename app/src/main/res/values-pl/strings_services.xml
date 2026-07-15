@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rec_notif_channel">Nagrywanie aktywności</string>
+    <string name="rec_notif_recording">Nagrywanie aktywności</string>
+    <string name="rec_notif_paused">Nagrywanie wstrzymane</string>
+    <string name="rec_notif_on_pause_suffix"> · WSTRZYMANE</string>
+    <string name="rec_action_pause">Wstrzymaj</string>
+    <string name="rec_action_resume">Wznów</string>
+    <string name="rec_action_stop">Zatrzymaj</string>
+    <string name="dl_notif_channel">Pobieranie map</string>
+    <string name="dl_notif_title">Pobieranie mapy offline</string>
+    <string name="prefetch_notif_title">Pobieranie mapy trasy</string>
+    <string name="dl_notif_progress">%1$d / %2$d kafelków</string>
+    <string name="share_export_title">Eksportuj "%1$s"</string>
+    <string name="rec_low_accuracy_start">Rozpoczęto przy niskiej dokładności GPS</string>
+    <string name="share_format_title">Format udostępniania</string>
+    <string name="share_format_auto">Automatyczny (najlepszy)</string>
+    <string name="share_format_gpx">GPX · trasa + czujniki</string>
+    <string name="share_format_tcx">TCX · z okrążeniami</string>
+    <string name="share_format_kml">KML · tylko trasa (Google Earth)</string>
+</resources>

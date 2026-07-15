@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Harita katmanları</string>
+    <string name="maps_tab_online">Çevrimiçi</string>
+    <string name="maps_tab_offline">Çevrimdışı</string>
+    <string name="maps_base_map_title">Görüntüleyici için temel harita</string>
+    <string name="maps_default_map_name">harita</string>
+    <string name="maps_download_area">Alan indir</string>
+    <string name="maps_import_mbtiles">İçe aktar</string>
+    <string name="maps_empty_offline">Henüz çevrimdışı harita yok. Bir alan indirin veya bir .mbtiles dosyası içe aktarın (ör. visors.icgc.cat/appdownloads adresinden resmi ICGC topografik veya ortofoto haritaları).</string>
+    <string name="maps_size_sectors">%1$.1f MB · %2$d sektör</string>
+    <string name="maps_delete">Sil</string>
+    <string name="maps_manage_sectors">Sektörleri yönet</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Çevrimdışı sektörler</string>
+    <string name="maps_add_sector">Sektör ekle</string>
+    <string name="maps_no_sectors">Sektör yok. Bir alan indirerek ekleyin.</string>
+    <string name="maps_unknown_map_type">Bilinmeyen harita türü</string>
+    <string name="maps_redownloading">Sektör yeniden indiriliyor…</string>
+    <string name="maps_area_name">%1$s · alan</string>
+    <string name="maps_delete_sector_title">Sektörü sil</string>
+    <string name="maps_delete_sector_msg">Bu sektörün başka bir sektörle paylaşılmayan karoları silinecek.</string>
+    <string name="maps_cancel">İptal</string>
+    <string name="maps_sector_n">Sektör %1$d</string>
+    <string name="maps_sector_meta">yakınlaştırma %1$d–%2$d · %3$,d karo · %4$.0f×%5$.0f km</string>
+    <string name="maps_redownload">Yeniden indir</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Geri</string>
+    <string name="maps_mode_route">Rota</string>
+    <string name="maps_mode_province">İl</string>
+    <string name="maps_mode_visible">Görünen alan</string>
+    <string name="maps_mode_draw">Çiz</string>
+    <string name="maps_route_hint">Seçili rotanın alanı. Kaynağı ve yakınlaştırmayı seçin, sonra indirin.</string>
+    <string name="maps_visible_hint">Haritayı çerçeveleyin ve güncellemek için tekrar «Görünen alan»a dokunun.</string>
+    <string name="maps_draw_hint">Dikdörtgeni çizmek için harita üzerinde sürükleyin.</string>
+    <string name="maps_zoom_range">Yakınlaştırma %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d karo · %2$.0f MB</string>
+    <string name="maps_over_limit">Alan/yakınlaştırma çok büyük (maks. %1$dk). Yakınlaştırmayı azaltın.</string>
+    <string name="maps_osm_warning">OSM toplu indirmeleri önermez; büyük alanlar için ICGC kullanın.</string>
+    <string name="maps_downloading">İndiriliyor… %1$d / %2$d</string>
+    <string name="maps_download_done">İndirme tamamlandı ✓ — artık Çevrimdışı haritalarda seçebilirsiniz.</string>
+    <string name="maps_download">İndir</string>
+</resources>

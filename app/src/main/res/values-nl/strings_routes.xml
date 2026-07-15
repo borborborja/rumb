@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Route detail screen -->
+    <string name="routes_route_fallback_title">Route</string>
+    <string name="routes_edit_trace">Traject bewerken</string>
+    <string name="routes_stat_distance">Afstand</string>
+    <string name="routes_stat_ascent">Stijging +</string>
+    <string name="routes_history_title">Geschiedenis</string>
+    <string name="routes_stat_points">Punten</string>
+    <string name="routes_distance_km_format">%1$.2f km</string>
+    <string name="routes_ascent_m_format">%1$d m</string>
+    <string name="routes_source_collection">Bron: %1$s · Collectie: %2$s</string>
+    <string name="routes_follow_this_route">Deze route volgen</string>
+    <string name="routes_active_follow_toast">Route actief om te volgen</string>
+    <string name="routes_rename">Naam wijzigen</string>
+    <string name="routes_collection">Collectie</string>
+    <string name="routes_download_route_map">Routekaart downloaden</string>
+    <string name="routes_delete">Verwijderen</string>
+    <string name="routes_rename_route_title">Routenaam wijzigen</string>
+    <string name="routes_delete_route_title">Route verwijderen</string>
+    <string name="routes_delete_confirm">Weet je zeker dat je «%1$s» wilt verwijderen?</string>
+
+    <!-- Route editor screen -->
+    <string name="routes_create_route">Route maken</string>
+    <string name="routes_edit_route">Route bewerken</string>
+    <string name="routes_back">Terug</string>
+    <string name="routes_undo">Ongedaan maken</string>
+    <string name="routes_save">Opslaan</string>
+    <string name="routes_cancel">Annuleren</string>
+    <string name="routes_save_route_title">Route opslaan</string>
+    <string name="routes_save_changes_title">Wijzigingen opslaan</string>
+    <string name="routes_name_label">Naam</string>
+    <string name="routes_snap_to_path">Aan pad vastklikken</string>
+    <string name="routes_tap_map_to_add_points">Tik op de kaart om punten toe te voegen.</string>
+    <string name="routes_new_route_default_name">Nieuwe route</string>
+
+    <!-- Routing profiles -->
+    <string name="routing_hiking">Wandelen</string>
+    <string name="routing_trekking">Fiets/trekking</string>
+    <string name="routing_mtb">MTB</string>
+    <string name="routing_shortest">Kortste</string>
+    <string name="routes_type">Type</string>
+    <string name="routes_assign_type_title">Activiteitstype</string>
+    <string name="routes_stat_time">Tijd</string>
+    <string name="routes_stat_avg_speed">Gem. km/u</string>
+    <string name="routes_stat_avg_hr">Gem. HS</string>
+</resources>

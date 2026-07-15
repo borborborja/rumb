@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Режим комп\'ютера</string>
+    <string name="home_cd_desktop">Режим комп\'ютера</string>
+    <string name="desktop_url_label">Відкрийте цю адресу в браузері комп\'ютера:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Комп\'ютер має бути в тій самій мережі WiFi. Сервер працює лише поки відкрито цей екран.</string>
+    <string name="desktop_no_wifi">Режим комп\'ютера потребує телефон і комп\'ютер в одній мережі, а WiFi зараз немає.</string>
+    <string name="desktop_hotspot_hint">Немає WiFi поблизу? Увімкніть точку доступу телефона, підключіть до неї комп\'ютер, і адреса з\'явиться тут.</string>
+    <string name="desktop_open_hotspot">Відкрити налаштування точки доступу</string>
+    <string name="desktop_running">Сервер працює</string>
+    <string name="desktop_stop">Зупинити й вийти</string>
+    <string name="desktop_server_error">Не вдалося запустити сервер.</string>
+</resources>

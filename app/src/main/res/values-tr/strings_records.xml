@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Personal records -->
+    <string name="records_title">Rekorlar</string>
+    <string name="records_computing">Analiz ediliyor %1$d/%2$d…</string>
+    <string name="records_empty">Henüz rekor yok. Kişisel en iyilerinizi görmek için antrenman kaydedin veya içe aktarın.</string>
+    <string name="records_fastest_1k">En hızlı 1 km</string>
+    <string name="records_fastest_5k">En hızlı 5 km</string>
+    <string name="records_fastest_10k">En hızlı 10 km</string>
+    <string name="records_fastest_half">En hızlı yarı maraton</string>
+    <string name="records_longest">En uzun etkinlik</string>
+    <string name="records_max_ascent">En çok tırmanış</string>
+    <string name="records_max_speed">Maks. hız</string>
+    <string name="records_longest_time">En uzun süre</string>
+    <string name="records_stat_calories">Kalori</string>
+
+    <!-- Heatmap -->
+    <string name="heatmap_title">Isı haritası</string>
+    <string name="heatmap_include_routes">Rotaları dahil et</string>
+    <string name="heatmap_loading">%1$d/%2$d kayıt</string>
+</resources>

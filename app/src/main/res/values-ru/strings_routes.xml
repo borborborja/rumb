@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Route detail screen -->
+    <string name="routes_route_fallback_title">Маршрут</string>
+    <string name="routes_edit_trace">Изменить трассу</string>
+    <string name="routes_stat_distance">Дистанция</string>
+    <string name="routes_stat_ascent">Набор высоты +</string>
+    <string name="routes_history_title">История</string>
+    <string name="routes_stat_points">Точки</string>
+    <string name="routes_distance_km_format">%1$.2f км</string>
+    <string name="routes_ascent_m_format">%1$d м</string>
+    <string name="routes_source_collection">Источник: %1$s · Коллекция: %2$s</string>
+    <string name="routes_follow_this_route">Следовать этому маршруту</string>
+    <string name="routes_active_follow_toast">Маршрут активен для следования</string>
+    <string name="routes_rename">Переименовать</string>
+    <string name="routes_collection">Коллекция</string>
+    <string name="routes_download_route_map">Скачать карту маршрута</string>
+    <string name="routes_delete">Удалить</string>
+    <string name="routes_rename_route_title">Переименовать маршрут</string>
+    <string name="routes_delete_route_title">Удалить маршрут</string>
+    <string name="routes_delete_confirm">Вы уверены, что хотите удалить «%1$s»?</string>
+
+    <!-- Route editor screen -->
+    <string name="routes_create_route">Создать маршрут</string>
+    <string name="routes_edit_route">Изменить маршрут</string>
+    <string name="routes_back">Назад</string>
+    <string name="routes_undo">Отменить</string>
+    <string name="routes_save">Сохранить</string>
+    <string name="routes_cancel">Отмена</string>
+    <string name="routes_save_route_title">Сохранить маршрут</string>
+    <string name="routes_save_changes_title">Сохранить изменения</string>
+    <string name="routes_name_label">Название</string>
+    <string name="routes_snap_to_path">Привязка к тропе</string>
+    <string name="routes_tap_map_to_add_points">Нажимайте на карту, чтобы добавить точки.</string>
+    <string name="routes_new_route_default_name">Новый маршрут</string>
+
+    <!-- Routing profiles -->
+    <string name="routing_hiking">Поход</string>
+    <string name="routing_trekking">Велосипед/треккинг</string>
+    <string name="routing_mtb">МТБ</string>
+    <string name="routing_shortest">Кратчайший</string>
+    <string name="routes_type">Тип</string>
+    <string name="routes_assign_type_title">Тип активности</string>
+    <string name="routes_stat_time">Время</string>
+    <string name="routes_stat_avg_speed">Ср. км/ч</string>
+    <string name="routes_stat_avg_hr">Ср. ЧСС</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_speed">Viteză</string>
+    <string name="metric_avg_speed">Viteză medie</string>
+    <string name="metric_max_speed">Viteză maximă</string>
+    <string name="metric_distance">Distanță</string>
+    <string name="metric_duration">Timp</string>
+    <string name="metric_moving_time">Timp în mișcare</string>
+    <string name="metric_pace">Ritm</string>
+    <string name="metric_heading">Direcție</string>
+    <string name="metric_elev_gain">Diferență nivel</string>
+    <string name="metric_altitude">Altitudine</string>
+    <string name="metric_slope">Pantă</string>
+    <string name="metric_vam">VAM</string>
+    <string name="metric_heart_rate">FC</string>
+    <string name="metric_cadence">Cadență</string>
+    <string name="metric_power">Putere</string>
+    <string name="metric_remaining">Rămas</string>
+    <string name="metric_off_route">Abatere</string>
+    <string name="hudel_chart_speed">Grafic viteză</string>
+    <string name="hudel_chart_elevation">Profil altimetric</string>
+    <string name="hudel_recenter">Recentrează/urmărește</string>
+    <string name="hudel_compass">Busolă</string>
+    <string name="hudel_zoom">Zoom</string>
+    <string name="hudel_record">Înregistrare</string>
+    <string name="hudel_clock">Ceas</string>
+    <string name="metric_ghost_delta">Ghost</string>
+    <string name="metric_ghost_seconds">Ghost (timp)</string>
+    <string name="metric_calories">Calorii</string>
+    <string name="metric_lap_count">Tură</string>
+    <string name="metric_lap_time">Timp tură</string>
+    <string name="metric_lap_distance">Dist. tură</string>
+    <string name="metric_last_lap">Ultima tură</string>
+</resources>

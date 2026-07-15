@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Modo computador</string>
+    <string name="home_cd_desktop">Modo computador</string>
+    <string name="desktop_url_label">Abre este endereço no navegador do teu computador:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">O computador tem de estar na mesma rede WiFi. O servidor funciona apenas enquanto este ecrã estiver aberto.</string>
+    <string name="desktop_no_wifi">O modo computador precisa do telemóvel e do computador na mesma rede, e não há WiFi de momento.</string>
+    <string name="desktop_hotspot_hint">Sem WiFi por perto? Ativa o hotspot do telemóvel, liga o computador a ele e o endereço aparecerá aqui.</string>
+    <string name="desktop_open_hotspot">Abrir definições de hotspot</string>
+    <string name="desktop_running">Servidor a funcionar</string>
+    <string name="desktop_stop">Parar e sair</string>
+    <string name="desktop_server_error">Não foi possível iniciar o servidor.</string>
+</resources>

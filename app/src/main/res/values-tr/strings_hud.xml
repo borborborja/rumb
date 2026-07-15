@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_speed">Hız</string>
+    <string name="metric_avg_speed">Ort. hız</string>
+    <string name="metric_max_speed">Maks. hız</string>
+    <string name="metric_distance">Mesafe</string>
+    <string name="metric_duration">Süre</string>
+    <string name="metric_moving_time">Hareket süresi</string>
+    <string name="metric_pace">Tempo</string>
+    <string name="metric_heading">Yön</string>
+    <string name="metric_elev_gain">Tırmanış</string>
+    <string name="metric_altitude">Yükseklik</string>
+    <string name="metric_slope">Eğim</string>
+    <string name="metric_vam">VAM</string>
+    <string name="metric_heart_rate">KH</string>
+    <string name="metric_cadence">Kadans</string>
+    <string name="metric_power">Güç</string>
+    <string name="metric_remaining">Kalan</string>
+    <string name="metric_off_route">Sapma</string>
+    <string name="hudel_chart_speed">Hız grafiği</string>
+    <string name="hudel_chart_elevation">Yükseklik profili</string>
+    <string name="hudel_recenter">Yeniden ortala/takip et</string>
+    <string name="hudel_compass">Pusula</string>
+    <string name="hudel_zoom">Yakınlaştır</string>
+    <string name="hudel_record">Kayıt</string>
+    <string name="hudel_clock">Saat</string>
+    <string name="metric_ghost_delta">Hayalet</string>
+    <string name="metric_ghost_seconds">Hayalet (süre)</string>
+    <string name="metric_calories">Kalori</string>
+    <string name="metric_lap_count">Tur</string>
+    <string name="metric_lap_time">Tur süresi</string>
+    <string name="metric_lap_distance">Tur mes.</string>
+    <string name="metric_last_lap">Son tur</string>
+</resources>

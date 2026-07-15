@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Route detail screen -->
+    <string name="routes_route_fallback_title">Percorso</string>
+    <string name="routes_edit_trace">Modifica traccia</string>
+    <string name="routes_stat_distance">Distanza</string>
+    <string name="routes_stat_ascent">Dislivello +</string>
+    <string name="routes_history_title">Cronologia</string>
+    <string name="routes_stat_points">Punti</string>
+    <string name="routes_distance_km_format">%1$.2f km</string>
+    <string name="routes_ascent_m_format">%1$d m</string>
+    <string name="routes_source_collection">Sorgente: %1$s · Raccolta: %2$s</string>
+    <string name="routes_follow_this_route">Segui questo percorso</string>
+    <string name="routes_active_follow_toast">Percorso attivo da seguire</string>
+    <string name="routes_rename">Rinomina</string>
+    <string name="routes_collection">Raccolta</string>
+    <string name="routes_download_route_map">Scarica mappa percorso</string>
+    <string name="routes_delete">Elimina</string>
+    <string name="routes_rename_route_title">Rinomina percorso</string>
+    <string name="routes_delete_route_title">Elimina percorso</string>
+    <string name="routes_delete_confirm">Vuoi davvero eliminare «%1$s»?</string>
+
+    <!-- Route editor screen -->
+    <string name="routes_create_route">Crea percorso</string>
+    <string name="routes_edit_route">Modifica percorso</string>
+    <string name="routes_back">Indietro</string>
+    <string name="routes_undo">Annulla</string>
+    <string name="routes_save">Salva</string>
+    <string name="routes_cancel">Annulla</string>
+    <string name="routes_save_route_title">Salva percorso</string>
+    <string name="routes_save_changes_title">Salva modifiche</string>
+    <string name="routes_name_label">Nome</string>
+    <string name="routes_snap_to_path">Aggancia al sentiero</string>
+    <string name="routes_tap_map_to_add_points">Tocca la mappa per aggiungere punti.</string>
+    <string name="routes_new_route_default_name">Nuovo percorso</string>
+
+    <!-- Routing profiles -->
+    <string name="routing_hiking">Escursionismo</string>
+    <string name="routing_trekking">Bici/trekking</string>
+    <string name="routing_mtb">MTB</string>
+    <string name="routing_shortest">Più breve</string>
+    <string name="routes_type">Tipo</string>
+    <string name="routes_assign_type_title">Tipo di attività</string>
+    <string name="routes_stat_time">Tempo</string>
+    <string name="routes_stat_avg_speed">km/h medi</string>
+    <string name="routes_stat_avg_hr">FC media</string>
+</resources>

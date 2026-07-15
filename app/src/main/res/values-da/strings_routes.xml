@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Route detail screen -->
+    <string name="routes_route_fallback_title">Rute</string>
+    <string name="routes_edit_trace">Rediger spor</string>
+    <string name="routes_stat_distance">Distance</string>
+    <string name="routes_stat_ascent">Stigning +</string>
+    <string name="routes_history_title">Historik</string>
+    <string name="routes_stat_points">Punkter</string>
+    <string name="routes_distance_km_format">%1$.2f km</string>
+    <string name="routes_ascent_m_format">%1$d m</string>
+    <string name="routes_source_collection">Kilde: %1$s · Samling: %2$s</string>
+    <string name="routes_follow_this_route">Følg denne rute</string>
+    <string name="routes_active_follow_toast">Rute aktiv til at følge</string>
+    <string name="routes_rename">Omdøb</string>
+    <string name="routes_collection">Samling</string>
+    <string name="routes_download_route_map">Download rutekort</string>
+    <string name="routes_delete">Slet</string>
+    <string name="routes_rename_route_title">Omdøb rute</string>
+    <string name="routes_delete_route_title">Slet rute</string>
+    <string name="routes_delete_confirm">Er du sikker på, at du vil slette «%1$s»?</string>
+
+    <!-- Route editor screen -->
+    <string name="routes_create_route">Opret rute</string>
+    <string name="routes_edit_route">Rediger rute</string>
+    <string name="routes_back">Tilbage</string>
+    <string name="routes_undo">Fortryd</string>
+    <string name="routes_save">Gem</string>
+    <string name="routes_cancel">Annuller</string>
+    <string name="routes_save_route_title">Gem rute</string>
+    <string name="routes_save_changes_title">Gem ændringer</string>
+    <string name="routes_name_label">Navn</string>
+    <string name="routes_snap_to_path">Fastgør til sti</string>
+    <string name="routes_tap_map_to_add_points">Tryk på kortet for at tilføje punkter.</string>
+    <string name="routes_new_route_default_name">Ny rute</string>
+
+    <!-- Routing profiles -->
+    <string name="routing_hiking">Vandring</string>
+    <string name="routing_trekking">Cykel/trekking</string>
+    <string name="routing_mtb">MTB</string>
+    <string name="routing_shortest">Korteste</string>
+    <string name="routes_type">Type</string>
+    <string name="routes_assign_type_title">Aktivitetstype</string>
+    <string name="routes_stat_time">Tid</string>
+    <string name="routes_stat_avg_speed">Gns. km/t</string>
+    <string name="routes_stat_avg_hr">Gns. puls</string>
+</resources>

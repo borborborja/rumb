@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_type_walk">Chůze</string>
+    <string name="activity_type_run">Běh</string>
+    <string name="activity_type_trail_run">Trailový běh</string>
+    <string name="activity_type_road_bike">Silniční cyklistika</string>
+    <string name="activity_type_mtb">MTB</string>
+    <string name="activity_type_hike">Turistika</string>
+    <string name="activity_type_ski">Lyže</string>
+    <string name="activity_type_skate">Bruslení</string>
+    <string name="activity_type_kayak">Kajak</string>
+    <string name="activity_type_swim">Plavání</string>
+    <string name="activity_type_none">Bez typu</string>
+    <string name="difficulty_easy">Lehká</string>
+    <string name="difficulty_moderate">Střední</string>
+    <string name="difficulty_hard">Těžká</string>
+    <string name="difficulty_very_hard">Velmi těžká</string>
+</resources>

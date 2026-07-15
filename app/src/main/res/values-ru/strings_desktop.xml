@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Режим ПК</string>
+    <string name="home_cd_desktop">Режим ПК</string>
+    <string name="desktop_url_label">Откройте этот адрес в браузере компьютера:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Компьютер должен быть в той же сети WiFi. Сервер работает только пока открыт этот экран.</string>
+    <string name="desktop_no_wifi">Режиму ПК нужны телефон и компьютер в одной сети, а сейчас нет WiFi.</string>
+    <string name="desktop_hotspot_hint">Нет WiFi рядом? Включите точку доступа телефона, подключите к ней компьютер, и адрес появится здесь.</string>
+    <string name="desktop_open_hotspot">Открыть настройки точки доступа</string>
+    <string name="desktop_running">Сервер работает</string>
+    <string name="desktop_stop">Остановить и выйти</string>
+    <string name="desktop_server_error">Не удалось запустить сервер.</string>
+</resources>

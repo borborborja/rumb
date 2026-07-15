@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Слои карты</string>
+    <string name="maps_tab_online">Онлайн</string>
+    <string name="maps_tab_offline">Офлайн</string>
+    <string name="maps_base_map_title">Базовая карта для просмотра</string>
+    <string name="maps_default_map_name">карта</string>
+    <string name="maps_download_area">Скачать область</string>
+    <string name="maps_import_mbtiles">Импорт</string>
+    <string name="maps_empty_offline">Пока нет офлайн-карт. Скачайте область или импортируйте файл .mbtiles (например, официальные топографические или ортофотокарты ICGC с visors.icgc.cat/appdownloads).</string>
+    <string name="maps_size_sectors">%1$.1f МБ · %2$d секторов</string>
+    <string name="maps_delete">Удалить</string>
+    <string name="maps_manage_sectors">Управление секторами</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Офлайн-секторы</string>
+    <string name="maps_add_sector">Добавить сектор</string>
+    <string name="maps_no_sectors">Нет секторов. Добавьте, скачав область.</string>
+    <string name="maps_unknown_map_type">Неизвестный тип карты</string>
+    <string name="maps_redownloading">Повторная загрузка сектора…</string>
+    <string name="maps_area_name">%1$s · область</string>
+    <string name="maps_delete_sector_title">Удалить сектор</string>
+    <string name="maps_delete_sector_msg">Тайлы этого сектора, не используемые другими секторами, будут удалены.</string>
+    <string name="maps_cancel">Отмена</string>
+    <string name="maps_sector_n">Сектор %1$d</string>
+    <string name="maps_sector_meta">масштаб %1$d–%2$d · %3$,d тайлов · %4$.0f×%5$.0f км</string>
+    <string name="maps_redownload">Загрузить заново</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Назад</string>
+    <string name="maps_mode_route">Маршрут</string>
+    <string name="maps_mode_province">Провинция</string>
+    <string name="maps_mode_visible">Видимая область</string>
+    <string name="maps_mode_draw">Нарисовать</string>
+    <string name="maps_route_hint">Область выбранного маршрута. Выберите источник и масштаб, затем скачайте.</string>
+    <string name="maps_visible_hint">Наведите карту и снова нажмите «Видимая область», чтобы обновить.</string>
+    <string name="maps_draw_hint">Проведите по карте, чтобы нарисовать прямоугольник.</string>
+    <string name="maps_zoom_range">Масштаб %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d тайлов · %2$.0f МБ</string>
+    <string name="maps_over_limit">Область/масштаб слишком велики (макс %1$dk). Уменьшите масштаб.</string>
+    <string name="maps_osm_warning">OSM не рекомендует массовые загрузки; для больших областей используйте ICGC.</string>
+    <string name="maps_downloading">Загрузка… %1$d / %2$d</string>
+    <string name="maps_download_done">Загрузка завершена ✓ — теперь можно выбрать её в офлайн-картах.</string>
+    <string name="maps_download">Скачать</string>
+</resources>

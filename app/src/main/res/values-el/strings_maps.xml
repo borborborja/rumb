@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Επίπεδα χάρτη</string>
+    <string name="maps_tab_online">Σε σύνδεση</string>
+    <string name="maps_tab_offline">Εκτός σύνδεσης</string>
+    <string name="maps_base_map_title">Βασικός χάρτης για τον προβολέα</string>
+    <string name="maps_default_map_name">χάρτης</string>
+    <string name="maps_download_area">Λήψη περιοχής</string>
+    <string name="maps_import_mbtiles">Εισαγωγή</string>
+    <string name="maps_empty_offline">Δεν υπάρχουν χάρτες εκτός σύνδεσης ακόμη. Κατεβάστε μια περιοχή ή εισαγάγετε ένα αρχείο .mbtiles (π.χ. τους επίσημους τοπογραφικούς ή ορθοφωτογραφικούς χάρτες ICGC από το visors.icgc.cat/appdownloads).</string>
+    <string name="maps_size_sectors">%1$.1f MB · %2$d τομείς</string>
+    <string name="maps_delete">Διαγραφή</string>
+    <string name="maps_manage_sectors">Διαχείριση τομέων</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Τομείς εκτός σύνδεσης</string>
+    <string name="maps_add_sector">Προσθήκη τομέα</string>
+    <string name="maps_no_sectors">Χωρίς τομείς. Προσθέστε έναν κατεβάζοντας μια περιοχή.</string>
+    <string name="maps_unknown_map_type">Άγνωστος τύπος χάρτη</string>
+    <string name="maps_redownloading">Επαναλήψη τομέα…</string>
+    <string name="maps_area_name">%1$s · περιοχή</string>
+    <string name="maps_delete_sector_title">Διαγραφή τομέα</string>
+    <string name="maps_delete_sector_msg">Τα πλακίδια αυτού του τομέα που δεν μοιράζονται με άλλον τομέα θα διαγραφούν.</string>
+    <string name="maps_cancel">Ακύρωση</string>
+    <string name="maps_sector_n">Τομέας %1$d</string>
+    <string name="maps_sector_meta">ζουμ %1$d–%2$d · %3$,d πλακίδια · %4$.0f×%5$.0f km</string>
+    <string name="maps_redownload">Επαναλήψη</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Πίσω</string>
+    <string name="maps_mode_route">Διαδρομή</string>
+    <string name="maps_mode_province">Επαρχία</string>
+    <string name="maps_mode_visible">Ορατή περιοχή</string>
+    <string name="maps_mode_draw">Σχεδίαση</string>
+    <string name="maps_route_hint">Περιοχή της επιλεγμένης διαδρομής. Επιλέξτε πηγή και ζουμ, μετά κατεβάστε.</string>
+    <string name="maps_visible_hint">Πλαισιώστε τον χάρτη και πατήστε ξανά «Ορατή περιοχή» για ενημέρωση.</string>
+    <string name="maps_draw_hint">Σύρετε στον χάρτη για να σχεδιάσετε το ορθογώνιο.</string>
+    <string name="maps_zoom_range">Ζουμ %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d πλακίδια · %2$.0f MB</string>
+    <string name="maps_over_limit">Περιοχή/ζουμ πολύ μεγάλα (μέγ. %1$dk). Μειώστε το ζουμ.</string>
+    <string name="maps_osm_warning">Το OSM αποθαρρύνει τις μαζικές λήψεις· για μεγάλες περιοχές χρησιμοποιήστε ICGC.</string>
+    <string name="maps_downloading">Λήψη… %1$d / %2$d</string>
+    <string name="maps_download_done">Η λήψη ολοκληρώθηκε ✓ — μπορείτε τώρα να τη επιλέξετε στους χάρτες εκτός σύνδεσης.</string>
+    <string name="maps_download">Λήψη</string>
+</resources>

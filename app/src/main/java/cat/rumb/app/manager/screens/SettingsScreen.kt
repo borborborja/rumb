@@ -606,7 +606,13 @@ private fun LanguageCard() {
                         },
                         label = { Text(stringResource(R.string.lang_system)) },
                     )
-                    listOf("ca" to "Català", "es" to "Español", "en" to "English").forEach { (code, label) ->
+                    listOf(
+                        "ca" to "Català", "es" to "Español", "en" to "English",
+                        "fr" to "Français", "de" to "Deutsch", "it" to "Italiano", "pt" to "Português",
+                        "nl" to "Nederlands", "pl" to "Polski", "ru" to "Русский", "uk" to "Українська",
+                        "tr" to "Türkçe", "sv" to "Svenska", "da" to "Dansk", "fi" to "Suomi",
+                        "cs" to "Čeština", "el" to "Ελληνικά", "ro" to "Română",
+                    ).forEach { (code, label) ->
                         FilterChip(
                             selected = current == code,
                             onClick = {

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="common_back">Takaisin</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Asetukset</string>
+    <string name="settings_tab_units">Yksiköt</string>
+    <string name="settings_tab_recording">Tallennus</string>
+    <string name="settings_tab_sync">Synkronointi</string>
+    <string name="settings_tab_appearance">Ulkoasu</string>
+    <string name="settings_tab_route">Reitti</string>
+    <string name="settings_tab_map">Kartat</string>
+    <string name="settings_map_cache">Verkkokarttojen välimuisti</string>
+    <string name="settings_map_cache_size">Välimuistin koko: %1$d MB</string>
+    <string name="settings_map_clear_cache">Tyhjennä välimuisti</string>
+    <string name="settings_map_cache_cleared">Välimuisti tyhjennetty</string>
+    <string name="settings_map_prefetch">Reitin esilataus</string>
+    <string name="settings_map_prefetch_follow">Lataa kartta reittiä seurattaessa</string>
+    <string name="settings_map_prefetch_hint">Lataa koko reitin ruudut, kun aloitat sen seuraamisen (millä tahansa yhteydellä), jotta se toimii ilman verkkoa.</string>
+    <string name="settings_tab_audio">Ääni</string>
+    <string name="settings_tab_activity_types">Tyypit</string>
+    <string name="settings_tab_app">Sovellus</string>
+    <string name="settings_tab_profile">Profiili</string>
+    <string name="settings_tab_map_routes">Kartat &amp; reitit</string>
+    <string name="settings_profile_personal">Henkilötiedot</string>
+
+    <!-- Activity types -->
+    <string name="settings_types_predefined_header">Valmiit tyypit</string>
+    <string name="settings_types_custom_header">Mukautetut tyypit</string>
+    <string name="settings_types_add">Lisää mukautettu tyyppi</string>
+    <string name="settings_types_add_title">Uusi mukautettu tyyppi</string>
+    <string name="settings_types_edit_title">Muokkaa mukautettua tyyppiä</string>
+    <string name="settings_types_name_label">Nimi</string>
+    <string name="settings_types_icon_label">Kuvake</string>
+    <string name="settings_types_delete">Poista</string>
+    <string name="settings_types_delete_confirm">Poistetaanko mukautettu tyyppi «%1$s»? Sitä käyttävissä reiteissä ei näy tyyppiä.</string>
+    <string name="settings_types_empty_custom">Ei mukautettuja tyyppejä. Lisää yksi alla olevalla painikkeella.</string>
+    <string name="settings_types_save">Tallenna</string>
+    <string name="settings_types_cancel">Peruuta</string>
+
+    <!-- Units -->
+    <string name="settings_units_distance">Matka</string>
+    <string name="settings_units_kilometers">Kilometrit (km)</string>
+    <string name="settings_units_miles">Mailit (mi)</string>
+    <string name="settings_units_elevation">Korkeus ja nousu</string>
+    <string name="settings_units_meters">Metrit (m)</string>
+    <string name="settings_units_feet">Jalat (ft)</string>
+    <string name="settings_units_speed">Nopeus</string>
+    <string name="settings_units_note">Vauhti käyttää matkan yksikköä (min/km tai min/mi); VAM ja poikkeama käyttävät korkeuden yksikköä.</string>
+
+    <!-- Sync -->
+    <string name="settings_sync_endurain">Endurain</string>
+    <string name="settings_sync_server_label">Palvelin (https://…)</string>
+    <string name="settings_sync_api_key_label">API-avain (scope activities:upload)</string>
+    <string name="settings_sync_saved_testing">Tallennettu. Testataan yhteyttä…</string>
+    <string name="settings_sync_connected">Yhdistetty ✓ (%1$s aktiviteettia palvelimella)</string>
+    <string name="settings_error">Virhe: %1$s</string>
+    <string name="settings_sync_save_test">Tallenna ja testaa yhteys</string>
+    <string name="settings_sync_upload_note">Tallennetut harjoitukset ladataan Endurainiin automaattisesti tallennuksen päättyessä (jos yhteys on määritetty). Jono yrittää uudelleen, kun verkkoa ei ole.</string>
+    <string name="settings_sync_coming_soon">Tulossa pian</string>
+    <string name="settings_sync_coming_soon_items">· Strava\n· Automaattinen lataus Google Driveen</string>
+    <string name="settings_sync_status">Synkronoinnin tila</string>
+    <string name="settings_sync_last_upload">Viimeisin lataus: %1$s</string>
+    <string name="settings_sync_pending_failed">%1$d odottaa · %2$d epäonnistui</string>
+    <string name="settings_sync_retry_failed">Yritä epäonnistuneita uudelleen</string>
+    <string name="settings_sync_folder">Tallenna kansioon</string>
+    <string name="settings_sync_folder_choose">Valitse kansio</string>
+    <string name="settings_sync_folder_none">Ei valittua kansiota</string>
+    <string name="settings_sync_folder_enable">Tallenna jokainen GPX automaattisesti</string>
+    <string name="settings_sync_webdav">WebDAV (Nextcloud/ownCloud)</string>
+    <string name="settings_sync_webdav_url">URL (…/dav/files/user/Rumb)</string>
+    <string name="settings_sync_webdav_user">Käyttäjä</string>
+    <string name="settings_sync_webdav_pass">Salasana</string>
+    <string name="settings_sync_webdav_test">Tallenna ja testaa</string>
+
+    <!-- Recording -->
+    <string name="settings_rec_gps_interval">GPS-väli</string>
+    <string name="settings_rec_min_distance">Pisteiden vähimmäisetäisyys: %1$d m</string>
+    <string name="settings_rec_max_accuracy">GPS:n enimmäistarkkuus: %1$d m</string>
+    <string name="settings_rec_accuracy_note">Huonommalla tarkkuudella olevat sijainnit hylätään.</string>
+    <string name="settings_rec_auto_pause">Keskeytä automaattisesti pysähdyksissä</string>
+    <string name="settings_rec_barometer">Käytä barometria nousun mittaukseen</string>
+    <string name="settings_rec_ble_sensors">BLE-anturit (syke · poljinnopeus · teho)</string>
+    <string name="settings_rec_paired_sensors">Paritetut anturit: %1$d</string>
+    <string name="settings_rec_apply_note">Muutokset koskevat seuraavaa tallennusta.</string>
+
+    <!-- App / update -->
+    <string name="settings_app_installed_version">Asennettu versio</string>
+    <string name="settings_check_update">Tarkista päivitykset</string>
+    <string name="settings_update_checking">Tarkistetaan…</string>
+    <string name="settings_update_up_to_date">Käytössä on uusin versio ✓</string>
+    <string name="settings_update_network_error">Verkkovirhe</string>
+    <string name="settings_update_downloading">Ladataan… %1$d%%</string>
+    <string name="settings_update_new_version">Uusi versio v%1$s</string>
+    <string name="settings_update_download_install">Lataa ja asenna</string>
+    <string name="settings_update_download_error">Latausvirhe</string>
+    <string name="settings_debug_section">Vianetsintä</string>
+    <string name="settings_debug_log_button">Vianetsintäloki (koko loki)</string>
+    <string name="settings_debug_full">Täysi diagnostiikka</string>
+    <string name="settings_debug_copy">Kopioi diagnostiikka</string>
+    <string name="settings_about">Tietoja</string>
+    <string name="settings_about_desc">Rumb — GPS-aktiviteettitallennin live-HUDilla, ICGC-kartoilla ja Endurain-synkronoinnilla.</string>
+
+    <!-- Track appearance -->
+    <string name="settings_appearance_track">Reitin ulkoasu</string>
+
+    <!-- Follow route -->
+    <string name="settings_route_follow">Seurattava reitti</string>
+    <string name="settings_route_width">Leveys %1$d</string>
+    <string name="settings_route_arrows">Suuntanuolet</string>
+    <string name="settings_route_progress">Näytä edistyminen (himmennä kuljettu osuus)</string>
+    <string name="settings_route_tracking_point">Seurantapiste</string>
+    <string name="settings_tracking_dot">Piste</string>
+    <string name="settings_tracking_arrow">Nuoli</string>
+    <string name="settings_route_tracking_size">Koko</string>
+    <string name="settings_route_off_route">Reitiltä poistumisen hälytys</string>
+    <string name="settings_route_threshold">Poikkeaman raja: %1$d m</string>
+    <string name="settings_route_sound">Ääni</string>
+    <string name="settings_route_vibration">Värinä</string>
+
+    <!-- Audio announcements -->
+    <string name="settings_audio_title">Ääni ja hälytykset</string>
+    <string name="settings_audio_enable">Ota ääni-ilmoitukset käyttöön</string>
+    <string name="settings_audio_voice">Ääni</string>
+    <string name="settings_audio_beeps">Piippaukset</string>
+    <string name="settings_audio_beep_sound">Piippausääni</string>
+    <string name="settings_audio_preview">▶ Esikuuntelu</string>
+    <string name="settings_audio_sound_1">Piippaus</string>
+    <string name="settings_audio_sound_2">Tupla</string>
+    <string name="settings_audio_sound_3">Kuittaus</string>
+    <string name="settings_audio_sound_4">Kehote</string>
+    <string name="settings_audio_sound_5">Kilahdus</string>
+    <string name="settings_audio_turn_heads_up">Ennakkovaroitus käännöksestä (~150 m)</string>
+    <string name="settings_audio_language">Kieli</string>
+    <string name="settings_every_km">Joka %1$d km</string>
+    <string name="settings_every_min">Joka %1$d min</string>
+    <string name="settings_audio_announce_what">Mitä ilmoitetaan</string>
+    <string name="settings_audio_distance_time">Matka ja aika</string>
+    <string name="settings_audio_pace">Vauhti</string>
+    <string name="settings_audio_split_pace">Viime km:n vauhti</string>
+    <string name="settings_audio_elevation">Nousu</string>
+    <string name="settings_audio_heart_rate">Syke</string>
+    <string name="settings_audio_off_route_spoken">Sano \'Poissa reitiltä\' ääneen</string>
+
+    <!-- Sensors screen -->
+    <string name="sensors_title">BLE-anturit</string>
+    <string name="sensors_intro">Parita sykevyöt, poljinnopeusanturit ja tehomittarit. Ne yhdistyvät automaattisesti tallennuksen alkaessa.</string>
+    <string name="sensors_scan">Etsi antureita</string>
+    <string name="sensors_stop_scan">Lopeta etsintä</string>
+    <string name="sensors_scan_error">Etsintävirhe (%1$d)</string>
+    <string name="sensors_bluetooth_off">Bluetooth on pois päältä</string>
+    <string name="sensors_default_name">Anturi</string>
+    <string name="sensors_paired_name">Paritettu anturi</string>
+    <string name="sensors_scanning_hint">Etsitään… kytke anturi päälle ja tuo se lähelle.</string>
+    <string name="sensors_none">Ei antureita. Napauta «Etsi antureita».</string>
+
+    <!-- Debug log screen -->
+    <string name="debug_title">Vianetsintäloki</string>
+    <string name="debug_loading">Ladataan…</string>
+    <string name="debug_no_lines">(ei Rumb-rivejä)</string>
+    <string name="debug_refresh">Päivitä</string>
+    <string name="debug_share">Jaa</string>
+    <string name="debug_clear">Tyhjennä</string>
+    <string name="debug_share_subject">Rumb · vianetsintäloki</string>
+    <string name="debug_share_chooser">Jaa loki</string>
+    <string name="debug_only_app">Vain Rumb</string>
+    <string name="debug_copy">Kopioi</string>
+    <string name="debug_lines">%1$d riviä</string>
+
+    <!-- Track color modes -->
+    <string name="trackcolor_single">Yksi väri</string>
+    <string name="trackcolor_speed">Nopeuden mukaan</string>
+    <string name="trackcolor_altitude">Korkeuden mukaan</string>
+    <string name="trackcolor_heart_rate">Sykkeen mukaan</string>
+    <string name="settings_licenses_title">Avoimen lähdekoodin lisenssit</string>
+    <string name="settings_licenses_show">Näytä lisenssit ja maininnat</string>
+    <string name="settings_licenses_hide">Piilota</string>
+    <string name="settings_licenses_body">Rumb sisältää koodia seuraavista avoimen lähdekoodin projekteista:\n\n· OpenTracks — tallennusmoottorin logiikka (GPS-suodatus, reittitilastot). Apache License 2.0. github.com/OpenTracksApp/OpenTracks\n· OSMDashboard — OpenTracks Dashboard API -integraatio. Apache License 2.0. codeberg.org/OpenTracksApp/OSMDashboard\n· MapLibre GL Native — kartan renderöinti. BSD 2-Clause.\n· AndroidX / Jetpack Compose, Kotlin, OkHttp, kotlinx.serialization — Apache License 2.0.\n\nData ja palvelut:\n· Karttadata © OpenStreetMap-tekijät (ODbL)\n· Kartat © Institut Cartogràfic i Geològic de Catalunya (ICGC), CC-BY 4.0\n· Geokoodaus Nominatim © OpenStreetMap-tekijät\n\nTäydet tekstit: LICENSE- ja NOTICE-tiedostot lähdekoodivarastossa.</string>
+    <string name="settings_max_hr">Maksimisyke: %1$d bpm</string>
+    <string name="settings_max_hr_help">Käytetään kilpailun sykealueiden analyysiin.</string>
+    <string name="settings_weight">Paino: %1$d kg</string>
+    <string name="settings_weight_help">Käytetään kaloriarvioon.</string>
+    <string name="settings_age">Ikä: %1$d vuotta</string>
+    <string name="settings_age_unset">Ikä: ei asetettu</string>
+    <string name="settings_sex">Sukupuoli</string>
+    <string name="settings_sex_unset">Ei asetettu</string>
+    <string name="settings_sex_male">Mies</string>
+    <string name="settings_sex_female">Nainen</string>
+    <string name="settings_calories_hr_help">Iän ja sukupuolen kanssa kalorit arvioidaan sykkeestä (tarkempi). Muuten käytetään MET-arviota aktiviteetin tyypistä ja painosta.</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Skrivebordstilstand</string>
+    <string name="home_cd_desktop">Skrivebordstilstand</string>
+    <string name="desktop_url_label">Åbn denne adresse i din computers browser:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Din computer skal være på samme WiFi. Serveren kører kun, mens denne skærm er åben.</string>
+    <string name="desktop_no_wifi">Skrivebordstilstand kræver, at telefon og computer er på samme netværk, og der er ingen WiFi lige nu.</string>
+    <string name="desktop_hotspot_hint">Intet WiFi i nærheden? Tænd telefonens hotspot, forbind computeren til det, så vises adressen her.</string>
+    <string name="desktop_open_hotspot">Åbn hotspot-indstillinger</string>
+    <string name="desktop_running">Server kører</string>
+    <string name="desktop_stop">Stop og afslut</string>
+    <string name="desktop_server_error">Kunne ikke starte serveren.</string>
+</resources>

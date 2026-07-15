@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="common_back">Назад</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_tab_units">Единицы</string>
+    <string name="settings_tab_recording">Запись</string>
+    <string name="settings_tab_sync">Синхронизация</string>
+    <string name="settings_tab_appearance">Оформление</string>
+    <string name="settings_tab_route">Маршрут</string>
+    <string name="settings_tab_map">Карты</string>
+    <string name="settings_map_cache">Кэш онлайн-карт</string>
+    <string name="settings_map_cache_size">Размер кэша: %1$d МБ</string>
+    <string name="settings_map_clear_cache">Очистить кэш</string>
+    <string name="settings_map_cache_cleared">Кэш очищен</string>
+    <string name="settings_map_prefetch">Предзагрузка маршрута</string>
+    <string name="settings_map_prefetch_follow">Скачивать карту при следовании маршруту</string>
+    <string name="settings_map_prefetch_hint">Скачивает все тайлы маршрута при начале следования (любое соединение), чтобы работать без покрытия.</string>
+    <string name="settings_tab_audio">Аудио</string>
+    <string name="settings_tab_activity_types">Типы</string>
+    <string name="settings_tab_app">Приложение</string>
+    <string name="settings_tab_profile">Профиль</string>
+    <string name="settings_tab_map_routes">Карты и маршруты</string>
+    <string name="settings_profile_personal">Личные данные</string>
+
+    <!-- Activity types -->
+    <string name="settings_types_predefined_header">Предустановленные типы</string>
+    <string name="settings_types_custom_header">Свои типы</string>
+    <string name="settings_types_add">Добавить свой тип</string>
+    <string name="settings_types_add_title">Новый свой тип</string>
+    <string name="settings_types_edit_title">Изменить свой тип</string>
+    <string name="settings_types_name_label">Название</string>
+    <string name="settings_types_icon_label">Значок</string>
+    <string name="settings_types_delete">Удалить</string>
+    <string name="settings_types_delete_confirm">Удалить свой тип «%1$s»? Треки с ним останутся без типа.</string>
+    <string name="settings_types_empty_custom">Нет своих типов. Добавьте кнопкой ниже.</string>
+    <string name="settings_types_save">Сохранить</string>
+    <string name="settings_types_cancel">Отмена</string>
+
+    <!-- Units -->
+    <string name="settings_units_distance">Дистанция</string>
+    <string name="settings_units_kilometers">Километры (км)</string>
+    <string name="settings_units_miles">Мили (mi)</string>
+    <string name="settings_units_elevation">Высота и набор высоты</string>
+    <string name="settings_units_meters">Метры (м)</string>
+    <string name="settings_units_feet">Футы (ft)</string>
+    <string name="settings_units_speed">Скорость</string>
+    <string name="settings_units_note">Темп использует единицу дистанции (мин/км или мин/ми); VAM и отклонение используют единицу высоты.</string>
+
+    <!-- Sync -->
+    <string name="settings_sync_endurain">Endurain</string>
+    <string name="settings_sync_server_label">Сервер (https://…)</string>
+    <string name="settings_sync_api_key_label">API-ключ (область activities:upload)</string>
+    <string name="settings_sync_saved_testing">Сохранено. Проверка соединения…</string>
+    <string name="settings_sync_connected">Подключено ✓ (%1$s активностей на сервере)</string>
+    <string name="settings_error">Ошибка: %1$s</string>
+    <string name="settings_sync_save_test">Сохранить и проверить соединение</string>
+    <string name="settings_sync_upload_note">Записанные тренировки автоматически загружаются в Endurain при остановке записи (если соединение настроено). Очередь повторяет попытки при отсутствии сети.</string>
+    <string name="settings_sync_coming_soon">Скоро</string>
+    <string name="settings_sync_coming_soon_items">· Strava\n· Автозагрузка в Google Drive</string>
+    <string name="settings_sync_status">Статус синхронизации</string>
+    <string name="settings_sync_last_upload">Последняя загрузка: %1$s</string>
+    <string name="settings_sync_pending_failed">%1$d в очереди · %2$d с ошибкой</string>
+    <string name="settings_sync_retry_failed">Повторить неудачные</string>
+    <string name="settings_sync_folder">Сохранять в папку</string>
+    <string name="settings_sync_folder_choose">Выбрать папку</string>
+    <string name="settings_sync_folder_none">Папка не выбрана</string>
+    <string name="settings_sync_folder_enable">Автоматически сохранять каждый GPX</string>
+    <string name="settings_sync_webdav">WebDAV (Nextcloud/ownCloud)</string>
+    <string name="settings_sync_webdav_url">URL (…/dav/files/user/Rumb)</string>
+    <string name="settings_sync_webdav_user">Пользователь</string>
+    <string name="settings_sync_webdav_pass">Пароль</string>
+    <string name="settings_sync_webdav_test">Сохранить и проверить</string>
+
+    <!-- Recording -->
+    <string name="settings_rec_gps_interval">Интервал GPS</string>
+    <string name="settings_rec_min_distance">Минимальное расстояние между точками: %1$d м</string>
+    <string name="settings_rec_max_accuracy">Максимальная погрешность GPS: %1$d м</string>
+    <string name="settings_rec_accuracy_note">Позиции с худшей точностью отбрасываются.</string>
+    <string name="settings_rec_auto_pause">Автопауза при остановке</string>
+    <string name="settings_rec_barometer">Барометр для набора высоты</string>
+    <string name="settings_rec_ble_sensors">Датчики BLE (ЧСС · каденс · мощность)</string>
+    <string name="settings_rec_paired_sensors">Сопряжённых датчиков: %1$d</string>
+    <string name="settings_rec_apply_note">Изменения применяются к следующей записи.</string>
+
+    <!-- App / update -->
+    <string name="settings_app_installed_version">Установленная версия</string>
+    <string name="settings_check_update">Проверить обновление</string>
+    <string name="settings_update_checking">Проверка…</string>
+    <string name="settings_update_up_to_date">У вас последняя версия ✓</string>
+    <string name="settings_update_network_error">Ошибка сети</string>
+    <string name="settings_update_downloading">Загрузка… %1$d%%</string>
+    <string name="settings_update_new_version">Новая версия v%1$s</string>
+    <string name="settings_update_download_install">Скачать и установить</string>
+    <string name="settings_update_download_error">Ошибка загрузки</string>
+    <string name="settings_debug_section">Отладка</string>
+    <string name="settings_debug_log_button">Журнал отладки (полный)</string>
+    <string name="settings_debug_full">Полная диагностика</string>
+    <string name="settings_debug_copy">Копировать диагностику</string>
+    <string name="settings_about">О приложении</string>
+    <string name="settings_about_desc">Rumb — запись GPS-активностей с живым HUD, картами ICGC и синхронизацией Endurain.</string>
+
+    <!-- Track appearance -->
+    <string name="settings_appearance_track">Оформление трека</string>
+
+    <!-- Follow route -->
+    <string name="settings_route_follow">Маршрут для следования</string>
+    <string name="settings_route_width">Ширина %1$d</string>
+    <string name="settings_route_arrows">Стрелки направления</string>
+    <string name="settings_route_progress">Показывать прогресс (пройденное затемняется)</string>
+    <string name="settings_route_tracking_point">Точка отслеживания</string>
+    <string name="settings_tracking_dot">Точка</string>
+    <string name="settings_tracking_arrow">Стрелка</string>
+    <string name="settings_route_tracking_size">Размер</string>
+    <string name="settings_route_off_route">Оповещение о сходе с маршрута</string>
+    <string name="settings_route_threshold">Порог отклонения: %1$d м</string>
+    <string name="settings_route_sound">Звук</string>
+    <string name="settings_route_vibration">Вибрация</string>
+
+    <!-- Audio announcements -->
+    <string name="settings_audio_title">Аудио и оповещения</string>
+    <string name="settings_audio_enable">Включить голосовые объявления</string>
+    <string name="settings_audio_voice">Голос</string>
+    <string name="settings_audio_beeps">Сигналы</string>
+    <string name="settings_audio_beep_sound">Звук сигнала</string>
+    <string name="settings_audio_preview">▶ Прослушать</string>
+    <string name="settings_audio_sound_1">Сигнал</string>
+    <string name="settings_audio_sound_2">Двойной</string>
+    <string name="settings_audio_sound_3">Подтверждение</string>
+    <string name="settings_audio_sound_4">Подсказка</string>
+    <string name="settings_audio_sound_5">Перезвон</string>
+    <string name="settings_audio_turn_heads_up">Раннее предупреждение о повороте (~150 м)</string>
+    <string name="settings_audio_language">Язык</string>
+    <string name="settings_every_km">Каждые %1$d км</string>
+    <string name="settings_every_min">Каждые %1$d мин</string>
+    <string name="settings_audio_announce_what">Что объявлять</string>
+    <string name="settings_audio_distance_time">Дистанция и время</string>
+    <string name="settings_audio_pace">Темп</string>
+    <string name="settings_audio_split_pace">Темп последнего км</string>
+    <string name="settings_audio_elevation">Набор высоты</string>
+    <string name="settings_audio_heart_rate">Пульс</string>
+    <string name="settings_audio_off_route_spoken">Говорить «Сход с маршрута» голосом</string>
+
+    <!-- Sensors screen -->
+    <string name="sensors_title">Датчики BLE</string>
+    <string name="sensors_intro">Подключите нагрудные пульсометры, датчики каденса и измерители мощности. Они подключаются автоматически при начале записи.</string>
+    <string name="sensors_scan">Искать датчики</string>
+    <string name="sensors_stop_scan">Остановить поиск</string>
+    <string name="sensors_scan_error">Ошибка поиска (%1$d)</string>
+    <string name="sensors_bluetooth_off">Bluetooth выключен</string>
+    <string name="sensors_default_name">Датчик</string>
+    <string name="sensors_paired_name">Сопряжённый датчик</string>
+    <string name="sensors_scanning_hint">Поиск… включите датчик и поднесите его ближе.</string>
+    <string name="sensors_none">Нет датчиков. Нажмите «Искать датчики».</string>
+
+    <!-- Debug log screen -->
+    <string name="debug_title">Журнал отладки</string>
+    <string name="debug_loading">Загрузка…</string>
+    <string name="debug_no_lines">(нет строк Rumb)</string>
+    <string name="debug_refresh">Обновить</string>
+    <string name="debug_share">Поделиться</string>
+    <string name="debug_clear">Очистить</string>
+    <string name="debug_share_subject">Rumb · журнал отладки</string>
+    <string name="debug_share_chooser">Поделиться журналом</string>
+    <string name="debug_only_app">Только Rumb</string>
+    <string name="debug_copy">Копировать</string>
+    <string name="debug_lines">%1$d строк</string>
+
+    <!-- Track color modes -->
+    <string name="trackcolor_single">Один цвет</string>
+    <string name="trackcolor_speed">По скорости</string>
+    <string name="trackcolor_altitude">По высоте</string>
+    <string name="trackcolor_heart_rate">По пульсу</string>
+    <string name="settings_licenses_title">Лицензии открытого кода</string>
+    <string name="settings_licenses_show">Показать лицензии и упоминания</string>
+    <string name="settings_licenses_hide">Скрыть</string>
+    <string name="settings_licenses_body">Rumb содержит код, производный от следующих проектов с открытым кодом:\n\n· OpenTracks — логика движка записи (фильтрация GPS, статистика треков). Apache License 2.0. github.com/OpenTracksApp/OpenTracks\n· OSMDashboard — интеграция с OpenTracks Dashboard API. Apache License 2.0. codeberg.org/OpenTracksApp/OSMDashboard\n· MapLibre GL Native — отрисовка карт. BSD 2-Clause.\n· AndroidX / Jetpack Compose, Kotlin, OkHttp, kotlinx.serialization — Apache License 2.0.\n\nДанные и сервисы:\n· Данные карт © участники OpenStreetMap (ODbL)\n· Карты © Institut Cartogràfic i Geològic de Catalunya (ICGC), CC-BY 4.0\n· Геокодирование Nominatim © участники OpenStreetMap\n\nПолные тексты: файлы LICENSE и NOTICE в репозитории исходного кода.</string>
+    <string name="settings_max_hr">Максимальный пульс: %1$d уд/мин</string>
+    <string name="settings_max_hr_help">Используется для анализа зон пульса в соревновании.</string>
+    <string name="settings_weight">Вес: %1$d кг</string>
+    <string name="settings_weight_help">Используется для оценки калорий.</string>
+    <string name="settings_age">Возраст: %1$d лет</string>
+    <string name="settings_age_unset">Возраст: не указан</string>
+    <string name="settings_sex">Пол</string>
+    <string name="settings_sex_unset">Не указан</string>
+    <string name="settings_sex_male">Мужской</string>
+    <string name="settings_sex_female">Женский</string>
+    <string name="settings_calories_hr_help">С учётом возраста и пола калории оцениваются по пульсу (точнее). Иначе используется оценка MET по типу активности и весу.</string>
+</resources>

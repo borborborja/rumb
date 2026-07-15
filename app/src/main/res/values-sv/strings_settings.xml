@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="common_back">Tillbaka</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Inställningar</string>
+    <string name="settings_tab_units">Enheter</string>
+    <string name="settings_tab_recording">Inspelning</string>
+    <string name="settings_tab_sync">Synk</string>
+    <string name="settings_tab_appearance">Utseende</string>
+    <string name="settings_tab_route">Rutt</string>
+    <string name="settings_tab_map">Kartor</string>
+    <string name="settings_map_cache">Onlinekartcache</string>
+    <string name="settings_map_cache_size">Cachestorlek: %1$d MB</string>
+    <string name="settings_map_clear_cache">Rensa cache</string>
+    <string name="settings_map_cache_cleared">Cache rensad</string>
+    <string name="settings_map_prefetch">Ruttförhämtning</string>
+    <string name="settings_map_prefetch_follow">Ladda ner kartan när du följer en rutt</string>
+    <string name="settings_map_prefetch_hint">Laddar ner alla ruttens rutor när du börjar följa den (valfri anslutning), så den fungerar utan täckning.</string>
+    <string name="settings_tab_audio">Ljud</string>
+    <string name="settings_tab_activity_types">Typer</string>
+    <string name="settings_tab_app">App</string>
+    <string name="settings_tab_profile">Profil</string>
+    <string name="settings_tab_map_routes">Kartor &amp; rutter</string>
+    <string name="settings_profile_personal">Personuppgifter</string>
+
+    <!-- Activity types -->
+    <string name="settings_types_predefined_header">Fördefinierade typer</string>
+    <string name="settings_types_custom_header">Anpassade typer</string>
+    <string name="settings_types_add">Lägg till anpassad typ</string>
+    <string name="settings_types_add_title">Ny anpassad typ</string>
+    <string name="settings_types_edit_title">Redigera anpassad typ</string>
+    <string name="settings_types_name_label">Namn</string>
+    <string name="settings_types_icon_label">Ikon</string>
+    <string name="settings_types_delete">Ta bort</string>
+    <string name="settings_types_delete_confirm">Ta bort den anpassade typen «%1$s»? Spår som använder den visar ingen typ.</string>
+    <string name="settings_types_empty_custom">Inga anpassade typer. Lägg till en med knappen nedan.</string>
+    <string name="settings_types_save">Spara</string>
+    <string name="settings_types_cancel">Avbryt</string>
+
+    <!-- Units -->
+    <string name="settings_units_distance">Distans</string>
+    <string name="settings_units_kilometers">Kilometer (km)</string>
+    <string name="settings_units_miles">Miles (mi)</string>
+    <string name="settings_units_elevation">Höjd och stigning</string>
+    <string name="settings_units_meters">Meter (m)</string>
+    <string name="settings_units_feet">Fot (ft)</string>
+    <string name="settings_units_speed">Fart</string>
+    <string name="settings_units_note">Tempo använder distansenheten (min/km eller min/mi); VAM och avvikelse använder höjdenheten.</string>
+
+    <!-- Sync -->
+    <string name="settings_sync_endurain">Endurain</string>
+    <string name="settings_sync_server_label">Server (https://…)</string>
+    <string name="settings_sync_api_key_label">API-nyckel (scope activities:upload)</string>
+    <string name="settings_sync_saved_testing">Sparat. Testar anslutning…</string>
+    <string name="settings_sync_connected">Ansluten ✓ (%1$s aktiviteter på servern)</string>
+    <string name="settings_error">Fel: %1$s</string>
+    <string name="settings_sync_save_test">Spara och testa anslutning</string>
+    <string name="settings_sync_upload_note">Inspelade pass laddas upp till Endurain automatiskt när inspelningen stoppar (om anslutningen är konfigurerad). Kön försöker igen när nätverk saknas.</string>
+    <string name="settings_sync_coming_soon">Kommer snart</string>
+    <string name="settings_sync_coming_soon_items">· Strava\n· Automatisk uppladdning till Google Drive</string>
+    <string name="settings_sync_status">Synkstatus</string>
+    <string name="settings_sync_last_upload">Senaste uppladdning: %1$s</string>
+    <string name="settings_sync_pending_failed">%1$d väntande · %2$d misslyckade</string>
+    <string name="settings_sync_retry_failed">Försök igen med misslyckade</string>
+    <string name="settings_sync_folder">Spara till mapp</string>
+    <string name="settings_sync_folder_choose">Välj mapp</string>
+    <string name="settings_sync_folder_none">Ingen mapp vald</string>
+    <string name="settings_sync_folder_enable">Spara varje GPX automatiskt</string>
+    <string name="settings_sync_webdav">WebDAV (Nextcloud/ownCloud)</string>
+    <string name="settings_sync_webdav_url">URL (…/dav/files/user/Rumb)</string>
+    <string name="settings_sync_webdav_user">Användare</string>
+    <string name="settings_sync_webdav_pass">Lösenord</string>
+    <string name="settings_sync_webdav_test">Spara och testa</string>
+
+    <!-- Recording -->
+    <string name="settings_rec_gps_interval">GPS-intervall</string>
+    <string name="settings_rec_min_distance">Minsta avstånd mellan punkter: %1$d m</string>
+    <string name="settings_rec_max_accuracy">Högsta GPS-noggrannhet: %1$d m</string>
+    <string name="settings_rec_accuracy_note">Positioner med sämre noggrannhet kasseras.</string>
+    <string name="settings_rec_auto_pause">Pausa automatiskt när du står still</string>
+    <string name="settings_rec_barometer">Använd barometer för stigning</string>
+    <string name="settings_rec_ble_sensors">BLE-sensorer (puls · kadens · effekt)</string>
+    <string name="settings_rec_paired_sensors">Parkopplade sensorer: %1$d</string>
+    <string name="settings_rec_apply_note">Ändringar gäller nästa inspelning.</string>
+
+    <!-- App / update -->
+    <string name="settings_app_installed_version">Installerad version</string>
+    <string name="settings_check_update">Sök efter uppdatering</string>
+    <string name="settings_update_checking">Söker…</string>
+    <string name="settings_update_up_to_date">Du har den senaste versionen ✓</string>
+    <string name="settings_update_network_error">Nätverksfel</string>
+    <string name="settings_update_downloading">Laddar ner… %1$d%%</string>
+    <string name="settings_update_new_version">Ny version v%1$s</string>
+    <string name="settings_update_download_install">Ladda ner och installera</string>
+    <string name="settings_update_download_error">Nedladdningsfel</string>
+    <string name="settings_debug_section">Felsökning</string>
+    <string name="settings_debug_log_button">Felsökningslogg (fullständig logg)</string>
+    <string name="settings_debug_full">Fullständig diagnostik</string>
+    <string name="settings_debug_copy">Kopiera diagnostik</string>
+    <string name="settings_about">Om</string>
+    <string name="settings_about_desc">Rumb — GPS-aktivitetsinspelare med live-HUD, ICGC-kartor och Endurain-synk.</string>
+
+    <!-- Track appearance -->
+    <string name="settings_appearance_track">Spårets utseende</string>
+
+    <!-- Follow route -->
+    <string name="settings_route_follow">Rutt att följa</string>
+    <string name="settings_route_width">Bredd %1$d</string>
+    <string name="settings_route_arrows">Riktningspilar</string>
+    <string name="settings_route_progress">Visa framsteg (nedtonat tillryggalagt spår)</string>
+    <string name="settings_route_tracking_point">Spårningspunkt</string>
+    <string name="settings_tracking_dot">Punkt</string>
+    <string name="settings_tracking_arrow">Pil</string>
+    <string name="settings_route_tracking_size">Storlek</string>
+    <string name="settings_route_off_route">Avvikelselarm</string>
+    <string name="settings_route_threshold">Avvikelsetröskel: %1$d m</string>
+    <string name="settings_route_sound">Ljud</string>
+    <string name="settings_route_vibration">Vibration</string>
+
+    <!-- Audio announcements -->
+    <string name="settings_audio_title">Ljud och larm</string>
+    <string name="settings_audio_enable">Aktivera röstmeddelanden</string>
+    <string name="settings_audio_voice">Röst</string>
+    <string name="settings_audio_beeps">Pip</string>
+    <string name="settings_audio_beep_sound">Pipljud</string>
+    <string name="settings_audio_preview">▶ Förhandsgranska</string>
+    <string name="settings_audio_sound_1">Pip</string>
+    <string name="settings_audio_sound_2">Dubbel</string>
+    <string name="settings_audio_sound_3">Ack</string>
+    <string name="settings_audio_sound_4">Prompt</string>
+    <string name="settings_audio_sound_5">Klang</string>
+    <string name="settings_audio_turn_heads_up">Tidig svängvarning (~150 m)</string>
+    <string name="settings_audio_language">Språk</string>
+    <string name="settings_every_km">Var %1$d km</string>
+    <string name="settings_every_min">Var %1$d min</string>
+    <string name="settings_audio_announce_what">Vad som meddelas</string>
+    <string name="settings_audio_distance_time">Distans och tid</string>
+    <string name="settings_audio_pace">Tempo</string>
+    <string name="settings_audio_split_pace">Senaste km-tempo</string>
+    <string name="settings_audio_elevation">Stigning</string>
+    <string name="settings_audio_heart_rate">Puls</string>
+    <string name="settings_audio_off_route_spoken">Säg \'Utanför rutt\' med röst</string>
+
+    <!-- Sensors screen -->
+    <string name="sensors_title">BLE-sensorer</string>
+    <string name="sensors_intro">Parkoppla pulsband, kadenssensorer och effektmätare. De ansluter automatiskt när en inspelning startar.</string>
+    <string name="sensors_scan">Sök efter sensorer</string>
+    <string name="sensors_stop_scan">Stoppa sökning</string>
+    <string name="sensors_scan_error">Sökfel (%1$d)</string>
+    <string name="sensors_bluetooth_off">Bluetooth är av</string>
+    <string name="sensors_default_name">Sensor</string>
+    <string name="sensors_paired_name">Parkopplad sensor</string>
+    <string name="sensors_scanning_hint">Söker… slå på sensorn och håll den nära.</string>
+    <string name="sensors_none">Inga sensorer. Tryck på «Sök efter sensorer».</string>
+
+    <!-- Debug log screen -->
+    <string name="debug_title">Felsökningslogg</string>
+    <string name="debug_loading">Laddar…</string>
+    <string name="debug_no_lines">(inga Rumb-rader)</string>
+    <string name="debug_refresh">Uppdatera</string>
+    <string name="debug_share">Dela</string>
+    <string name="debug_clear">Rensa</string>
+    <string name="debug_share_subject">Rumb · felsökningslogg</string>
+    <string name="debug_share_chooser">Dela logg</string>
+    <string name="debug_only_app">Endast Rumb</string>
+    <string name="debug_copy">Kopiera</string>
+    <string name="debug_lines">%1$d rader</string>
+
+    <!-- Track color modes -->
+    <string name="trackcolor_single">Enfärgad</string>
+    <string name="trackcolor_speed">Efter fart</string>
+    <string name="trackcolor_altitude">Efter höjd</string>
+    <string name="trackcolor_heart_rate">Efter puls</string>
+    <string name="settings_licenses_title">Öppen källkod-licenser</string>
+    <string name="settings_licenses_show">Visa licenser och attributioner</string>
+    <string name="settings_licenses_hide">Dölj</string>
+    <string name="settings_licenses_body">Rumb innehåller kod härledd från följande projekt med öppen källkod:\n\n· OpenTracks — logik för inspelningsmotorn (GPS-filtrering, spårstatistik). Apache License 2.0. github.com/OpenTracksApp/OpenTracks\n· OSMDashboard — integration med OpenTracks Dashboard API. Apache License 2.0. codeberg.org/OpenTracksApp/OSMDashboard\n· MapLibre GL Native — kartrendering. BSD 2-Clause.\n· AndroidX / Jetpack Compose, Kotlin, OkHttp, kotlinx.serialization — Apache License 2.0.\n\nData och tjänster:\n· Kartdata © OpenStreetMap-bidragsgivare (ODbL)\n· Kartor © Institut Cartogràfic i Geològic de Catalunya (ICGC), CC-BY 4.0\n· Geokodning av Nominatim © OpenStreetMap-bidragsgivare\n\nFullständiga texter: LICENSE- och NOTICE-filer i källkodsförvaret.</string>
+    <string name="settings_max_hr">Maxpuls: %1$d bpm</string>
+    <string name="settings_max_hr_help">Används för analysen av tävlingens pulszoner.</string>
+    <string name="settings_weight">Vikt: %1$d kg</string>
+    <string name="settings_weight_help">Används för kaloriuppskattningen.</string>
+    <string name="settings_age">Ålder: %1$d år</string>
+    <string name="settings_age_unset">Ålder: inte angiven</string>
+    <string name="settings_sex">Kön</string>
+    <string name="settings_sex_unset">Inte angivet</string>
+    <string name="settings_sex_male">Man</string>
+    <string name="settings_sex_female">Kvinna</string>
+    <string name="settings_calories_hr_help">Med ålder och kön uppskattas kalorier från din puls (mer exakt). Annars används en MET-uppskattning från aktivitetstyp och vikt.</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rec_notif_channel">Запись активности</string>
+    <string name="rec_notif_recording">Идёт запись активности</string>
+    <string name="rec_notif_paused">Запись приостановлена</string>
+    <string name="rec_notif_on_pause_suffix"> · ПАУЗА</string>
+    <string name="rec_action_pause">Пауза</string>
+    <string name="rec_action_resume">Продолжить</string>
+    <string name="rec_action_stop">Стоп</string>
+    <string name="dl_notif_channel">Загрузка карт</string>
+    <string name="dl_notif_title">Загрузка офлайн-карты</string>
+    <string name="prefetch_notif_title">Загрузка карты маршрута</string>
+    <string name="dl_notif_progress">%1$d / %2$d тайлов</string>
+    <string name="share_export_title">Экспорт "%1$s"</string>
+    <string name="rec_low_accuracy_start">Начато при низкой точности GPS</string>
+    <string name="share_format_title">Формат публикации</string>
+    <string name="share_format_auto">Автоматически (лучший)</string>
+    <string name="share_format_gpx">GPX · маршрут + датчики</string>
+    <string name="share_format_tcx">TCX · с кругами</string>
+    <string name="share_format_kml">KML · только маршрут (Google Earth)</string>
+</resources>

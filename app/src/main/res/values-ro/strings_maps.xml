@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Straturi hartă</string>
+    <string name="maps_tab_online">Online</string>
+    <string name="maps_tab_offline">Offline</string>
+    <string name="maps_base_map_title">Hartă de bază pentru vizualizator</string>
+    <string name="maps_default_map_name">hartă</string>
+    <string name="maps_download_area">Descarcă zonă</string>
+    <string name="maps_import_mbtiles">Importă</string>
+    <string name="maps_empty_offline">Încă nu există hărți offline. Descarcă o zonă sau importă un fișier .mbtiles (de ex. hărțile topografice sau ortofoto oficiale ICGC de la visors.icgc.cat/appdownloads).</string>
+    <string name="maps_size_sectors">%1$.1f MB · %2$d sectoare</string>
+    <string name="maps_delete">Șterge</string>
+    <string name="maps_manage_sectors">Gestionează sectoarele</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Sectoare offline</string>
+    <string name="maps_add_sector">Adaugă sector</string>
+    <string name="maps_no_sectors">Fără sectoare. Adaugă unul descărcând o zonă.</string>
+    <string name="maps_unknown_map_type">Tip de hartă necunoscut</string>
+    <string name="maps_redownloading">Se redescarcă sectorul…</string>
+    <string name="maps_area_name">%1$s · zonă</string>
+    <string name="maps_delete_sector_title">Șterge sectorul</string>
+    <string name="maps_delete_sector_msg">Dalele acestui sector care nu sunt partajate cu niciun alt sector vor fi șterse.</string>
+    <string name="maps_cancel">Anulează</string>
+    <string name="maps_sector_n">Sector %1$d</string>
+    <string name="maps_sector_meta">zoom %1$d–%2$d · %3$,d dale · %4$.0f×%5$.0f km</string>
+    <string name="maps_redownload">Redescarcă</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Înapoi</string>
+    <string name="maps_mode_route">Traseu</string>
+    <string name="maps_mode_province">Provincie</string>
+    <string name="maps_mode_visible">Zonă vizibilă</string>
+    <string name="maps_mode_draw">Desenează</string>
+    <string name="maps_route_hint">Zona traseului selectat. Alege sursa și zoomul, apoi descarcă.</string>
+    <string name="maps_visible_hint">Încadrează harta și apasă din nou «Zonă vizibilă» pentru actualizare.</string>
+    <string name="maps_draw_hint">Trage pe hartă pentru a desena dreptunghiul.</string>
+    <string name="maps_zoom_range">Zoom %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d dale · %2$.0f MB</string>
+    <string name="maps_over_limit">Zonă/zoom prea mare (max %1$dk). Redu zoomul.</string>
+    <string name="maps_osm_warning">OSM descurajează descărcările în masă; pentru zone mari folosește ICGC.</string>
+    <string name="maps_downloading">Se descarcă… %1$d / %2$d</string>
+    <string name="maps_download_done">Descărcare completă ✓ — o poți selecta acum în Hărți offline.</string>
+    <string name="maps_download">Descarcă</string>
+</resources>

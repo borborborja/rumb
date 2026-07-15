@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Couches de carte</string>
+    <string name="maps_tab_online">En ligne</string>
+    <string name="maps_tab_offline">Hors ligne</string>
+    <string name="maps_base_map_title">Carte de base pour le visualiseur</string>
+    <string name="maps_default_map_name">carte</string>
+    <string name="maps_download_area">Télécharger une zone</string>
+    <string name="maps_import_mbtiles">Importer</string>
+    <string name="maps_empty_offline">Aucune carte hors ligne. Téléchargez une zone ou importez un fichier .mbtiles (par ex. les cartes topographiques ou orthophotos officielles de l\'ICGC depuis visors.icgc.cat/appdownloads).</string>
+    <string name="maps_size_sectors">%1$.1f Mo · %2$d secteurs</string>
+    <string name="maps_delete">Supprimer</string>
+    <string name="maps_manage_sectors">Gérer les secteurs</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Secteurs hors ligne</string>
+    <string name="maps_add_sector">Ajouter un secteur</string>
+    <string name="maps_no_sectors">Aucun secteur. Ajoutez-en un en téléchargeant une zone.</string>
+    <string name="maps_unknown_map_type">Type de carte inconnu</string>
+    <string name="maps_redownloading">Re-téléchargement du secteur…</string>
+    <string name="maps_area_name">%1$s · zone</string>
+    <string name="maps_delete_sector_title">Supprimer le secteur</string>
+    <string name="maps_delete_sector_msg">Les tuiles de ce secteur non partagées avec un autre secteur seront supprimées.</string>
+    <string name="maps_cancel">Annuler</string>
+    <string name="maps_sector_n">Secteur %1$d</string>
+    <string name="maps_sector_meta">zoom %1$d–%2$d · %3$,d tuiles · %4$.0f×%5$.0f km</string>
+    <string name="maps_redownload">Re-télécharger</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Retour</string>
+    <string name="maps_mode_route">Itinéraire</string>
+    <string name="maps_mode_province">Province</string>
+    <string name="maps_mode_visible">Zone visible</string>
+    <string name="maps_mode_draw">Dessiner</string>
+    <string name="maps_route_hint">Zone de l\'itinéraire sélectionné. Choisissez la source et le zoom, puis téléchargez.</string>
+    <string name="maps_visible_hint">Cadrez la carte et appuyez à nouveau sur «Zone visible» pour actualiser.</string>
+    <string name="maps_draw_hint">Faites glisser sur la carte pour dessiner le rectangle.</string>
+    <string name="maps_zoom_range">Zoom %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d tuiles · %2$.0f Mo</string>
+    <string name="maps_over_limit">Zone/zoom trop grand (max %1$dk). Réduisez le zoom.</string>
+    <string name="maps_osm_warning">OSM déconseille les téléchargements en masse ; pour de grandes zones, utilisez l\'ICGC.</string>
+    <string name="maps_downloading">Téléchargement… %1$d / %2$d</string>
+    <string name="maps_download_done">Téléchargement terminé ✓ — vous pouvez maintenant la sélectionner dans les cartes hors ligne.</string>
+    <string name="maps_download">Télécharger</string>
+</resources>

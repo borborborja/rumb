@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lang_title">Язык приложения</string>
+    <string name="lang_system">По умолчанию системы</string>
+    <string name="lang_hint_old">На этой версии Android язык приложения меняется в системных настройках языка.</string>
+</resources>

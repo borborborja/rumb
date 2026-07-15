@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Personal records -->
+    <string name="records_title">Recorduri</string>
+    <string name="records_computing">Se analizează %1$d/%2$d…</string>
+    <string name="records_empty">Încă nu există recorduri. Înregistrează sau importă antrenamente pentru a-ți vedea recordurile personale.</string>
+    <string name="records_fastest_1k">Cel mai rapid 1 km</string>
+    <string name="records_fastest_5k">Cel mai rapid 5 km</string>
+    <string name="records_fastest_10k">Cel mai rapid 10 km</string>
+    <string name="records_fastest_half">Cel mai rapid semimaraton</string>
+    <string name="records_longest">Cea mai lungă activitate</string>
+    <string name="records_max_ascent">Cea mai mare urcare</string>
+    <string name="records_max_speed">Viteză maximă</string>
+    <string name="records_longest_time">Cel mai lung timp</string>
+    <string name="records_stat_calories">Calorii</string>
+
+    <!-- Heatmap -->
+    <string name="heatmap_title">Hartă termică</string>
+    <string name="heatmap_include_routes">Include trasee</string>
+    <string name="heatmap_loading">%1$d/%2$d trasee</string>
+</resources>

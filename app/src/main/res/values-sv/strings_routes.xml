@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Route detail screen -->
+    <string name="routes_route_fallback_title">Rutt</string>
+    <string name="routes_edit_trace">Redigera spår</string>
+    <string name="routes_stat_distance">Distans</string>
+    <string name="routes_stat_ascent">Stigning +</string>
+    <string name="routes_history_title">Historik</string>
+    <string name="routes_stat_points">Punkter</string>
+    <string name="routes_distance_km_format">%1$.2f km</string>
+    <string name="routes_ascent_m_format">%1$d m</string>
+    <string name="routes_source_collection">Källa: %1$s · Samling: %2$s</string>
+    <string name="routes_follow_this_route">Följ den här rutten</string>
+    <string name="routes_active_follow_toast">Rutt aktiv att följa</string>
+    <string name="routes_rename">Byt namn</string>
+    <string name="routes_collection">Samling</string>
+    <string name="routes_download_route_map">Ladda ner ruttkarta</string>
+    <string name="routes_delete">Ta bort</string>
+    <string name="routes_rename_route_title">Byt namn på rutt</string>
+    <string name="routes_delete_route_title">Ta bort rutt</string>
+    <string name="routes_delete_confirm">Vill du verkligen ta bort «%1$s»?</string>
+
+    <!-- Route editor screen -->
+    <string name="routes_create_route">Skapa rutt</string>
+    <string name="routes_edit_route">Redigera rutt</string>
+    <string name="routes_back">Tillbaka</string>
+    <string name="routes_undo">Ångra</string>
+    <string name="routes_save">Spara</string>
+    <string name="routes_cancel">Avbryt</string>
+    <string name="routes_save_route_title">Spara rutt</string>
+    <string name="routes_save_changes_title">Spara ändringar</string>
+    <string name="routes_name_label">Namn</string>
+    <string name="routes_snap_to_path">Fäst mot stig</string>
+    <string name="routes_tap_map_to_add_points">Tryck på kartan för att lägga till punkter.</string>
+    <string name="routes_new_route_default_name">Ny rutt</string>
+
+    <!-- Routing profiles -->
+    <string name="routing_hiking">Vandring</string>
+    <string name="routing_trekking">Cykel/trekking</string>
+    <string name="routing_mtb">MTB</string>
+    <string name="routing_shortest">Kortaste</string>
+    <string name="routes_type">Typ</string>
+    <string name="routes_assign_type_title">Aktivitetstyp</string>
+    <string name="routes_stat_time">Tid</string>
+    <string name="routes_stat_avg_speed">Snitt km/h</string>
+    <string name="routes_stat_avg_hr">Snittpuls</string>
+</resources>

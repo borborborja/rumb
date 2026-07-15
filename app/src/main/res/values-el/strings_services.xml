@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rec_notif_channel">Καταγραφή δραστηριότητας</string>
+    <string name="rec_notif_recording">Καταγραφή δραστηριότητας</string>
+    <string name="rec_notif_paused">Η καταγραφή σε παύση</string>
+    <string name="rec_notif_on_pause_suffix"> · ΣΕ ΠΑΥΣΗ</string>
+    <string name="rec_action_pause">Παύση</string>
+    <string name="rec_action_resume">Συνέχεια</string>
+    <string name="rec_action_stop">Διακοπή</string>
+    <string name="dl_notif_channel">Λήψεις χαρτών</string>
+    <string name="dl_notif_title">Λήψη χάρτη εκτός σύνδεσης</string>
+    <string name="prefetch_notif_title">Λήψη χάρτη διαδρομής</string>
+    <string name="dl_notif_progress">%1$d / %2$d πλακίδια</string>
+    <string name="share_export_title">Εξαγωγή "%1$s"</string>
+    <string name="rec_low_accuracy_start">Ξεκίνησε με χαμηλή ακρίβεια GPS</string>
+    <string name="share_format_title">Μορφή κοινοποίησης</string>
+    <string name="share_format_auto">Αυτόματη (βέλτιστη)</string>
+    <string name="share_format_gpx">GPX · διαδρομή + αισθητήρες</string>
+    <string name="share_format_tcx">TCX · με γύρους</string>
+    <string name="share_format_kml">KML · μόνο διαδρομή (Google Earth)</string>
+</resources>

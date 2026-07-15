@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Viewer top bar -->
+    <string name="viewer_tab_map">Hartă</string>
+    <string name="viewer_tab_data">Date</string>
+    <string name="viewer_cd_exit">Ieși din vizualizator</string>
+    <string name="viewer_cd_edit_page">Editează ecranul curent</string>
+    <string name="viewer_cd_settings">Setări vizualizator</string>
+
+    <!-- HUD controls -->
+    <string name="viewer_cd_center">Centrează</string>
+    <string name="viewer_cd_north">Nord</string>
+    <string name="viewer_cd_zoom_in">Mărește</string>
+    <string name="viewer_cd_zoom_out">Micșorează</string>
+    <string name="viewer_cd_pause">Pauză</string>
+    <string name="viewer_cd_resume">Reia</string>
+    <string name="viewer_off_route">În afara traseului · %1$d m</string>
+
+    <!-- Quick-settings sheet -->
+    <string name="viewer_qs_tab_map">Hartă</string>
+    <string name="viewer_qs_tab_route">Traseu</string>
+    <string name="viewer_qs_tab_options">Opțiuni</string>
+    <string name="viewer_qs_online_map">Hartă online</string>
+    <string name="viewer_qs_offline_map">Hartă offline</string>
+    <string name="viewer_qs_offline_subtitle">offline</string>
+    <string name="viewer_qs_route_to_follow">Traseu de urmat</string>
+    <string name="viewer_qs_route_none">Niciunul</string>
+    <string name="viewer_qs_route_none_subtitle">fără traseu</string>
+    <string name="viewer_qs_no_routes_yet">Încă nu există trasee. Creează-le sau importă-le din «Trasee de urmat».</string>
+    <string name="viewer_qs_map_orientation">Orientare hartă</string>
+    <string name="viewer_qs_north_up">Nord sus</string>
+    <string name="viewer_qs_heading_up">Direcție sus</string>
+    <string name="viewer_qs_adaptive_zoom">Zoom automat la virajele traseului</string>
+    <string name="viewer_qs_adaptive_zoom_help">În timpul urmăririi: mărește harta pe măsură ce te apropii de un viraj/intersecție a traseului și micșorează pe porțiunile drepte.</string>
+    <string name="viewer_qs_keep_screen_on">Menține ecranul aprins</string>
+    <string name="viewer_qs_fullscreen">Ecran complet</string>
+
+    <!-- Toasts -->
+    <string name="viewer_toast_location_permission_record">Permisiunea de locație este necesară pentru înregistrare</string>
+    <string name="viewer_toast_activity_no_points">Activitate fără puncte, ignorată</string>
+    <string name="viewer_toast_activity_saved">Activitate salvată</string>
+    <string name="viewer_toast_follow_route_empty">Traseul de urmat este gol (id=%1$d)</string>
+
+    <!-- Save recording dialog -->
+    <string name="viewer_save_dialog_title">Salvează activitatea</string>
+    <string name="viewer_save_name_label">Nume</string>
+    <string name="viewer_save">Salvează</string>
+    <string name="viewer_discard">Renunță</string>
+    <string name="viewer_default_activity_name">Activitate %1$s</string>
+    <string name="viewer_qs_route_meta">%1$.1f km · %2$d puncte</string>
+
+    <!-- Competition (ghost) mode -->
+    <string name="viewer_qs_tab_competition">Competiție</string>
+    <string name="viewer_qs_opponent">Ghost (adversar)</string>
+    <string name="viewer_qs_opponent_best">cel mai bun timp</string>
+    <string name="viewer_qs_halo">Halo colorat pe marginea ecranului</string>
+    <string name="viewer_qs_halo_help">Verde: ești înaintea ghostului. Roșu: ești în urmă. Albastru: la egalitate (în ±5 m).</string>
+    <string name="viewer_qs_ghost_seconds">Afișează secundele estimate</string>
+    <string name="viewer_toast_ghost_failed">Nu s-a putut încărca ghostul (traseu fără marcaje de timp)</string>
+    <string name="viewer_qs_countdown">Numărătoare inversă 3-2-1 la start</string>
+    <string name="countdown_waiting_gps">Se așteaptă semnalul GPS…</string>
+    <string name="countdown_go">START!</string>
+    <string name="countdown_cancel_hint">Atinge pentru a anula</string>
+    <string name="countdown_gps_timeout">Fără poziționare GPS precisă — înregistrarea nu a pornit</string>
+    <string name="comp_at_start">La punctul de start</string>
+    <string name="comp_start_distance">Punct de start: la %1$d m distanță</string>
+    <string name="comp_start_distance_km">Punct de start: la %1$.1f km distanță</string>
+    <string name="viewer_qs_auto_pause">Pauză automată la oprire</string>
+    <string name="viewer_qs_lap_management">Gestionare ture</string>
+    <string name="viewer_qs_auto_lap">Tură automată după poziție</string>
+    <string name="viewer_qs_auto_lap_help">Când pornești turele, acel loc devine linia de start/sosire, iar fiecare trecere închide automat o tură. Steagul manual funcționează în continuare.</string>
+    <string name="viewer_qs_auto_pause_secs">Pauză după oprire de:</string>
+    <string name="viewer_qs_turn_voice">Avertizări viraje (voce/bipuri)</string>
+    <!-- Dades: fixed record button, graph tiles, settings-toggle tiles -->
+    <string name="data_record_start">Înregistrează</string>
+    <string name="data_record_lap">Tură</string>
+    <string name="data_record_lap_end">Termină turele</string>
+    <string name="lap_compete_prompt">Cursă cu cea mai bună tură?</string>
+    <string name="lap_compete_yes">Concurează</string>
+    <string name="lap_compete_no">Nu</string>
+    <string name="data_chart_speed">Grafic viteză</string>
+    <string name="data_chart_elevation">Profil altimetric</string>
+    <string name="data_toggle_auto_pause">Pauză automată</string>
+    <string name="data_toggle_turn_voice">Avertizări viraje</string>
+    <string name="data_toggle_adaptive_zoom">Zoom adaptiv</string>
+    <string name="data_toggle_keep_screen">Menține ecranul aprins</string>
+    <string name="data_toggle_barometer">Barometru</string>
+    <string name="data_toggle_barometer_hint">Se aplică la următoarea înregistrare</string>
+</resources>

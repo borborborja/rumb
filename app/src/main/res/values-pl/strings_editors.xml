@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — Polish. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Wyjdź</string>
+    <string name="editor_configure">Konfiguruj</string>
+    <string name="editor_remove">Usuń</string>
+    <string name="editor_resize">Zmień rozmiar</string>
+    <string name="editor_move">Przesuń</string>
+    <string name="editor_done">Gotowe</string>
+    <string name="editor_global_settings">Ustawienia globalne</string>
+    <string name="editor_show_graph">Wykres</string>
+    <string name="editor_tab_general">Ogólne</string>
+    <string name="editor_tab_competition">Rywalizacja</string>
+    <string name="editor_tab_settings">Ustawienia</string>
+    <string name="editor_competition_hint">Dodane teraz, widoczne podczas aktywnej rywalizacji.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Widżety</string>
+    <string name="editor_widget">Widżet</string>
+    <string name="editor_metrics">Metryki</string>
+    <string name="editor_charts">Wykresy</string>
+    <string name="editor_controls">Sterowanie</string>
+    <string name="editor_presets">Ustawienia wstępne</string>
+    <string name="editor_global_size">Rozmiar globalny</string>
+    <string name="editor_font_size">Rozmiar czcionki: %1$.0f%%</string>
+    <string name="editor_value_color">Kolor wartości</string>
+    <string name="editor_show_chart">Pokaż wykres</string>
+    <string name="editor_time_format">Format czasu</string>
+    <string name="editor_zone">Strefa</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Kolumny</string>
+    <string name="editor_format">Format</string>
+    <string name="editor_width">Szerokość</string>
+    <string name="editor_no_tiles">Brak kafelków. Dodaj metryki z «Metryki ▾».</string>
+    <string name="preset_cycling">Kolarstwo</string>
+    <string name="preset_trail">Teren</string>
+    <string name="preset_ski">Narty</string>
+    <string name="editor_extra">Inne</string>
+</resources>

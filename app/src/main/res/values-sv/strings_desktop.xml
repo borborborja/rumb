@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desktop_title">Datorläge</string>
+    <string name="home_cd_desktop">Datorläge</string>
+    <string name="desktop_url_label">Öppna den här adressen i datorns webbläsare:</string>
+    <string name="desktop_pin_label">PIN</string>
+    <string name="desktop_hint">Datorn måste vara på samma WiFi. Servern körs bara medan den här skärmen är öppen.</string>
+    <string name="desktop_no_wifi">Datorläge kräver att telefon och dator är på samma nätverk, och det finns ingen WiFi just nu.</string>
+    <string name="desktop_hotspot_hint">Ingen WiFi i närheten? Slå på telefonens surfzon, anslut datorn till den, så visas adressen här.</string>
+    <string name="desktop_open_hotspot">Öppna surfzonsinställningar</string>
+    <string name="desktop_running">Servern körs</string>
+    <string name="desktop_stop">Stoppa och avsluta</string>
+    <string name="desktop_server_error">Kunde inte starta servern.</string>
+</resources>

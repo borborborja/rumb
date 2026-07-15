@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map layers screen -->
+    <string name="maps_title">Livelli mappa</string>
+    <string name="maps_tab_online">Online</string>
+    <string name="maps_tab_offline">Offline</string>
+    <string name="maps_base_map_title">Mappa base per il visualizzatore</string>
+    <string name="maps_default_map_name">mappa</string>
+    <string name="maps_download_area">Scarica area</string>
+    <string name="maps_import_mbtiles">Importa</string>
+    <string name="maps_empty_offline">Ancora nessuna mappa offline. Scarica un\'area o importa un file .mbtiles (es. le mappe topografiche o ortofoto ufficiali ICGC da visors.icgc.cat/appdownloads).</string>
+    <string name="maps_size_sectors">%1$.1f MB · %2$d settori</string>
+    <string name="maps_delete">Elimina</string>
+    <string name="maps_manage_sectors">Gestisci settori</string>
+
+    <!-- Offline sectors screen -->
+    <string name="maps_sectors_title">Settori offline</string>
+    <string name="maps_add_sector">Aggiungi settore</string>
+    <string name="maps_no_sectors">Nessun settore. Aggiungine uno scaricando un\'area.</string>
+    <string name="maps_unknown_map_type">Tipo di mappa sconosciuto</string>
+    <string name="maps_redownloading">Riscaricamento settore…</string>
+    <string name="maps_area_name">%1$s · area</string>
+    <string name="maps_delete_sector_title">Elimina settore</string>
+    <string name="maps_delete_sector_msg">Le tessere di questo settore non condivise con altri settori verranno eliminate.</string>
+    <string name="maps_cancel">Annulla</string>
+    <string name="maps_sector_n">Settore %1$d</string>
+    <string name="maps_sector_meta">zoom %1$d–%2$d · %3$,d tessere · %4$.0f×%5$.0f km</string>
+    <string name="maps_redownload">Riscarica</string>
+
+    <!-- Download area screen -->
+    <string name="maps_back">Indietro</string>
+    <string name="maps_mode_route">Percorso</string>
+    <string name="maps_mode_province">Provincia</string>
+    <string name="maps_mode_visible">Area visibile</string>
+    <string name="maps_mode_draw">Disegna</string>
+    <string name="maps_route_hint">Area del percorso selezionato. Scegli sorgente e zoom, poi scarica.</string>
+    <string name="maps_visible_hint">Inquadra la mappa e tocca di nuovo «Area visibile» per aggiornare.</string>
+    <string name="maps_draw_hint">Trascina sulla mappa per disegnare il rettangolo.</string>
+    <string name="maps_zoom_range">Zoom %1$d – %2$d</string>
+    <string name="maps_estimate">≈ %1$,d tessere · %2$.0f MB</string>
+    <string name="maps_over_limit">Area/zoom troppo grande (max %1$dk). Riduci lo zoom.</string>
+    <string name="maps_osm_warning">OSM sconsiglia i download di massa; per aree grandi usa ICGC.</string>
+    <string name="maps_downloading">Scaricamento… %1$d / %2$d</string>
+    <string name="maps_download_done">Download completato ✓ — ora puoi selezionarla in Mappe offline.</string>
+    <string name="maps_download">Scarica</string>
+</resources>

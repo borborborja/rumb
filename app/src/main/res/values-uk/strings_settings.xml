@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="common_back">Назад</string>
+
+    <!-- Settings screen -->
+    <string name="settings_title">Налаштування</string>
+    <string name="settings_tab_units">Одиниці</string>
+    <string name="settings_tab_recording">Запис</string>
+    <string name="settings_tab_sync">Синхронізація</string>
+    <string name="settings_tab_appearance">Вигляд</string>
+    <string name="settings_tab_route">Маршрут</string>
+    <string name="settings_tab_map">Карти</string>
+    <string name="settings_map_cache">Кеш онлайн-карт</string>
+    <string name="settings_map_cache_size">Розмір кешу: %1$d МБ</string>
+    <string name="settings_map_clear_cache">Очистити кеш</string>
+    <string name="settings_map_cache_cleared">Кеш очищено</string>
+    <string name="settings_map_prefetch">Попереднє завантаження маршруту</string>
+    <string name="settings_map_prefetch_follow">Завантажувати карту при проходженні маршруту</string>
+    <string name="settings_map_prefetch_hint">Завантажує всі плитки маршруту на початку проходження (будь-яке з\'єднання), тож він працює без покриття.</string>
+    <string name="settings_tab_audio">Аудіо</string>
+    <string name="settings_tab_activity_types">Типи</string>
+    <string name="settings_tab_app">Застосунок</string>
+    <string name="settings_tab_profile">Профіль</string>
+    <string name="settings_tab_map_routes">Карти й маршрути</string>
+    <string name="settings_profile_personal">Особисті дані</string>
+
+    <!-- Activity types -->
+    <string name="settings_types_predefined_header">Стандартні типи</string>
+    <string name="settings_types_custom_header">Власні типи</string>
+    <string name="settings_types_add">Додати власний тип</string>
+    <string name="settings_types_add_title">Новий власний тип</string>
+    <string name="settings_types_edit_title">Редагувати власний тип</string>
+    <string name="settings_types_name_label">Назва</string>
+    <string name="settings_types_icon_label">Значок</string>
+    <string name="settings_types_delete">Видалити</string>
+    <string name="settings_types_delete_confirm">Видалити власний тип «%1$s»? Треки з ним будуть без типу.</string>
+    <string name="settings_types_empty_custom">Немає власних типів. Додайте кнопкою нижче.</string>
+    <string name="settings_types_save">Зберегти</string>
+    <string name="settings_types_cancel">Скасувати</string>
+
+    <!-- Units -->
+    <string name="settings_units_distance">Відстань</string>
+    <string name="settings_units_kilometers">Кілометри (км)</string>
+    <string name="settings_units_miles">Милі (mi)</string>
+    <string name="settings_units_elevation">Висота та набір висоти</string>
+    <string name="settings_units_meters">Метри (м)</string>
+    <string name="settings_units_feet">Фути (ft)</string>
+    <string name="settings_units_speed">Швидкість</string>
+    <string name="settings_units_note">Темп використовує одиницю відстані (хв/км або хв/mi); VAM і відхилення використовують одиницю висоти.</string>
+
+    <!-- Sync -->
+    <string name="settings_sync_endurain">Endurain</string>
+    <string name="settings_sync_server_label">Сервер (https://…)</string>
+    <string name="settings_sync_api_key_label">Ключ API (область activities:upload)</string>
+    <string name="settings_sync_saved_testing">Збережено. Перевірка з\'єднання…</string>
+    <string name="settings_sync_connected">Підключено ✓ (%1$s активностей на сервері)</string>
+    <string name="settings_error">Помилка: %1$s</string>
+    <string name="settings_sync_save_test">Зберегти й перевірити з\'єднання</string>
+    <string name="settings_sync_upload_note">Записані тренування завантажуються в Endurain автоматично після зупинки запису (якщо з\'єднання налаштоване). Черга повторює спроби, коли немає мережі.</string>
+    <string name="settings_sync_coming_soon">Незабаром</string>
+    <string name="settings_sync_coming_soon_items">· Strava\n· Автозавантаження в Google Drive</string>
+    <string name="settings_sync_status">Стан синхронізації</string>
+    <string name="settings_sync_last_upload">Останнє завантаження: %1$s</string>
+    <string name="settings_sync_pending_failed">%1$d в очікуванні · %2$d з помилкою</string>
+    <string name="settings_sync_retry_failed">Повторити невдалі</string>
+    <string name="settings_sync_folder">Зберігати в теку</string>
+    <string name="settings_sync_folder_choose">Обрати теку</string>
+    <string name="settings_sync_folder_none">Теку не обрано</string>
+    <string name="settings_sync_folder_enable">Зберігати кожен GPX автоматично</string>
+    <string name="settings_sync_webdav">WebDAV (Nextcloud/ownCloud)</string>
+    <string name="settings_sync_webdav_url">URL (…/dav/files/user/Rumb)</string>
+    <string name="settings_sync_webdav_user">Користувач</string>
+    <string name="settings_sync_webdav_pass">Пароль</string>
+    <string name="settings_sync_webdav_test">Зберегти й перевірити</string>
+
+    <!-- Recording -->
+    <string name="settings_rec_gps_interval">Інтервал GPS</string>
+    <string name="settings_rec_min_distance">Мінімальна відстань між точками: %1$d м</string>
+    <string name="settings_rec_max_accuracy">Максимальна точність GPS: %1$d м</string>
+    <string name="settings_rec_accuracy_note">Позиції з гіршою точністю відхиляються.</string>
+    <string name="settings_rec_auto_pause">Автопауза при зупинці</string>
+    <string name="settings_rec_barometer">Використовувати барометр для набору висоти</string>
+    <string name="settings_rec_ble_sensors">Датчики BLE (ЧСС · каденс · потужність)</string>
+    <string name="settings_rec_paired_sensors">Спарені датчики: %1$d</string>
+    <string name="settings_rec_apply_note">Зміни застосуються до наступного запису.</string>
+
+    <!-- App / update -->
+    <string name="settings_app_installed_version">Встановлена версія</string>
+    <string name="settings_check_update">Перевірити оновлення</string>
+    <string name="settings_update_checking">Перевірка…</string>
+    <string name="settings_update_up_to_date">У вас найновіша версія ✓</string>
+    <string name="settings_update_network_error">Помилка мережі</string>
+    <string name="settings_update_downloading">Завантаження… %1$d%%</string>
+    <string name="settings_update_new_version">Нова версія v%1$s</string>
+    <string name="settings_update_download_install">Завантажити й встановити</string>
+    <string name="settings_update_download_error">Помилка завантаження</string>
+    <string name="settings_debug_section">Налагодження</string>
+    <string name="settings_debug_log_button">Журнал налагодження (повний)</string>
+    <string name="settings_debug_full">Повна діагностика</string>
+    <string name="settings_debug_copy">Копіювати діагностику</string>
+    <string name="settings_about">Про застосунок</string>
+    <string name="settings_about_desc">Rumb — запис GPS-активностей з живим HUD, картами ICGC і синхронізацією Endurain.</string>
+
+    <!-- Track appearance -->
+    <string name="settings_appearance_track">Вигляд треку</string>
+
+    <!-- Follow route -->
+    <string name="settings_route_follow">Маршрут для проходження</string>
+    <string name="settings_route_width">Ширина %1$d</string>
+    <string name="settings_route_arrows">Стрілки напрямку</string>
+    <string name="settings_route_progress">Показувати прогрес (притемнена пройдена частина)</string>
+    <string name="settings_route_tracking_point">Точка стеження</string>
+    <string name="settings_tracking_dot">Крапка</string>
+    <string name="settings_tracking_arrow">Стрілка</string>
+    <string name="settings_route_tracking_size">Розмір</string>
+    <string name="settings_route_off_route">Сповіщення про відхилення</string>
+    <string name="settings_route_threshold">Поріг відхилення: %1$d м</string>
+    <string name="settings_route_sound">Звук</string>
+    <string name="settings_route_vibration">Вібрація</string>
+
+    <!-- Audio announcements -->
+    <string name="settings_audio_title">Аудіо та сповіщення</string>
+    <string name="settings_audio_enable">Увімкнути голосові оголошення</string>
+    <string name="settings_audio_voice">Голос</string>
+    <string name="settings_audio_beeps">Сигнали</string>
+    <string name="settings_audio_beep_sound">Звук сигналу</string>
+    <string name="settings_audio_preview">▶ Прослухати</string>
+    <string name="settings_audio_sound_1">Сигнал</string>
+    <string name="settings_audio_sound_2">Подвійний</string>
+    <string name="settings_audio_sound_3">Підтвердження</string>
+    <string name="settings_audio_sound_4">Запит</string>
+    <string name="settings_audio_sound_5">Дзвіночок</string>
+    <string name="settings_audio_turn_heads_up">Раннє попередження про поворот (~150 м)</string>
+    <string name="settings_audio_language">Мова</string>
+    <string name="settings_every_km">Кожні %1$d км</string>
+    <string name="settings_every_min">Кожні %1$d хв</string>
+    <string name="settings_audio_announce_what">Що оголошується</string>
+    <string name="settings_audio_distance_time">Відстань і час</string>
+    <string name="settings_audio_pace">Темп</string>
+    <string name="settings_audio_split_pace">Темп останнього км</string>
+    <string name="settings_audio_elevation">Набір висоти</string>
+    <string name="settings_audio_heart_rate">Пульс</string>
+    <string name="settings_audio_off_route_spoken">Промовляти \'Поза маршрутом\' голосом</string>
+
+    <!-- Sensors screen -->
+    <string name="sensors_title">Датчики BLE</string>
+    <string name="sensors_intro">Спаруйте нагрудні пульсометри, датчики каденсу та вимірювачі потужності. Вони підключаються автоматично на початку запису.</string>
+    <string name="sensors_scan">Шукати датчики</string>
+    <string name="sensors_stop_scan">Зупинити пошук</string>
+    <string name="sensors_scan_error">Помилка пошуку (%1$d)</string>
+    <string name="sensors_bluetooth_off">Bluetooth вимкнено</string>
+    <string name="sensors_default_name">Датчик</string>
+    <string name="sensors_paired_name">Спарений датчик</string>
+    <string name="sensors_scanning_hint">Пошук… увімкніть датчик і піднесіть його ближче.</string>
+    <string name="sensors_none">Немає датчиків. Натисніть «Шукати датчики».</string>
+
+    <!-- Debug log screen -->
+    <string name="debug_title">Журнал налагодження</string>
+    <string name="debug_loading">Завантаження…</string>
+    <string name="debug_no_lines">(немає рядків Rumb)</string>
+    <string name="debug_refresh">Оновити</string>
+    <string name="debug_share">Поділитися</string>
+    <string name="debug_clear">Очистити</string>
+    <string name="debug_share_subject">Rumb · журнал налагодження</string>
+    <string name="debug_share_chooser">Поділитися журналом</string>
+    <string name="debug_only_app">Лише Rumb</string>
+    <string name="debug_copy">Копіювати</string>
+    <string name="debug_lines">%1$d рядків</string>
+
+    <!-- Track color modes -->
+    <string name="trackcolor_single">Один колір</string>
+    <string name="trackcolor_speed">За швидкістю</string>
+    <string name="trackcolor_altitude">За висотою</string>
+    <string name="trackcolor_heart_rate">За пульсом</string>
+    <string name="settings_licenses_title">Ліцензії відкритого коду</string>
+    <string name="settings_licenses_show">Показати ліцензії та подяки</string>
+    <string name="settings_licenses_hide">Сховати</string>
+    <string name="settings_licenses_body">Rumb містить код, похідний від таких проєктів з відкритим кодом:\n\n· OpenTracks — логіка рушія запису (фільтрація GPS, статистика треків). Apache License 2.0. github.com/OpenTracksApp/OpenTracks\n· OSMDashboard — інтеграція з Dashboard API OpenTracks. Apache License 2.0. codeberg.org/OpenTracksApp/OSMDashboard\n· MapLibre GL Native — рендеринг карт. BSD 2-Clause.\n· AndroidX / Jetpack Compose, Kotlin, OkHttp, kotlinx.serialization — Apache License 2.0.\n\nДані та сервіси:\n· Дані карти © учасники OpenStreetMap (ODbL)\n· Карти © Institut Cartogràfic i Geològic de Catalunya (ICGC), CC-BY 4.0\n· Геокодування Nominatim © учасники OpenStreetMap\n\nПовні тексти: файли LICENSE і NOTICE у репозиторії коду.</string>
+    <string name="settings_max_hr">Максимальний пульс: %1$d уд/хв</string>
+    <string name="settings_max_hr_help">Використовується для аналізу зон пульсу в змаганнях.</string>
+    <string name="settings_weight">Вага: %1$d кг</string>
+    <string name="settings_weight_help">Використовується для оцінки калорій.</string>
+    <string name="settings_age">Вік: %1$d років</string>
+    <string name="settings_age_unset">Вік: не вказано</string>
+    <string name="settings_sex">Стать</string>
+    <string name="settings_sex_unset">Не вказано</string>
+    <string name="settings_sex_male">Чоловіча</string>
+    <string name="settings_sex_female">Жіноча</string>
+    <string name="settings_calories_hr_help">З віком і статтю калорії оцінюються за пульсом (точніше). Інакше використовується оцінка MET за типом активності й вагою.</string>
+</resources>

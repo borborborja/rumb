@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_speed">Fart</string>
+    <string name="metric_avg_speed">Snittfart</string>
+    <string name="metric_max_speed">Maxfart</string>
+    <string name="metric_distance">Distans</string>
+    <string name="metric_duration">Tid</string>
+    <string name="metric_moving_time">Rörelsetid</string>
+    <string name="metric_pace">Tempo</string>
+    <string name="metric_heading">Kurs</string>
+    <string name="metric_elev_gain">Stigning</string>
+    <string name="metric_altitude">Höjd</string>
+    <string name="metric_slope">Lutning</string>
+    <string name="metric_vam">VAM</string>
+    <string name="metric_heart_rate">Puls</string>
+    <string name="metric_cadence">Kadens</string>
+    <string name="metric_power">Effekt</string>
+    <string name="metric_remaining">Kvar</string>
+    <string name="metric_off_route">Avvikelse</string>
+    <string name="hudel_chart_speed">Fartdiagram</string>
+    <string name="hudel_chart_elevation">Höjdprofil</string>
+    <string name="hudel_recenter">Centrera/följ</string>
+    <string name="hudel_compass">Kompass</string>
+    <string name="hudel_zoom">Zoom</string>
+    <string name="hudel_record">Spelar in</string>
+    <string name="hudel_clock">Klocka</string>
+    <string name="metric_ghost_delta">Ghost</string>
+    <string name="metric_ghost_seconds">Ghost (tid)</string>
+    <string name="metric_calories">Kalorier</string>
+    <string name="metric_lap_count">Varv</string>
+    <string name="metric_lap_time">Varvtid</string>
+    <string name="metric_lap_distance">Varvdist.</string>
+    <string name="metric_last_lap">Senaste varv</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tab_progress">Πρόοδος</string>
+    <string name="progress_all">Όλα</string>
+    <string name="progress_this_week">Αυτή την εβδομάδα</string>
+    <string name="progress_vs_last_week">σε σχέση με την προηγούμενη</string>
+    <string name="progress_km">km</string>
+    <string name="progress_hours">Ώρες</string>
+    <string name="progress_ascent">Ανάβαση</string>
+    <string name="progress_activities">Δραστηριότητες</string>
+    <string name="progress_weeks_chart">Τελευταίες 12 εβδομάδες (km)</string>
+    <string name="progress_streak_weeks">%1$d εβδομάδες στη σειρά</string>
+    <string name="progress_totals">Συνολικά</string>
+    <string name="records_entry">Ρεκόρ</string>
+    <string name="heatmap_entry">Θερμικός χάρτης</string>
+</resources>

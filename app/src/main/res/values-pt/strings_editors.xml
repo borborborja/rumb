@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — Portuguese. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Sair</string>
+    <string name="editor_configure">Configurar</string>
+    <string name="editor_remove">Remover</string>
+    <string name="editor_resize">Redimensionar</string>
+    <string name="editor_move">Mover</string>
+    <string name="editor_done">Concluído</string>
+    <string name="editor_global_settings">Definições globais</string>
+    <string name="editor_show_graph">Gráfico</string>
+    <string name="editor_tab_general">Geral</string>
+    <string name="editor_tab_competition">Competição</string>
+    <string name="editor_tab_settings">Definições</string>
+    <string name="editor_competition_hint">Adicionado agora, mostrado enquanto uma competição estiver ativa.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Widgets</string>
+    <string name="editor_widget">Widget</string>
+    <string name="editor_metrics">Métricas</string>
+    <string name="editor_charts">Gráficos</string>
+    <string name="editor_controls">Controlos</string>
+    <string name="editor_presets">Predefinições</string>
+    <string name="editor_global_size">Tamanho global</string>
+    <string name="editor_font_size">Tamanho da letra: %1$.0f%%</string>
+    <string name="editor_value_color">Cor do valor</string>
+    <string name="editor_show_chart">Mostrar gráfico</string>
+    <string name="editor_time_format">Formato de hora</string>
+    <string name="editor_zone">Zona</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Colunas</string>
+    <string name="editor_format">Formato</string>
+    <string name="editor_width">Largura</string>
+    <string name="editor_no_tiles">Sem blocos. Adiciona métricas em «Métricas ▾».</string>
+    <string name="preset_cycling">Ciclismo</string>
+    <string name="preset_trail">Trail</string>
+    <string name="preset_ski">Esqui</string>
+    <string name="editor_extra">Outros</string>
+</resources>

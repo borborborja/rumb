@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HUD & Data designer (editor) strings — Czech. -->
+<resources>
+    <!-- Shared editor actions / content descriptions -->
+    <string name="editor_exit">Konec</string>
+    <string name="editor_configure">Nastavit</string>
+    <string name="editor_remove">Odebrat</string>
+    <string name="editor_resize">Změnit velikost</string>
+    <string name="editor_move">Přesunout</string>
+    <string name="editor_done">Hotovo</string>
+    <string name="editor_global_settings">Globální nastavení</string>
+    <string name="editor_show_graph">Graf</string>
+    <string name="editor_tab_general">Obecné</string>
+    <string name="editor_tab_competition">Soutěž</string>
+    <string name="editor_tab_settings">Nastavení</string>
+    <string name="editor_competition_hint">Přidáno teď, zobrazí se během aktivní soutěže.</string>
+
+    <!-- HUD designer -->
+    <string name="editor_widgets">Widgety</string>
+    <string name="editor_widget">Widget</string>
+    <string name="editor_metrics">Metriky</string>
+    <string name="editor_charts">Grafy</string>
+    <string name="editor_controls">Ovládání</string>
+    <string name="editor_presets">Předvolby</string>
+    <string name="editor_global_size">Globální velikost</string>
+    <string name="editor_font_size">Velikost písma: %1$.0f%%</string>
+    <string name="editor_value_color">Barva hodnoty</string>
+    <string name="editor_show_chart">Zobrazit graf</string>
+    <string name="editor_time_format">Formát času</string>
+    <string name="editor_zone">Zóna</string>
+
+    <!-- Data designer -->
+    <string name="editor_columns">Sloupce</string>
+    <string name="editor_format">Formát</string>
+    <string name="editor_width">Šířka</string>
+    <string name="editor_no_tiles">Žádné dlaždice. Přidej metriky z «Metriky ▾».</string>
+    <string name="preset_cycling">Cyklistika</string>
+    <string name="preset_trail">Trail</string>
+    <string name="preset_ski">Lyže</string>
+    <string name="editor_extra">Ostatní</string>
+</resources>

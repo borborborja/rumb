@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Viewer top bar -->
+    <string name="viewer_tab_map">Χάρτης</string>
+    <string name="viewer_tab_data">Δεδομένα</string>
+    <string name="viewer_cd_exit">Έξοδος από τον προβολέα</string>
+    <string name="viewer_cd_edit_page">Επεξεργασία τρέχουσας οθόνης</string>
+    <string name="viewer_cd_settings">Ρυθμίσεις προβολέα</string>
+
+    <!-- HUD controls -->
+    <string name="viewer_cd_center">Κέντρο</string>
+    <string name="viewer_cd_north">Βορράς</string>
+    <string name="viewer_cd_zoom_in">Μεγέθυνση</string>
+    <string name="viewer_cd_zoom_out">Σμίκρυνση</string>
+    <string name="viewer_cd_pause">Παύση</string>
+    <string name="viewer_cd_resume">Συνέχεια</string>
+    <string name="viewer_off_route">Εκτός διαδρομής · %1$d m</string>
+
+    <!-- Quick-settings sheet -->
+    <string name="viewer_qs_tab_map">Χάρτης</string>
+    <string name="viewer_qs_tab_route">Διαδρομή</string>
+    <string name="viewer_qs_tab_options">Επιλογές</string>
+    <string name="viewer_qs_online_map">Χάρτης σε σύνδεση</string>
+    <string name="viewer_qs_offline_map">Χάρτης εκτός σύνδεσης</string>
+    <string name="viewer_qs_offline_subtitle">εκτός σύνδεσης</string>
+    <string name="viewer_qs_route_to_follow">Διαδρομή προς ακολούθηση</string>
+    <string name="viewer_qs_route_none">Καμία</string>
+    <string name="viewer_qs_route_none_subtitle">καμία διαδρομή</string>
+    <string name="viewer_qs_no_routes_yet">Δεν υπάρχουν διαδρομές ακόμη. Δημιουργήστε ή εισαγάγετέ τες από «Ίχνη προς ακολούθηση».</string>
+    <string name="viewer_qs_map_orientation">Προσανατολισμός χάρτη</string>
+    <string name="viewer_qs_north_up">Βορράς πάνω</string>
+    <string name="viewer_qs_heading_up">Κατεύθυνση πάνω</string>
+    <string name="viewer_qs_adaptive_zoom">Αυτόματο ζουμ στις στροφές της διαδρομής</string>
+    <string name="viewer_qs_adaptive_zoom_help">Κατά την ακολούθηση: μεγεθύνει τον χάρτη καθώς πλησιάζετε στροφή/διασταύρωση της διαδρομής και σμικρύνει σε ευθείες.</string>
+    <string name="viewer_qs_keep_screen_on">Διατήρηση οθόνης ενεργής</string>
+    <string name="viewer_qs_fullscreen">Πλήρης οθόνη</string>
+
+    <!-- Toasts -->
+    <string name="viewer_toast_location_permission_record">Απαιτείται άδεια τοποθεσίας για καταγραφή</string>
+    <string name="viewer_toast_activity_no_points">Δραστηριότητα χωρίς σημεία, απορρίφθηκε</string>
+    <string name="viewer_toast_activity_saved">Η δραστηριότητα αποθηκεύτηκε</string>
+    <string name="viewer_toast_follow_route_empty">Η διαδρομή προς ακολούθηση είναι κενή (id=%1$d)</string>
+
+    <!-- Save recording dialog -->
+    <string name="viewer_save_dialog_title">Αποθήκευση δραστηριότητας</string>
+    <string name="viewer_save_name_label">Όνομα</string>
+    <string name="viewer_save">Αποθήκευση</string>
+    <string name="viewer_discard">Απόρριψη</string>
+    <string name="viewer_default_activity_name">Δραστηριότητα %1$s</string>
+    <string name="viewer_qs_route_meta">%1$.1f km · %2$d σημεία</string>
+
+    <!-- Competition (ghost) mode -->
+    <string name="viewer_qs_tab_competition">Αγώνας</string>
+    <string name="viewer_qs_opponent">Ghost (αντίπαλος)</string>
+    <string name="viewer_qs_opponent_best">καλύτερος χρόνος</string>
+    <string name="viewer_qs_halo">Χρωματικό φωτοστέφανο στα άκρα οθόνης</string>
+    <string name="viewer_qs_halo_help">Πράσινο: είστε μπροστά από το ghost. Κόκκινο: είστε πίσω. Μπλε: ισοπαλία (εντός ±5 m).</string>
+    <string name="viewer_qs_ghost_seconds">Εμφάνιση εκτιμώμενων δευτερολέπτων</string>
+    <string name="viewer_toast_ghost_failed">Δεν ήταν δυνατή η φόρτωση του ghost (ίχνος χωρίς χρονικές σημάνσεις)</string>
+    <string name="viewer_qs_countdown">Αντίστροφη μέτρηση 3-2-1 στην εκκίνηση</string>
+    <string name="countdown_waiting_gps">Αναμονή σήματος GPS…</string>
+    <string name="countdown_go">ΠΑΜΕ!</string>
+    <string name="countdown_cancel_hint">Πατήστε για ακύρωση</string>
+    <string name="countdown_gps_timeout">Χωρίς ακριβές στίγμα GPS — η καταγραφή δεν ξεκίνησε</string>
+    <string name="comp_at_start">Στο σημείο εκκίνησης</string>
+    <string name="comp_start_distance">Σημείο εκκίνησης: %1$d m μακριά</string>
+    <string name="comp_start_distance_km">Σημείο εκκίνησης: %1$.1f km μακριά</string>
+    <string name="viewer_qs_auto_pause">Αυτόματη παύση όταν σταματάτε</string>
+    <string name="viewer_qs_lap_management">Διαχείριση γύρων</string>
+    <string name="viewer_qs_auto_lap">Αυτόματος γύρος κατά θέση</string>
+    <string name="viewer_qs_auto_lap_help">Όταν ξεκινάτε γύρους, εκείνο το σημείο γίνεται η γραμμή εκκίνησης/τερματισμού και κάθε πέρασμα κλείνει αυτόματα έναν γύρο. Η χειροκίνητη σημαία εξακολουθεί να λειτουργεί.</string>
+    <string name="viewer_qs_auto_pause_secs">Παύση μετά από ακινησία:</string>
+    <string name="viewer_qs_turn_voice">Προειδοποιήσεις στροφών (φωνή/μπιπ)</string>
+    <!-- Dades: fixed record button, graph tiles, settings-toggle tiles -->
+    <string name="data_record_start">Καταγραφή</string>
+    <string name="data_record_lap">Γύρος</string>
+    <string name="data_record_lap_end">Τέλος γύρων</string>
+    <string name="lap_compete_prompt">Αγώνας με τον καλύτερο γύρο σας;</string>
+    <string name="lap_compete_yes">Αγώνας</string>
+    <string name="lap_compete_no">Όχι</string>
+    <string name="data_chart_speed">Γράφημα ταχύτητας</string>
+    <string name="data_chart_elevation">Προφίλ υψομέτρου</string>
+    <string name="data_toggle_auto_pause">Αυτόματη παύση</string>
+    <string name="data_toggle_turn_voice">Προειδοποιήσεις στροφών</string>
+    <string name="data_toggle_adaptive_zoom">Προσαρμοστικό ζουμ</string>
+    <string name="data_toggle_keep_screen">Διατήρηση οθόνης ενεργής</string>
+    <string name="data_toggle_barometer">Βαρόμετρο</string>
+    <string name="data_toggle_barometer_hint">Ισχύει για την επόμενη καταγραφή</string>
+</resources>

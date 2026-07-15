@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Route detail screen -->
+    <string name="routes_route_fallback_title">Διαδρομή</string>
+    <string name="routes_edit_trace">Επεξεργασία ίχνους</string>
+    <string name="routes_stat_distance">Απόσταση</string>
+    <string name="routes_stat_ascent">Ανάβαση +</string>
+    <string name="routes_history_title">Ιστορικό</string>
+    <string name="routes_stat_points">Σημεία</string>
+    <string name="routes_distance_km_format">%1$.2f km</string>
+    <string name="routes_ascent_m_format">%1$d m</string>
+    <string name="routes_source_collection">Πηγή: %1$s · Συλλογή: %2$s</string>
+    <string name="routes_follow_this_route">Ακολούθηση αυτής της διαδρομής</string>
+    <string name="routes_active_follow_toast">Ενεργή διαδρομή προς ακολούθηση</string>
+    <string name="routes_rename">Μετονομασία</string>
+    <string name="routes_collection">Συλλογή</string>
+    <string name="routes_download_route_map">Λήψη χάρτη διαδρομής</string>
+    <string name="routes_delete">Διαγραφή</string>
+    <string name="routes_rename_route_title">Μετονομασία διαδρομής</string>
+    <string name="routes_delete_route_title">Διαγραφή διαδρομής</string>
+    <string name="routes_delete_confirm">Θέλετε σίγουρα να διαγράψετε «%1$s»;</string>
+
+    <!-- Route editor screen -->
+    <string name="routes_create_route">Δημιουργία διαδρομής</string>
+    <string name="routes_edit_route">Επεξεργασία διαδρομής</string>
+    <string name="routes_back">Πίσω</string>
+    <string name="routes_undo">Αναίρεση</string>
+    <string name="routes_save">Αποθήκευση</string>
+    <string name="routes_cancel">Ακύρωση</string>
+    <string name="routes_save_route_title">Αποθήκευση διαδρομής</string>
+    <string name="routes_save_changes_title">Αποθήκευση αλλαγών</string>
+    <string name="routes_name_label">Όνομα</string>
+    <string name="routes_snap_to_path">Προσκόλληση σε μονοπάτι</string>
+    <string name="routes_tap_map_to_add_points">Πατήστε τον χάρτη για προσθήκη σημείων.</string>
+    <string name="routes_new_route_default_name">Νέα διαδρομή</string>
+
+    <!-- Routing profiles -->
+    <string name="routing_hiking">Πεζοπορία</string>
+    <string name="routing_trekking">Ποδήλατο/trekking</string>
+    <string name="routing_mtb">MTB</string>
+    <string name="routing_shortest">Συντομότερη</string>
+    <string name="routes_type">Τύπος</string>
+    <string name="routes_assign_type_title">Τύπος δραστηριότητας</string>
+    <string name="routes_stat_time">Χρόνος</string>
+    <string name="routes_stat_avg_speed">Μέση km/h</string>
+    <string name="routes_stat_avg_hr">Μέση ΚΣ</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tab_progress">Прогресс</string>
+    <string name="progress_all">Всё</string>
+    <string name="progress_this_week">На этой неделе</string>
+    <string name="progress_vs_last_week">к прошлой неделе</string>
+    <string name="progress_km">км</string>
+    <string name="progress_hours">Часы</string>
+    <string name="progress_ascent">Набор</string>
+    <string name="progress_activities">Активности</string>
+    <string name="progress_weeks_chart">Последние 12 недель (км)</string>
+    <string name="progress_streak_weeks">%1$d недель подряд</string>
+    <string name="progress_totals">За всё время</string>
+    <string name="records_entry">Рекорды</string>
+    <string name="heatmap_entry">Тепловая карта</string>
+</resources>

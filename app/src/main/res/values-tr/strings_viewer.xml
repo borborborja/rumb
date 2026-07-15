@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Viewer top bar -->
+    <string name="viewer_tab_map">Harita</string>
+    <string name="viewer_tab_data">Veri</string>
+    <string name="viewer_cd_exit">Görüntüleyiciden çık</string>
+    <string name="viewer_cd_edit_page">Mevcut ekranı düzenle</string>
+    <string name="viewer_cd_settings">Görüntüleyici ayarları</string>
+
+    <!-- HUD controls -->
+    <string name="viewer_cd_center">Ortala</string>
+    <string name="viewer_cd_north">Kuzey</string>
+    <string name="viewer_cd_zoom_in">Yakınlaştır</string>
+    <string name="viewer_cd_zoom_out">Uzaklaştır</string>
+    <string name="viewer_cd_pause">Duraklat</string>
+    <string name="viewer_cd_resume">Devam et</string>
+    <string name="viewer_off_route">Rota dışı · %1$d m</string>
+
+    <!-- Quick-settings sheet -->
+    <string name="viewer_qs_tab_map">Harita</string>
+    <string name="viewer_qs_tab_route">Rota</string>
+    <string name="viewer_qs_tab_options">Seçenekler</string>
+    <string name="viewer_qs_online_map">Çevrimiçi harita</string>
+    <string name="viewer_qs_offline_map">Çevrimdışı harita</string>
+    <string name="viewer_qs_offline_subtitle">çevrimdışı</string>
+    <string name="viewer_qs_route_to_follow">Takip edilecek rota</string>
+    <string name="viewer_qs_route_none">Yok</string>
+    <string name="viewer_qs_route_none_subtitle">rota yok</string>
+    <string name="viewer_qs_no_routes_yet">Henüz rota yok. «Takip edilecek kayıtlar»dan oluşturun veya içe aktarın.</string>
+    <string name="viewer_qs_map_orientation">Harita yönü</string>
+    <string name="viewer_qs_north_up">Kuzey yukarı</string>
+    <string name="viewer_qs_heading_up">Yön yukarı</string>
+    <string name="viewer_qs_adaptive_zoom">Rota dönüşlerinde otomatik yakınlaştırma</string>
+    <string name="viewer_qs_adaptive_zoom_help">Takip ederken: rotanın bir dönüşüne/kavşağına yaklaştıkça haritayı yakınlaştırır, düz kesimlerde uzaklaştırır.</string>
+    <string name="viewer_qs_keep_screen_on">Ekranı açık tut</string>
+    <string name="viewer_qs_fullscreen">Tam ekran</string>
+
+    <!-- Toasts -->
+    <string name="viewer_toast_location_permission_record">Kayıt için konum izni gerekli</string>
+    <string name="viewer_toast_activity_no_points">Noktasız etkinlik, atıldı</string>
+    <string name="viewer_toast_activity_saved">Etkinlik kaydedildi</string>
+    <string name="viewer_toast_follow_route_empty">Takip edilecek rota boş (id=%1$d)</string>
+
+    <!-- Save recording dialog -->
+    <string name="viewer_save_dialog_title">Etkinliği kaydet</string>
+    <string name="viewer_save_name_label">Ad</string>
+    <string name="viewer_save">Kaydet</string>
+    <string name="viewer_discard">Vazgeç</string>
+    <string name="viewer_default_activity_name">Etkinlik %1$s</string>
+    <string name="viewer_qs_route_meta">%1$.1f km · %2$d nokta</string>
+
+    <!-- Competition (ghost) mode -->
+    <string name="viewer_qs_tab_competition">Yarış</string>
+    <string name="viewer_qs_opponent">Hayalet (rakip)</string>
+    <string name="viewer_qs_opponent_best">en iyi süre</string>
+    <string name="viewer_qs_halo">Ekran kenarı renk halesi</string>
+    <string name="viewer_qs_halo_help">Yeşil: hayaletin önündesin. Kırmızı: gerisindesin. Mavi: başabaş (±5 m içinde).</string>
+    <string name="viewer_qs_ghost_seconds">Tahmini saniyeleri göster</string>
+    <string name="viewer_toast_ghost_failed">Hayalet yüklenemedi (zaman damgasız kayıt)</string>
+    <string name="viewer_qs_countdown">Başlarken 3-2-1 geri sayım</string>
+    <string name="countdown_waiting_gps">GPS sinyali bekleniyor…</string>
+    <string name="countdown_go">BAŞLA!</string>
+    <string name="countdown_cancel_hint">İptal için dokun</string>
+    <string name="countdown_gps_timeout">Kesin GPS sinyali yok — kayıt başlatılmadı</string>
+    <string name="comp_at_start">Başlangıç noktasında</string>
+    <string name="comp_start_distance">Başlangıç noktası: %1$d m uzakta</string>
+    <string name="comp_start_distance_km">Başlangıç noktası: %1$.1f km uzakta</string>
+    <string name="viewer_qs_auto_pause">Durunca otomatik duraklat</string>
+    <string name="viewer_qs_lap_management">Tur yönetimi</string>
+    <string name="viewer_qs_auto_lap">Konuma göre otomatik tur</string>
+    <string name="viewer_qs_auto_lap_help">Turları başlattığında o nokta başlangıç/bitiş çizgisi olur ve her geçiş bir turu otomatik kapatır. Manuel bayrak da çalışır.</string>
+    <string name="viewer_qs_auto_pause_secs">Şu kadar hareketsiz kaldıktan sonra duraklat:</string>
+    <string name="viewer_qs_turn_voice">Dönüş uyarıları (ses/bip)</string>
+    <!-- Dades: fixed record button, graph tiles, settings-toggle tiles -->
+    <string name="data_record_start">Kaydet</string>
+    <string name="data_record_lap">Tur</string>
+    <string name="data_record_lap_end">Turları bitir</string>
+    <string name="lap_compete_prompt">En iyi turunla yarış?</string>
+    <string name="lap_compete_yes">Yarış</string>
+    <string name="lap_compete_no">Hayır</string>
+    <string name="data_chart_speed">Hız grafiği</string>
+    <string name="data_chart_elevation">Yükseklik profili</string>
+    <string name="data_toggle_auto_pause">Otomatik duraklat</string>
+    <string name="data_toggle_turn_voice">Dönüş uyarıları</string>
+    <string name="data_toggle_adaptive_zoom">Uyarlanır yakınlaştırma</string>
+    <string name="data_toggle_keep_screen">Ekranı açık tut</string>
+    <string name="data_toggle_barometer">Barometre</string>
+    <string name="data_toggle_barometer_hint">Sonraki kayda uygulanır</string>
+</resources>
