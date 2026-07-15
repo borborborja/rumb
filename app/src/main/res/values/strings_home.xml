@@ -73,6 +73,7 @@
     <string name="circuit_subtitle">Fixed finish line · lap leaderboard</string>
     <string name="circuit_created">Circuit created</string>
     <string name="circuit_create_from_laps">Create circuit from these laps</string>
+    <string name="circuit_start">Record an attempt</string>
     <string name="home_send_to_competition">Send to competition</string>
     <string name="home_remove_from_competition">Remove from competition</string>
     <string name="home_competition_created">Added to competition</string>

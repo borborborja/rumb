@@ -293,4 +293,26 @@ class TrackRecorderTest {
         assertThat(r.snapshot(at(60)).lapMarks.none { it.type == LapMarkType.SPLIT }).isTrue()
         assertThat(r.snapshot(at(60)).lapCount).isEqualTo(1)
     }
+
+    @Test
+    fun circuitPresetLineFirstCrossingOpensLapOneThenSplits() {
+        // Fixed finish line at (41.0, 2.0). Start far north (armed), approach and cross → START (lap 1).
+        val line = cat.rumb.app.data.opentracks.model.GeoPoint(41.0, 2.0)
+        val r = TrackRecorder(RecorderConfig(presetLapLine = line))
+        r.start(t0)
+        r.warmUp()
+        var sec = 0L
+        for (i in 15 downTo 0) { r.onLocation(41.0 + i * 0.0002, 2.0, 100.0, null, null, 5f, at(sec)); sec++ }
+        val s1 = r.snapshot(at(sec))
+        assertThat(s1.lapsActive).isTrue()
+        assertThat(s1.lapCount).isEqualTo(1)
+        assertThat(s1.lapMarks.count { it.type == LapMarkType.START }).isEqualTo(1)
+        assertThat(s1.lapMarks.none { it.type == LapMarkType.SPLIT }).isTrue()
+        // A full lap: leave (re-arm) and come back to the line → one SPLIT (lap 2).
+        for (i in 1..15) { r.onLocation(41.0 + i * 0.0002, 2.0, 100.0, null, null, 5f, at(sec)); sec++ }
+        for (i in 14 downTo 0) { r.onLocation(41.0 + i * 0.0002, 2.0, 100.0, null, null, 5f, at(sec)); sec++ }
+        val s2 = r.snapshot(at(sec))
+        assertThat(s2.lapCount).isEqualTo(2)
+        assertThat(s2.lapMarks.count { it.type == LapMarkType.SPLIT }).isEqualTo(1)
+    }
 }

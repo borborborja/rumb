@@ -92,6 +92,28 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         get() = prefs.getBoolean(KEY_AUTO_LAP_BY_POSITION, false)
         set(value) = prefs.edit().putBoolean(KEY_AUTO_LAP_BY_POSITION, value).apply()
 
+    // Transient circuit-mode config, set by the viewer before starting a circuit recording and read
+    // by RecordingService.configFrom. Doubles are stored via raw long bits (SharedPreferences lacks
+    // Double) to keep lat/lng precision. Cleared on save/stop.
+    var circuitActive: Boolean
+        get() = prefs.getBoolean(KEY_CIRCUIT_ACTIVE, false)
+        set(value) = prefs.edit().putBoolean(KEY_CIRCUIT_ACTIVE, value).apply()
+    var circuitLineLat: Double
+        get() = Double.fromBits(prefs.getLong(KEY_CIRCUIT_LAT, 0L))
+        set(value) = prefs.edit().putLong(KEY_CIRCUIT_LAT, value.toRawBits()).apply()
+    var circuitLineLng: Double
+        get() = Double.fromBits(prefs.getLong(KEY_CIRCUIT_LNG, 0L))
+        set(value) = prefs.edit().putLong(KEY_CIRCUIT_LNG, value.toRawBits()).apply()
+    var circuitRadiusM: Double
+        get() = Double.fromBits(prefs.getLong(KEY_CIRCUIT_RADIUS, (25.0).toRawBits()))
+        set(value) = prefs.edit().putLong(KEY_CIRCUIT_RADIUS, value.toRawBits()).apply()
+    var circuitMinLapMs: Long
+        get() = prefs.getLong(KEY_CIRCUIT_MIN_MS, 20_000L)
+        set(value) = prefs.edit().putLong(KEY_CIRCUIT_MIN_MS, value).apply()
+    var circuitMinLapM: Double
+        get() = Double.fromBits(prefs.getLong(KEY_CIRCUIT_MIN_M, (100.0).toRawBits()))
+        set(value) = prefs.edit().putLong(KEY_CIRCUIT_MIN_M, value.toRawBits()).apply()
+
     var recBarometer: Boolean
         get() = prefs.getBoolean(KEY_REC_BAROMETER, true)
         set(value) = prefs.edit().putBoolean(KEY_REC_BAROMETER, value).apply()
@@ -344,6 +366,12 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         private const val KEY_REC_AUTO_PAUSE = "rec_auto_pause"
         private const val KEY_LAP_MANAGEMENT = "lap_management"
         private const val KEY_AUTO_LAP_BY_POSITION = "auto_lap_by_position"
+        private const val KEY_CIRCUIT_ACTIVE = "circuit_active"
+        private const val KEY_CIRCUIT_LAT = "circuit_line_lat"
+        private const val KEY_CIRCUIT_LNG = "circuit_line_lng"
+        private const val KEY_CIRCUIT_RADIUS = "circuit_radius_m"
+        private const val KEY_CIRCUIT_MIN_MS = "circuit_min_lap_ms"
+        private const val KEY_CIRCUIT_MIN_M = "circuit_min_lap_m"
         private const val KEY_REC_BAROMETER = "rec_barometer"
         private const val KEY_BLE_SENSORS = "ble_sensors"
         private const val KEY_ROUTE_VIEW_MODE = "route_view_mode"

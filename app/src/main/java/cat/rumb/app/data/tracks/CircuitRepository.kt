@@ -33,6 +33,34 @@ class CircuitRepository(
             LapSlice(i, slice, stats, secs * 1000)
         }
 
+    /** Timed lap slices of [trackId], usable as circuit efforts (≥2 timed points, positive time). */
+    private suspend fun timedSlices(trackId: Long): List<LapSlice> {
+        val pts = trackRepository.loadGpxRoute(trackId)
+        val laps = Laps.decode(trackRepository.get(trackId)?.laps)
+        return sliceLaps(pts, laps).filter { it.timeMs > 0 && GhostEngine.isTimed(it.points) }
+    }
+
+    /** Inserts each slice as an effort of [circuitId] (dedup by unique index), then refreshes the best. */
+    private suspend fun insertEffortsAndRefresh(circuitId: Long, trackId: Long, name: String, slices: List<LapSlice>, now: Long) {
+        slices.forEach { s ->
+            dao.insertEffort(
+                CircuitEffortEntity(
+                    circuitId = circuitId,
+                    sourceTrackId = trackId,
+                    lapIndex = s.lapIndex,
+                    timeMs = s.timeMs,
+                    distanceM = s.stats.distanceM,
+                    avgHr = s.stats.avgHr,
+                    createdAt = now,
+                    gpx = Gpx.write(name, s.points),
+                ),
+            )
+        }
+        // The fastest effort overall is the ghost/parent; the frozen line columns never change.
+        val best = dao.effortsForOnce(circuitId).minByOrNull { it.timeMs }
+        if (best != null) dao.updateReference(circuitId, best.gpx, best.id)
+    }
+
     /**
      * Seeds a circuit from [trackId]'s laps: the fastest LAP becomes the reference (line + ghost),
      * and every LAP is inserted as an initial effort. Returns the new circuit id, or null when the
@@ -40,9 +68,7 @@ class CircuitRepository(
      */
     suspend fun createCircuitFromTrack(trackId: Long, name: String, activityType: String?, now: Long): Long? =
         withContext(Dispatchers.IO) {
-            val pts = trackRepository.loadGpxRoute(trackId)
-            val laps = Laps.decode(trackRepository.get(trackId)?.laps)
-            val slices = sliceLaps(pts, laps).filter { it.timeMs > 0 && GhostEngine.isTimed(it.points) }
+            val slices = timedSlices(trackId)
             if (slices.isEmpty()) return@withContext null
             val parent = slices.minByOrNull { it.timeMs }!!
             val line = parent.points.first()
@@ -56,24 +82,14 @@ class CircuitRepository(
                     referenceGpx = Gpx.write(name, parent.points),
                 ),
             )
-            var bestEffortId: Long? = null
-            var bestMs = Long.MAX_VALUE
-            slices.forEach { s ->
-                val effortId = dao.insertEffort(
-                    CircuitEffortEntity(
-                        circuitId = circuitId,
-                        sourceTrackId = trackId,
-                        lapIndex = s.lapIndex,
-                        timeMs = s.timeMs,
-                        distanceM = s.stats.distanceM,
-                        avgHr = s.stats.avgHr,
-                        createdAt = now,
-                        gpx = Gpx.write(name, s.points),
-                    ),
-                )
-                if (effortId > 0 && s.timeMs < bestMs) { bestMs = s.timeMs; bestEffortId = effortId }
-            }
-            dao.updateReference(circuitId, Gpx.write(name, parent.points), bestEffortId)
+            insertEffortsAndRefresh(circuitId, trackId, name, slices, now)
             circuitId
+        }
+
+    /** Appends the laps of a freshly-recorded [trackId] as efforts of [circuitId] (attempt at the circuit). */
+    suspend fun addEffortsFromTrack(circuitId: Long, trackId: Long, name: String, now: Long) =
+        withContext(Dispatchers.IO) {
+            val slices = timedSlices(trackId)
+            if (slices.isNotEmpty()) insertEffortsAndRefresh(circuitId, trackId, name, slices, now)
         }
 }

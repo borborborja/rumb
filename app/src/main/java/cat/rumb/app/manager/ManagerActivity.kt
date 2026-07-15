@@ -49,6 +49,12 @@ class ManagerActivity : ComponentActivity() {
                                 .putExtra(MapViewerActivity.EXTRA_COMPETITION_REF_ID, refId),
                         )
                     },
+                    onStartCircuit = { circuitId ->
+                        startActivity(
+                            Intent(this, MapViewerActivity::class.java)
+                                .putExtra(MapViewerActivity.EXTRA_CIRCUIT_ID, circuitId),
+                        )
+                    },
                     importUri = uri,
                     onImportHandled = { importUri.value = null },
                     navigateTo = navTo,

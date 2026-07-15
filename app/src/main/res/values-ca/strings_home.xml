@@ -73,6 +73,7 @@
     <string name="circuit_subtitle">Línia de meta fixa · rànquing de voltes</string>
     <string name="circuit_created">Circuit creat</string>
     <string name="circuit_create_from_laps">Crear circuit amb aquestes voltes</string>
+    <string name="circuit_start">Enregistrar un intent</string>
     <string name="home_send_to_competition">Envia a competició</string>
     <string name="home_remove_from_competition">Treu de competició</string>
     <string name="home_competition_created">Afegit a competició</string>

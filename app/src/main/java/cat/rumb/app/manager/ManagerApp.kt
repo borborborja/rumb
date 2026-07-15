@@ -53,6 +53,7 @@ fun ManagerApp(
     onOpenViewer: () -> Unit,
     startRoute: String? = null,
     onStartCompetition: (Long) -> Unit = {},
+    onStartCircuit: (Long) -> Unit = {},
     importUri: android.net.Uri? = null,
     onImportHandled: () -> Unit = {},
     navigateTo: String? = null,
@@ -206,7 +207,7 @@ fun ManagerApp(
             arguments = listOf(navArgument("circuitId") { type = NavType.LongType }),
         ) { entry ->
             val id = entry.arguments?.getLong("circuitId") ?: 0L
-            CircuitDetailScreen(circuitId = id, onBack = { nav.popBackStack() })
+            CircuitDetailScreen(circuitId = id, onBack = { nav.popBackStack() }, onStartCircuit = onStartCircuit)
         }
         composable(
             route = "${Routes.COMPETITION_DETAIL}/{refId}",

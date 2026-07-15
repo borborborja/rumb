@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -40,7 +41,7 @@ import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CircuitDetailScreen(circuitId: Long, onBack: () -> Unit) {
+fun CircuitDetailScreen(circuitId: Long, onBack: () -> Unit, onStartCircuit: (Long) -> Unit = {}) {
     val context = LocalContext.current
     val app = remember { RumbApplication.from(context) }
     val circuit by remember(circuitId) { app.circuitRepository.observeCircuits() }
@@ -56,6 +57,11 @@ fun CircuitDetailScreen(circuitId: Long, onBack: () -> Unit) {
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.common_back))
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { onStartCircuit(circuitId) }) {
+                        Icon(Icons.Filled.PlayArrow, contentDescription = stringResource(R.string.circuit_start))
                     }
                 },
             )

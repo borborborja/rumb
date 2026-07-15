@@ -73,6 +73,7 @@
     <string name="circuit_subtitle">Línea de meta fija · ranking de vueltas</string>
     <string name="circuit_created">Circuito creado</string>
     <string name="circuit_create_from_laps">Crear circuito con estas vueltas</string>
+    <string name="circuit_start">Grabar un intento</string>
     <string name="home_send_to_competition">Enviar a competición</string>
     <string name="home_remove_from_competition">Quitar de competición</string>
     <string name="home_competition_created">Añadido a competición</string>

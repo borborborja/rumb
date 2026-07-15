@@ -49,6 +49,12 @@ data class RecorderConfig(
     val autoLapMinLapMs: Long = 20_000,
     /** …and at least this far (m). Both guards must pass. */
     val autoLapMinLapM: Double = 100.0,
+    /**
+     * Circuit mode: a PRESET start/finish line (from a saved circuit), armed from the start even
+     * before lapsActive. The first crossing opens lap 1 (the approach stays APPROACH); later crossings
+     * split. Mutually exclusive with the manual [autoLapByPosition] path.
+     */
+    val presetLapLine: GeoPoint? = null,
 )
 
 /** Immutable snapshot of an ongoing/finished native recording, consumed by the viewer pipeline. */
@@ -322,7 +328,7 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
         // Position auto-lap: proximity-gate state machine. Armed once we leave the radius; a re-entry
         // while armed and past the min-lap guards inserts a SPLIT (identical to a manual flag press),
         // then disarms until we leave again. The GPS filters above already ran, so `here` is clean.
-        if (config.autoLapByPosition && lapsActive) {
+        if (config.autoLapByPosition && lapsActive && config.presetLapLine == null) {
             lapLine?.let { line ->
                 val d = MetricsCalculator.distanceMeters(here, line)
                 if (d > config.autoLapRadiusM) {
@@ -335,6 +341,24 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
                         split(time)
                         lapLineArmed = false
                     }
+                }
+            }
+        }
+
+        // Circuit mode: a FIXED preset line, armed from the start. The FIRST crossing opens lap 1
+        // (approach from home stays APPROACH); later crossings split. Guards only apply once a lap is
+        // open, so the first crossing always fires.
+        config.presetLapLine?.let { line ->
+            val d = MetricsCalculator.distanceMeters(here, line)
+            if (d > config.autoLapRadiusM) {
+                lapLineArmed = true
+            } else if (lapLineArmed) {
+                val sinceMs = if (lapsActive) totalMs(time) - lapStartTotalMs else Long.MAX_VALUE
+                val sinceM = if (lapsActive) distanceM - lapStartDistanceM else Double.MAX_VALUE
+                if (sinceMs >= config.autoLapMinLapMs && sinceM >= config.autoLapMinLapM) {
+                    DebugLog.i("Motor", "circuit: creuament meta (${fmt(d)}m)")
+                    if (!lapsActive) startLaps(time) else split(time)
+                    lapLineArmed = false
                 }
             }
         }

@@ -304,6 +304,14 @@ class RecordingService : Service() {
         maxAccuracyM = prefs.recMaxAccuracyM,
         minDistanceM = prefs.recMinDistanceM.toDouble(),
         autoLapByPosition = prefs.autoLapByPosition,
+        presetLapLine = if (prefs.circuitActive) {
+            cat.rumb.app.data.opentracks.model.GeoPoint(prefs.circuitLineLat, prefs.circuitLineLng)
+        } else {
+            null
+        },
+        autoLapRadiusM = if (prefs.circuitActive) prefs.circuitRadiusM else 25.0,
+        autoLapMinLapMs = if (prefs.circuitActive) prefs.circuitMinLapMs else 20_000,
+        autoLapMinLapM = if (prefs.circuitActive) prefs.circuitMinLapM else 100.0,
     )
 
     // --- Notification ---

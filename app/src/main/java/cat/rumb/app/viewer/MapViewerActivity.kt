@@ -178,6 +178,11 @@ class MapViewerActivity : ComponentActivity() {
     private var lapCompetePrompted = false
     private val competePromptFlow = MutableStateFlow(false)
 
+    // Circuit mode: record an attempt at a saved circuit. The fixed line is preset (auto-lap arms
+    // from the start) and the ghost is the circuit's best lap. Efforts are persisted on save.
+    private var circuitMode = false
+    private var circuitId = -1L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DebugLog.i("Viewer", "onCreate · action=${intent.action}")
@@ -202,6 +207,31 @@ class MapViewerActivity : ComponentActivity() {
             ghostSecondsOn = prefs.competitionShowSeconds
             DebugLog.i("Competi", "mode competició · ref=$compRef")
             loadGhostCandidates()
+        }
+
+        // Circuit mode: fixed start/finish line preset for auto-lap; ghost = the circuit's best lap.
+        // Clear any stale circuit prefs first so a normal launch never inherits circuit mode.
+        prefs.circuitActive = false
+        val circId = intent.getLongExtra(EXTRA_CIRCUIT_ID, -1L)
+        if (circId > 0) {
+            circuitMode = true
+            circuitId = circId
+            lifecycleScope.launch {
+                val c = RumbApplication.from(this@MapViewerActivity).circuitRepository.getCircuit(circId) ?: return@launch
+                val refPts = runCatching { cat.rumb.app.data.gpx.Gpx.read(c.referenceGpx.byteInputStream()).points }.getOrDefault(emptyList())
+                if (cat.rumb.app.data.competition.GhostEngine.isTimed(refPts)) {
+                    lapGhost = cat.rumb.app.data.competition.GhostEngine(refPts)
+                    lapCompeting = true
+                }
+                // Stash the frozen line + gate params for RecordingService.configFrom (arms auto-lap).
+                prefs.circuitLineLat = c.lineLat
+                prefs.circuitLineLng = c.lineLng
+                prefs.circuitRadiusM = c.radiusM
+                prefs.circuitMinLapMs = c.minLapMs
+                prefs.circuitMinLapM = c.minLapM
+                prefs.circuitActive = true
+                DebugLog.i("Circuit", "mode circuit · id=$circId · línia ${c.lineLat},${c.lineLng}")
+            }
         }
 
         // SurfaceView (default): renders GeoJSON overlays reliably. textureMode was a leftover from the
@@ -811,6 +841,11 @@ class MapViewerActivity : ComponentActivity() {
                     RumbApplication.from(this@MapViewerActivity).trackRepository
                         .setLaps(newId, cat.rumb.app.data.tracks.Laps.encode(ranges))
                 }
+                // Circuit attempt: file every completed lap as an effort of this circuit.
+                if (circuitMode && circuitId > 0 && ranges.isNotEmpty()) {
+                    RumbApplication.from(this@MapViewerActivity).circuitRepository
+                        .addEffortsFromTrack(circuitId, newId, name, System.currentTimeMillis())
+                }
                 if (folder != "General") {
                     val p = cat.rumb.app.data.prefs.ViewerPreferences.get(this@MapViewerActivity)
                     p.foldersTraining = p.foldersTraining + folder
@@ -1109,25 +1144,28 @@ class MapViewerActivity : ComponentActivity() {
             } else if (ls.lapCount > lastSeenLapCount) {
                 lastSeenLapCount = ls.lapCount
                 // Slice the just-completed lap (between the last two open marks) and, if it's the
-                // fastest so far, make it the ghost to chase.
-                val opens = ls.lapMarks.filter {
-                    it.type == cat.rumb.app.data.recording.LapMarkType.START ||
-                        it.type == cat.rumb.app.data.recording.LapMarkType.SPLIT
-                }
-                val lastLap = ls.lastLapMs
-                if (opens.size >= 2 && lastLap != null && (bestLapMs == null || lastLap < bestLapMs!!)) {
-                    val startSeq = opens[opens.size - 2].seq
-                    val endSeq = opens[opens.size - 1].seq
-                    val slice = buildActiveTimeLapPoints(ls.points(), startSeq, endSeq)
-                    if (cat.rumb.app.data.competition.GhostEngine.isTimed(slice)) {
-                        bestLapMs = lastLap
-                        lapGhost = cat.rumb.app.data.competition.GhostEngine(slice)
-                        DebugLog.i("Record", "ghost de vuelta actualizado · millor ${lastLap}ms")
+                // fastest so far, make it the ghost to chase. In circuit mode the ghost is the
+                // circuit's stored best lap, so we never overwrite it from the current session.
+                if (!circuitMode) {
+                    val opens = ls.lapMarks.filter {
+                        it.type == cat.rumb.app.data.recording.LapMarkType.START ||
+                            it.type == cat.rumb.app.data.recording.LapMarkType.SPLIT
                     }
-                }
-                if (ls.lapCount >= 2 && !lapCompeting && !lapCompetePrompted && lapGhost != null) {
-                    competePromptFlow.value = true
-                    lapCompetePrompted = true
+                    val lastLap = ls.lastLapMs
+                    if (opens.size >= 2 && lastLap != null && (bestLapMs == null || lastLap < bestLapMs!!)) {
+                        val startSeq = opens[opens.size - 2].seq
+                        val endSeq = opens[opens.size - 1].seq
+                        val slice = buildActiveTimeLapPoints(ls.points(), startSeq, endSeq)
+                        if (cat.rumb.app.data.competition.GhostEngine.isTimed(slice)) {
+                            bestLapMs = lastLap
+                            lapGhost = cat.rumb.app.data.competition.GhostEngine(slice)
+                            DebugLog.i("Record", "ghost de vuelta actualizado · millor ${lastLap}ms")
+                        }
+                    }
+                    if (ls.lapCount >= 2 && !lapCompeting && !lapCompetePrompted && lapGhost != null) {
+                        competePromptFlow.value = true
+                        lapCompetePrompted = true
+                    }
                 }
             }
         }
@@ -1287,6 +1325,9 @@ class MapViewerActivity : ComponentActivity() {
 
         /** Long extra: competition reference track id — launches the viewer in ghost-race mode. */
         const val EXTRA_COMPETITION_REF_ID = "competition_ref_id"
+
+        /** Long extra: circuit id — launches the viewer in circuit mode (fixed line + best-lap ghost). */
+        const val EXTRA_CIRCUIT_ID = "circuit_id"
 
         /** Countdown GPS gate: same threshold as the engine warm-up (RecorderConfig.startAccuracyM). */
         private const val COUNTDOWN_ACCURACY_M = 12f
