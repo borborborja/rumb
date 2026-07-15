@@ -819,51 +819,98 @@ function closeRouteEditor() {
 /* ============================================================= *
  *  View: Competició                                             *
  * ============================================================= */
+function compTypeLabel(t) { return t === "LAP" ? "Voltes" : "Recorregut"; }
+
 async function renderCompetitions() {
   const v = document.getElementById("view-competition");
   destroyMap("detail");
-  v.innerHTML = '<h2 class="title">Competició</h2><p class="subtitle">Els teus reptes</p>' + loadingHtml();
+  v.innerHTML = loadingHtml();
   let comps;
   try { comps = await apiJson("/api/competitions"); }
   catch (e) { if (!e.auth) v.innerHTML = emptyHtml("No s'ha pogut carregar."); return; }
-  if (!comps.length) {
-    v.innerHTML = '<h2 class="title">Competició</h2>' + emptyHtml("Cap competició encara.");
-    return;
-  }
+  const head = '<div class="row-between"><div><h2 class="title">Competició</h2>' +
+    '<p class="subtitle">' + comps.length + (comps.length === 1 ? " repte" : " reptes") + '</p></div>' +
+    '<button class="btn btn-primary" id="newComp">+ Nova competició</button></div>';
   const cards = comps.map(c =>
-    '<div class="card" data-ref="' + c.refId + '">' +
-    '<div class="card-head"><div><div class="card-title">' +
-    actIcon(c.activityType) + " " + esc(c.name) + "</div>" +
+    '<div class="card" data-id="' + c.id + '">' +
+    '<div class="card-head"><div><div class="card-title">' + actIcon(c.activityType) + " " + esc(c.name) +
+    '<span class="pill">' + compTypeLabel(c.type) + '</span></div>' +
     '<div class="card-meta">' + c.attemptCount + (c.attemptCount === 1 ? " intent" : " intents") + "</div></div></div>" +
-    '<div class="card-big">' + hms(c.bestMs) + "</div>" +
+    '<div class="card-big">' + (c.bestMs != null ? hms(c.bestMs) : "—") + "</div>" +
     '<div class="card-meta">Millor temps</div></div>').join("");
-  v.innerHTML = '<h2 class="title">Competició</h2><p class="subtitle">' + comps.length + " reptes</p>" +
-    '<div class="grid">' + cards + "</div>";
-  v.querySelectorAll(".card[data-ref]").forEach(c =>
-    c.addEventListener("click", () => openCompetition(Number(c.dataset.ref))));
+  v.innerHTML = head + (comps.length ? '<div class="grid">' + cards + "</div>"
+    : emptyHtml("Cap competició encara. Crea'n una des d'un entrenament."));
+  v.querySelector("#newComp").addEventListener("click", () => newCompetitionForm());
+  v.querySelectorAll(".card[data-id]").forEach(c =>
+    c.addEventListener("click", () => openCompetition(Number(c.dataset.id))));
 }
 
-async function openCompetition(refId) {
+async function newCompetitionForm() {
+  const v = document.getElementById("view-competition");
+  v.innerHTML = loadingHtml();
+  let tracks;
+  try { tracks = await apiJson("/api/tracks?kind=TRAINING"); }
+  catch (e) { if (!e.auth) v.innerHTML = emptyHtml("No s'ha pogut carregar."); return; }
+  if (!tracks.length) { v.innerHTML = '<span class="back-link">← Tornar</span>' + emptyHtml("Cap entrenament per competir."); v.querySelector(".back-link").addEventListener("click", () => renderCompetitions()); return; }
+  const opts = tracks.map(t => '<option value="' + t.id + '">' + esc(t.name) + "</option>").join("");
+  v.innerHTML = '<span class="back-link">← Tornar</span><h2 class="title">Nova competició</h2>' +
+    '<div class="form-block"><label>Entrenament<select id="ncTrack">' + opts + "</select></label>" +
+    '<label>Tipus<select id="ncType"><option value="ROUTE">Recorregut (track sencer)</option><option value="LAP">Voltes (circuit)</option></select></label>' +
+    '<button class="btn btn-primary" id="ncCreate">Crear</button></div>';
+  v.querySelector(".back-link").addEventListener("click", () => renderCompetitions());
+  v.querySelector("#ncCreate").addEventListener("click", async () => {
+    const trackId = v.querySelector("#ncTrack").value, type = v.querySelector("#ncType").value;
+    try {
+      const res = await api("/api/competition/from-track", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ trackId: trackId, type: type })
+      });
+      const j = await res.json();
+      if (j.ok) { toast("Competició creada"); openCompetition(Number(j.id)); }
+      else toast(j.error === "untimed" ? "L'entrenament no té temps/voltes" : "Error en crear", true);
+    } catch (e) { if (!e.auth) toast("Error de connexió", true); }
+  });
+}
+
+async function openCompetition(id) {
   const v = document.getElementById("view-competition");
   v.innerHTML = loadingHtml();
   let d;
-  try { d = await apiJson("/api/competition/" + refId); }
+  try { d = await apiJson("/api/competition/" + id); }
   catch (e) { if (!e.auth) v.innerHTML = emptyHtml("No s'ha pogut carregar."); return; }
   const rows = (d.attempts || []).map(a =>
     '<tr class="norow' + (a.isBest ? " best" : "") + '">' +
     "<td>" + dateTime(a.dateMs) + (a.isBest ? " " + icon("star", "star-best") : "") + "</td>" +
-    "<td>" + hms(a.durationMs) + "</td>" +
-    "<td>" + num(a.avgSpeedKmh, 1, " km/h") + "</td>" +
+    "<td>" + hms(a.timeMs) + "</td>" +
+    "<td>" + (a.isBest ? "—" : "+" + hms(a.gapMs)) + "</td>" +
+    "<td>" + num((a.distanceM || 0) / 1000, 2, " km") + "</td>" +
     "<td>" + num(a.avgHr, 0, " bpm") + "</td></tr>").join("");
   v.innerHTML =
     '<span class="back-link">← Tornar</span>' +
-    '<h2 class="title">' + esc(d.name) + "</h2>" +
+    '<div class="row-between"><h2 class="title">' + esc(d.name) + '<span class="pill">' + compTypeLabel(d.type) + "</span></h2>" +
+    '<div class="row-actions"><button class="btn btn-ghost" id="cRename">Reanomenar</button><button class="btn btn-danger" id="cDelete">Eliminar</button></div></div>' +
     '<p class="subtitle">' + (d.attempts ? d.attempts.length : 0) + " intents</p>" +
-    '<div class="tbl-wrap"><table><thead><tr><th>Data</th><th>Temps</th><th>Vel. mitjana</th><th>FC mitjana</th></tr></thead><tbody>' +
-    (rows || '<tr class="norow"><td colspan="4">Sense intents</td></tr>') + "</tbody></table></div>" +
+    '<div class="tbl-wrap"><table><thead><tr><th>Data</th><th>Temps</th><th>Dif.</th><th>Distància</th><th>FC</th></tr></thead><tbody>' +
+    (rows || '<tr class="norow"><td colspan="5">Sense intents</td></tr>') + "</tbody></table></div>" +
     '<div class="chart-box" style="margin-top:20px"><h4>Diferència de l\'últim intent vs. millor (verd = més ràpid, vermell = més lent)</h4>' +
     '<canvas class="chart tall" id="cGap"></canvas></div>';
   v.querySelector(".back-link").addEventListener("click", () => renderCompetitions());
+  v.querySelector("#cRename").addEventListener("click", async () => {
+    const name = prompt("Nou nom:", d.name); if (name == null || !name.trim()) return;
+    try {
+      const res = await api("/api/competition/" + id + "/rename", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: name.trim() })
+      });
+      if ((await res.json()).ok) { toast("Reanomenat"); openCompetition(id); } else toast("Error", true);
+    } catch (e) { if (!e.auth) toast("Error de connexió", true); }
+  });
+  v.querySelector("#cDelete").addEventListener("click", async () => {
+    if (!confirm("Eliminar «" + d.name + "»?")) return;
+    try {
+      const res = await api("/api/competition/" + id, { method: "DELETE" });
+      if ((await res.json()).ok) { toast("Eliminada"); renderCompetitions(); } else toast("Error", true);
+    } catch (e) { if (!e.auth) toast("Error de connexió", true); }
+  });
   gapChart(v.querySelector("#cGap"), d.gap || []);
 }
 

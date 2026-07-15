@@ -11,6 +11,7 @@ import cat.rumb.app.data.gpx.TrackFormat
 import cat.rumb.app.data.gpx.formatFor
 import cat.rumb.app.data.opentracks.model.GeoPoint
 import cat.rumb.app.data.prefs.ViewerPreferences
+import cat.rumb.app.data.tracks.CompetitionType
 import cat.rumb.app.data.tracks.PersonalRecords
 import cat.rumb.app.data.tracks.ProgressStats
 import cat.rumb.app.data.tracks.TrackKind
@@ -76,6 +77,11 @@ class DesktopServer(
             uri == "/api/records" -> handleRecords()
             uri == "/api/progress" -> handleProgress()
             uri == "/api/competitions" -> handleCompetitions()
+            uri == "/api/competition/from-track" && session.method == Method.POST -> handleCreateCompetition(session)
+            uri.startsWith("/api/competition/") && uri.endsWith("/rename") && session.method == Method.POST ->
+                handleRenameCompetition(uri.removePrefix("/api/competition/").removeSuffix("/rename").toLongOrNull() ?: return notFound, session)
+            uri.startsWith("/api/competition/") && session.method == Method.DELETE ->
+                handleDeleteCompetition(uri.removePrefix("/api/competition/").toLongOrNull() ?: return notFound)
             uri.startsWith("/api/competition/") -> handleCompetitionDetail(uri.removePrefix("/api/competition/").toLongOrNull() ?: return notFound)
             uri == "/api/profiles" -> handleProfiles()
             uri == "/api/location" -> handleLocation()
@@ -162,40 +168,64 @@ class DesktopServer(
     }
 
     private fun handleCompetitions(): Response {
-        val all = runBlocking { app.trackRepository.observeSummaries().first() }
-        val refs = all.filter { it.isCompetition && !it.competitionArchived }
-        val attemptsByRef = all.filter { it.competitionRefId != null }.groupBy { it.competitionRefId }
-        val list = refs.map { ref ->
-            val attempts = attemptsByRef[ref.id].orEmpty()
-            val best = (attempts + ref).mapNotNull { it.durationMs }.filter { it > 0 }.minOrNull()
-            CompetitionSummaryDto(ref.id, ref.name, ref.activityType, best, attempts.size)
+        val list = runBlocking {
+            app.competitionRepository.observeCompetitions().first().filter { !it.archived }.map { c ->
+                val attempts = app.competitionRepository.attemptsOnce(c.id)
+                CompetitionSummaryDto(
+                    c.id, c.name, c.type, c.activityType,
+                    attempts.filter { it.timeMs > 0 }.minOfOrNull { it.timeMs }, attempts.size,
+                )
+            }
         }
         return json(Response.Status.OK, list)
     }
 
-    private fun handleCompetitionDetail(refId: Long): Response {
-        val all = runBlocking { app.trackRepository.observeSummaries().first() }
-        val ref = all.firstOrNull { it.id == refId } ?: return json(Response.Status.NOT_FOUND, OkDto(false))
-        val candidates = listOf(ref) + all.filter { it.competitionRefId == refId && it.id != refId }
-        val best = candidates.filter { (it.durationMs ?: 0L) > 0L }.minByOrNull { it.durationMs!! }
-        val attempts = candidates.sortedWith(compareBy(nullsLast()) { it.durationMs?.takeIf { d -> d > 0L } }).map { c ->
-            val pts = runBlocking { app.trackRepository.loadGpxRoute(c.id) }
-            val stats = TrackStatsCalculator.compute(pts)
-            AttemptDto(c.id, c.createdAt, c.durationMs, stats.avgSpeedKmh, stats.avgHr?.toInt(), c.id == best?.id)
+    private fun handleCompetitionDetail(id: Long): Response = runBlocking {
+        val comp = app.competitionRepository.getCompetition(id) ?: return@runBlocking json(Response.Status.NOT_FOUND, OkDto(false))
+        val attempts = app.competitionRepository.attemptsOnce(id) // sorted by time asc from the DAO
+        val bestMs = attempts.filter { it.timeMs > 0 }.minOfOrNull { it.timeMs }
+        val attemptDtos = attempts.map { a ->
+            AttemptDto(
+                a.id, a.createdAt, a.timeMs, a.distanceM, a.avgHr?.toInt(),
+                gapMs = if (bestMs != null) a.timeMs - bestMs else 0L,
+                isBest = bestMs != null && a.timeMs == bestMs,
+            )
         }
-        val gap = if (best != null) {
-            val bestPts = runBlocking { app.trackRepository.loadGpxRoute(best.id) }
-            val latest = candidates.filter { it.id != best.id }.maxByOrNull { it.createdAt }
-            if (latest != null) {
-                val attemptPts = runBlocking { app.trackRepository.loadGpxRoute(latest.id) }
-                CompetitionAnalysis.gapOverDistance(bestPts, attemptPts).map { GapDto(it.distM, it.gapSeconds) }
-            } else {
-                emptyList()
-            }
+        // Gap chart: the latest attempt vs the best (parsed from the inline GPX).
+        val best = attempts.firstOrNull { it.timeMs == bestMs }
+        val latest = attempts.filter { it.id != best?.id }.maxByOrNull { it.createdAt }
+        val gap = if (best != null && latest != null) {
+            val bestPts = runCatching { Gpx.read(best.gpx.byteInputStream()).points }.getOrDefault(emptyList())
+            val latestPts = runCatching { Gpx.read(latest.gpx.byteInputStream()).points }.getOrDefault(emptyList())
+            CompetitionAnalysis.gapOverDistance(bestPts, latestPts).map { GapDto(it.distM, it.gapSeconds) }
         } else {
             emptyList()
         }
-        return json(Response.Status.OK, CompetitionDetailDto(refId, ref.name, attempts, gap))
+        json(Response.Status.OK, CompetitionDetailDto(id, comp.name, comp.type, attemptDtos, gap))
+    }
+
+    private fun handleCreateCompetition(session: IHTTPSession): Response {
+        val body = runCatching { json.decodeFromString<Map<String, String>>(readBody(session)) }.getOrNull()
+            ?: return json(Response.Status.BAD_REQUEST, OkDto(false, error = "bad body"))
+        val trackId = body["trackId"]?.toLongOrNull() ?: return json(Response.Status.BAD_REQUEST, OkDto(false, error = "trackId"))
+        val type = if (body["type"] == CompetitionType.LAP) CompetitionType.LAP else CompetitionType.ROUTE
+        val id = runBlocking {
+            val track = app.trackRepository.get(trackId) ?: return@runBlocking null
+            app.competitionRepository.createFromTrack(trackId, track.name, track.activityType, type, System.currentTimeMillis())
+        } ?: return json(Response.Status.BAD_REQUEST, OkDto(false, error = "untimed"))
+        return json(Response.Status.OK, OkDto(true, id = id))
+    }
+
+    private fun handleRenameCompetition(id: Long, session: IHTTPSession): Response {
+        val name = runCatching { json.decodeFromString<Map<String, String>>(readBody(session))["name"] }.getOrNull()
+            ?: return json(Response.Status.BAD_REQUEST, OkDto(false))
+        runBlocking { app.competitionRepository.rename(id, name) }
+        return json(Response.Status.OK, OkDto(true, id = id))
+    }
+
+    private fun handleDeleteCompetition(id: Long): Response {
+        runBlocking { app.competitionRepository.delete(id) }
+        return json(Response.Status.OK, OkDto(true, id = id))
     }
 
     // --- Write endpoints ---

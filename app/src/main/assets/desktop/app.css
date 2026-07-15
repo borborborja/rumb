@@ -94,6 +94,13 @@ h2.title { font-size: 20px; margin: 0 0 4px; }
 .btn-danger:hover { background: #2a1416; }
 .btn-ghost { background: none; }
 
+.pill { display: inline-block; font-size: 11px; font-weight: 600; color: var(--text); background: var(--bg-3); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; }
+.row-between { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.row-actions { display: flex; gap: 8px; }
+.form-block { display: flex; flex-direction: column; gap: 14px; max-width: 440px; }
+.form-block label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); }
+.form-block input, .form-block select { max-width: 440px; }
+
 input[type=text], input[type=file], select {
   background: var(--bg-3); border: 1px solid var(--line); color: var(--text);
   border-radius: 8px; padding: 8px 10px; font-size: 13px;

@@ -78,16 +78,31 @@ data class ProgressDto(
 )
 
 @Serializable
-data class CompetitionSummaryDto(val refId: Long, val name: String, val activityType: String?, val bestMs: Long?, val attemptCount: Int)
+data class CompetitionSummaryDto(
+    val id: Long,
+    val name: String,
+    val type: String,
+    val activityType: String?,
+    val bestMs: Long?,
+    val attemptCount: Int,
+)
 
 @Serializable
 data class GapDto(val distM: Double, val gapSeconds: Double)
 
 @Serializable
-data class AttemptDto(val trackId: Long, val dateMs: Long, val durationMs: Long?, val avgSpeedKmh: Double?, val avgHr: Int?, val isBest: Boolean)
+data class AttemptDto(
+    val id: Long,
+    val dateMs: Long,
+    val timeMs: Long,
+    val distanceM: Double,
+    val avgHr: Int?,
+    val gapMs: Long,
+    val isBest: Boolean,
+)
 
 @Serializable
-data class CompetitionDetailDto(val refId: Long, val name: String, val attempts: List<AttemptDto>, val gap: List<GapDto>)
+data class CompetitionDetailDto(val id: Long, val name: String, val type: String, val attempts: List<AttemptDto>, val gap: List<GapDto>)
 
 @Serializable
 data class WaypointDto(val lat: Double, val lng: Double)

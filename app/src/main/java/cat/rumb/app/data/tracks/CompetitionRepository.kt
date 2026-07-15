@@ -18,6 +18,7 @@ class CompetitionRepository(
 ) {
     fun observeCompetitions(): Flow<List<CompetitionEntity>> = dao.observeCompetitions()
     fun attemptsFor(competitionId: Long): Flow<List<CompetitionAttemptEntity>> = dao.attemptsFor(competitionId)
+    suspend fun attemptsOnce(competitionId: Long): List<CompetitionAttemptEntity> = dao.attemptsForOnce(competitionId)
     fun observeSourceTrackIds(): Flow<List<Long>> = dao.observeSourceTrackIds()
     suspend fun getCompetition(id: Long): CompetitionEntity? = dao.getCompetition(id)
     suspend fun rename(id: Long, name: String) = dao.rename(id, name)
