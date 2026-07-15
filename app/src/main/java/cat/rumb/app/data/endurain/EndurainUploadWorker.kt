@@ -27,7 +27,7 @@ class EndurainUploadWorker(context: Context, params: WorkerParameters) : Corouti
         val fileName = inputData.getString(KEY_NAME) ?: "track.gpx"
         val trackId = inputData.getLong(KEY_TRACK_ID, 0L)
         val file = File(path)
-        if (!file.exists()) return Result.failure()
+        if (!file.exists()) return fail(trackId, "Fitxer no trobat")
 
         val repo = RumbApplication.from(applicationContext).endurainRepository
         return when (val result = repo.uploadGpx(file.readText(), fileName)) {
@@ -41,7 +41,7 @@ class EndurainUploadWorker(context: Context, params: WorkerParameters) : Corouti
             }
             is UploadResult.NotConfigured -> {
                 file.delete() // permanent: don't leave the queued GPX orphaned in the cache.
-                Result.failure()
+                fail(trackId, "Endurain no configurat")
             }
             is UploadResult.Failure -> {
                 // Retry transient errors (network code==null, 5xx, 429), but cap attempts so a
@@ -59,6 +59,11 @@ class EndurainUploadWorker(context: Context, params: WorkerParameters) : Corouti
                 }
             }
         }
+    }
+
+    private suspend fun fail(trackId: Long, msg: String): Result {
+        SyncStatusStore.mark(applicationContext, trackId, SyncService.ENDURAIN, SyncState.FAILED, error = msg)
+        return Result.failure()
     }
 
     companion object {

@@ -8,6 +8,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
+import cat.rumb.app.data.gpx.formatFor
+import cat.rumb.app.data.gpx.mimeFor
 import cat.rumb.app.data.prefs.FolderExportPreferences
 import cat.rumb.app.data.tracks.SyncService
 import cat.rumb.app.data.tracks.SyncState
@@ -22,7 +24,7 @@ class FolderSaveWorker(context: Context, params: WorkerParameters) : CoroutineWo
         val fileName = inputData.getString(KEY_NAME) ?: "track.gpx"
         val trackId = inputData.getLong(KEY_TRACK_ID, 0L)
         val file = File(path)
-        if (!file.exists()) return Result.failure()
+        if (!file.exists()) return fail(trackId, "Fitxer no trobat")
 
         val treeUri = FolderExportPreferences.get(applicationContext).treeUri
             ?: return fail(trackId, "Sense carpeta")
@@ -31,7 +33,9 @@ class FolderSaveWorker(context: Context, params: WorkerParameters) : CoroutineWo
                 ?: return fail(trackId, "Carpeta no accessible")
             // Overwrite a same-named file so a re-sync doesn't accumulate duplicates.
             dir.findFile(fileName)?.delete()
-            val doc = dir.createFile("application/gpx+xml", fileName)
+            // MIME must match the actual format (TCX/GPX/KML), else SAF appends a wrong extension
+            // (e.g. «x.tcx.gpx») and the dedup findFile() above never matches → duplicates pile up.
+            val doc = dir.createFile(mimeFor(formatFor(fileName)), fileName)
                 ?: return fail(trackId, "No s'ha pogut crear el fitxer")
             applicationContext.contentResolver.openOutputStream(doc.uri)?.use { out ->
                 out.write(file.readText().toByteArray())

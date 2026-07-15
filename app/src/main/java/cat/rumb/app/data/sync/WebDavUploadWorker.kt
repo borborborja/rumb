@@ -7,6 +7,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
+import cat.rumb.app.data.gpx.formatFor
+import cat.rumb.app.data.gpx.mimeFor
 import cat.rumb.app.data.prefs.WebDavPreferences
 import cat.rumb.app.data.tracks.SyncService
 import cat.rumb.app.data.tracks.SyncState
@@ -27,15 +29,15 @@ class WebDavUploadWorker(context: Context, params: WorkerParameters) : Coroutine
         val fileName = inputData.getString(KEY_NAME) ?: "track.gpx"
         val trackId = inputData.getLong(KEY_TRACK_ID, 0L)
         val file = File(path)
-        if (!file.exists()) return Result.failure()
+        if (!file.exists()) return fail(trackId, "Fitxer no trobat")
 
         val prefs = WebDavPreferences.get(applicationContext)
-        if (!prefs.isConfigured) { file.delete(); return Result.failure() }
+        if (!prefs.isConfigured) { file.delete(); return fail(trackId, "WebDAV no configurat") }
 
         return try {
-            val body = file.readText().toRequestBody("application/gpx+xml".toMediaType())
+            val body = file.readText().toRequestBody(mimeFor(formatFor(fileName)).toMediaType())
             val request = Request.Builder()
-                .url("${prefs.url}/$fileName")
+                .url("${prefs.url.orEmpty().trimEnd('/')}/$fileName")
                 .header("Authorization", Credentials.basic(prefs.user!!, prefs.pass!!))
                 .put(body)
                 .build()
@@ -64,6 +66,11 @@ class WebDavUploadWorker(context: Context, params: WorkerParameters) : Coroutine
                 Result.failure()
             }
         }
+    }
+
+    private suspend fun fail(trackId: Long, msg: String): Result {
+        SyncStatusStore.mark(applicationContext, trackId, SyncService.WEBDAV, SyncState.FAILED, error = msg)
+        return Result.failure()
     }
 
     companion object {

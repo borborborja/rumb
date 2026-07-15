@@ -36,7 +36,11 @@ class EndurainRepository(private val prefs: EndurainPreferences) {
     suspend fun uploadGpx(gpx: String, fileName: String): UploadResult = withContext(Dispatchers.IO) {
         val api = api() ?: return@withContext UploadResult.NotConfigured
         try {
-            val body = gpx.toByteArray().toRequestBody("application/gpx+xml".toMediaType())
+            // Content type must match the actual format so the server parses TCX laps/FIT correctly
+            // (the file can be .tcx, not just .gpx).
+            val body = gpx.toByteArray().toRequestBody(
+                cat.rumb.app.data.gpx.mimeFor(cat.rumb.app.data.gpx.formatFor(fileName)).toMediaType(),
+            )
             val part = MultipartBody.Part.createFormData("file", fileName, body)
             val response = api.uploadActivity(part)
             if (response.isSuccessful) {

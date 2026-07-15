@@ -42,7 +42,12 @@ class AnnouncementScheduler(private val config: AnnounceConfig) {
             // milestones in one update and flood TTS. If far behind, skip ahead silently and
             // announce only the latest.
             val target = (distanceKm / config.distanceStepKm).toInt()
-            if (target - distanceSteps > MAX_STEPS_PER_UPDATE) distanceSteps = target - 1
+            if (target - distanceSteps > MAX_STEPS_PER_UPDATE) {
+                distanceSteps = target - 1
+                // Skipped milestones silently: reset the split baseline so the one announced
+                // milestone doesn't report the whole elapsed time as its "last km" split.
+                lastStepElapsedSec = elapsedSeconds
+            }
             while (distanceKm >= (distanceSteps + 1) * config.distanceStepKm) {
                 distanceSteps++
                 val milestoneKm = distanceSteps * config.distanceStepKm

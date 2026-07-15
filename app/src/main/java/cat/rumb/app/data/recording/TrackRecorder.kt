@@ -136,6 +136,8 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
     // true after leaving the radius since the last split (so we don't re-fire while still on the line).
     private var lapLine: GeoPoint? = null
     private var lapLineArmed = false
+    // True after an explicit End-Laps, so circuit auto-lap doesn't re-open a block on the next crossing.
+    private var lapsEnded = false
 
     fun start(time: Instant) {
         check(startedAt == null) { "already started" }
@@ -356,9 +358,9 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
                 val sinceMs = if (lapsActive) totalMs(time) - lapStartTotalMs else Long.MAX_VALUE
                 val sinceM = if (lapsActive) distanceM - lapStartDistanceM else Double.MAX_VALUE
                 if (sinceMs >= config.autoLapMinLapMs && sinceM >= config.autoLapMinLapM) {
-                    DebugLog.i("Motor", "circuit: creuament meta (${fmt(d)}m)")
-                    if (!lapsActive) startLaps(time) else split(time)
-                    lapLineArmed = false
+                    // After an explicit End-Laps, don't auto-open a new block just by crossing the
+                    // line again (e.g. riding out of the circuit).
+                    if (lapsActive) { DebugLog.i("Motor", "circuit: creuament meta (${fmt(d)}m)"); split(time); lapLineArmed = false } else if (!lapsEnded) { DebugLog.i("Motor", "circuit: inici per creuament"); startLaps(time); lapLineArmed = false }
                 }
             }
         }
@@ -400,6 +402,7 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
         // crossing can't fire until we've left the radius (and past the min-lap guards).
         lapLine = lastLatLong
         lapLineArmed = false
+        lapsEnded = false
         DebugLog.i("Motor", "vueltas iniciadas · vuelta 1" + if (config.autoLapByPosition) " · línia auto @${lapLine != null}" else "")
     }
 
@@ -409,6 +412,7 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
         lastLapMs = totalMs(now) - lapStartTotalMs
         lapMarks.add(LapMark(seq, distanceM, totalMs(now), LapMarkType.END))
         lapsActive = false
+        lapsEnded = true
         lapLine = null
         lapLineArmed = false
         DebugLog.i("Motor", "fin de vueltas · $lapCount vueltas")

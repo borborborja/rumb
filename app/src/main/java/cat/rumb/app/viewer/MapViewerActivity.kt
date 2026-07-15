@@ -1205,7 +1205,7 @@ class MapViewerActivity : ComponentActivity() {
                     if (opens.size >= 2 && lastLap != null && (bestLapMs == null || lastLap < bestLapMs!!)) {
                         val startSeq = opens[opens.size - 2].seq
                         val endSeq = opens[opens.size - 1].seq
-                        val slice = buildActiveTimeLapPoints(ls.points(), startSeq, endSeq)
+                        val slice = buildActiveTimeLapPoints(ls.segments, startSeq, endSeq)
                         if (cat.rumb.app.data.competition.GhostEngine.isTimed(slice)) {
                             bestLapMs = lastLap
                             lapGhost = cat.rumb.app.data.competition.GhostEngine(slice)
@@ -1526,27 +1526,28 @@ private fun StatusBarScrim() {
 /**
  * Builds a lap ghost reference re-based to ACTIVE time: a recording pause inside the reference lap
  * advances the wall clock but not the active-lap clock, so the raw timestamps carry a gap the chaser
- * (driven by pause-excluding currentLapTimeMs) never sees. Compress that gap out by excluding any
- * interval touching a pause point, so the ghost's timeline matches the chaser's. Without a pause this
- * reduces to the raw wall-clock offsets — no behavior change.
+ * (driven by pause-excluding currentLapTimeMs) never sees. A pause is a SEGMENT boundary (the engine
+ * closes the segment on pause and never emits a pause-typed point), so we accumulate time only WITHIN
+ * each segment and drop the gap BETWEEN segments — which compresses the pause out. Without a pause the
+ * lap is a single segment, so this reduces to the raw wall-clock offsets — no behavior change.
  */
 private fun buildActiveTimeLapPoints(
-    points: List<cat.rumb.app.data.opentracks.model.Trackpoint>,
+    segments: List<cat.rumb.app.data.opentracks.model.Segment>,
     startSeq: Long,
     endSeq: Long,
 ): List<GpxPoint> {
-    val lap = points.filter { it.id in startSeq until endSeq }
-    val out = ArrayList<GpxPoint>(lap.size)
+    val out = ArrayList<GpxPoint>()
     var activeMs = 0L
-    var prev: cat.rumb.app.data.opentracks.model.Trackpoint? = null
-    for (p in lap) {
-        val before = prev
-        if (before != null && !before.isPause && !p.isPause) {
-            activeMs += (p.time.toEpochMilli() - before.time.toEpochMilli()).coerceAtLeast(0)
-        }
-        prev = p
-        val ll = p.latLong
-        if (ll != null && !p.isPause) {
+    for (seg in segments) {
+        var prev: cat.rumb.app.data.opentracks.model.Trackpoint? = null // resets per segment → inter-segment (pause) gap excluded
+        for (p in seg) {
+            if (p.id !in startSeq until endSeq) continue
+            val before = prev
+            if (before != null) {
+                activeMs += (p.time.toEpochMilli() - before.time.toEpochMilli()).coerceAtLeast(0)
+            }
+            prev = p
+            val ll = p.latLong ?: continue
             out.add(
                 GpxPoint(
                     ll.latitude, ll.longitude, p.altitude,

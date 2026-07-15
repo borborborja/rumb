@@ -295,6 +295,26 @@ class TrackRecorderTest {
     }
 
     @Test
+    fun circuitDoesNotReopenLapsAfterEndLaps() {
+        val line = cat.rumb.app.data.opentracks.model.GeoPoint(41.0, 2.0)
+        val r = TrackRecorder(RecorderConfig(presetLapLine = line))
+        r.start(t0)
+        r.warmUp()
+        var sec = 0L
+        // Approach + first crossing opens lap 1.
+        for (i in 15 downTo 0) { r.onLocation(41.0 + i * 0.0002, 2.0, 100.0, null, null, 5f, at(sec)); sec++ }
+        // End the block, then ride out and cross the line again.
+        r.endLaps(at(sec))
+        val lapsAtEnd = r.snapshot(at(sec)).lapCount
+        for (i in 1..15) { r.onLocation(41.0 + i * 0.0002, 2.0, 100.0, null, null, 5f, at(sec)); sec++ }
+        for (i in 14 downTo 0) { r.onLocation(41.0 + i * 0.0002, 2.0, 100.0, null, null, 5f, at(sec)); sec++ }
+        val s = r.snapshot(at(sec))
+        assertThat(s.lapsActive).isFalse()
+        assertThat(s.lapCount).isEqualTo(lapsAtEnd) // no new block reopened
+        assertThat(s.lapMarks.count { it.type == LapMarkType.START }).isEqualTo(1)
+    }
+
+    @Test
     fun circuitPresetLineFirstCrossingOpensLapOneThenSplits() {
         // Fixed finish line at (41.0, 2.0). Start far north (armed), approach and cross → START (lap 1).
         val line = cat.rumb.app.data.opentracks.model.GeoPoint(41.0, 2.0)
