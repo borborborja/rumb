@@ -123,6 +123,50 @@ data class LocationDto(val lat: Double, val lng: Double)
 @Serializable
 data class RoutePreviewDto(val points: List<WaypointDto>, val distanceM: Double, val ascentM: Double)
 
+// --- Settings ---
+
+@Serializable
+data class SettingsDto(
+    val units: UnitsDto,
+    val profile: ProfileSettingsDto,
+    val recording: RecordingDto,
+    val map: MapSettingsDto,
+    val audio: AudioDto,
+    val general: GeneralDto,
+    val endurain: EndurainDto,
+    val webdav: WebDavDto,
+    val folder: FolderDto,
+    val sync: SyncStatusDto,
+)
+
+@Serializable data class UnitsDto(val distanceUnit: String, val elevationUnit: String, val speedUnit: String)
+@Serializable data class ProfileSettingsDto(val userMaxHr: Int, val userWeightKg: Int, val userAge: Int, val userSex: String)
+@Serializable data class RecordingDto(
+    val recGpsIntervalSec: Int, val recMinDistanceM: Float, val recMaxAccuracyM: Float,
+    val recAutoPause: Boolean, val recAutoPauseSec: Int, val recBarometer: Boolean,
+    val lapManagementEnabled: Boolean, val autoLapByPosition: Boolean,
+)
+@Serializable data class MapSettingsDto(
+    val mapCacheSizeMb: Int, val prefetchOnFollow: Boolean, val trackColorMode: String?, val trackColor: String,
+    val followColor: String, val followWidth: Float, val followArrows: Boolean, val followProgress: Boolean,
+    val trackingPointStyle: String, val trackingPointColor: String, val trackingPointSize: Float,
+    val offRouteThresholdM: Int, val offRouteSound: Boolean, val offRouteVibrate: Boolean, val offRouteSpoken: Boolean,
+)
+@Serializable data class AudioDto(
+    val announceEnabled: Boolean, val announceMode: String, val announceLang: String, val announceBeepSound: Int,
+    val turnHeadsUp: Boolean, val turnVoice: Boolean, val announceByDistance: Boolean, val announceDistanceKm: Float,
+    val announceByTime: Boolean, val announceTimeMin: Int, val annDistanceTime: Boolean, val annPace: Boolean,
+    val annSplitPace: Boolean, val annElevation: Boolean, val annHeartRate: Boolean,
+)
+@Serializable data class GeneralDto(
+    val keepScreenOn: Boolean, val fullscreen: Boolean, val adaptiveZoom: Boolean, val mapOrientation: String,
+    val recCountdown: Boolean, val competitionHalo: Boolean, val competitionShowSeconds: Boolean, val desktopServerPort: Int,
+)
+@Serializable data class EndurainDto(val host: String?, val apiKeySet: Boolean)
+@Serializable data class WebDavDto(val url: String?, val userSet: Boolean)
+@Serializable data class FolderDto(val enabled: Boolean, val folderSet: Boolean)
+@Serializable data class SyncStatusDto(val pending: Int, val failed: Int, val lastUploadedMs: Long?)
+
 // --- Mappers ---
 
 fun FollowTrackEntity.toDto(): TrackDto = TrackDto(

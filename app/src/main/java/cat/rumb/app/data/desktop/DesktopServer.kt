@@ -10,7 +10,11 @@ import cat.rumb.app.data.gpx.Tcx
 import cat.rumb.app.data.gpx.TrackFormat
 import cat.rumb.app.data.gpx.formatFor
 import cat.rumb.app.data.opentracks.model.GeoPoint
+import cat.rumb.app.data.prefs.EndurainPreferences
+import cat.rumb.app.data.prefs.FolderExportPreferences
 import cat.rumb.app.data.prefs.ViewerPreferences
+import cat.rumb.app.data.prefs.WebDavPreferences
+import cat.rumb.app.data.sync.SyncTargets
 import cat.rumb.app.data.tracks.CompetitionType
 import cat.rumb.app.data.tracks.PersonalRecords
 import cat.rumb.app.data.tracks.ProgressStats
@@ -83,6 +87,12 @@ class DesktopServer(
             uri.startsWith("/api/competition/") && session.method == Method.DELETE ->
                 handleDeleteCompetition(uri.removePrefix("/api/competition/").toLongOrNull() ?: return notFound)
             uri.startsWith("/api/competition/") -> handleCompetitionDetail(uri.removePrefix("/api/competition/").toLongOrNull() ?: return notFound)
+            uri == "/api/settings" -> handleGetSettings()
+            uri == "/api/settings/set" && session.method == Method.POST -> handleSetSetting(session)
+            uri == "/api/settings/endurain" && session.method == Method.POST -> handleEndurainSave(session)
+            uri == "/api/settings/webdav" && session.method == Method.POST -> handleWebDavSave(session)
+            uri == "/api/settings/folder" && session.method == Method.POST -> handleFolderToggle(session)
+            uri == "/api/settings/sync/retry" && session.method == Method.POST -> handleSyncRetry()
             uri == "/api/profiles" -> handleProfiles()
             uri == "/api/location" -> handleLocation()
             uri == "/api/route/preview" && session.method == Method.POST -> handleRoutePreview(session)
@@ -226,6 +236,149 @@ class DesktopServer(
     private fun handleDeleteCompetition(id: Long): Response {
         runBlocking { app.competitionRepository.delete(id) }
         return json(Response.Status.OK, OkDto(true, id = id))
+    }
+
+    // --- Settings ---
+
+    private fun handleGetSettings(): Response {
+        val p = ViewerPreferences.get(context)
+        val e = EndurainPreferences.get(context)
+        val w = WebDavPreferences.get(context)
+        val f = FolderExportPreferences.get(context)
+        val dao = app.database.syncStatusDao()
+        val counts = runBlocking { dao.observeCounts().first() }
+        val lastUploaded = runBlocking { dao.observeLastUploaded().first() }
+        val dto = SettingsDto(
+            units = UnitsDto(p.distanceUnit, p.elevationUnit, p.speedUnit),
+            profile = ProfileSettingsDto(p.userMaxHr, p.userWeightKg, p.userAge, p.userSex),
+            recording = RecordingDto(
+                p.recGpsIntervalSec, p.recMinDistanceM, p.recMaxAccuracyM, p.recAutoPause,
+                p.recAutoPauseSec, p.recBarometer, p.lapManagementEnabled, p.autoLapByPosition,
+            ),
+            map = MapSettingsDto(
+                p.mapCacheSizeMb, p.prefetchOnFollow, p.trackColorMode, p.trackColor, p.followColor,
+                p.followWidth, p.followArrows, p.followProgress, p.trackingPointStyle, p.trackingPointColor,
+                p.trackingPointSize, p.offRouteThresholdM, p.offRouteSound, p.offRouteVibrate, p.offRouteSpoken,
+            ),
+            audio = AudioDto(
+                p.announceEnabled, p.announceMode, p.announceLang, p.announceBeepSound, p.turnHeadsUp,
+                p.turnVoice, p.announceByDistance, p.announceDistanceKm, p.announceByTime, p.announceTimeMin,
+                p.annDistanceTime, p.annPace, p.annSplitPace, p.annElevation, p.annHeartRate,
+            ),
+            general = GeneralDto(
+                p.keepScreenOn, p.fullscreen, p.adaptiveZoom, p.mapOrientation, p.recCountdown,
+                p.competitionHalo, p.competitionShowSeconds, p.desktopServerPort,
+            ),
+            endurain = EndurainDto(e.host, !e.apiKey.isNullOrBlank()),
+            webdav = WebDavDto(w.url, !w.user.isNullOrBlank()),
+            folder = FolderDto(f.enabled, !f.treeUri.isNullOrBlank()),
+            sync = SyncStatusDto(
+                counts.filter { it.status == "PENDING" }.sumOf { it.n },
+                counts.filter { it.status == "FAILED" }.sumOf { it.n },
+                lastUploaded,
+            ),
+        )
+        return json(Response.Status.OK, dto)
+    }
+
+    /** Generic single-setting setter (whitelisted ViewerPreferences properties). */
+    private fun handleSetSetting(session: IHTTPSession): Response {
+        val body = runCatching { json.decodeFromString<Map<String, String>>(readBody(session)) }.getOrNull()
+            ?: return json(Response.Status.BAD_REQUEST, OkDto(false, error = "bad body"))
+        val key = body["key"] ?: return json(Response.Status.BAD_REQUEST, OkDto(false, error = "key"))
+        val v = body["value"] ?: ""
+        val p = ViewerPreferences.get(context)
+        val bad = json(Response.Status.BAD_REQUEST, OkDto(false, error = "value"))
+        when (key) {
+            "distanceUnit" -> p.distanceUnit = v
+            "elevationUnit" -> p.elevationUnit = v
+            "speedUnit" -> p.speedUnit = v
+            "userMaxHr" -> p.userMaxHr = v.toIntOrNull() ?: return bad
+            "userWeightKg" -> p.userWeightKg = v.toIntOrNull() ?: return bad
+            "userAge" -> p.userAge = v.toIntOrNull() ?: return bad
+            "userSex" -> p.userSex = v
+            "recGpsIntervalSec" -> p.recGpsIntervalSec = v.toIntOrNull() ?: return bad
+            "recMinDistanceM" -> p.recMinDistanceM = v.toFloatOrNull() ?: return bad
+            "recMaxAccuracyM" -> p.recMaxAccuracyM = v.toFloatOrNull() ?: return bad
+            "recAutoPause" -> p.recAutoPause = v == "true"
+            "recAutoPauseSec" -> p.recAutoPauseSec = v.toIntOrNull() ?: return bad
+            "recBarometer" -> p.recBarometer = v == "true"
+            "lapManagementEnabled" -> p.lapManagementEnabled = v == "true"
+            "autoLapByPosition" -> p.autoLapByPosition = v == "true"
+            "mapCacheSizeMb" -> { p.mapCacheSizeMb = v.toIntOrNull() ?: return bad; cat.rumb.app.data.map.MapCache.applyAmbientSize(context, p.mapCacheSizeMb) }
+            "prefetchOnFollow" -> p.prefetchOnFollow = v == "true"
+            "trackColorMode" -> p.trackColorMode = v.ifBlank { null }
+            "trackColor" -> p.trackColor = v
+            "followColor" -> p.followColor = v
+            "followWidth" -> p.followWidth = v.toFloatOrNull() ?: return bad
+            "followArrows" -> p.followArrows = v == "true"
+            "followProgress" -> p.followProgress = v == "true"
+            "trackingPointStyle" -> p.trackingPointStyle = v
+            "trackingPointColor" -> p.trackingPointColor = v
+            "trackingPointSize" -> p.trackingPointSize = v.toFloatOrNull() ?: return bad
+            "offRouteThresholdM" -> p.offRouteThresholdM = v.toIntOrNull() ?: return bad
+            "offRouteSound" -> p.offRouteSound = v == "true"
+            "offRouteVibrate" -> p.offRouteVibrate = v == "true"
+            "offRouteSpoken" -> p.offRouteSpoken = v == "true"
+            "announceEnabled" -> p.announceEnabled = v == "true"
+            "announceMode" -> p.announceMode = v
+            "announceLang" -> p.announceLang = v
+            "announceBeepSound" -> p.announceBeepSound = v.toIntOrNull() ?: return bad
+            "turnHeadsUp" -> p.turnHeadsUp = v == "true"
+            "turnVoice" -> p.turnVoice = v == "true"
+            "announceByDistance" -> p.announceByDistance = v == "true"
+            "announceDistanceKm" -> p.announceDistanceKm = v.toFloatOrNull() ?: return bad
+            "announceByTime" -> p.announceByTime = v == "true"
+            "announceTimeMin" -> p.announceTimeMin = v.toIntOrNull() ?: return bad
+            "annDistanceTime" -> p.annDistanceTime = v == "true"
+            "annPace" -> p.annPace = v == "true"
+            "annSplitPace" -> p.annSplitPace = v == "true"
+            "annElevation" -> p.annElevation = v == "true"
+            "annHeartRate" -> p.annHeartRate = v == "true"
+            "keepScreenOn" -> p.keepScreenOn = v == "true"
+            "fullscreen" -> p.fullscreen = v == "true"
+            "adaptiveZoom" -> p.adaptiveZoom = v == "true"
+            "mapOrientation" -> p.mapOrientation = v
+            "recCountdown" -> p.recCountdown = v == "true"
+            "competitionHalo" -> p.competitionHalo = v == "true"
+            "competitionShowSeconds" -> p.competitionShowSeconds = v == "true"
+            "desktopServerPort" -> p.desktopServerPort = v.toIntOrNull() ?: return bad
+            else -> return json(Response.Status.BAD_REQUEST, OkDto(false, error = "unknown key"))
+        }
+        return json(Response.Status.OK, OkDto(true))
+    }
+
+    private fun handleEndurainSave(session: IHTTPSession): Response {
+        val body = runCatching { json.decodeFromString<Map<String, String>>(readBody(session)) }.getOrNull()
+            ?: return json(Response.Status.BAD_REQUEST, OkDto(false, error = "bad body"))
+        val e = EndurainPreferences.get(context)
+        // Only touch a field the client actually sent, so a blank secret box doesn't wipe a saved key.
+        body["host"]?.let { e.host = it.ifBlank { null } }
+        body["apiKey"]?.let { e.apiKey = it }
+        val res = runBlocking { app.endurainRepository.testConnection() }
+        return json(Response.Status.OK, OkDto(res.isSuccess, error = res.exceptionOrNull()?.message))
+    }
+
+    private fun handleWebDavSave(session: IHTTPSession): Response {
+        val body = runCatching { json.decodeFromString<Map<String, String>>(readBody(session)) }.getOrNull()
+            ?: return json(Response.Status.BAD_REQUEST, OkDto(false, error = "bad body"))
+        val w = WebDavPreferences.get(context)
+        body["url"]?.let { w.url = it.ifBlank { null } }
+        body["user"]?.let { w.user = it.ifBlank { null } }
+        body["pass"]?.let { w.pass = it } // only when sent, so a blank box keeps the saved password
+        return json(Response.Status.OK, OkDto(true))
+    }
+
+    private fun handleFolderToggle(session: IHTTPSession): Response {
+        val body = runCatching { json.decodeFromString<Map<String, String>>(readBody(session)) }.getOrNull()
+            ?: return json(Response.Status.BAD_REQUEST, OkDto(false, error = "bad body"))
+        FolderExportPreferences.get(context).enabled = body["enabled"] == "true"
+        return json(Response.Status.OK, OkDto(true))
+    }
+
+    private fun handleSyncRetry(): Response {
+        runBlocking { SyncTargets.retryFailed(context) }
+        return json(Response.Status.OK, OkDto(true))
     }
 
     // --- Write endpoints ---

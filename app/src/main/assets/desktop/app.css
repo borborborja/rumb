@@ -101,6 +101,16 @@ h2.title { font-size: 20px; margin: 0 0 4px; }
 .form-block label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); }
 .form-block input, .form-block select { max-width: 440px; }
 
+.set-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.set-card h3 { margin: 0 0 10px; font-size: 15px; }
+.set-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 5px 0; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+.set-row:first-of-type { border-top: none; }
+.set-row span { flex: 1; }
+.set-row input[type=number], .set-row input[type=text], .set-row input[type=password], .set-row select { width: 130px; }
+.set-row input[type=color] { width: 44px; height: 26px; padding: 0; border: 1px solid var(--line); background: none; }
+.set-status { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
+.set-card .btn { margin-top: 8px; }
+
 input[type=text], input[type=file], select {
   background: var(--bg-3); border: 1px solid var(--line); color: var(--text);
   border-radius: 8px; padding: 8px 10px; font-size: 13px;

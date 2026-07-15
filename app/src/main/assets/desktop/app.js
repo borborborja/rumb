@@ -75,6 +75,7 @@ const ICONS = {
   competition: { m: "s", c: '<line x1="10" y1="2" x2="14" y2="2"/><line x1="12" y1="14" x2="15" y2="11"/><circle cx="12" cy="14" r="8"/>' },
   records:     { m: "s", c: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>' },
   progress:    { m: "s", c: '<path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>' },
+  settings:    { m: "s", c: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>' },
   // --- activity types (Material-style filled figures) ---
   walk:  { m: "f", c: '<path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9 7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7z"/>' },
   run:   { m: "f", c: '<path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9 1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/>' },
@@ -429,7 +430,7 @@ function drawTrackMap(el, key, samples) {
 /* ============================================================= *
  *  Tab routing                                                  *
  * ============================================================= */
-const TABS = ["library", "routes", "competition", "records", "progress"];
+const TABS = ["library", "routes", "competition", "records", "progress", "settings"];
 let currentTab = "library";
 
 function switchTab(tab) {
@@ -452,6 +453,7 @@ function renderTab(tab) {
   else if (tab === "competition") renderCompetitions();
   else if (tab === "records") renderRecords();
   else if (tab === "progress") renderProgress();
+  else if (tab === "settings") renderSettings();
 }
 
 /* ============================================================= *
@@ -1009,6 +1011,126 @@ async function renderProgress() {
     return pad2(d.getDate()) + "/" + pad2(d.getMonth() + 1);
   });
   barChart(v.querySelector("#cWeeks"), labels, weeks.map(w => w.km), { color: "#E63946" });
+}
+
+/* ============================================================= *
+ *  View: Ajustes                                                *
+ * ============================================================= */
+async function setSetting(key, value) {
+  try {
+    const res = await api("/api/settings/set", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key: key, value: String(value) })
+    });
+    if (!(await res.json()).ok) toast("Error en desar", true);
+  } catch (e) { if (!e.auth) toast("Error de connexió", true); }
+}
+function sToggle(k, label, val) { return '<label class="set-row"><span>' + label + '</span><input type="checkbox" data-key="' + k + '"' + (val ? " checked" : "") + "></label>"; }
+function sNum(k, label, val, min, max, step) { return '<label class="set-row"><span>' + label + '</span><input type="number" data-key="' + k + '" value="' + val + '" min="' + min + '" max="' + max + '" step="' + (step || 1) + '"></label>'; }
+function sSel(k, label, val, opts) { return '<label class="set-row"><span>' + label + '</span><select data-key="' + k + '">' + opts.map(o => '<option value="' + o[0] + '"' + (o[0] === val ? " selected" : "") + ">" + o[1] + "</option>").join("") + "</select></label>"; }
+function sColor(k, label, val) { return '<label class="set-row"><span>' + label + '</span><input type="color" data-key="' + k + '" value="' + val + '"></label>'; }
+
+async function renderSettings() {
+  const v = document.getElementById("view-settings");
+  destroyMap("detail");
+  v.innerHTML = loadingHtml();
+  let s;
+  try { s = await apiJson("/api/settings"); }
+  catch (e) { if (!e.auth) v.innerHTML = emptyHtml("No s'ha pogut carregar."); return; }
+  const g = (title, body) => '<div class="card static set-card"><h3>' + title + "</h3>" + body + "</div>";
+  const prof = g("Perfil",
+    sNum("userMaxHr", "FC máx (bpm)", s.profile.userMaxHr, 120, 220) +
+    sNum("userWeightKg", "Peso (kg)", s.profile.userWeightKg, 40, 150) +
+    sNum("userAge", "Edad (0=—)", s.profile.userAge, 0, 99) +
+    sSel("userSex", "Sexo", s.profile.userSex, [["", "—"], ["M", "Hombre"], ["F", "Mujer"]]));
+  const units = g("Unidades",
+    sSel("distanceUnit", "Distancia", s.units.distanceUnit, [["KM", "Kilómetros"], ["MILE", "Millas"]]) +
+    sSel("elevationUnit", "Altitud", s.units.elevationUnit, [["METER", "Metros"], ["FOOT", "Pies"]]) +
+    sSel("speedUnit", "Velocidad", s.units.speedUnit, [["KMH", "km/h"], ["MPH", "mph"]]));
+  const rec = g("Grabación",
+    sSel("recGpsIntervalSec", "Intervalo GPS (s)", String(s.recording.recGpsIntervalSec), [["1", "1"], ["2", "2"], ["5", "5"]]) +
+    sNum("recMinDistanceM", "Distancia mínima (m)", s.recording.recMinDistanceM, 1, 15) +
+    sNum("recMaxAccuracyM", "Precisión máx (m)", s.recording.recMaxAccuracyM, 10, 100) +
+    sToggle("recAutoPause", "Auto-pausa", s.recording.recAutoPause) +
+    sNum("recAutoPauseSec", "Segundos auto-pausa", s.recording.recAutoPauseSec, 5, 60) +
+    sToggle("recBarometer", "Barómetro", s.recording.recBarometer) +
+    sToggle("lapManagementEnabled", "Gestión de vueltas", s.recording.lapManagementEnabled) +
+    sToggle("autoLapByPosition", "Auto-vuelta por posición", s.recording.autoLapByPosition));
+  const map = g("Mapa y rutas",
+    sNum("mapCacheSizeMb", "Caché (MB)", s.map.mapCacheSizeMb, 100, 2000, 50) +
+    sToggle("prefetchOnFollow", "Precargar al seguir", s.map.prefetchOnFollow) +
+    sColor("trackColor", "Color traza", s.map.trackColor) +
+    sColor("followColor", "Color ruta", s.map.followColor) +
+    sNum("followWidth", "Grosor ruta", s.map.followWidth, 3, 12) +
+    sToggle("followArrows", "Flechas de dirección", s.map.followArrows) +
+    sToggle("followProgress", "Progreso", s.map.followProgress) +
+    sSel("trackingPointStyle", "Punto de seguimiento", s.map.trackingPointStyle, [["DOT", "Punto"], ["ARROW", "Flecha"]]) +
+    sNum("offRouteThresholdM", "Umbral fuera de ruta (m)", s.map.offRouteThresholdM, 10, 100) +
+    sToggle("offRouteSound", "Sonido fuera de ruta", s.map.offRouteSound) +
+    sToggle("offRouteVibrate", "Vibración fuera de ruta", s.map.offRouteVibrate) +
+    sToggle("offRouteSpoken", "Voz «fuera de ruta»", s.map.offRouteSpoken));
+  const audio = g("Audio",
+    sToggle("announceEnabled", "Anuncios activados", s.audio.announceEnabled) +
+    sSel("announceMode", "Modo", s.audio.announceMode, [["VOICE", "Voz"], ["BEEP", "Pitido"]]) +
+    sToggle("turnHeadsUp", "Aviso previo de giro", s.audio.turnHeadsUp) +
+    sToggle("announceByDistance", "Cada X km", s.audio.announceByDistance) +
+    sNum("announceDistanceKm", "km", s.audio.announceDistanceKm, 1, 10) +
+    sToggle("announceByTime", "Cada X min", s.audio.announceByTime) +
+    sNum("announceTimeMin", "min", s.audio.announceTimeMin, 1, 30) +
+    sToggle("annDistanceTime", "Anunciar distancia/tiempo", s.audio.annDistanceTime) +
+    sToggle("annPace", "Anunciar ritmo", s.audio.annPace) +
+    sToggle("annSplitPace", "Anunciar ritmo último km", s.audio.annSplitPace) +
+    sToggle("annElevation", "Anunciar desnivel", s.audio.annElevation) +
+    sToggle("annHeartRate", "Anunciar FC", s.audio.annHeartRate));
+  const gen = g("General",
+    sToggle("keepScreenOn", "Mantener pantalla encendida", s.general.keepScreenOn) +
+    sToggle("fullscreen", "Pantalla completa", s.general.fullscreen) +
+    sToggle("adaptiveZoom", "Zoom adaptativo", s.general.adaptiveZoom) +
+    sToggle("recCountdown", "Cuenta atrás al grabar", s.general.recCountdown) +
+    sNum("desktopServerPort", "Puerto modo escritorio", s.general.desktopServerPort, 1024, 65535));
+  const sync = g("Sincronización",
+    '<p class="set-status">' + s.sync.pending + " pendientes · " + s.sync.failed + " fallidos" +
+    (s.sync.lastUploadedMs ? " · última " + date(s.sync.lastUploadedMs) : "") + "</p>" +
+    '<button class="btn" id="syncRetry">Reintentar fallidos</button>');
+  const endurain = g("Endurain",
+    '<label class="set-row"><span>Servidor</span><input type="text" id="enHost" value="' + esc(s.endurain.host || "") + '" placeholder="https://…"></label>' +
+    '<label class="set-row"><span>API key' + (s.endurain.apiKeySet ? " (configurada)" : "") + '</span><input type="text" id="enKey" placeholder="' + (s.endurain.apiKeySet ? "·····" : "") + '"></label>' +
+    '<button class="btn" id="enSave">Guardar y probar</button>');
+  const webdav = g("WebDAV",
+    '<label class="set-row"><span>URL</span><input type="text" id="wdUrl" value="' + esc(s.webdav.url || "") + '"></label>' +
+    '<label class="set-row"><span>Usuario' + (s.webdav.userSet ? " (configurado)" : "") + '</span><input type="text" id="wdUser"></label>' +
+    '<label class="set-row"><span>Contraseña</span><input type="password" id="wdPass"></label>' +
+    '<button class="btn" id="wdSave">Guardar</button>');
+  const folder = g("Carpeta",
+    '<label class="set-row"><span>Guardar cada actividad en la carpeta' + (s.folder.folderSet ? "" : " (elige la carpeta en el móvil)") +
+    '</span><input type="checkbox" id="folderToggle"' + (s.folder.enabled ? " checked" : "") + "></label>");
+  v.innerHTML = '<h2 class="title">Ajustes</h2><p class="subtitle">Configuración de la app</p>' +
+    '<div class="set-grid">' + prof + units + rec + map + audio + gen + sync + endurain + webdav + folder + "</div>";
+
+  v.querySelectorAll("[data-key]").forEach(el =>
+    el.addEventListener("change", () => setSetting(el.dataset.key, el.type === "checkbox" ? el.checked : el.value)));
+  v.querySelector("#syncRetry").addEventListener("click", async () => {
+    try { await api("/api/settings/sync/retry", { method: "POST" }); toast("Reintentando…"); } catch (e) { if (!e.auth) toast("Error", true); }
+  });
+  v.querySelector("#enSave").addEventListener("click", async () => {
+    const b = { host: document.getElementById("enHost").value };
+    const key = document.getElementById("enKey").value; if (key) b.apiKey = key;
+    try {
+      const res = await api("/api/settings/endurain", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(b) });
+      const j = await res.json(); toast(j.ok ? "Conectado ✓" : ("Error: " + (j.error || "")), !j.ok);
+    } catch (e) { if (!e.auth) toast("Error de connexió", true); }
+  });
+  v.querySelector("#wdSave").addEventListener("click", async () => {
+    const b = { url: document.getElementById("wdUrl").value };
+    const u = document.getElementById("wdUser").value, pw = document.getElementById("wdPass").value;
+    if (u) b.user = u; if (pw) b.pass = pw;
+    try { await api("/api/settings/webdav", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(b) }); toast("Guardado"); }
+    catch (e) { if (!e.auth) toast("Error", true); }
+  });
+  v.querySelector("#folderToggle").addEventListener("change", async (ev) => {
+    try { await api("/api/settings/folder", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ enabled: String(ev.target.checked) }) }); }
+    catch (e) { if (!e.auth) toast("Error", true); }
+  });
 }
 
 /* ============================================================= *
