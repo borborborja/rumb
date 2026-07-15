@@ -184,6 +184,15 @@ class MapViewerActivity : ComponentActivity() {
     private var competitionId = -1L
     // ROUTE competition: the inline reference route to draw once the map controller is ready.
     private var pendingRouteRefPts: List<cat.rumb.app.data.gpx.GpxPoint>? = null
+    private var startPillStarted = false
+
+    /** Starts the competition pre-start pill once (idempotent — safe against the map/DB load race). */
+    private fun maybeStartStartPill(ctrl: MapLibreController) {
+        if (competing && !startPillStarted) {
+            startPillStarted = true
+            startPointTicker(ctrl)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -232,7 +241,10 @@ class MapViewerActivity : ComponentActivity() {
                         ghostEngine = cat.rumb.app.data.competition.GhostEngine(refPts)
                     }
                     pendingRouteRefPts = refPts
-                    controller?.let { drawFollowRouteFromPoints(prefs, it, refPts, frame = true) }
+                    controller?.let {
+                        drawFollowRouteFromPoints(prefs, it, refPts, frame = true)
+                        maybeStartStartPill(it) // the map callback may have run before competing was set
+                    }
                     DebugLog.i("Competi", "mode competició ROUTE · id=$compId · ${refPts.size} punts")
                 }
             }
@@ -499,7 +511,7 @@ class MapViewerActivity : ComponentActivity() {
             ctrl.setHeadingUp(prefs.mapOrientation == "HEADING_UP")
             ctrl.setTrackingPointStyle(prefs.trackingPointStyle, prefs.trackingPointColor, prefs.trackingPointSize)
             setupControls(ctrl)
-            if (competing) startPointTicker(ctrl)
+            maybeStartStartPill(ctrl)
             startTrackingMarkerTicker(ctrl)
             val onReady: () -> Unit = {
                 // Frame the active route when not recording (no live track to follow yet) so it's visible.
@@ -570,15 +582,20 @@ class MapViewerActivity : ComponentActivity() {
         if (hasLocationPermission()) ctrl.enableLocation(this)
     }
 
-    /** Loads or clears the followed route according to the current pref (live). */
+    /** Loads or clears the followed route according to the current state (live). */
     private fun reloadFollow(ctrl: MapLibreController, frame: Boolean = false) {
         val prefs = ViewerPreferences.get(this)
-        if (prefs.activeFollowTrackId <= 0) {
-            ctrl.setFollowRoute(emptyList())
-            followEngine = null
-            following = false
-        } else {
-            loadFollowRoute(prefs, ctrl, frame = frame)
+        val refPts = pendingRouteRefPts
+        when {
+            // ROUTE competition: the reference route is inline (no track id) — redraw it, or a base-map
+            // change would wipe it and disable the whole follow/ghost HUD.
+            refPts != null -> drawFollowRouteFromPoints(prefs, ctrl, refPts, frame = frame)
+            prefs.activeFollowTrackId <= 0 -> {
+                ctrl.setFollowRoute(emptyList())
+                followEngine = null
+                following = false
+            }
+            else -> loadFollowRoute(prefs, ctrl, frame = frame)
         }
     }
 
@@ -855,6 +872,9 @@ class MapViewerActivity : ComponentActivity() {
                     RumbApplication.from(this@MapViewerActivity).competitionRepository
                         .addAttemptsFromTrack(competitionId, newId, name, System.currentTimeMillis())
                 }
+                // Circuit mode is per-recording: clear the preset auto-lap line so a following
+                // recording in the same session never inherits a stale finish line.
+                cat.rumb.app.data.prefs.ViewerPreferences.get(this@MapViewerActivity).circuitActive = false
                 if (folder != "General") {
                     val p = cat.rumb.app.data.prefs.ViewerPreferences.get(this@MapViewerActivity)
                     p.foldersTraining = p.foldersTraining + folder

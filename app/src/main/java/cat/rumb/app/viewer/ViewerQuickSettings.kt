@@ -266,16 +266,19 @@ private fun CompetitionQsTab(
 
     val bestId = candidates.filter { (it.durationMs ?: 0) > 0 }.minByOrNull { it.durationMs!! }?.id
 
-    Text(stringResource(R.string.viewer_qs_opponent), style = MaterialTheme.typography.labelLarge)
-    candidates.forEach { c ->
-        val subtitle = fmtDuration(c.durationMs) +
-            if (c.id == bestId) " · " + stringResource(R.string.viewer_qs_opponent_best) else ""
-        RadioRow(c.name, subtitle, selOpponent == c.id) {
-            selOpponent = c.id
-            onSelectOpponent(c.id)
+    // No candidate list = race against the competition's own reference (best). Hide the empty picker.
+    if (candidates.isNotEmpty()) {
+        Text(stringResource(R.string.viewer_qs_opponent), style = MaterialTheme.typography.labelLarge)
+        candidates.forEach { c ->
+            val subtitle = fmtDuration(c.durationMs) +
+                if (c.id == bestId) " · " + stringResource(R.string.viewer_qs_opponent_best) else ""
+            RadioRow(c.name, subtitle, selOpponent == c.id) {
+                selOpponent = c.id
+                onSelectOpponent(c.id)
+            }
         }
+        HorizontalDivider(Modifier.padding(vertical = 8.dp))
     }
-    HorizontalDivider(Modifier.padding(vertical = 8.dp))
     ToggleRow(stringResource(R.string.viewer_qs_halo), h) { h = it; onHalo(it) }
     Text(
         stringResource(R.string.viewer_qs_halo_help),

@@ -219,19 +219,20 @@ abstract class RumbDatabase : RoomDatabase() {
                         "SELECT id, name, 'ROUTE', activity_type, created_at, competition_archived, gpx " +
                         "FROM `follow_tracks` WHERE is_competition = 1",
                 )
-                // The reference itself is a leaderboard row.
+                // The reference itself is a leaderboard row. Skip untimed rows so a null duration
+                // doesn't become a 0 ms attempt that sorts to the top and diverges from best_attempt_id.
                 db.execSQL(
                     "INSERT INTO `competition_attempts` (competition_id, source_track_id, lap_index, " +
                         "time_ms, distance_m, avg_hr, created_at, gpx) " +
-                        "SELECT id, id, -1, COALESCE(duration_ms, 0), distance_meters, NULL, created_at, gpx " +
-                        "FROM `follow_tracks` WHERE is_competition = 1",
+                        "SELECT id, id, -1, duration_ms, distance_meters, NULL, created_at, gpx " +
+                        "FROM `follow_tracks` WHERE is_competition = 1 AND duration_ms IS NOT NULL AND duration_ms > 0",
                 )
-                // Each linked attempt.
+                // Each linked attempt (untimed ones skipped).
                 db.execSQL(
                     "INSERT INTO `competition_attempts` (competition_id, source_track_id, lap_index, " +
                         "time_ms, distance_m, avg_hr, created_at, gpx) " +
-                        "SELECT competition_ref_id, id, -1, COALESCE(duration_ms, 0), distance_meters, NULL, created_at, gpx " +
-                        "FROM `follow_tracks` WHERE competition_ref_id IS NOT NULL " +
+                        "SELECT competition_ref_id, id, -1, duration_ms, distance_meters, NULL, created_at, gpx " +
+                        "FROM `follow_tracks` WHERE competition_ref_id IS NOT NULL AND duration_ms IS NOT NULL AND duration_ms > 0 " +
                         "AND competition_ref_id IN (SELECT id FROM `follow_tracks` WHERE is_competition = 1)",
                 )
                 // Best attempt = fastest positive-time attempt (works for both types).

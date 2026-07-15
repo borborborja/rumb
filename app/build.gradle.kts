@@ -14,8 +14,8 @@ android {
         applicationId = "cat.rumb.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 101
-        versionName = "1.32.0"
+        versionCode = 102
+        versionName = "1.33.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
