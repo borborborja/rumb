@@ -66,7 +66,11 @@ fun ManagerApp(
     // startDestination is already fixed, so navigate imperatively when a new route arrives.
     androidx.compose.runtime.LaunchedEffect(navigateTo) {
         navigateTo?.let {
-            nav.navigate(it)
+            // singleTask: a repeated pencil tap re-enters via onNewIntent. Don't stack a second
+            // editor (and its MapView) on top of an identical one.
+            if (nav.currentDestination?.route != it) {
+                nav.navigate(it) { launchSingleTop = true }
+            }
             onNavigated()
         }
     }

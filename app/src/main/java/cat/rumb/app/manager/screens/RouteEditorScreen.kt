@@ -116,9 +116,9 @@ fun RouteEditorScreen(trackId: Long? = null, onBack: () -> Unit, onSaved: () -> 
                     error = e.message; straightPath(waypoints.toList())
                 }
                 loading = false
-                c.setRoute(routed!!.points)
+                c.setRoute(routed?.points.orEmpty())
             }
-            else -> { routed = straightPath(waypoints.toList()); c.setRoute(routed!!.points) }
+            else -> { routed = straightPath(waypoints.toList()); c.setRoute(routed?.points.orEmpty()) }
         }
     }
 

@@ -837,9 +837,10 @@ private fun ActivityTypesSection(prefs: ViewerPreferences) {
     Card {
         Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             ActivityTypes.PREDEFINED.forEach { id ->
+                val labelRes = ActivityTypeCatalog.labelRes(id) ?: return@forEach
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Icon(ActivityTypeCatalog.iconFor(id), contentDescription = null)
-                    Text(stringResource(ActivityTypeCatalog.labelRes(id)!!), style = MaterialTheme.typography.bodyMedium)
+                    Text(stringResource(labelRes), style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }

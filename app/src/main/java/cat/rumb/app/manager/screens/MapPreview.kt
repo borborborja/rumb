@@ -32,6 +32,10 @@ fun rememberMapViewWithLifecycle(textureMode: Boolean = false): MapView {
     }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     DisposableEffect(lifecycle, mapView) {
+        // Destroy the native MapView exactly once. Inside a NavHost the lifecycle owner is the
+        // NavBackStackEntry, so popping this screen fires ON_DESTROY on the observer AND runs
+        // onDispose — calling MapView.onDestroy() twice crashes on the already-freed native peer.
+        var destroyed = false
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_CREATE -> mapView.onCreate(null)
@@ -39,15 +43,18 @@ fun rememberMapViewWithLifecycle(textureMode: Boolean = false): MapView {
                 Lifecycle.Event.ON_RESUME -> mapView.onResume()
                 Lifecycle.Event.ON_PAUSE -> mapView.onPause()
                 Lifecycle.Event.ON_STOP -> mapView.onStop()
-                Lifecycle.Event.ON_DESTROY -> mapView.onDestroy()
+                Lifecycle.Event.ON_DESTROY -> if (!destroyed) { destroyed = true; mapView.onDestroy() }
                 else -> {}
             }
         }
         lifecycle.addObserver(observer)
         onDispose {
             lifecycle.removeObserver(observer)
-            mapView.onStop()
-            mapView.onDestroy()
+            if (!destroyed) {
+                destroyed = true
+                mapView.onStop()
+                mapView.onDestroy()
+            }
         }
     }
     return mapView
