@@ -1564,10 +1564,10 @@ class MapViewerActivity : ComponentActivity() {
         // "Direction matters" flips the moment a lap block opens or closes, but the arrow style is
         // only applied where the route is drawn — without this they'd wait for a route reload that
         // may never come.
-        val arrowsNow = showFollowArrows(ViewerPreferences.get(this))
+        val p = ViewerPreferences.get(this)
+        val arrowsNow = showFollowArrows(p)
         if (following && arrowsNow != lastArrowsShown) {
             lastArrowsShown = arrowsNow
-            val p = ViewerPreferences.get(this)
             ctrl.setFollowRouteStyle(
                 p.followColor, p.followWidth, arrowsNow, p.followProgress,
                 p.followArrowColor, p.followArrowSize,

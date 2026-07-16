@@ -110,6 +110,16 @@ fun ViewerQuickSettings(
     var ap by remember { mutableStateOf(autoPause) }
     var apSec by remember { mutableStateOf(autoPauseSec) }
     var autoZoom by remember { mutableStateOf(adaptiveZoom) }
+    // Hoisted like every other toggle on this sheet: state inside a tab dies when you switch away,
+    // and the parameters were read once when the sheet opened — so a chip you had just changed would
+    // come back showing its old value while the pref underneath was right.
+    var lapMgmt by remember { mutableStateOf(lapManagement) }
+    var autoLap by remember { mutableStateOf(autoLapByPosition) }
+    var lapEveryM by remember { mutableStateOf(autoLapEveryM) }
+    var lapCd by remember { mutableStateOf(lapCountdown) }
+    var ghost by remember { mutableStateOf(ghostEnabled) }
+    var haloOn by remember { mutableStateOf(halo) }
+    var secsOn by remember { mutableStateOf(showSeconds) }
 
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
         ScrollableTabRow(selectedTabIndex = tab, edgePadding = 8.dp) {
@@ -124,14 +134,32 @@ fun ViewerQuickSettings(
         ) {
             when (tab) {
                 0 -> MapTab(selBase, offlineMaps) { id -> selBase = id; onSelectBaseMap(id) }
+                // Named, not positional: this is a wall of adjacent Boolean/lambda pairs, exactly the
+                // shape where one reordered parameter swaps two settings without a compiler peep.
                 1 -> FollowTab(
-                    selFollow, tracks, competitions, currentCompetitionId, turnVoice, onTurnVoice,
-                    lapCountdown, onLapCountdown, ghostEnabled, onGhostEnabled,
-                    lapManagement, onLapManagement, autoLapByPosition, onAutoLapByPosition,
-                    autoLapEveryM, onAutoLapEveryM, halo, onHalo, showSeconds, onShowSeconds,
-                    onStartCompetition,
+                    current = selFollow,
+                    tracks = tracks,
+                    competitions = competitions,
+                    currentCompetitionId = currentCompetitionId,
+                    turnVoice = turnVoice,
+                    onTurnVoice = onTurnVoice,
+                    lapCountdown = lapCd,
+                    onLapCountdown = { lapCd = it; onLapCountdown(it) },
+                    ghostEnabled = ghost,
+                    onGhostEnabled = { ghost = it; onGhostEnabled(it) },
+                    lapManagement = lapMgmt,
+                    onLapManagement = { lapMgmt = it; onLapManagement(it) },
+                    autoLapByPosition = autoLap,
+                    onAutoLapByPosition = { autoLap = it; onAutoLapByPosition(it) },
+                    autoLapEveryM = lapEveryM,
+                    onAutoLapEveryM = { lapEveryM = it; onAutoLapEveryM(it) },
+                    halo = haloOn,
+                    onHalo = { haloOn = it; onHalo(it) },
+                    showSeconds = secsOn,
+                    onShowSeconds = { secsOn = it; onShowSeconds(it) },
+                    onStartCompetition = onStartCompetition,
                 ) { id -> selFollow = id; onSelectFollow(id) }
-                else -> OptionsTab(
+                2 -> OptionsTab(
                     orient, keep, full, autoZoom,
                     onOrientation = { orient = it; onOrientation(it) },
                     onKeepScreenOn = { keep = it; onKeepScreenOn(it) },
@@ -259,9 +287,20 @@ private fun FollowTab(
     // happened to tap that button, and the switch resets to "Rutas" every time the sheet opens.
     HorizontalDivider(Modifier.padding(vertical = 8.dp))
     LapsSection(
-        lapManagement, onLapManagement, autoLapByPosition, onAutoLapByPosition,
-        autoLapEveryM, onAutoLapEveryM, lapCountdown, onLapCountdown,
-        ghostEnabled, onGhostEnabled, halo, onHalo, showSeconds, onShowSeconds,
+        lapManagement = lapManagement,
+        onLapManagement = onLapManagement,
+        autoLapByPosition = autoLapByPosition,
+        onAutoLapByPosition = onAutoLapByPosition,
+        autoLapEveryM = autoLapEveryM,
+        onAutoLapEveryM = onAutoLapEveryM,
+        lapCountdown = lapCountdown,
+        onLapCountdown = onLapCountdown,
+        ghostEnabled = ghostEnabled,
+        onGhostEnabled = onGhostEnabled,
+        halo = halo,
+        onHalo = onHalo,
+        showSeconds = showSeconds,
+        onShowSeconds = onShowSeconds,
     )
 }
 
@@ -288,20 +327,17 @@ private fun LapsSection(
     onShowSeconds: (Boolean) -> Unit,
 ) {
     Text(stringResource(R.string.viewer_qs_section_laps), style = MaterialTheme.typography.labelLarge)
-    var lapMgmt by remember { mutableStateOf(lapManagement) }
-    ToggleRow(stringResource(R.string.viewer_qs_lap_management), lapMgmt) { lapMgmt = it; onLapManagement(it) }
-    if (lapMgmt) {
-        var autoLap by remember { mutableStateOf(autoLapByPosition) }
-        ToggleRow(stringResource(R.string.viewer_qs_auto_lap), autoLap) { autoLap = it; onAutoLapByPosition(it) }
+    ToggleRow(stringResource(R.string.viewer_qs_lap_management), lapManagement, onLapManagement)
+    if (lapManagement) {
+        ToggleRow(stringResource(R.string.viewer_qs_auto_lap), autoLapByPosition, onAutoLapByPosition)
         Hint(R.string.viewer_qs_auto_lap_help)
         // Runner splits: a lap every N km, no buttons. Off (0) keeps laps fully manual.
         Hint(R.string.viewer_qs_auto_lap_distance)
-        var lapEveryM by remember { mutableStateOf(autoLapEveryM) }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             listOf(0f, 500f, 1000f, 5000f).forEach { m ->
                 FilterChip(
-                    selected = lapEveryM == m,
-                    onClick = { lapEveryM = m; onAutoLapEveryM(m) },
+                    selected = autoLapEveryM == m,
+                    onClick = { onAutoLapEveryM(m) },
                     label = {
                         Text(
                             when {
@@ -314,28 +350,24 @@ private fun LapsSection(
                 )
             }
         }
-        var lapCd by remember { mutableStateOf(lapCountdown) }
-        ToggleRow(stringResource(R.string.viewer_qs_lap_countdown), lapCd) { lapCd = it; onLapCountdown(it) }
+        ToggleRow(stringResource(R.string.viewer_qs_lap_countdown), lapCountdown, onLapCountdown)
         Hint(R.string.viewer_qs_lap_countdown_help)
     }
 
     HorizontalDivider(Modifier.padding(vertical = 8.dp))
     Text(stringResource(R.string.viewer_qs_section_ghost), style = MaterialTheme.typography.labelLarge)
-    var ghost by remember { mutableStateOf(ghostEnabled) }
-    ToggleRow(stringResource(R.string.viewer_qs_ghost_enabled), ghost) { ghost = it; onGhostEnabled(it) }
+    ToggleRow(stringResource(R.string.viewer_qs_ghost_enabled), ghostEnabled, onGhostEnabled)
     Hint(R.string.viewer_qs_ghost_enabled_help)
-    if (ghost) {
-        var h by remember { mutableStateOf(halo) }
-        ToggleRow(stringResource(R.string.viewer_qs_halo), h) { h = it; onHalo(it) }
+    if (ghostEnabled) {
+        ToggleRow(stringResource(R.string.viewer_qs_halo), halo, onHalo)
         Hint(R.string.viewer_qs_halo_help)
-        var secs by remember { mutableStateOf(showSeconds) }
-        ToggleRow(stringResource(R.string.viewer_qs_ghost_seconds), secs) { secs = it; onShowSeconds(it) }
+        ToggleRow(stringResource(R.string.viewer_qs_ghost_seconds), showSeconds, onShowSeconds)
     }
 }
 
 /** Small explanatory line under a setting. */
 @Composable
-private fun Hint(res: Int) = Text(
+private fun Hint(@androidx.annotation.StringRes res: Int) = Text(
     stringResource(res),
     style = MaterialTheme.typography.bodySmall,
     color = MaterialTheme.colorScheme.outline,
