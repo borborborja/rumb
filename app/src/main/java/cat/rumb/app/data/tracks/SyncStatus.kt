@@ -68,6 +68,10 @@ interface SyncStatusDao {
 
     @Query("SELECT status FROM sync_status WHERE track_id = :trackId AND service = :service")
     suspend fun statusFor(trackId: Long, service: String): String?
+
+    /** Track ids already uploaded to [service] — used to skip them in a bulk upload. */
+    @Query("SELECT track_id FROM sync_status WHERE service = :service AND status = 'UPLOADED'")
+    suspend fun uploadedTrackIds(service: String): List<Long>
 }
 
 /** Convenience writer used by the sync workers to record their outcome. No-op when trackId <= 0. */

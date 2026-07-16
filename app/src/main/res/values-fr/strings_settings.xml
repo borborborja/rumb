@@ -222,4 +222,6 @@
     <string name="endurain_dl_ok">Activity imported</string>
     <string name="endurain_dl_no_gps">This activity has no GPS data</string>
     <string name="endurain_dl_error">Couldn\'t download the activity</string>
+    <string name="settings_sync_upload_all">Upload all pending to Endurain</string>
+    <string name="settings_sync_upload_all_queued">%1$d activities queued to upload</string>
 </resources>

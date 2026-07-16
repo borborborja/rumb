@@ -222,4 +222,6 @@
     <string name="endurain_dl_ok">Activitat importada</string>
     <string name="endurain_dl_no_gps">Aquesta activitat no té dades GPS</string>
     <string name="endurain_dl_error">No s\'ha pogut baixar l\'activitat</string>
+    <string name="settings_sync_upload_all">Puja tots els pendents a Endurain</string>
+    <string name="settings_sync_upload_all_queued">%1$d activitats en cua per pujar</string>
 </resources>

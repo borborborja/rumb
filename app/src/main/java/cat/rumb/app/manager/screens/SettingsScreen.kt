@@ -272,6 +272,18 @@ private fun SyncSection(onOpenEndurainDownload: () -> Unit = {}) {
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.outline,
     )
+    // Auto-upload only fires when a recording stops, so this catches up pre-existing/imported tracks.
+    if (endurainPrefs.isConfigured) {
+        OutlinedButton(
+            onClick = {
+                scope.launch {
+                    val n = cat.rumb.app.data.sync.SyncTargets.uploadAllPendingToEndurain(context)
+                    status = context.getString(R.string.settings_sync_upload_all_queued, n)
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+        ) { Text(stringResource(R.string.settings_sync_upload_all)) }
+    }
     // Downloading needs a JWT session to read activities, so it's credentials-only.
     if (mode == credMode) {
         androidx.compose.material3.OutlinedButton(

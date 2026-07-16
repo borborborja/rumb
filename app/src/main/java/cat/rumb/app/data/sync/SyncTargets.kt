@@ -8,6 +8,7 @@ import cat.rumb.app.data.prefs.WebDavPreferences
 import cat.rumb.app.data.tracks.SyncService
 import cat.rumb.app.data.tracks.SyncState
 import cat.rumb.app.data.tracks.SyncStatusStore
+import kotlinx.coroutines.flow.first
 
 /**
  * Fans a saved track out to every configured sync target (Endurain, WebDAV, folder). Each target
@@ -38,6 +39,36 @@ object SyncTargets {
             SyncStatusStore.mark(context, trackId, SyncService.FOLDER, SyncState.PENDING)
             FolderSaveWorker.enqueue(context, gpx, fileName, trackId)
         }
+    }
+
+    /**
+     * Enqueues every library track not yet uploaded to Endurain — recorded AND imported — for upload,
+     * skipping archived tracks, those without geometry, and those already up (no duplicates). Auto-
+     * upload only fires when a recording stops, so this is how pre-existing/imported tracks get sent.
+     * Returns how many were queued.
+     */
+    suspend fun uploadAllPendingToEndurain(context: Context): Int {
+        if (!EndurainPreferences.get(context).isConfigured) return 0
+        val app = cat.rumb.app.RumbApplication.from(context)
+        val summaries = app.trackRepository.observeSummaries().first()
+        val alreadyUp = app.database.syncStatusDao().uploadedTrackIds(SyncService.ENDURAIN).toHashSet()
+        val up = cat.rumb.app.data.prefs.ViewerPreferences.get(context)
+        var queued = 0
+        for (s in summaries) {
+            if (s.archived || s.id in alreadyUp) continue
+            val entity = app.trackRepository.get(s.id) ?: continue
+            val points = runCatching { cat.rumb.app.data.gpx.Gpx.read(entity.gpx.byteInputStream()).points }
+                .getOrDefault(emptyList())
+            if (points.size < 2) continue
+            val laps = cat.rumb.app.data.tracks.Laps.decode(entity.laps)
+            val built = cat.rumb.app.data.gpx.ActivityFile.build(
+                safeName(entity.name), points, laps, entity.activityType, up.userWeightKg, up.userAge, up.userSex,
+            )
+            SyncStatusStore.mark(context, s.id, SyncService.ENDURAIN, SyncState.PENDING)
+            EndurainUploadWorker.enqueue(context, built.content, built.fileName, s.id)
+            queued++
+        }
+        return queued
     }
 
     /** Re-enqueues every FAILED outbox row (used by "retry failed" in settings). */
