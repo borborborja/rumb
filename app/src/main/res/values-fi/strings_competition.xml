@@ -32,4 +32,5 @@
     <string name="competition_cd_menu">Kilpailun asetukset</string>
     <string name="competition_attempt_not_counted">Tallennus tallennettu, mutta se ei kelpaa kilpailuyritykseksi.</string>
     <string name="competition_attempt_wrong_sport">Tallennus tallennettu, mutta ei kelpaa: eri laji kuin kilpailussa.</string>
+    <string name="competition_attempt_lap_not_raced">Tallennus tallennettu, mutta ei laske: yksikään kierros ei kiertänyt kokonaan.</string>
 </resources>

@@ -58,6 +58,13 @@ data class RecorderConfig(
      * split. Mutually exclusive with the manual [autoLapByPosition] path.
      */
     val presetLapLine: GeoPoint? = null,
+    /**
+     * How long the circuit's reference lap is (m), when racing a LAP competition. A crossing then
+     * only counts as a lap once you have covered [LAP_MIN_COVERAGE] of it — [autoLapMinLapM] is
+     * odometer travel, so wandering near the finish line satisfies it without going round at all.
+     * 0 = unknown (an ad-hoc circuit with no reference): the old distance guard stands.
+     */
+    val lapRefDistanceM: Double = 0.0,
 )
 
 /** Immutable snapshot of an ongoing/finished native recording, consumed by the viewer pipeline. */
@@ -376,12 +383,21 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
             if (d > config.autoLapRadiusM) {
                 lapLineArmed = true
             } else if (lapLineArmed) {
-                val sinceMs = if (lapsActive) totalMs(time) - lapStartTotalMs else Long.MAX_VALUE
-                val sinceM = if (lapsActive) distanceM - lapStartDistanceM else Double.MAX_VALUE
-                if (sinceMs >= config.autoLapMinLapMs && sinceM >= config.autoLapMinLapM) {
+                if (!lapsActive) {
                     // After an explicit End-Laps, don't auto-open a new block just by crossing the
                     // line again (e.g. riding out of the circuit).
-                    if (lapsActive) { DebugLog.i("Motor", "circuit: creuament meta (${fmt(d)}m)"); split(time); lapLineArmed = false } else if (!lapsEnded) { DebugLog.i("Motor", "circuit: inici per creuament"); startLaps(time); lapLineArmed = false }
+                    if (!lapsEnded) { DebugLog.i("Motor", "circuit: inici per creuament"); startLaps(time); lapLineArmed = false }
+                } else if (totalMs(time) - lapStartTotalMs >= config.autoLapMinLapMs) {
+                    val sinceM = distanceM - lapStartDistanceM
+                    if (sinceM >= requiredLapDistanceM()) {
+                        DebugLog.i("Motor", "circuit: creuament meta (${fmt(d)}m)")
+                        split(time)
+                    } else {
+                        abortLap(time, sinceM)
+                    }
+                    // Disarm on EITHER outcome. Left armed after a rejected crossing, the machine
+                    // sits hot on the line and fires on the next fix that clears the guards.
+                    lapLineArmed = false
                 }
             }
         }
@@ -398,6 +414,31 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
         if (finished) return
         if (!lapsActive) { startLaps(now); return }
         split(now)
+    }
+
+    /**
+     * How far you must have travelled for a crossing to close a lap. With a reference lap to race,
+     * it's a fraction of that lap — the point is "did you go round", which the flat [autoLapMinLapM]
+     * cannot tell: it counts odometer metres, so 100 m of wandering by the finish line passes it and
+     * a 5% lap of a 2 km circuit counted the same as a full one.
+     */
+    private fun requiredLapDistanceM(): Double =
+        if (config.lapRefDistanceM > 0) config.lapRefDistanceM * LAP_MIN_COVERAGE
+        else config.autoLapMinLapM
+
+    /**
+     * Crossing the line without having gone round: the lap is abandoned, not completed. It doesn't
+     * count and doesn't split — you're back at the start, so the lap simply begins again here. The
+     * abandoned stretch is marked so it can be told apart from a real lap when the track is saved.
+     */
+    private fun abortLap(now: Instant, coveredM: Double) {
+        lapMarks.add(LapMark(seq, distanceM, totalMs(now), LapMarkType.ABORT))
+        lapStartDistanceM = distanceM
+        lapStartTotalMs = totalMs(now)
+        DebugLog.i(
+            "Motor",
+            "circuit: vuelta $lapCount abandonada · ${fmt(coveredM)}/${fmt(requiredLapDistanceM())}m · reinicia",
+        )
     }
 
     /** Closes the current lap and opens the next. Shared by the manual flag and position auto-lap. */
@@ -446,12 +487,12 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
 
     /**
      * Circuit-only lap finalisation: the open lap was started at the LAST meta crossing (the last
-     * START/SPLIT mark). Placing END on that same seq drops the still-open partial (meta→here) from
+     * opening mark). Placing END on that same seq drops the still-open partial (meta→here) from
      * the lap count — [Laps.fromMarks] turns it into a RETURN instead. Idempotent via [lapsActive].
      */
     private fun endCircuitLapsAtLastCrossing() {
         if (!lapsActive) return
-        val lastCrossing = lapMarks.lastOrNull { it.type == LapMarkType.START || it.type == LapMarkType.SPLIT }
+        val lastCrossing = lapMarks.lastOrNull { it.type.opensLap }
         if (lastCrossing != null) {
             lapMarks.add(LapMark(lastCrossing.seq, lastCrossing.distanceM, lastCrossing.totalMs, LapMarkType.END))
         }
@@ -591,5 +632,12 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
     private companion object {
         const val PRESSURE_SMOOTHING = 0.3
         const val PRESSURE_HYSTERESIS_M = 1.5
+
+        /**
+         * Fraction of the reference lap you must cover for a crossing to count. Not 0.9 like a ROUTE
+         * attempt: a lap is raced by feel around a line you keep re-crossing, and a GPS-trimmed
+         * corner shouldn't void an honest lap. Rejecting an abandoned one is what matters here.
+         */
+        const val LAP_MIN_COVERAGE = 0.8
     }
 }

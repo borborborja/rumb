@@ -32,4 +32,5 @@
     <string name="competition_cd_menu">Options de compétition</string>
     <string name="competition_attempt_not_counted">Enregistrement sauvegardé, mais il ne compte pas comme tentative.</string>
     <string name="competition_attempt_wrong_sport">Enregistrement sauvegardé, mais il ne compte pas : le sport diffère de celui de la compétition.</string>
+    <string name="competition_attempt_lap_not_raced">Enregistrement sauvegardé, mais il ne compte pas : aucun tour n\'a fait le circuit complet.</string>
 </resources>

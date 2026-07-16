@@ -336,6 +336,66 @@ class TrackRecorderTest {
         assertThat(s2.lapMarks.count { it.type == LapMarkType.SPLIT }).isEqualTo(1)
     }
 
+    /**
+     * Circuit out-and-back: approach from the north and cross (opens lap 1), then ride [outSteps]
+     * out and back to the line. 0.0002° lat ≈ 22 m/step, so a lap is ~44·outSteps metres.
+     */
+    private fun circuitLap(cfg: RecorderConfig, outSteps: Int): TrackRecorder {
+        val r = TrackRecorder(cfg)
+        r.start(t0)
+        r.warmUp()
+        var sec = 0L
+        for (i in 15 downTo 0) { r.onLocation(41.0 + i * 0.0002, 2.0, 100.0, null, null, 5f, at(sec)); sec++ }
+        for (i in 1..outSteps) { r.onLocation(41.0 + i * 0.0002, 2.0, 100.0, null, null, 5f, at(sec)); sec++ }
+        for (i in (outSteps - 1) downTo 0) { r.onLocation(41.0 + i * 0.0002, 2.0, 100.0, null, null, 5f, at(sec)); sec++ }
+        return r
+    }
+
+    /** ~666 m lap, reference 600 m → 111% covered, well past the 80% bar. */
+    private fun circuitCfg(refM: Double) = RecorderConfig(
+        presetLapLine = cat.rumb.app.data.opentracks.model.GeoPoint(41.0, 2.0),
+        lapRefDistanceM = refM,
+        autoLapMinLapMs = 0, // isolate the coverage guard from the anti-re-trigger time guard
+    )
+
+    @Test
+    fun circuitAbandonedLapDoesNotCountAndRestarts() {
+        // The reported bug: start lap 3, give up ~44 m out, come back to the line → it counted lap 4.
+        // 88 m of travel against a 600 m reference is 15% of a lap, so it is not a lap.
+        val r = circuitLap(circuitCfg(refM = 600.0), outSteps = 2)
+        val s = r.snapshot(at(60))
+        assertThat(s.lapCount).isEqualTo(1) // still on lap 1, not counted into lap 2
+        assertThat(s.lapMarks.none { it.type == LapMarkType.SPLIT }).isTrue()
+        assertThat(s.lapMarks.count { it.type == LapMarkType.ABORT }).isEqualTo(1)
+    }
+
+    @Test
+    fun circuitLapThatGoesRoundCounts() {
+        val r = circuitLap(circuitCfg(refM = 600.0), outSteps = 15)
+        val s = r.snapshot(at(60))
+        assertThat(s.lapCount).isEqualTo(2)
+        assertThat(s.lapMarks.count { it.type == LapMarkType.SPLIT }).isEqualTo(1)
+        assertThat(s.lapMarks.none { it.type == LapMarkType.ABORT }).isTrue()
+    }
+
+    @Test
+    fun circuitAbortedLapRestartsFromTheCrossing() {
+        // After an abort you are back at the start, so the retry is measured from the crossing — not
+        // carrying the abandoned attempt, which would poison the lap time you actually race.
+        // ~22 m here: like every crossing, it lands on the fix that ENTERS the 25 m radius, one step
+        // short of the line itself. What matters is that the ~88 m given up are gone.
+        val r = circuitLap(circuitCfg(refM = 600.0), outSteps = 2)
+        assertThat(r.snapshot(at(60)).currentLapDistanceM).isLessThan(30.0)
+    }
+
+    @Test
+    fun circuitWithoutAReferenceKeepsTheOldDistanceGuard() {
+        // An ad-hoc circuit has no lap to compare against: fall back to autoLapMinLapM (100 m), so a
+        // ~666 m lap still counts and nothing regresses for people not racing a competition.
+        val r = circuitLap(circuitCfg(refM = 0.0), outSteps = 15)
+        assertThat(r.snapshot(at(60)).lapCount).isEqualTo(2)
+    }
+
     // --- Distance auto-lap (runner splits) ---
 
     /** Runs [meters] north in ~11 m steps (0.0001° lat), one fix per second. */

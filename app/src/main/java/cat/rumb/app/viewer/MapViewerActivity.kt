@@ -54,6 +54,7 @@ import cat.rumb.app.data.opentracks.model.TrackStatistics
 import cat.rumb.app.data.prefs.ViewerPreferences
 import cat.rumb.app.data.recording.NativeRecording
 import cat.rumb.app.data.recording.RecorderState
+import cat.rumb.app.data.tracks.TrackStatsCalculator
 import cat.rumb.app.data.recording.RecordingService
 import cat.rumb.app.viewer.follow.FollowRouteEngine
 import cat.rumb.app.viewer.hud.HudControls
@@ -248,6 +249,10 @@ class MapViewerActivity : ComponentActivity() {
                     prefs.circuitRadiusM = comp.radiusM ?: 25.0
                     prefs.circuitMinLapMs = comp.minLapMs ?: 20_000
                     prefs.circuitMinLapM = comp.minLapM ?: 100.0
+                    // How long a lap of this circuit is: the engine needs it to tell a raced lap
+                    // from one abandoned near the line, which no odometer guard can do.
+                    prefs.circuitRefDistanceM =
+                        if (refPts.size >= 2) TrackStatsCalculator.compute(refPts).distanceM else 0.0
                     prefs.circuitActive = true
                     // Preload the reference lap (meta-to-meta) on the map, like ROUTE does, so the
                     // circuit you're about to race is visible from the start.
@@ -1110,6 +1115,8 @@ class MapViewerActivity : ComponentActivity() {
                         cat.rumb.app.data.tracks.CompetitionRepository.AttemptOutcome.FILED -> null
                         cat.rumb.app.data.tracks.CompetitionRepository.AttemptOutcome.WRONG_SPORT ->
                             R.string.competition_attempt_wrong_sport
+                        cat.rumb.app.data.tracks.CompetitionRepository.AttemptOutcome.LAP_NOT_RACED ->
+                            R.string.competition_attempt_lap_not_raced
                         else -> R.string.competition_attempt_not_counted
                     }
                     reason?.let {

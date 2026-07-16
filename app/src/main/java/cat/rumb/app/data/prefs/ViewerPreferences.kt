@@ -113,6 +113,10 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
     var circuitMinLapM: Double
         get() = Double.fromBits(prefs.getLong(KEY_CIRCUIT_MIN_M, (100.0).toRawBits()))
         set(value) = prefs.edit().putLong(KEY_CIRCUIT_MIN_M, value.toRawBits()).apply()
+    /** Length of the competition's reference lap (m); 0 = ad-hoc circuit, no lap to compare against. */
+    var circuitRefDistanceM: Double
+        get() = Double.fromBits(prefs.getLong(KEY_CIRCUIT_REF_M, (0.0).toRawBits()))
+        set(value) = prefs.edit().putLong(KEY_CIRCUIT_REF_M, value.toRawBits()).apply()
 
     var recBarometer: Boolean
         get() = prefs.getBoolean(KEY_REC_BAROMETER, true)
@@ -439,6 +443,7 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         private const val KEY_CIRCUIT_RADIUS = "circuit_radius_m"
         private const val KEY_CIRCUIT_MIN_MS = "circuit_min_lap_ms"
         private const val KEY_CIRCUIT_MIN_M = "circuit_min_lap_m"
+        private const val KEY_CIRCUIT_REF_M = "circuit_ref_distance_m"
         private const val KEY_REC_BAROMETER = "rec_barometer"
         private const val KEY_BLE_SENSORS = "ble_sensors"
         private const val KEY_ROUTE_VIEW_MODE = "route_view_mode"

@@ -53,6 +53,26 @@ class LapsTest {
         assertThat(Laps.fromMarks(emptyList(), listOf(0L, 1L, 2L))).isEmpty()
     }
 
+    @Test
+    fun abandonedLapIsNotALapAndDoesNotTakeANumber() {
+        // lap 1 [10,20) · gave up and came back to the line at 20 · retried [20,30) → that IS lap 2.
+        val marks = listOf(
+            LapMark(10, 100.0, 60_000, LapMarkType.START),
+            LapMark(20, 200.0, 120_000, LapMarkType.ABORT),
+            LapMark(30, 300.0, 180_000, LapMarkType.SPLIT),
+            LapMark(40, 400.0, 240_000, LapMarkType.END),
+        )
+        val ranges = Laps.fromMarks(marks, (0L until 50L).toList())
+
+        assertThat(ranges.map { it.kind }).containsExactly(
+            LapKind.APPROACH, LapKind.ABORTED, LapKind.LAP, LapKind.LAP, LapKind.RETURN,
+        )
+        // Numbering skips the abandoned one: the laps you raced are 1 and 2, not 2 and 3.
+        assertThat(ranges.filter { it.kind == LapKind.LAP }.map { it.index }).containsExactly(1, 2)
+        val aborted = ranges.single { it.kind == LapKind.ABORTED }
+        assertThat(aborted.startIdx to aborted.endIdx).isEqualTo(10 to 20)
+    }
+
     // --- LapEdits: add / remove split (post-hoc editor transforms) ---
 
     // approach [0,10) · lap1 [10,20) · lap2 [20,30) · return [30,40)

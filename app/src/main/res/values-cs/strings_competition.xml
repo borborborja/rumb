@@ -32,4 +32,5 @@
     <string name="competition_cd_menu">Možnosti soutěže</string>
     <string name="competition_attempt_not_counted">Záznam uložen, ale nepočítá se jako pokus v závodě.</string>
     <string name="competition_attempt_wrong_sport">Záznam uložen, ale nepočítá se: jiný sport než závod.</string>
+    <string name="competition_attempt_lap_not_raced">Nahrávka uložena, ale nepočítá se: žádné kolo neobjelo celý okruh.</string>
 </resources>

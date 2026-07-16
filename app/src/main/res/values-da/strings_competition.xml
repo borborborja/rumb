@@ -32,4 +32,5 @@
     <string name="competition_cd_menu">Konkurrencemuligheder</string>
     <string name="competition_attempt_not_counted">Optagelsen er gemt, men tæller ikke som et konkurrenceforsøg.</string>
     <string name="competition_attempt_wrong_sport">Optagelsen er gemt, men tæller ikke: en anden sport end konkurrencen.</string>
+    <string name="competition_attempt_lap_not_raced">Optagelsen gemt, men tæller ikke: ingen omgang kom hele vejen rundt.</string>
 </resources>

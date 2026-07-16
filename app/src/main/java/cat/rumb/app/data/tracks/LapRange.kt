@@ -2,12 +2,16 @@ package cat.rumb.app.data.tracks
 
 import cat.rumb.app.data.recording.LapMark
 import cat.rumb.app.data.recording.LapMarkType
+import cat.rumb.app.data.recording.opensLap
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-/** What a point range represents within a track that has laps. */
-enum class LapKind { APPROACH, LAP, RETURN }
+/**
+ * What a point range represents within a track that has laps. ABORTED is a lap that was given up
+ * before going round: it happened, so it stays in the track, but it is not a lap and never races.
+ */
+enum class LapKind { APPROACH, LAP, RETURN, ABORTED }
 
 /**
  * A contiguous range of a saved track's points forming one lap (or the approach/return around the
@@ -39,7 +43,8 @@ object Laps {
     /**
      * Builds lap ranges from the live [marks] and the saved [pointSeqs] (each recorded point's seq,
      * in save order). A mark's boundary seq maps to the first saved point whose seq >= it. The stretch
-     * before the first START is APPROACH; each START/SPLIT opens a LAP; after END comes the RETURN.
+     * before the first START is APPROACH; each opening mark opens a range; after END comes the RETURN.
+     * A range closed by an ABORT is the abandoned attempt, so it is ABORTED and takes no lap number.
      */
     fun fromMarks(marks: List<LapMark>, pointSeqs: List<Long>): List<LapRange> {
         if (marks.isEmpty() || pointSeqs.isEmpty()) return emptyList()
@@ -50,13 +55,20 @@ object Laps {
         val out = mutableListOf<LapRange>()
         val firstStart = idxOf(marks.first().seq)
         if (firstStart > 0) out.add(LapRange(0, 0, firstStart, LapKind.APPROACH))
-        val opens = marks.filter { it.type == LapMarkType.START || it.type == LapMarkType.SPLIT }
+        val opens = marks.filter { it.type.opensLap }
         val endMark = marks.lastOrNull { it.type == LapMarkType.END }
         val blockEnd = endMark?.let { idxOf(it.seq) } ?: pointSeqs.size
+        var lapNo = 0
         opens.forEachIndexed { i, mark ->
             val start = idxOf(mark.seq)
-            val end = if (i + 1 < opens.size) idxOf(opens[i + 1].seq) else blockEnd
-            if (end > start) out.add(LapRange(i + 1, start, end, LapKind.LAP))
+            val next = opens.getOrNull(i + 1)
+            val end = next?.let { idxOf(it.seq) } ?: blockEnd
+            if (end <= start) return@forEachIndexed
+            val aborted = next?.type == LapMarkType.ABORT
+            out.add(
+                if (aborted) LapRange(0, start, end, LapKind.ABORTED)
+                else LapRange(++lapNo, start, end, LapKind.LAP),
+            )
         }
         if (endMark != null && blockEnd < pointSeqs.size) {
             out.add(LapRange(out.size, blockEnd, pointSeqs.size, LapKind.RETURN))

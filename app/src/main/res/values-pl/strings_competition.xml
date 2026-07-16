@@ -32,4 +32,5 @@
     <string name="competition_cd_menu">Opcje rywalizacji</string>
     <string name="competition_attempt_not_counted">Nagranie zapisane, ale nie liczy się jako próba w zawodach.</string>
     <string name="competition_attempt_wrong_sport">Nagranie zapisane, ale się nie liczy: to inny sport niż w zawodach.</string>
+    <string name="competition_attempt_lap_not_raced">Nagranie zapisane, ale się nie liczy: żadne okrążenie nie objęło całej pętli.</string>
 </resources>

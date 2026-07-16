@@ -32,4 +32,5 @@
     <string name="competition_cd_menu">Tävlingsalternativ</string>
     <string name="competition_attempt_not_counted">Inspelningen sparades, men räknas inte som ett tävlingsförsök.</string>
     <string name="competition_attempt_wrong_sport">Inspelningen sparades, men räknas inte: annan sport än tävlingen.</string>
+    <string name="competition_attempt_lap_not_raced">Inspelningen sparad, men räknas inte: inget varv gick hela vägen runt.</string>
 </resources>

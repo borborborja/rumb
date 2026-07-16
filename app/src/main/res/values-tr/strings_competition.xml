@@ -32,4 +32,5 @@
     <string name="competition_cd_menu">Yarış seçenekleri</string>
     <string name="competition_attempt_not_counted">Kayıt kaydedildi, ancak yarış denemesi olarak sayılmaz.</string>
     <string name="competition_attempt_wrong_sport">Kayıt kaydedildi ama sayılmaz: yarıştan farklı bir spor.</string>
+    <string name="competition_attempt_lap_not_raced">Kayıt saklandı, ama sayılmıyor: hiçbir tur pisti tamamlamadı.</string>
 </resources>

@@ -58,6 +58,14 @@ class CompetitionRepository(
 
     private fun fmtM(v: Double) = "%.0f".format(v)
 
+    /** Length of a lap of this circuit, from its frozen reference. 0 = no usable reference. */
+    private fun referenceLapDistanceM(comp: CompetitionEntity): Double {
+        val refPts = runCatching { Gpx.read(comp.referenceGpx.byteInputStream()).points }
+            .getOrDefault(emptyList())
+        if (refPts.size < 2) return 0.0
+        return TrackStatsCalculator.compute(refPts).distanceM
+    }
+
     private fun sliceLaps(pts: List<GpxPoint>, laps: List<LapRange>): List<LapSlice> =
         laps.filter { it.kind == LapKind.LAP }.mapIndexedNotNull { i, lap ->
             val from = lap.startIdx.coerceIn(0, pts.size)
@@ -150,7 +158,7 @@ class CompetitionRepository(
         }
 
     /** Why a recording did or didn't join a competition's leaderboard. */
-    enum class AttemptOutcome { FILED, WRONG_SPORT, SIMULATED, ROUTE_NOT_RACED, NO_LAP, NOT_TIMED, NO_COMPETITION }
+    enum class AttemptOutcome { FILED, WRONG_SPORT, SIMULATED, ROUTE_NOT_RACED, LAP_NOT_RACED, NO_LAP, NOT_TIMED, NO_COMPETITION }
 
     data class AttemptResult(val outcome: AttemptOutcome, val filed: Int = 0)
 
@@ -180,8 +188,17 @@ class CompetitionRepository(
                 return@withContext AttemptResult(AttemptOutcome.WRONG_SPORT)
             }
             if (comp.type == CompetitionType.LAP) {
-                val slices = timedSlices(trackId)
-                if (slices.isEmpty()) return@withContext AttemptResult(AttemptOutcome.NO_LAP)
+                val all = timedSlices(trackId)
+                if (all.isEmpty()) return@withContext AttemptResult(AttemptOutcome.NO_LAP)
+                // Same idea as isValidRouteAttempt, which LAP never had: a lap you gave up is not a
+                // lap. The recorder already refuses to close one (and marks it ABORTED), but tracks
+                // also arrive from imports and from the desktop server, which bypass the recorder.
+                val refLapM = referenceLapDistanceM(comp)
+                val slices = if (refLapM > 0) all.filter { it.stats.distanceM >= refLapM * LAP_MIN_COVERAGE } else all
+                if (slices.isEmpty()) {
+                    DebugLog.i("Competi", "intents LAP descartats · cap volta cobreix ${fmtM(refLapM * LAP_MIN_COVERAGE)} m")
+                    return@withContext AttemptResult(AttemptOutcome.LAP_NOT_RACED)
+                }
                 insertLapAttempts(competitionId, trackId, name, slices, now)
                 AttemptResult(AttemptOutcome.FILED, slices.size)
             } else {
@@ -229,5 +246,8 @@ class CompetitionRepository(
         const val MIN_ROUTE_COVERAGE = 0.9
         /** How close to the reference finish an attempt must end (m). */
         const val FINISH_RADIUS_M = 75.0
+        /** Same for one lap. Looser than a route: laps are raced by feel around a line, and a lap
+         *  starts and ends at the same place, so there is no finish check to back the distance up. */
+        const val LAP_MIN_COVERAGE = 0.8
     }
 }

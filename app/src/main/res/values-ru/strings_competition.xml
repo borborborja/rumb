@@ -32,4 +32,5 @@
     <string name="competition_cd_menu">Параметры соревнования</string>
     <string name="competition_attempt_not_counted">Запись сохранена, но не засчитана как попытка соревнования.</string>
     <string name="competition_attempt_wrong_sport">Запись сохранена, но не засчитана: вид спорта отличается от соревнования.</string>
+    <string name="competition_attempt_lap_not_raced">Запись сохранена, но не засчитана: ни один круг не пройден целиком.</string>
 </resources>

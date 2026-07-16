@@ -323,6 +323,7 @@ class RecordingService : Service() {
         autoLapRadiusM = if (prefs.circuitActive) prefs.circuitRadiusM else 25.0,
         autoLapMinLapMs = if (prefs.circuitActive) prefs.circuitMinLapMs else 20_000,
         autoLapMinLapM = if (prefs.circuitActive) prefs.circuitMinLapM else 100.0,
+        lapRefDistanceM = if (prefs.circuitActive) prefs.circuitRefDistanceM else 0.0,
     )
 
     // --- Notification ---
