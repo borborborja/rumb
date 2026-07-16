@@ -43,4 +43,12 @@
     <string name="maps_downloading">Laddar ner… %1$d / %2$d</string>
     <string name="maps_download_done">Nedladdning klar ✓ — du kan nu välja den under Offlinekartor.</string>
     <string name="maps_download">Ladda ner</string>
+    <string name="maps_display_edit">Visningsalternativ</string>
+    <string name="maps_display_detail">Detaljnivå</string>
+    <string name="maps_display_detail_more">Mer</string>
+    <string name="maps_display_detail_less">Mindre</string>
+    <string name="maps_display_grayscale">Gråskala</string>
+    <string name="maps_display_dim">Dämpa</string>
+    <string name="maps_display_save">Spara</string>
+    <string name="maps_display_reset">Återställ</string>
 </resources>

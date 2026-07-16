@@ -245,3 +245,7 @@ canvas.chart.tall { height: 220px; }
   .topbar { flex-wrap: wrap; gap: 10px; }
   .tab span { display: none; }
 }
+
+/* Per-map "grayscale" display option: greys the whole tile layer (except the route editor,
+   which never gets this class) so a colored track pops. Applied to the tile layer container. */
+.map-grayscale { filter: grayscale(1); }

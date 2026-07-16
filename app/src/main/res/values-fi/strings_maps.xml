@@ -43,4 +43,12 @@
     <string name="maps_downloading">Ladataan… %1$d / %2$d</string>
     <string name="maps_download_done">Lataus valmis ✓ — voit nyt valita sen offline-kartoista.</string>
     <string name="maps_download">Lataa</string>
+    <string name="maps_display_edit">Näyttöasetukset</string>
+    <string name="maps_display_detail">Yksityiskohdat</string>
+    <string name="maps_display_detail_more">Enemmän</string>
+    <string name="maps_display_detail_less">Vähemmän</string>
+    <string name="maps_display_grayscale">Harmaasävy</string>
+    <string name="maps_display_dim">Himmennä</string>
+    <string name="maps_display_save">Tallenna</string>
+    <string name="maps_display_reset">Palauta</string>
 </resources>

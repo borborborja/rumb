@@ -107,7 +107,10 @@ fun RouteDetailScreen(
                         mapView.getMapAsync { map ->
                             val c = RouteEditorController(map)
                             controller = c
-                            c.init(source = MapSource.byId(mapSourceId)) { }
+                            c.init(
+                                source = MapSource.byId(mapSourceId),
+                                config = cat.rumb.app.data.map.MapDisplayStore.load(prefs, mapSourceId ?: ""),
+                            ) { }
                         }
                         mapView
                     },
@@ -115,7 +118,10 @@ fun RouteDetailScreen(
                 )
                 BaseMapPicker(
                     currentId = mapSourceId,
-                    onSelect = { src -> mapSourceId = src.id; prefs.statsMapSourceId = src.id; controller?.setBaseMap(src) },
+                    onSelect = { src ->
+                        mapSourceId = src.id; prefs.statsMapSourceId = src.id
+                        controller?.setBaseMap(src, cat.rumb.app.data.map.MapDisplayStore.load(prefs, src.id))
+                    },
                     modifier = Modifier.align(Alignment.TopEnd).padding(8.dp),
                 )
             }

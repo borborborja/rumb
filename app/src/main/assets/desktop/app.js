@@ -386,6 +386,22 @@ function preferredBaseMap() {
   try { return localStorage.getItem("baseMapId") || DEFAULT_BASE_MAP; } catch (e) { return DEFAULT_BASE_MAP; }
 }
 
+// Per-map display options (detail/grayscale/opacity), mirrored from the app via /api/maps. Edited
+// only in the app; the SPA just applies them (except in the route editor). Empty until loaded.
+const mapDisplay = {};
+async function loadMapDisplay() {
+  try {
+    const m = await apiJson("/api/maps");
+    (m.sources || []).forEach((s) => {
+      mapDisplay[s.id] = {
+        detailReduction: s.detailReduction || 0,
+        grayscale: !!s.grayscale,
+        opacity: (s.opacity == null ? 1 : s.opacity),
+      };
+    });
+  } catch (e) { /* keep defaults — a map with no config just looks normal */ }
+}
+
 function destroyMap(key) {
   if (maps[key]) { maps[key].remove(); delete maps[key]; }
 }
@@ -394,10 +410,19 @@ function newMap(el, key) {
   const map = L.map(el, { attributionControl: true, zoomControl: true });
   const preferred = preferredBaseMap();
   const overlays = {};
+  // The route editor keeps full detail — you're drawing precisely — so it ignores the display config.
+  const applyCfg = key !== "routeEdit";
   BASE_MAPS.forEach((b) => {
     const opts = { attribution: b.attr, maxZoom: b.maxZoom };
     if (b.subdomains) opts.subdomains = b.subdomains;
     if (b.tms) opts.tms = true;
+    const cfg = applyCfg ? mapDisplay[b.id] : null;
+    if (cfg) {
+      // maxNativeZoom below the native max makes Leaflet overzoom (upscale) → less detail.
+      if (cfg.detailReduction > 0) opts.maxNativeZoom = Math.max(11, b.maxZoom - cfg.detailReduction);
+      if (cfg.opacity < 1) opts.opacity = cfg.opacity;
+      if (cfg.grayscale) opts.className = "map-grayscale";
+    }
     const layer = L.tileLayer(b.url, opts);
     overlays[b.name] = layer;
     if (b.id === preferred) layer.addTo(map);
@@ -1259,6 +1284,7 @@ async function renderSettings() {
  * ============================================================= */
 async function boot() {
   hideLogin();
+  await loadMapDisplay(); // before any map renders, so tiles get the right detail/opacity/grayscale
   switchTab("library");
 }
 

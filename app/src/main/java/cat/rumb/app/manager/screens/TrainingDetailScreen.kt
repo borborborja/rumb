@@ -213,7 +213,10 @@ fun TrainingDetailScreen(trackId: Long, onBack: () -> Unit, onCompare: (Long) ->
                         mapView.getMapAsync { map ->
                             val c = RouteEditorController(map)
                             controller = c
-                            c.init(source = MapSource.byId(mapSourceId)) { }
+                            c.init(
+                                source = MapSource.byId(mapSourceId),
+                                config = cat.rumb.app.data.map.MapDisplayStore.load(prefs, mapSourceId ?: ""),
+                            ) { }
                         }
                         mapView
                     },
@@ -245,7 +248,7 @@ fun TrainingDetailScreen(trackId: Long, onBack: () -> Unit, onCompare: (Long) ->
                         BaseMapMenu(mapSourceId) { src ->
                             mapSourceId = src.id
                             prefs.statsMapSourceId = src.id
-                            controller?.setBaseMap(src)
+                            controller?.setBaseMap(src, cat.rumb.app.data.map.MapDisplayStore.load(prefs, src.id))
                         }
                         HorizontalDivider(Modifier.padding(vertical = 4.dp))
                         Text(

@@ -43,4 +43,12 @@
     <string name="maps_downloading">Scaricamento… %1$d / %2$d</string>
     <string name="maps_download_done">Download completato ✓ — ora puoi selezionarla in Mappe offline.</string>
     <string name="maps_download">Scarica</string>
+    <string name="maps_display_edit">Opzioni di visualizzazione</string>
+    <string name="maps_display_detail">Dettaglio</string>
+    <string name="maps_display_detail_more">Più</string>
+    <string name="maps_display_detail_less">Meno</string>
+    <string name="maps_display_grayscale">Scala di grigi</string>
+    <string name="maps_display_dim">Attenua</string>
+    <string name="maps_display_save">Salva</string>
+    <string name="maps_display_reset">Ripristina</string>
 </resources>

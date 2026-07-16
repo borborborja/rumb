@@ -43,4 +43,12 @@
     <string name="maps_downloading">İndiriliyor… %1$d / %2$d</string>
     <string name="maps_download_done">İndirme tamamlandı ✓ — artık Çevrimdışı haritalarda seçebilirsiniz.</string>
     <string name="maps_download">İndir</string>
+    <string name="maps_display_edit">Görüntüleme seçenekleri</string>
+    <string name="maps_display_detail">Ayrıntı</string>
+    <string name="maps_display_detail_more">Daha fazla</string>
+    <string name="maps_display_detail_less">Daha az</string>
+    <string name="maps_display_grayscale">Gri tonlama</string>
+    <string name="maps_display_dim">Soluklaştır</string>
+    <string name="maps_display_save">Kaydet</string>
+    <string name="maps_display_reset">Sıfırla</string>
 </resources>

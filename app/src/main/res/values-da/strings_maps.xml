@@ -43,4 +43,12 @@
     <string name="maps_downloading">Downloader… %1$d / %2$d</string>
     <string name="maps_download_done">Download fuldført ✓ — du kan nu vælge det under Offlinekort.</string>
     <string name="maps_download">Download</string>
+    <string name="maps_display_edit">Visningsindstillinger</string>
+    <string name="maps_display_detail">Detaljer</string>
+    <string name="maps_display_detail_more">Mere</string>
+    <string name="maps_display_detail_less">Mindre</string>
+    <string name="maps_display_grayscale">Gråtoner</string>
+    <string name="maps_display_dim">Dæmp</string>
+    <string name="maps_display_save">Gem</string>
+    <string name="maps_display_reset">Nulstil</string>
 </resources>

@@ -43,4 +43,12 @@
     <string name="maps_downloading">Se descarcă… %1$d / %2$d</string>
     <string name="maps_download_done">Descărcare completă ✓ — o poți selecta acum în Hărți offline.</string>
     <string name="maps_download">Descarcă</string>
+    <string name="maps_display_edit">Opțiuni de afișare</string>
+    <string name="maps_display_detail">Detaliu</string>
+    <string name="maps_display_detail_more">Mai mult</string>
+    <string name="maps_display_detail_less">Mai puțin</string>
+    <string name="maps_display_grayscale">Tonuri de gri</string>
+    <string name="maps_display_dim">Atenuează</string>
+    <string name="maps_display_save">Salvează</string>
+    <string name="maps_display_reset">Resetează</string>
 </resources>

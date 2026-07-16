@@ -43,4 +43,12 @@
     <string name="maps_downloading">Λήψη… %1$d / %2$d</string>
     <string name="maps_download_done">Η λήψη ολοκληρώθηκε ✓ — μπορείτε τώρα να τη επιλέξετε στους χάρτες εκτός σύνδεσης.</string>
     <string name="maps_download">Λήψη</string>
+    <string name="maps_display_edit">Επιλογές εμφάνισης</string>
+    <string name="maps_display_detail">Λεπτομέρεια</string>
+    <string name="maps_display_detail_more">Περισσότερο</string>
+    <string name="maps_display_detail_less">Λιγότερο</string>
+    <string name="maps_display_grayscale">Κλίμακα του γκρι</string>
+    <string name="maps_display_dim">Εξασθένηση</string>
+    <string name="maps_display_save">Αποθήκευση</string>
+    <string name="maps_display_reset">Επαναφορά</string>
 </resources>

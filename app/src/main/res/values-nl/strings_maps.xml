@@ -43,4 +43,12 @@
     <string name="maps_downloading">Downloaden… %1$d / %2$d</string>
     <string name="maps_download_done">Download voltooid ✓ — je kunt hem nu kiezen bij Offline kaarten.</string>
     <string name="maps_download">Downloaden</string>
+    <string name="maps_display_edit">Weergaveopties</string>
+    <string name="maps_display_detail">Detail</string>
+    <string name="maps_display_detail_more">Meer</string>
+    <string name="maps_display_detail_less">Minder</string>
+    <string name="maps_display_grayscale">Grijstinten</string>
+    <string name="maps_display_dim">Dimmen</string>
+    <string name="maps_display_save">Opslaan</string>
+    <string name="maps_display_reset">Herstellen</string>
 </resources>

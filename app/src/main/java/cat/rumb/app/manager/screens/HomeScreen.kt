@@ -1203,9 +1203,11 @@ private fun ViewerMapButton(onClick: () -> Unit) {
         AndroidView(
             factory = {
                 mapView.getMapAsync { map ->
-                    val baseId = ViewerPreferences.get(context).baseMapId
+                    val prefs = ViewerPreferences.get(context)
+                    val baseId = prefs.baseMapId
                         ?.takeUnless { it.startsWith(cat.rumb.app.data.map.OfflineMap.OFFLINE_PREFIX) }
-                    map.setStyle(Style.Builder().fromJson(MapStyleFactory.rasterStyleJson(MapSource.byId(baseId))))
+                    val cfg = cat.rumb.app.data.map.MapDisplayStore.load(prefs, baseId ?: "")
+                    map.setStyle(Style.Builder().fromJson(MapStyleFactory.rasterStyleJson(MapSource.byId(baseId), cfg)))
                     val here = lastKnownLatLng(context)
                     map.cameraPosition = CameraPosition.Builder()
                         .target(here ?: LatLng(41.65, 1.95))

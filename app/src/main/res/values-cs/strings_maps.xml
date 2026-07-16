@@ -43,4 +43,12 @@
     <string name="maps_downloading">Stahování… %1$d / %2$d</string>
     <string name="maps_download_done">Stahování dokončeno ✓ — nyní ji můžeš vybrat v Offline mapách.</string>
     <string name="maps_download">Stáhnout</string>
+    <string name="maps_display_edit">Možnosti zobrazení</string>
+    <string name="maps_display_detail">Podrobnost</string>
+    <string name="maps_display_detail_more">Více</string>
+    <string name="maps_display_detail_less">Méně</string>
+    <string name="maps_display_grayscale">Stupně šedi</string>
+    <string name="maps_display_dim">Ztlumit</string>
+    <string name="maps_display_save">Uložit</string>
+    <string name="maps_display_reset">Obnovit</string>
 </resources>

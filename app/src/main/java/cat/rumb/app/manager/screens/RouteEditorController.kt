@@ -29,8 +29,14 @@ class RouteEditorController(private val map: MapLibreMap) {
     private var lastWaypoints: List<GeoPoint> = emptyList()
     private var lastHighlight: GeoPoint? = null
 
-    fun init(source: MapSource = MapSource.ICGC_TOPO, onReady: () -> Unit) {
-        map.setStyle(Style.Builder().fromJson(MapStyleFactory.rasterStyleJson(source))) { style ->
+    // The route EDITOR passes DEFAULT (full detail — you're drawing precisely); the read-only detail
+    // screens pass the user's saved config so the map matches the viewer.
+    fun init(
+        source: MapSource = MapSource.ICGC_TOPO,
+        config: cat.rumb.app.data.map.MapDisplayConfig = cat.rumb.app.data.map.MapDisplayConfig.DEFAULT,
+        onReady: () -> Unit,
+    ) {
+        map.setStyle(Style.Builder().fromJson(MapStyleFactory.rasterStyleJson(source, config))) { style ->
             addOverlays(style)
             // Center on Catalonia by default.
             map.moveCamera(org.maplibre.android.camera.CameraUpdateFactory.newLatLngZoom(LatLng(41.65, 1.95), 9.0))
@@ -39,9 +45,9 @@ class RouteEditorController(private val map: MapLibreMap) {
     }
 
     /** Swaps the base raster map, re-adding the overlay layers and redrawing the current data. */
-    fun setBaseMap(source: MapSource) {
+    fun setBaseMap(source: MapSource, config: cat.rumb.app.data.map.MapDisplayConfig = cat.rumb.app.data.map.MapDisplayConfig.DEFAULT) {
         cat.rumb.app.data.debug.DebugLog.d("Map", "detall · mapa base → ${source.id}")
-        map.setStyle(Style.Builder().fromJson(MapStyleFactory.rasterStyleJson(source))) { style ->
+        map.setStyle(Style.Builder().fromJson(MapStyleFactory.rasterStyleJson(source, config))) { style ->
             addOverlays(style)
             setRoute(lastRoute, lastValues)
             setWaypoints(lastWaypoints)

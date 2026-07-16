@@ -43,4 +43,12 @@
     <string name="maps_downloading">Téléchargement… %1$d / %2$d</string>
     <string name="maps_download_done">Téléchargement terminé ✓ — vous pouvez maintenant la sélectionner dans les cartes hors ligne.</string>
     <string name="maps_download">Télécharger</string>
+    <string name="maps_display_edit">Options d\'affichage</string>
+    <string name="maps_display_detail">Détail</string>
+    <string name="maps_display_detail_more">Plus</string>
+    <string name="maps_display_detail_less">Moins</string>
+    <string name="maps_display_grayscale">Niveaux de gris</string>
+    <string name="maps_display_dim">Atténuer</string>
+    <string name="maps_display_save">Enregistrer</string>
+    <string name="maps_display_reset">Réinitialiser</string>
 </resources>

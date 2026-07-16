@@ -43,4 +43,12 @@
     <string name="maps_downloading">Загрузка… %1$d / %2$d</string>
     <string name="maps_download_done">Загрузка завершена ✓ — теперь можно выбрать её в офлайн-картах.</string>
     <string name="maps_download">Скачать</string>
+    <string name="maps_display_edit">Параметры отображения</string>
+    <string name="maps_display_detail">Детализация</string>
+    <string name="maps_display_detail_more">Больше</string>
+    <string name="maps_display_detail_less">Меньше</string>
+    <string name="maps_display_grayscale">Оттенки серого</string>
+    <string name="maps_display_dim">Приглушить</string>
+    <string name="maps_display_save">Сохранить</string>
+    <string name="maps_display_reset">Сбросить</string>
 </resources>

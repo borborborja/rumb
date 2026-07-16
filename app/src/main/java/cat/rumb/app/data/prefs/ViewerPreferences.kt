@@ -223,6 +223,17 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
     fun setHudLayoutJsonFor(sportId: String, raw: String?) =
         prefs.edit().putString(KEY_HUD_LAYOUT + "_" + sportId, raw).apply()
 
+    /** Per-base-map display config JSON (null = never edited → the map looks as it always did). */
+    fun mapDisplayJsonFor(sourceId: String): String? = prefs.getString(KEY_MAP_DISPLAY + "_" + sourceId, null)
+    fun setMapDisplayJsonFor(sourceId: String, raw: String?) =
+        prefs.edit().putString(KEY_MAP_DISPLAY + "_" + sourceId, raw).apply()
+
+    /** Every saved per-map display config, keyed by source id — for the desktop server to mirror. */
+    fun allMapDisplayJson(): Map<String, String> =
+        prefs.all.entries
+            .filter { it.key.startsWith(KEY_MAP_DISPLAY + "_") && it.value is String }
+            .associate { it.key.removePrefix(KEY_MAP_DISPLAY + "_") to it.value as String }
+
     /** Per-sport split distance (m): 1 km for running, usually off for cycling. */
     fun autoLapEveryMFor(sportId: String?): Float =
         if (sportId == null) autoLapEveryM else prefs.getFloat(KEY_AUTO_LAP_EVERY_M + "_" + sportId, autoLapEveryM)
@@ -437,6 +448,7 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
     companion object {
         private const val KEY_BASE_MAP = "base_map_id"
         private const val KEY_HUD_LAYOUT = "hud_layout_json"
+        private const val KEY_MAP_DISPLAY = "map_display_json"
         private const val KEY_DATA_LAYOUT = "data_layout_json"
         private const val KEY_UNIT_DISTANCE = "unit_distance"
         private const val KEY_UNIT_ELEVATION = "unit_elevation"

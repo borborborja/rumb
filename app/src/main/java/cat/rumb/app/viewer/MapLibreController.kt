@@ -77,19 +77,28 @@ class MapLibreController(private val map: MapLibreMap) {
         const val MAX_COLOR_SEGMENTS = 500
     }
 
-    fun setBaseMap(source: MapSource, onReady: () -> Unit = {}) {
+    fun setBaseMap(
+        source: MapSource,
+        config: cat.rumb.app.data.map.MapDisplayConfig = cat.rumb.app.data.map.MapDisplayConfig.DEFAULT,
+        onReady: () -> Unit = {},
+    ) {
         val styleUri = MapStyleFactory.styleUriOrNull(source)
         val builder = if (styleUri != null) {
             Style.Builder().fromUri(styleUri)
         } else {
-            Style.Builder().fromJson(MapStyleFactory.rasterStyleJson(source))
+            Style.Builder().fromJson(MapStyleFactory.rasterStyleJson(source, config))
         }
         applyStyle(builder, onReady)
     }
 
     /** Sets an offline base map backed by a local MBTiles archive. */
-    fun setOfflineMbtiles(path: String, attribution: String, onReady: () -> Unit = {}) {
-        applyStyle(Style.Builder().fromJson(MapStyleFactory.rasterStyleForMbtiles(path, attribution)), onReady)
+    fun setOfflineMbtiles(
+        path: String,
+        attribution: String,
+        config: cat.rumb.app.data.map.MapDisplayConfig = cat.rumb.app.data.map.MapDisplayConfig.DEFAULT,
+        onReady: () -> Unit = {},
+    ) {
+        applyStyle(Style.Builder().fromJson(MapStyleFactory.rasterStyleForMbtiles(path, attribution, config)), onReady)
     }
 
     private fun applyStyle(builder: Style.Builder, onReady: () -> Unit) {

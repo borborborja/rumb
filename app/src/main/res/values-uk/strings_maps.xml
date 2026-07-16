@@ -43,4 +43,12 @@
     <string name="maps_downloading">Завантаження… %1$d / %2$d</string>
     <string name="maps_download_done">Завантаження завершено ✓ — тепер можна обрати в офлайн-картах.</string>
     <string name="maps_download">Завантажити</string>
+    <string name="maps_display_edit">Параметри відображення</string>
+    <string name="maps_display_detail">Деталізація</string>
+    <string name="maps_display_detail_more">Більше</string>
+    <string name="maps_display_detail_less">Менше</string>
+    <string name="maps_display_grayscale">Відтінки сірого</string>
+    <string name="maps_display_dim">Приглушити</string>
+    <string name="maps_display_save">Зберегти</string>
+    <string name="maps_display_reset">Скинути</string>
 </resources>

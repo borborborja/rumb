@@ -43,4 +43,12 @@
     <string name="maps_downloading">A transferir… %1$d / %2$d</string>
     <string name="maps_download_done">Transferência concluída ✓ — já a podes selecionar em Mapas offline.</string>
     <string name="maps_download">Transferir</string>
+    <string name="maps_display_edit">Opções de visualização</string>
+    <string name="maps_display_detail">Detalhe</string>
+    <string name="maps_display_detail_more">Mais</string>
+    <string name="maps_display_detail_less">Menos</string>
+    <string name="maps_display_grayscale">Escala de cinzentos</string>
+    <string name="maps_display_dim">Atenuar</string>
+    <string name="maps_display_save">Guardar</string>
+    <string name="maps_display_reset">Repor</string>
 </resources>

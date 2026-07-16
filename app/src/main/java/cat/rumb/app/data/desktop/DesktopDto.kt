@@ -164,7 +164,12 @@ data class SettingsDto(
 )
 // --- Map management ---
 
-@Serializable data class MapSourceDto(val id: String, val displayName: String, val attribution: String, val maxZoom: Int, val offlineAllowed: Boolean)
+@Serializable data class MapSourceDto(
+    val id: String, val displayName: String, val attribution: String, val maxZoom: Int, val offlineAllowed: Boolean,
+    // Per-map display options the SPA applies (except in the route editor). Read by name in JS, so
+    // appended at the end — safe for both kotlinx (name-based) and the browser.
+    val detailReduction: Int = 0, val grayscale: Boolean = false, val opacity: Float = 1f,
+)
 @Serializable data class RegionDto(val name: String, val west: Double, val south: Double, val east: Double, val north: Double)
 @Serializable data class OfflineMapDto(
     val name: String, val path: String, val sizeBytes: Long, val sourceId: String?,

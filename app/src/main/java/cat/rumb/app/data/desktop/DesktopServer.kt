@@ -395,7 +395,11 @@ class DesktopServer(
         val store = cat.rumb.app.data.map.OfflineMapStore.get(context)
         val p = ViewerPreferences.get(context)
         val sources = cat.rumb.app.data.map.MapSource.entries.map {
-            MapSourceDto(it.id, it.displayName, it.attribution, it.maxZoom, it.offlineAllowed)
+            val cfg = cat.rumb.app.data.map.MapDisplayStore.load(p, it.id)
+            MapSourceDto(
+                it.id, it.displayName, it.attribution, it.maxZoom, it.offlineAllowed,
+                cfg.detailReduction, cfg.grayscale, cfg.opacity,
+            )
         }
         val offline = store.list().map { m ->
             OfflineMapDto(m.name, m.path, java.io.File(m.path).length(), m.sourceId, store.sectorsOf(m))

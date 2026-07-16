@@ -43,4 +43,12 @@
     <string name="maps_downloading">Downloading… %1$d / %2$d</string>
     <string name="maps_download_done">Download complete ✓ — you can now select it in Offline maps.</string>
     <string name="maps_download">Download</string>
+    <string name="maps_display_edit">Display options</string>
+    <string name="maps_display_detail">Detail</string>
+    <string name="maps_display_detail_more">More</string>
+    <string name="maps_display_detail_less">Less</string>
+    <string name="maps_display_grayscale">Grayscale</string>
+    <string name="maps_display_dim">Dim</string>
+    <string name="maps_display_save">Save</string>
+    <string name="maps_display_reset">Reset</string>
 </resources>

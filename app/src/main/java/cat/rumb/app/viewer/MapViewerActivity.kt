@@ -696,20 +696,23 @@ class MapViewerActivity : ComponentActivity() {
 
     /** Applies the base map from prefs (online source or offline MBTiles), then runs [onReady]. */
     private fun applyBaseMap(ctrl: MapLibreController, frame: Boolean, onReady: () -> Unit) {
-        val baseMapId = ViewerPreferences.get(this).baseMapId
+        val prefs = ViewerPreferences.get(this)
+        val baseMapId = prefs.baseMapId
         val offline = baseMapId
             ?.takeIf { it.startsWith(cat.rumb.app.data.map.OfflineMap.OFFLINE_PREFIX) }
             ?.let { cat.rumb.app.data.map.OfflineMapStore.get(this).bySelectionId(it) }
+        // The user's per-map display options (detail/grayscale/opacity), keyed by the selection id.
+        val config = cat.rumb.app.data.map.MapDisplayStore.load(prefs, baseMapId ?: "")
         DebugLog.i("Viewer", "applyBaseMap · id=$baseMapId · offline=${offline?.name} · frame=$frame")
         if (offline != null) {
-            ctrl.setOfflineMbtiles(offline.path, offline.attribution) {
+            ctrl.setOfflineMbtiles(offline.path, offline.attribution, config) {
                 if (frame) offline.bounds?.takeIf { it.size == 4 }?.let { b ->
                     ctrl.frameBounds(b[0], b[1], b[2], b[3])
                 }
                 onReady()
             }
         } else {
-            ctrl.setBaseMap(MapSource.byId(baseMapId), onReady)
+            ctrl.setBaseMap(MapSource.byId(baseMapId), config, onReady)
         }
     }
 
