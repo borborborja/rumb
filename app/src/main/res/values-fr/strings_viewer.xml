@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Non modifiable pendant l\'enregistrement.</string>
     <string name="viewer_qs_ghost_enabled">Fantôme</string>
     <string name="viewer_qs_ghost_enabled_help">Courez contre un fantôme dès qu\'il y en a un : la référence de la compétition dès le premier tour, ou votre meilleur tour de la sortie.</string>
+    <string name="lap_countdown_lap_ahead">TOUR %1$d</string>
 </resources>

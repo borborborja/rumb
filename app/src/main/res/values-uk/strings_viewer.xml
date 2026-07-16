@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Не можна змінити під час запису.</string>
     <string name="viewer_qs_ghost_enabled">Привид</string>
     <string name="viewer_qs_ghost_enabled_help">Змагайся з привидом, коли є з ким: еталон змагання з першого кола або твоє найкраще коло за виїзд.</string>
+    <string name="lap_countdown_lap_ahead">КОЛО %1$d</string>
 </resources>

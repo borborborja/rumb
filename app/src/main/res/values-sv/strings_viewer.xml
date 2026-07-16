@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Kan inte ändras under inspelning.</string>
     <string name="viewer_qs_ghost_enabled">Spöke</string>
     <string name="viewer_qs_ghost_enabled_help">Kör mot ett spöke när det finns ett: tävlingens referens från första varvet, eller ditt bästa varv under passet.</string>
+    <string name="lap_countdown_lap_ahead">VARV %1$d</string>
 </resources>

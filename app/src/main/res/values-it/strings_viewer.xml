@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Non modificabile durante la registrazione.</string>
     <string name="viewer_qs_ghost_enabled">Fantasma</string>
     <string name="viewer_qs_ghost_enabled_help">Gareggia contro un fantasma quando ce n\'è uno: il riferimento della gara dal primo giro, o il tuo miglior giro dell\'uscita.</string>
+    <string name="lap_countdown_lap_ahead">GIRO %1$d</string>
 </resources>

@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Não pode ser alterado durante a gravação.</string>
     <string name="viewer_qs_ghost_enabled">Fantasma</string>
     <string name="viewer_qs_ghost_enabled_help">Compete contra um fantasma sempre que houver: a referência da competição desde a primeira volta, ou a tua melhor volta da saída.</string>
+    <string name="lap_countdown_lap_ahead">VOLTA %1$d</string>
 </resources>

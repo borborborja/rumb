@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Niet te wijzigen tijdens opnemen.</string>
     <string name="viewer_qs_ghost_enabled">Ghost</string>
     <string name="viewer_qs_ghost_enabled_help">Race tegen een ghost zodra er een is: de referentie van de competitie vanaf de eerste ronde, of je beste ronde van de rit.</string>
+    <string name="lap_countdown_lap_ahead">RONDE %1$d</string>
 </resources>

@@ -62,4 +62,23 @@ object AlertFeedback {
             }.start()
         }.onFailure { cat.rumb.app.data.debug.DebugLog.e("Audio", "beep fallit", it) }
     }
+
+    /**
+     * Lights out: the long tone as you cross a circuit's finish line, after the 3-2-1 beeps.
+     * Deliberately NOT a [BeepSound] — that enum is the user's alert-sound picker, and the start
+     * light isn't a preference. Long and high so it reads as "go", not as another countdown beep.
+     */
+    fun lapLightsOut() {
+        runCatching {
+            val tone = ToneGenerator(AudioManager.STREAM_ALARM, ToneGenerator.MAX_VOLUME)
+            Thread {
+                Thread.sleep(120)
+                tone.startTone(ToneGenerator.TONE_CDMA_HIGH_L, LIGHTS_OUT_MS)
+                Thread.sleep((LIGHTS_OUT_MS + 100).toLong())
+                runCatching { tone.release() }
+            }.start()
+        }.onFailure { cat.rumb.app.data.debug.DebugLog.e("Audio", "to de sortida fallit", it) }
+    }
+
+    private const val LIGHTS_OUT_MS = 900
 }

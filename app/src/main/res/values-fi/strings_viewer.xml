@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Ei voi vaihtaa tallennuksen aikana.</string>
     <string name="viewer_qs_ghost_enabled">Haamu</string>
     <string name="viewer_qs_ghost_enabled_help">Kilpaile haamua vastaan aina kun sellainen on: kilpailun vertailukierros ensimmäisestä kierroksesta tai lenkin paras kierroksesi.</string>
+    <string name="lap_countdown_lap_ahead">KIERROS %1$d</string>
 </resources>

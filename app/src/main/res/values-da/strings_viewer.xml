@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Kan ikke ændres under optagelse.</string>
     <string name="viewer_qs_ghost_enabled">Spøgelse</string>
     <string name="viewer_qs_ghost_enabled_help">Kør mod et spøgelse når der er et: konkurrencens reference fra første omgang, eller din bedste omgang på turen.</string>
+    <string name="lap_countdown_lap_ahead">OMGANG %1$d</string>
 </resources>

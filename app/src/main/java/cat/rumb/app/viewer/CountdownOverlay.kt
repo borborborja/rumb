@@ -31,18 +31,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cat.rumb.app.R
 
+/** A lap countdown tick: seconds left to the finish line, and which lap you're counting into. */
+data class LapCountdown(val secondsLeft: Int, val lapAhead: Int)
+
 /**
- * Fullscreen pre-recording countdown: -1 = waiting for a precise GPS fix, 3/2/1 = digits,
- * 0 = GO!. Consumes all touches (tap = cancel) so nothing reaches the map or the pager.
+ * Fullscreen countdown: -1 = waiting for a precise GPS fix, 3/2/1 = digits, 0 = GO!.
+ *
+ * [onCancel] null means there is nothing to cancel (the lap countdown tracks the finish line and
+ * stops on its own). Then the overlay must NOT swallow touches — it used to, leaving the map and the
+ * pager dead for three seconds — and it hides the "tap to cancel" hint, which did nothing.
+ * [subtitle] names what you're counting into, e.g. the lap ahead.
  */
 @Composable
-fun CountdownOverlay(value: Int, onCancel: () -> Unit) {
+fun CountdownOverlay(value: Int, subtitle: String? = null, onCancel: (() -> Unit)? = null) {
     val interaction = remember { MutableInteractionSource() }
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xC0000000))
-            .clickable(interactionSource = interaction, indication = null, onClick = onCancel),
+            .let {
+                if (onCancel == null) it
+                else it.clickable(interactionSource = interaction, indication = null, onClick = onCancel)
+            },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -59,16 +69,24 @@ fun CountdownOverlay(value: Int, onCancel: () -> Unit) {
             value == 0 -> key(value) {
                 PopText(stringResource(R.string.countdown_go), 120.sp, Color(0xFF2ECC71))
             }
+            // Red like a start light, and only for the lap countdown: the pre-recording one is white
+            // because nothing is about to be timed against a rival.
             else -> key(value) {
-                PopText("$value", 160.sp, Color.White)
+                PopText("$value", 160.sp, if (subtitle != null) Color(0xFFE63946) else Color.White)
             }
         }
-        Spacer(Modifier.height(28.dp))
-        Text(
-            stringResource(R.string.countdown_cancel_hint),
-            color = Color(0xFF9AA5B1),
-            style = MaterialTheme.typography.bodySmall,
-        )
+        subtitle?.let {
+            Spacer(Modifier.height(8.dp))
+            Text(it, color = Color.White, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+        }
+        if (onCancel != null) {
+            Spacer(Modifier.height(28.dp))
+            Text(
+                stringResource(R.string.countdown_cancel_hint),
+                color = Color(0xFF9AA5B1),
+                style = MaterialTheme.typography.bodySmall,
+            )
+        }
     }
 }
 

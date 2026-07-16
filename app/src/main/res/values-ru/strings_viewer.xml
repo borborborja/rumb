@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Нельзя изменить во время записи.</string>
     <string name="viewer_qs_ghost_enabled">Призрак</string>
     <string name="viewer_qs_ghost_enabled_help">Гонка с призраком, когда есть с кем: эталон соревнования с первого круга или ваш лучший круг за выезд.</string>
+    <string name="lap_countdown_lap_ahead">КРУГ %1$d</string>
 </resources>

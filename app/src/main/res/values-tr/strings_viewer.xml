@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Kayıt sırasında değiştirilemez.</string>
     <string name="viewer_qs_ghost_enabled">Hayalet</string>
     <string name="viewer_qs_ghost_enabled_help">Kovalayacak biri olduğunda hayaletle yarış: ilk turdan itibaren yarışın referansı ya da bu çıkıştaki en iyi turun.</string>
+    <string name="lap_countdown_lap_ahead">TUR %1$d</string>
 </resources>

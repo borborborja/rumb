@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Während der Aufzeichnung nicht änderbar.</string>
     <string name="viewer_qs_ghost_enabled">Geist</string>
     <string name="viewer_qs_ghost_enabled_help">Fahr gegen einen Geist, sobald es einen gibt: die Referenz des Wettkampfs ab der ersten Runde oder deine beste Runde der Tour.</string>
+    <string name="lap_countdown_lap_ahead">RUNDE %1$d</string>
 </resources>

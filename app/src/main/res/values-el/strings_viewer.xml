@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Δεν αλλάζει κατά την εγγραφή.</string>
     <string name="viewer_qs_ghost_enabled">Φάντασμα</string>
     <string name="viewer_qs_ghost_enabled_help">Αγωνίσου με ένα φάντασμα όποτε υπάρχει: η αναφορά του αγώνα από τον πρώτο γύρο ή ο καλύτερος γύρος σου της εξόδου.</string>
+    <string name="lap_countdown_lap_ahead">ΓΥΡΟΣ %1$d</string>
 </resources>

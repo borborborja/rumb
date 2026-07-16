@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Can\'t be changed while recording.</string>
     <string name="viewer_qs_ghost_enabled">Ghost</string>
     <string name="viewer_qs_ghost_enabled_help">Race a ghost whenever there is one to chase: a competition\'s reference from the first lap, or your best lap of the outing.</string>
+    <string name="lap_countdown_lap_ahead">LAP %1$d</string>
 </resources>

@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Nie można zmienić podczas nagrywania.</string>
     <string name="viewer_qs_ghost_enabled">Duch</string>
     <string name="viewer_qs_ghost_enabled_help">Ścigaj się z duchem, gdy tylko jest: referencja zawodów od pierwszego okrążenia lub twoje najlepsze okrążenie wyjazdu.</string>
+    <string name="lap_countdown_lap_ahead">OKRĄŻENIE %1$d</string>
 </resources>

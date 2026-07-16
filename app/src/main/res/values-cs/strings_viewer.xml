@@ -102,4 +102,5 @@
     <string name="viewer_qs_sport_locked">Nelze změnit během záznamu.</string>
     <string name="viewer_qs_ghost_enabled">Duch</string>
     <string name="viewer_qs_ghost_enabled_help">Závoď s duchem, kdykoli nějaký je: reference závodu od prvního kola, nebo tvé nejlepší kolo výjezdu.</string>
+    <string name="lap_countdown_lap_ahead">KOLO %1$d</string>
 </resources>

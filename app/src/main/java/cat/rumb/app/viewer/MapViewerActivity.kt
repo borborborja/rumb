@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
@@ -89,7 +90,7 @@ class MapViewerActivity : ComponentActivity() {
     /** Pre-recording countdown: null hidden, -1 waiting for GPS, 3..1 digits, 0 = GO!. */
     private val countdownFlow = MutableStateFlow<Int?>(null)
     // Circuit "3-2-1 into the lap" overlay (null = hidden). Separate from the recording countdown.
-    private val lapCountdownFlow = MutableStateFlow<Int?>(null)
+    private val lapCountdownFlow = MutableStateFlow<LapCountdown?>(null)
 
     /** Competition pre-start: distance to the start point + whether the fix is precise enough. */
     data class StartPointState(val distanceM: Double, val precise: Boolean)
@@ -536,7 +537,12 @@ class MapViewerActivity : ComponentActivity() {
                         }
                         // Circuit lap countdown: nothing to cancel — it tracks the finish line.
                         val lapCountdown by lapCountdownFlow.collectAsState()
-                        lapCountdown?.let { value -> CountdownOverlay(value) {} }
+                        lapCountdown?.let { cd ->
+                            CountdownOverlay(
+                                cd.secondsLeft,
+                                subtitle = stringResource(R.string.lap_countdown_lap_ahead, cd.lapAhead),
+                            )
+                        }
                         // Sport mode: asked once, before the first recording.
                         val askSport by sportPickerFlow.collectAsState()
                         if (askSport) {
@@ -1037,12 +1043,18 @@ class MapViewerActivity : ComponentActivity() {
      * Circuit "3-2-1 into the lap": while recording a circuit, estimate the seconds left to the
      * finish line from the ground speed and show the countdown so 0 lands on the crossing. Armed
      * only once we've left the finish area, so lingering near the line can't retrigger it.
+     *
+     * Sound is a start light, not speech: a beep per digit and a long one at the line, straight from
+     * [AlertFeedback]'s tone generator. It must land on the second, and it must work for someone who
+     * keeps the voice announcements off — which is everyone, by default.
      */
     private fun startLapCountdownTicker(ctrl: MapLibreController) {
         lifecycleScope.launch {
             repeatOnLifecycle(androidx.lifecycle.Lifecycle.State.STARTED) {
                 var armed = false
                 var lastDistM = Double.MAX_VALUE
+                var lastDigit: Int? = null
+                var counted = false // this approach reached the digits → the crossing deserves a tone
                 while (true) {
                     val prefs = ViewerPreferences.get(this@MapViewerActivity)
                     val loc = ctrl.lastLocation()
@@ -1050,6 +1062,8 @@ class MapViewerActivity : ComponentActivity() {
                         lapCountdownFlow.value = null
                         armed = false
                         lastDistM = Double.MAX_VALUE
+                        lastDigit = null
+                        counted = false
                     } else {
                         val here = cat.rumb.app.data.opentracks.model.GeoPoint(loc.latitude, loc.longitude)
                         val line = cat.rumb.app.data.opentracks.model.GeoPoint(prefs.circuitLineLat, prefs.circuitLineLng)
@@ -1058,19 +1072,39 @@ class MapViewerActivity : ComponentActivity() {
                         if (d > radius * 2) armed = true // left the finish area → count the next lap in
                         val speed = if (loc.hasSpeed()) loc.speed.toDouble() else 0.0
                         val closing = d < lastDistM - CLOSING_HYSTERESIS_M
-                        lapCountdownFlow.value = if (armed && closing && speed > MIN_COUNTDOWN_SPEED_MS && d > radius) {
+                        val digit = if (armed && closing && speed > MIN_COUNTDOWN_SPEED_MS && d > radius) {
                             val eta = d / speed
                             if (eta <= 3.0) kotlin.math.ceil(eta).toInt().coerceIn(1, 3) else null
                         } else {
                             null
                         }
-                        if (d <= radius) armed = false // crossing the line opens the lap; disarm
+                        // One beep per NEW digit: the loop ticks at 250 ms, the digits at ~1 s.
+                        if (digit != null && digit != lastDigit) {
+                            AlertFeedback.beep(BeepSound.BEEP)
+                            counted = true
+                        }
+                        lastDigit = digit
+                        lapCountdownFlow.value = digit?.let { LapCountdown(it, lapNumberAhead()) }
+                        if (d <= radius) {
+                            if (counted) AlertFeedback.lapLightsOut()
+                            armed = false // crossing the line opens the lap; disarm
+                            counted = false
+                        }
                         lastDistM = d
                     }
                     kotlinx.coroutines.delay(250)
                 }
             }
         }
+    }
+
+    /**
+     * The lap you are counting into. The recorder's counter is the lap you are ON, so the next one
+     * is +1 — except before the first crossing, when no lap is open and the one ahead is lap 1.
+     */
+    private fun lapNumberAhead(): Int {
+        val ls = NativeRecording.state.value?.let { if (it.lapsActive) it.lapCount else null }
+        return (ls ?: 0) + 1
     }
 
     /** Persists a finished native recording: library entry + GPX + Endurain upload. */
