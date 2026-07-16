@@ -388,6 +388,8 @@ private fun TileGrid(
     val bounds = remember { mutableStateMapOf<String, Rect>() }
     val currentLayout by rememberUpdatedState(layout)
     bounds.keys.retainAll(layout.fields.toSet())
+    // The tile the finger is over during a drag; the reorder is committed once, on release.
+    var dragTarget by remember { mutableStateOf<String?>(null) }
 
     val rows = remember(layout) {
         val out = mutableListOf<MutableList<String>>()
@@ -414,18 +416,23 @@ private fun TileGrid(
                             units = units,
                             isSelected = selected == field,
                             isDragging = dragging == field,
+                            isDropTarget = dragTarget == field && dragging != field,
                             onSelect = { onSelect(field) },
                             onConfigure = { onConfigure(field) },
                             onBounds = { bounds[field] = it },
                             onDragStart = { onDragState(field) },
-                            onDragEnd = { onDragState(null) },
-                            onDragTo = { pointer ->
-                                val target = nearestField(bounds, pointer)
+                            // Track only during the drag — committing the reorder live reparents the
+                            // dragged tile across Rows and cancels the gesture. Commit on release.
+                            onDragOver = { pointer -> dragTarget = nearestField(bounds, pointer) },
+                            onDrop = {
+                                val target = dragTarget
                                 if (target != null) {
                                     val from = currentLayout.fields.indexOf(field)
                                     val to = currentLayout.fields.indexOf(target)
                                     if (from >= 0 && to >= 0 && from != to) onReorder(from, to)
                                 }
+                                dragTarget = null
+                                onDragState(null)
                             },
                             onSpanStep = { step -> onSpanStep(field, step) },
                             modifier = Modifier.weight(layout.spanOf(field).toFloat()),
@@ -446,12 +453,13 @@ private fun EditableTile(
     units: Units,
     isSelected: Boolean,
     isDragging: Boolean,
+    isDropTarget: Boolean,
     onSelect: () -> Unit,
     onConfigure: () -> Unit,
     onBounds: (Rect) -> Unit,
     onDragStart: () -> Unit,
-    onDragEnd: () -> Unit,
-    onDragTo: (Offset) -> Unit,
+    onDragOver: (Offset) -> Unit,
+    onDrop: () -> Unit,
     onSpanStep: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -462,7 +470,8 @@ private fun EditableTile(
     var origin by remember { mutableStateOf(Offset.Zero) }
     var moveOrigin by remember { mutableStateOf(Offset.Zero) }
     val interaction = remember { MutableInteractionSource() }
-    val currentOnDragTo by rememberUpdatedState(onDragTo)
+    val currentOnDragOver by rememberUpdatedState(onDragOver)
+    val currentOnDrop by rememberUpdatedState(onDrop)
     val currentOnSpanStep by rememberUpdatedState(onSpanStep)
     var resizeAcc by remember { mutableStateOf(0f) }
 
@@ -473,10 +482,11 @@ private fun EditableTile(
                 .onGloballyPositioned { origin = it.boundsInRoot().topLeft; onBounds(it.boundsInRoot()) }
                 .alpha(if (isDragging) 0.45f else 1f)
                 .then(
-                    if (isSelected) {
-                        Modifier.border(2.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(12.dp))
-                    } else {
-                        Modifier
+                    when {
+                        // Where the dragged tile will land, highlighted while you drag over it.
+                        isDropTarget -> Modifier.border(3.dp, MaterialTheme.colorScheme.tertiary, RoundedCornerShape(12.dp))
+                        isSelected -> Modifier.border(2.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(12.dp))
+                        else -> Modifier
                     },
                 )
                 // Widget drags near the screen edge must not become the system back gesture.
@@ -485,11 +495,11 @@ private fun EditableTile(
                 .pointerInput(field) {
                     detectDragGesturesAfterLongPress(
                         onDragStart = { onDragStart() },
-                        onDragEnd = { onDragEnd() },
-                        onDragCancel = { onDragEnd() },
+                        onDragEnd = { currentOnDrop() },
+                        onDragCancel = { currentOnDrop() },
                         onDrag = { change, _ ->
                             change.consume()
-                            currentOnDragTo(origin + change.position)
+                            currentOnDragOver(origin + change.position)
                         },
                     )
                 },
@@ -518,6 +528,32 @@ private fun EditableTile(
                 )
             }
         }
+        // Move handle: stays visible through its OWN drag (gated only by selection, not !isDragging),
+        // so starting the drag doesn't dispose the composable that owns the active gesture.
+        if (isSelected) {
+            Box(
+                Modifier
+                    .align(Alignment.BottomStart)
+                    .size(24.dp)
+                    .onGloballyPositioned { moveOrigin = it.boundsInRoot().topLeft }
+                    .clip(CircleShape)
+                    .background(Color(0xCC1D3557))
+                    .systemGestureExclusion()
+                    .pointerInput(field) {
+                        detectDragGestures(
+                            onDragStart = { onDragStart() },
+                            onDragEnd = { currentOnDrop() },
+                            onDragCancel = { currentOnDrop() },
+                            onDrag = { change, _ ->
+                                change.consume()
+                                currentOnDragOver(moveOrigin + change.position)
+                            },
+                        )
+                    },
+                contentAlignment = Alignment.Center,
+            ) { Icon(Icons.Filled.OpenWith, contentDescription = stringResource(R.string.editor_move), tint = Color.White, modifier = Modifier.size(14.dp)) }
+        }
+        // Gear + resize hide while moving (they'd fight the drag); shown only when selected and idle.
         if (isSelected && !isDragging) {
             // Center gear: tile settings.
             Box(
@@ -533,28 +569,6 @@ private fun EditableTile(
                     ),
                 contentAlignment = Alignment.Center,
             ) { Icon(Icons.Filled.Settings, contentDescription = stringResource(R.string.editor_configure), tint = Color.White, modifier = Modifier.size(16.dp)) }
-            // Bottom-start handle: drag to move the tile (visible affordance, opposite the resize handle).
-            Box(
-                Modifier
-                    .align(Alignment.BottomStart)
-                    .size(24.dp)
-                    .onGloballyPositioned { moveOrigin = it.boundsInRoot().topLeft }
-                    .clip(CircleShape)
-                    .background(Color(0xCC1D3557))
-                    .systemGestureExclusion()
-                    .pointerInput(field) {
-                        detectDragGestures(
-                            onDragStart = { onDragStart() },
-                            onDragEnd = { onDragEnd() },
-                            onDragCancel = { onDragEnd() },
-                            onDrag = { change, _ ->
-                                change.consume()
-                                currentOnDragTo(moveOrigin + change.position)
-                            },
-                        )
-                    },
-                contentAlignment = Alignment.Center,
-            ) { Icon(Icons.Filled.OpenWith, contentDescription = stringResource(R.string.editor_move), tint = Color.White, modifier = Modifier.size(14.dp)) }
             // Bottom-end handle: horizontal drag snaps the span 1x↔2x↔3x.
             Box(
                 Modifier

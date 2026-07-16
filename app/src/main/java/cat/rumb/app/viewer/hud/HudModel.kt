@@ -225,6 +225,21 @@ data class HudLayout(
         return copy(widgets = widgets.toMutableList().also { it[index] = w })
     }
 
+    /**
+     * Moves the widget at [from] to [zone], inserting it at the flat-list position of the sibling
+     * [targetElementId] — so dropping a widget onto another reorders it within a zone (or across
+     * zones). A null/absent target appends it (last in [zone]). Order within a zone is the widgets'
+     * relative order in the flat list, so re-inserting is what actually reorders.
+     */
+    fun moveWidget(from: Int, zone: HudZone, targetElementId: String?): HudLayout {
+        if (from !in widgets.indices) return this
+        val to = targetElementId?.let { id -> widgets.indexOfFirst { it.elementId == id } }?.takeIf { it >= 0 }
+        val list = widgets.toMutableList()
+        val w = list.removeAt(from).copy(zone = zone)
+        list.add((to ?: list.size).coerceIn(0, list.size), w)
+        return copy(widgets = list)
+    }
+
     /** Sets one widget's individual scale, clamped to a sane range. */
     fun setWidgetScale(index: Int, scale: Float): HudLayout {
         if (index !in widgets.indices) return this

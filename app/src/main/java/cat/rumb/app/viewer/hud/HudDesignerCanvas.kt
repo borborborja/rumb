@@ -24,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -33,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -65,6 +67,9 @@ fun HudEditorCanvas(
     var dragPointer by remember { mutableStateOf<Offset?>(null) } // canvas-local, while dragging
     var dragOffset by remember { mutableStateOf(Offset.Zero) }
     var draggingId by remember { mutableStateOf<String?>(null) }
+    // Each widget's on-screen bounds (root coords), so a drop can pick the sibling to reorder next to.
+    val widgetBounds = remember { mutableStateMapOf<String, Rect>() }
+    widgetBounds.keys.retainAll(layout.widgets.map { it.elementId }.toSet())
 
     val targetZone = dragPointer?.let {
         if (canvasSize.width > 0) zoneForPoint(it.x, it.y, canvasSize.width, canvasSize.height) else null
@@ -116,6 +121,7 @@ fun HudEditorCanvas(
                                 dragOffset += delta
                                 dragPointer = dragPointer?.plus(delta)
                             },
+                            onBounds = { widgetBounds[widget.elementId] = it },
                             onDragEnd = { cancelled ->
                                 // Compute the drop zone from the CURRENT pointer state (a composition
                                 // value here would be a stale closure inside pointerInput).
@@ -125,9 +131,13 @@ fun HudEditorCanvas(
                                 } else {
                                     null
                                 }
-                                if (!cancelled && zoneAtDrop != null) {
+                                if (!cancelled && zoneAtDrop != null && p != null) {
                                     val i = currentLayout.widgets.indexOfFirst { it.elementId == widget.elementId }
-                                    if (i >= 0) onChange(currentLayout.moveToZone(i, zoneAtDrop))
+                                    // Drop over/near a sibling in that zone → reorder next to it (null = append).
+                                    val target = nearestWidgetInZone(
+                                        widgetBounds, currentLayout, zoneAtDrop, widget.elementId, p + canvasOrigin,
+                                    )
+                                    if (i >= 0) onChange(currentLayout.moveWidget(i, zoneAtDrop, target))
                                 }
                                 draggingId = null
                                 dragOffset = Offset.Zero
@@ -197,6 +207,7 @@ private fun EditorWidget(
     onDragStart: (widgetOriginInRoot: Offset, startInWidget: Offset) -> Unit,
     onDragBy: (Offset) -> Unit,
     onDragEnd: (cancelled: Boolean) -> Unit,
+    onBounds: (Rect) -> Unit,
     content: @Composable () -> Unit,
 ) {
     var originInRoot by remember { mutableStateOf(Offset.Zero) }
@@ -209,7 +220,7 @@ private fun EditorWidget(
 
     Box(
         Modifier
-            .onGloballyPositioned { originInRoot = it.boundsInRoot().topLeft }
+            .onGloballyPositioned { originInRoot = it.boundsInRoot().topLeft; onBounds(it.boundsInRoot()) }
             // Widget drags near the screen edge must not become the system back gesture.
             .systemGestureExclusion()
             .graphicsLayer {
@@ -285,4 +296,23 @@ private fun EditorWidget(
 private fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier {
     val interaction = remember { MutableInteractionSource() }
     return this.clickable(interactionSource = interaction, indication = null, onClick = onClick)
+}
+
+/**
+ * The sibling widget in [zone] (excluding [exclude]) that [pointer] (root coords) is over, else the
+ * nearest by centre distance. Null when the zone has no other widgets → the drop just appends there.
+ */
+private fun nearestWidgetInZone(
+    bounds: Map<String, Rect>,
+    layout: HudLayout,
+    zone: HudZone,
+    exclude: String,
+    pointer: Offset,
+): String? {
+    val candidates = layout.byZone(zone).map { it.elementId }.filter { it != exclude }
+    if (candidates.isEmpty()) return null
+    candidates.firstOrNull { bounds[it]?.contains(pointer) == true }?.let { return it }
+    return candidates
+        .filter { bounds[it] != null }
+        .minByOrNull { (bounds.getValue(it).center - pointer).getDistanceSquared() }
 }
