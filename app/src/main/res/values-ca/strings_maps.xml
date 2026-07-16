@@ -51,4 +51,13 @@
     <string name="maps_display_dim">Atenua</string>
     <string name="maps_display_save">Desa</string>
     <string name="maps_display_reset">Restableix</string>
+    <string name="maps_needs_api_key">Necessita una clau API</string>
+    <string name="maps_manage_key">Clau API</string>
+    <string name="maps_api_key_help">Aquest mapa necessita una clau API gratuïta. Enganxa-la i la verifiquem abans d\'activar el mapa.</string>
+    <string name="maps_api_key_label">Clau API</string>
+    <string name="maps_api_key_verify">Verifica i activa</string>
+    <string name="maps_api_key_verifying">Verificant…</string>
+    <string name="maps_api_key_bad">La clau no funciona. Revisa-la i torna-ho a provar.</string>
+    <string name="maps_api_key_get">Aconsegueix una clau gratuïta</string>
+    <string name="maps_api_key_clear">Treu la clau</string>
 </resources>

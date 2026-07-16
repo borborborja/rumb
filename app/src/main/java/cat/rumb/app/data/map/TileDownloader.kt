@@ -81,7 +81,7 @@ class TileDownloader(
          * expands `{s}` to a rotating subdomain.
          */
         fun tileUrl(source: MapSource, z: Int, x: Int, y: Int): String {
-            var url = source.url
+            var url = TileApiKeys.applyKey(source) // resolve `{key}` for keyed providers first
                 .replace("{z}", z.toString())
                 .replace("{x}", x.toString())
                 .replace("{y}", y.toString())

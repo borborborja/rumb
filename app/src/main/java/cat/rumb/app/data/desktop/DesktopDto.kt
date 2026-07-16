@@ -169,6 +169,9 @@ data class SettingsDto(
     // Per-map display options the SPA applies (except in the route editor). Read by name in JS, so
     // appended at the end — safe for both kotlinx (name-based) and the browser.
     val detailReduction: Int = 0, val grayscale: Boolean = false, val opacity: Float = 1f,
+    // Resolved tile URL ({key} already injected) — sent ONLY for keyed sources with a stored key,
+    // so the SPA can render them; null for keyless sources (the SPA has their URL hardcoded).
+    val url: String? = null,
 )
 @Serializable data class RegionDto(val name: String, val west: Double, val south: Double, val east: Double, val north: Double)
 @Serializable data class OfflineMapDto(

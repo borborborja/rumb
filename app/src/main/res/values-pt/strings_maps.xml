@@ -51,4 +51,13 @@
     <string name="maps_display_dim">Atenuar</string>
     <string name="maps_display_save">Guardar</string>
     <string name="maps_display_reset">Repor</string>
+    <string name="maps_needs_api_key">Needs API key</string>
+    <string name="maps_manage_key">API key</string>
+    <string name="maps_api_key_help">This map needs a free API key. Paste it and we\'ll verify it before enabling the map.</string>
+    <string name="maps_api_key_label">API key</string>
+    <string name="maps_api_key_verify">Verify and enable</string>
+    <string name="maps_api_key_verifying">Verifying…</string>
+    <string name="maps_api_key_bad">That key didn\'t work. Check it and try again.</string>
+    <string name="maps_api_key_get">Get a free key</string>
+    <string name="maps_api_key_clear">Remove key</string>
 </resources>

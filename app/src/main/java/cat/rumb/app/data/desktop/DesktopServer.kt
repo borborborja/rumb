@@ -407,9 +407,16 @@ class DesktopServer(
         val p = ViewerPreferences.get(context)
         val sources = cat.rumb.app.data.map.MapSource.entries.map {
             val cfg = cat.rumb.app.data.map.MapDisplayStore.load(p, it.id)
+            // Keyed maps: hand the SPA the resolved tile URL (with the key) only once it's stored,
+            // so a keyed map without a key never reaches the browser.
+            val keyedUrl = if (it.needsApiKey && cat.rumb.app.data.map.TileApiKeys.get(it.apiKeyProvider) != null) {
+                cat.rumb.app.data.map.TileApiKeys.applyKey(it)
+            } else {
+                null
+            }
             MapSourceDto(
                 it.id, it.displayName, it.attribution, it.maxZoom, it.offlineAllowed,
-                cfg.detailReduction, cfg.grayscale, cfg.opacity,
+                cfg.detailReduction, cfg.grayscale, cfg.opacity, keyedUrl,
             )
         }
         val offline = store.list().map { m ->

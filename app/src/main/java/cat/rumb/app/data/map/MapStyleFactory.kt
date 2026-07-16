@@ -38,11 +38,12 @@ object MapStyleFactory {
 
     /** Expands `{s}` into one URL per subdomain (MapLibre's way to spread load); else a single URL. */
     private fun expandTiles(source: MapSource): List<String> {
+        val template = TileApiKeys.applyKey(source) // resolve `{key}` for keyed providers first
         val subs = source.subdomains
         return if (subs.isNullOrEmpty()) {
-            listOf(source.url)
+            listOf(template)
         } else {
-            subs.map { source.url.replace("{s}", it.toString()) }
+            subs.map { template.replace("{s}", it.toString()) }
         }
     }
 

@@ -228,6 +228,16 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
     fun setMapDisplayJsonFor(sourceId: String, raw: String?) =
         prefs.edit().putString(KEY_MAP_DISPLAY + "_" + sourceId, raw).apply()
 
+    /**
+     * Per-provider tile API key (null = not set → the keyed map stays disabled). Stored only after
+     * a successful verification, so a stored key means "verified and active". Plaintext, like the
+     * Endurain upload key: a tile key ends up in the request URL and is not a high-value secret.
+     */
+    fun mapApiKeyFor(provider: String): String? =
+        prefs.getString(KEY_MAP_API_KEY + "_" + provider, null)?.takeIf { it.isNotBlank() }
+    fun setMapApiKeyFor(provider: String, key: String?) =
+        prefs.edit().putString(KEY_MAP_API_KEY + "_" + provider, key?.takeIf { it.isNotBlank() }).apply()
+
     /** Per-sport split distance (m): 1 km for running, usually off for cycling. */
     fun autoLapEveryMFor(sportId: String?): Float =
         if (sportId == null) autoLapEveryM else prefs.getFloat(KEY_AUTO_LAP_EVERY_M + "_" + sportId, autoLapEveryM)
@@ -443,6 +453,7 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         private const val KEY_BASE_MAP = "base_map_id"
         private const val KEY_HUD_LAYOUT = "hud_layout_json"
         private const val KEY_MAP_DISPLAY = "map_display_json"
+        private const val KEY_MAP_API_KEY = "map_api_key"
         private const val KEY_DATA_LAYOUT = "data_layout_json"
         private const val KEY_UNIT_DISTANCE = "unit_distance"
         private const val KEY_UNIT_ELEVATION = "unit_elevation"

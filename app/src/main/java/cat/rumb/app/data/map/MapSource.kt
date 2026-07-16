@@ -17,6 +17,11 @@ enum class MapSource(
     val subdomains: String? = null,
     /** False = online only: excluded from offline region download and route prefetch. */
     val offlineAllowed: Boolean = true,
+    /**
+     * Non-null = this provider needs a user-supplied API key (the [url] carries a `{key}`
+     * placeholder). The value is the provider id used to store/look up the key (e.g. "tracestrack").
+     */
+    val apiKeyProvider: String? = null,
 ) {
     OSM(
         id = "osm",
@@ -105,9 +110,35 @@ enum class MapSource(
         maxZoom = 20,
         subdomains = "abc",
         offlineAllowed = false,
+    ),
+
+    /**
+     * Tracestrack Topo — global topographic. Needs a free per-user API key (`{key}` in the URL);
+     * hidden from the base-map pickers until the user enters and verifies a key in Map layers.
+     * Online only (fair-use quota).
+     */
+    TRACESTRACK_TOPO(
+        id = "tracestrack_topo",
+        displayName = "Tracestrack Topo",
+        kind = Kind.RASTER,
+        url = "https://tile.tracestrack.com/topo__/{z}/{x}/{y}.png?key={key}",
+        attribution = "© Tracestrack · © OpenStreetMap contributors",
+        maxZoom = 18,
+        offlineAllowed = false,
+        apiKeyProvider = "tracestrack",
     );
 
     enum class Kind { RASTER, VECTOR_STYLE }
+
+    /** Whether this source needs a user-supplied API key before it can render. */
+    val needsApiKey: Boolean get() = apiKeyProvider != null
+
+    /**
+     * Ready to be offered as a base map: keyless, or a keyed provider whose key is loaded. Keyed maps
+     * without a key are hidden from the pickers (they'd render blank) and only appear once activated
+     * in Map layers.
+     */
+    val isSelectable: Boolean get() = apiKeyProvider == null || TileApiKeys.get(apiKeyProvider) != null
 
     companion object {
         val DEFAULT = ICGC_TOPO

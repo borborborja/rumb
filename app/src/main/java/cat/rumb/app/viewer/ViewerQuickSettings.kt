@@ -188,7 +188,7 @@ fun ViewerQuickSettings(
 @Composable
 private fun MapTab(current: String?, offlineMaps: List<OfflineMap>, onSelect: (String) -> Unit) {
     Text(stringResource(R.string.viewer_qs_online_map), style = MaterialTheme.typography.labelLarge)
-    MapSource.entries.forEach { source ->
+    MapSource.entries.filter { it.isSelectable }.forEach { source ->
         RadioRow(source.displayName, source.attribution, current == source.id) { onSelect(source.id) }
     }
     if (offlineMaps.isNotEmpty()) {

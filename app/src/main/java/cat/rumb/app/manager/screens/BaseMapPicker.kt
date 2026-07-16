@@ -30,7 +30,7 @@ import cat.rumb.app.data.map.MapSource
  */
 @Composable
 fun BaseMapMenu(currentId: String?, onSelect: (MapSource) -> Unit) {
-    MapSource.entries.filter { it.kind == MapSource.Kind.RASTER }.forEach { src ->
+    MapSource.entries.filter { it.kind == MapSource.Kind.RASTER && it.isSelectable }.forEach { src ->
         DropdownMenuItem(
             text = { Text(src.displayName) },
             leadingIcon = {

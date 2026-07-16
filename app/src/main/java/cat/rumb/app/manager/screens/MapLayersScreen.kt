@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -25,6 +26,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Slider
@@ -38,22 +40,27 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import cat.rumb.app.R
 import cat.rumb.app.data.map.MapDisplayConfig
 import cat.rumb.app.data.map.MapDisplayStore
+import cat.rumb.app.data.map.MapKeyVerifier
 import cat.rumb.app.data.map.MapSource
 import cat.rumb.app.data.map.MapStyleFactory
 import cat.rumb.app.data.map.OfflineMap
 import cat.rumb.app.data.map.OfflineMapStore
+import cat.rumb.app.data.map.TileApiKeys
 import cat.rumb.app.data.prefs.ViewerPreferences
+import kotlinx.coroutines.launch
 import java.io.File
 
 @Composable
@@ -99,26 +106,54 @@ private fun OnlineTab(current: String?, onSelect: (String) -> Unit) {
     val context = LocalContext.current
     val prefs = remember { ViewerPreferences.get(context) }
     var editing by remember { mutableStateOf<MapSource?>(null) }
+    var keyDialogFor by remember { mutableStateOf<MapSource?>(null) }
+    // Bumped after a key is saved/cleared so the affected row re-reads prefs and enables/disables.
+    var keyVersion by remember { mutableIntStateOf(0) }
 
     Text(stringResource(R.string.maps_base_map_title), style = MaterialTheme.typography.titleSmall)
     MapSource.entries.forEach { source ->
+        val provider = source.apiKeyProvider
+        val storedKey = remember(keyVersion, provider) { provider?.let { prefs.mapApiKeyFor(it) } }
+        // Keyed maps stay disabled until a key is stored (only stored after a successful verify).
+        val enabled = provider == null || storedKey != null
+        val labelColor =
+            if (enabled) MaterialTheme.colorScheme.onSurface
+            else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
         Card {
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .selectable(selected = current == source.id, onClick = { onSelect(source.id) })
+                    .then(
+                        if (enabled) {
+                            Modifier.selectable(selected = current == source.id, onClick = { onSelect(source.id) })
+                        } else {
+                            Modifier
+                        },
+                    )
                     .padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 4.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                RadioButton(selected = current == source.id, onClick = null)
+                RadioButton(selected = enabled && current == source.id, onClick = null, enabled = enabled)
                 Column(Modifier.padding(start = 12.dp).weight(1f)) {
-                    Text(source.displayName, style = MaterialTheme.typography.bodyLarge)
-                    Text(source.attribution, style = MaterialTheme.typography.bodySmall)
+                    Text(source.displayName, style = MaterialTheme.typography.bodyLarge, color = labelColor)
+                    Text(
+                        if (enabled) source.attribution else stringResource(R.string.maps_needs_api_key),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = labelColor,
+                    )
+                }
+                // Keyed maps: a key icon to enter/manage the API key (the only affordance until keyed).
+                if (provider != null) {
+                    IconButton(onClick = { keyDialogFor = source }) {
+                        Icon(Icons.Filled.Key, contentDescription = stringResource(R.string.maps_manage_key))
+                    }
                 }
                 // The pencil configures how THIS map is shown (detail/grayscale/dim), independent of
                 // which map is selected — you can tune one you're not currently using.
-                IconButton(onClick = { editing = source }) {
-                    Icon(Icons.Filled.Edit, contentDescription = stringResource(R.string.maps_display_edit))
+                if (enabled) {
+                    IconButton(onClick = { editing = source }) {
+                        Icon(Icons.Filled.Edit, contentDescription = stringResource(R.string.maps_display_edit))
+                    }
                 }
             }
         }
@@ -132,6 +167,95 @@ private fun OnlineTab(current: String?, onSelect: (String) -> Unit) {
             onSave = { config -> MapDisplayStore.save(prefs, source.id, config); editing = null },
         )
     }
+
+    keyDialogFor?.let { source ->
+        val provider = source.apiKeyProvider!!
+        ApiKeyDialog(
+            source = source,
+            initial = prefs.mapApiKeyFor(provider),
+            onDismiss = { keyDialogFor = null },
+            onSaved = { key ->
+                prefs.setMapApiKeyFor(provider, key)
+                TileApiKeys.set(provider, key)
+                if (key == null && current == source.id) onSelect(MapSource.DEFAULT.id) // don't leave a disabled map selected
+                keyVersion++
+                keyDialogFor = null
+            },
+        )
+    }
+}
+
+/**
+ * Enters/verifies a tile-provider API key. The key is only handed back (and thus stored + the map
+ * enabled) once [MapKeyVerifier] confirms it fetches a tile; a bad key shows an error and stays.
+ */
+@Composable
+private fun ApiKeyDialog(
+    source: MapSource,
+    initial: String?,
+    onDismiss: () -> Unit,
+    onSaved: (String?) -> Unit,
+) {
+    val scope = rememberCoroutineScope()
+    val uriHandler = LocalUriHandler.current
+    var key by remember { mutableStateOf(initial.orEmpty()) }
+    var checking by remember { mutableStateOf(false) }
+    var failed by remember { mutableStateOf(false) }
+    val getKeyUrl = when (source.apiKeyProvider) {
+        "tracestrack" -> "https://tracestrack.com/"
+        else -> null
+    }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(source.displayName) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(stringResource(R.string.maps_api_key_help), style = MaterialTheme.typography.bodyMedium)
+                OutlinedTextField(
+                    value = key,
+                    onValueChange = { key = it; failed = false },
+                    singleLine = true,
+                    label = { Text(stringResource(R.string.maps_api_key_label)) },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                if (failed) {
+                    Text(
+                        stringResource(R.string.maps_api_key_bad),
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                }
+                if (getKeyUrl != null) {
+                    TextButton(onClick = { uriHandler.openUri(getKeyUrl) }, contentPadding = androidx.compose.foundation.layout.PaddingValues(0.dp)) {
+                        Text(stringResource(R.string.maps_api_key_get))
+                    }
+                }
+                if (initial != null) {
+                    TextButton(onClick = { onSaved(null) }, contentPadding = androidx.compose.foundation.layout.PaddingValues(0.dp)) {
+                        Text(stringResource(R.string.maps_api_key_clear), color = MaterialTheme.colorScheme.error)
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            Button(
+                enabled = key.isNotBlank() && !checking,
+                onClick = {
+                    checking = true
+                    failed = false
+                    scope.launch {
+                        val ok = MapKeyVerifier.verify(source, key.trim())
+                        checking = false
+                        if (ok) onSaved(key.trim()) else failed = true
+                    }
+                },
+            ) {
+                Text(stringResource(if (checking) R.string.maps_api_key_verifying else R.string.maps_api_key_verify))
+            }
+        },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.maps_cancel)) } },
+    )
 }
 
 @Composable

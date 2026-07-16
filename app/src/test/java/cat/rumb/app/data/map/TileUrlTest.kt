@@ -31,4 +31,36 @@ class TileUrlTest {
         assertThat(url).doesNotContain("{s}")
         assertThat(url).matches("https://[abc]\\.tile\\.opentopomap\\.org/5/3/7\\.png")
     }
+
+    @Test
+    fun keyedSourceInjectsTheStoredApiKey() {
+        try {
+            TileApiKeys.set("tracestrack", "MYKEY123")
+            val url = TileDownloader.tileUrl(MapSource.TRACESTRACK_TOPO, z = 5, x = 3, y = 7)
+            assertThat(url).contains("key=MYKEY123")
+            assertThat(url).contains("/5/3/7.png")
+            assertThat(url).doesNotContain("{") // no {z}/{x}/{y}/{key} left dangling
+        } finally {
+            TileApiKeys.set("tracestrack", null)
+        }
+    }
+
+    @Test
+    fun keyedSourceIsHiddenUntilKeyedThenSelectable() {
+        TileApiKeys.set("tracestrack", null)
+        assertThat(MapSource.TRACESTRACK_TOPO.needsApiKey).isTrue()
+        assertThat(MapSource.TRACESTRACK_TOPO.isSelectable).isFalse()
+        try {
+            TileApiKeys.set("tracestrack", "K")
+            assertThat(MapSource.TRACESTRACK_TOPO.isSelectable).isTrue()
+        } finally {
+            TileApiKeys.set("tracestrack", null)
+        }
+    }
+
+    @Test
+    fun keylessSourceNeedsNoKeyAndIsAlwaysSelectable() {
+        assertThat(MapSource.ICGC_TOPO.needsApiKey).isFalse()
+        assertThat(MapSource.ICGC_TOPO.isSelectable).isTrue()
+    }
 }

@@ -379,6 +379,8 @@ const BASE_MAPS = [
   { id: "esri_imagery", name: t("map_esri_imagery"), url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", attr: "© Esri, Maxar, Earthstar Geographics", maxZoom: 19 },
   { id: "opentopomap", name: "OpenTopoMap", url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", attr: "© OpenTopoMap (CC-BY-SA) · © OpenStreetMap", maxZoom: 17, subdomains: "abc" },
   { id: "cyclosm", name: "CyclOSM", url: "https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png", attr: "© CyclOSM · © OpenStreetMap", maxZoom: 20, subdomains: "abc" },
+  // Keyed: the URL (with the user's key) arrives from the app via /api/maps; skipped until then.
+  { id: "tracestrack_topo", name: "Tracestrack Topo", attr: "© Tracestrack · © OpenStreetMap", maxZoom: 18, keyed: true },
   { id: "osm", name: "OpenStreetMap", url: TILE_URL, attr: TILE_ATTR, maxZoom: 19 },
 ];
 const DEFAULT_BASE_MAP = "icgc_topografic";
@@ -389,6 +391,7 @@ function preferredBaseMap() {
 // Per-map display options (detail/grayscale/opacity), mirrored from the app via /api/maps. Edited
 // only in the app; the SPA just applies them (except in the route editor). Empty until loaded.
 const mapDisplay = {};
+const mapUrls = {}; // id -> resolved tile URL from the app (only for keyed sources with a stored key)
 async function loadMapDisplay() {
   try {
     const m = await apiJson("/api/maps");
@@ -398,6 +401,7 @@ async function loadMapDisplay() {
         grayscale: !!s.grayscale,
         opacity: (s.opacity == null ? 1 : s.opacity),
       };
+      if (s.url) mapUrls[s.id] = s.url;
     });
   } catch (e) { /* keep defaults — a map with no config just looks normal */ }
 }
@@ -413,6 +417,9 @@ function newMap(el, key) {
   // The route editor keeps full detail — you're drawing precisely — so it ignores the display config.
   const applyCfg = key !== "routeEdit";
   BASE_MAPS.forEach((b) => {
+    // Keyed sources have no hardcoded URL — it (with the key) comes from the app. Skip until present.
+    const url = b.url || mapUrls[b.id];
+    if (!url) return;
     const opts = { attribution: b.attr, maxZoom: b.maxZoom };
     if (b.subdomains) opts.subdomains = b.subdomains;
     if (b.tms) opts.tms = true;
@@ -423,7 +430,7 @@ function newMap(el, key) {
       if (cfg.opacity < 1) opts.opacity = cfg.opacity;
       if (cfg.grayscale) opts.className = "map-grayscale";
     }
-    const layer = L.tileLayer(b.url, opts);
+    const layer = L.tileLayer(url, opts);
     overlays[b.name] = layer;
     if (b.id === preferred) layer.addTo(map);
   });
