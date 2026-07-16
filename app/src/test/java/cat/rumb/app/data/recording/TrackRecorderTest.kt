@@ -721,23 +721,24 @@ class TrackRecorderTest {
 
     @Test
     fun aDetectedLoopFeedsTheCoverageGuard() {
-        // After detection, the loop's length (~1600 m) is the yardstick. Give up ~90 m out from the
-        // line and come back: ~180 m is well under 80% of 1600, so it must NOT count — proving the
-        // guard read the detected length, not the 100 m fallback (which 180 m would clear).
+        // After detection, the loop's length (~1600 m) is the yardstick. Two full squares detect
+        // mid-lap-2 and END continuously back at the SW line, so an out-and-back FROM there is a
+        // clean crossing. It is 400 m — chosen to sit BETWEEN the old flat 100 m guard and 80% of
+        // the 1600 m loop (1280 m): it would SPLIT under the old guard, but must ABORT under the
+        // detected yardstick. That gap is what makes this test actually distinguish the two.
         val r = TrackRecorder(loopCfg())
         r.start(t0)
         r.warmUp()
         val sec = longArrayOf(0)
         r.square(400.0, sec)
-        r.feedUntilDetected(squareFixes(400.0), sec)
-        // Ride out to the SW line and give up 90 m past it.
-        r.leg(400.0 to 400.0, 0.0 to 0.0, sec) // finish lap 2 back at the line (a real split)
-        val splitsBefore = r.snapshot(at(sec[0])).lapMarks.count { it.type == LapMarkType.SPLIT }
-        r.leg(0.0 to 0.0, 90.0 to 0.0, sec)
-        r.leg(90.0 to 0.0, 0.0 to 0.0, sec)
+        r.square(400.0, sec) // detected mid-way; ends continuously back at the SW line
+        r.leg(0.0 to 0.0, 200.0 to 0.0, sec) // continuous from SW: out 200 m…
+        r.leg(200.0 to 0.0, 0.0 to 0.0, sec) // …and back to the line → 400 m
         val s = r.snapshot(at(sec[0]))
-        assertThat(s.lapMarks.count { it.type == LapMarkType.SPLIT }).isEqualTo(splitsBefore) // no new lap
-        assertThat(s.lapMarks.any { it.type == LapMarkType.ABORT }).isTrue()
+        // START · SPLIT(detection) · SPLIT(the real lap 2) · ABORT(the 400 m out-and-back). Two
+        // splits not three, and the last mark an ABORT, proves the yardstick is the detected loop.
+        assertThat(s.lapMarks.count { it.type == LapMarkType.SPLIT }).isEqualTo(2)
+        assertThat(s.lapMarks.last().type).isEqualTo(LapMarkType.ABORT)
     }
 
     @Test

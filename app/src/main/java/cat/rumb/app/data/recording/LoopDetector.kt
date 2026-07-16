@@ -55,7 +55,6 @@ class LoopDetector {
     private var candStartIdx = -1
     private var candLastIdx = -1
     private var candCloseSeq = 0L
-    private var candClosePoint: GeoPoint? = null
     private var candCloseDistM = 0.0
     private var candCloseTotalMs = 0L
 
@@ -87,7 +86,6 @@ class LoopDetector {
         if (candStartIdx < 0) {
             candStartIdx = winner
             candCloseSeq = seq
-            candClosePoint = here
             candCloseDistM = distM
             candCloseTotalMs = totalMs
         }
@@ -100,7 +98,7 @@ class LoopDetector {
             return Match(
                 startSeq = p0.seq, startPoint = p0.point, startDistM = p0.distM, startTotalMs = p0.totalMs,
                 closeSeq = candCloseSeq, closeDistM = candCloseDistM, closeTotalMs = candCloseTotalMs,
-            ).also { candClosePoint = null }
+            )
         }
         return null
     }
