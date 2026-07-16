@@ -344,6 +344,11 @@ class MapViewerActivity : ComponentActivity() {
                 RumbTheme {
                     val page by currentPageFlow.collectAsState()
                     val settingsOpen by settingsOpenFlow.collectAsState()
+                    // System back mirrors the exit arrow: close the settings sheet if open, else leave
+                    // for Home (never the launcher). Dialogs handle their own back before this runs.
+                    androidx.activity.compose.BackHandler(enabled = true) {
+                        if (settingsOpen) settingsOpenFlow.value = false else exitToHome()
+                    }
                     Box(Modifier.fillMaxSize().safeDrawingPadding().padding(top = 8.dp)) {
                         // Explicit exit arrow: the system back gesture also collides with map panning.
                         Box(
@@ -356,7 +361,7 @@ class MapViewerActivity : ComponentActivity() {
                                 .clickable(
                                     interactionSource = remember { MutableInteractionSource() },
                                     indication = null,
-                                    onClick = { finish() },
+                                    onClick = { exitToHome() },
                                 ),
                             contentAlignment = Alignment.Center,
                         ) {
@@ -861,6 +866,19 @@ class MapViewerActivity : ComponentActivity() {
         if (id > 0) intent.putExtra(EXTRA_COMPETITION_ID, id)
         setIntent(intent)
         recreate()
+    }
+
+    /**
+     * Leaves the viewer, landing on Home. The viewer can be launched standalone — from the recording
+     * notification, or when returning here from the HUD/Dades editor — in which case it is the task
+     * root with no manager underneath, so a plain finish() would drop to the launcher. Start Home
+     * first in that case; otherwise finish() simply reveals the manager already below.
+     */
+    private fun exitToHome() {
+        if (isTaskRoot) {
+            startActivity(android.content.Intent(this, cat.rumb.app.manager.ManagerActivity::class.java))
+        }
+        finish()
     }
 
     /** singleTask reuse (e.g. starting a competition from the manager while the viewer is alive). */
