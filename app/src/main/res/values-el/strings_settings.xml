@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Κουκκίδα</string>
     <string name="settings_tracking_arrow">Βέλος</string>
     <string name="settings_route_tracking_size">Μέγεθος</string>
+    <string name="settings_ghost_appearance">Εμφάνιση του φαντάσματος</string>
+    <string name="settings_ghost_dot">Κουκκίδα</string>
+    <string name="settings_ghost_figure">Φάντασμα</string>
+    <string name="settings_ghost_face_help">Γελάει όσο σε νικάει και κλαίει μόλις το προσπεράσεις.</string>
+    <string name="settings_ghost_size">Μέγεθος</string>
     <string name="settings_route_off_route">Ειδοποίηση εκτός διαδρομής</string>
     <string name="settings_route_threshold">Όριο απόκλισης: %1$d m</string>
     <string name="settings_route_sound">Ήχος</string>

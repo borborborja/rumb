@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Ponto</string>
     <string name="settings_tracking_arrow">Seta</string>
     <string name="settings_route_tracking_size">Tamanho</string>
+    <string name="settings_ghost_appearance">Aparência do fantasma</string>
+    <string name="settings_ghost_dot">Ponto</string>
+    <string name="settings_ghost_figure">Fantasma</string>
+    <string name="settings_ghost_face_help">Ri enquanto te ganha, e chora assim que o passas.</string>
+    <string name="settings_ghost_size">Tamanho</string>
     <string name="settings_route_off_route">Alerta de saída da rota</string>
     <string name="settings_route_threshold">Limite de desvio: %1$d m</string>
     <string name="settings_route_sound">Som</string>

@@ -698,6 +698,7 @@ class MapViewerActivity : ComponentActivity() {
             )
             ctrl.setHeadingUp(prefs.mapOrientation == "HEADING_UP")
             ctrl.setTrackingPointStyle(prefs.trackingPointStyle, prefs.trackingPointColor, prefs.trackingPointSize)
+            ctrl.setGhostStyle(prefs.ghostMarkerStyle, prefs.ghostColor, prefs.ghostSize)
             setupControls(ctrl)
             maybeStartStartPill(ctrl)
             startTrackingMarkerTicker(ctrl)
@@ -1673,13 +1674,17 @@ class MapViewerActivity : ComponentActivity() {
                 // Off-route (cross-day): the along-track distance is unreliable, so freeze BOTH the
                 // dot and the meters together — updating only one makes them visibly disagree.
                 if (!offRoute) {
-                    ctrl.setGhost(ghost.positionAt(elapsed))
+                    // Delta first, THEN the marker: the ghost's face is derived from it, so computing
+                    // it afterwards would draw a face one tick behind the position it belongs to.
+                    var state: cat.rumb.app.viewer.hud.GhostState? = null
                     if (progress != null) {
                         val delta = progress - ghost.distanceAt(elapsed)
                         // Rough seconds equivalent at the current speed (skip when nearly stopped).
                         val secs = metrics.speedKmh?.takeIf { it > 1.0 }?.let { delta / (it / 3.6) }
                         metrics = metrics.copy(ghostDeltaMeters = delta, ghostSecondsEst = secs)
+                        state = cat.rumb.app.viewer.hud.GhostState.of(delta)
                     }
+                    ctrl.setGhost(ghost.positionAt(elapsed), state?.face)
                 }
             }
         } else if (lapCompeting) {
@@ -1770,9 +1775,10 @@ class MapViewerActivity : ComponentActivity() {
         // Pick up layout changes made in the editors (pencil button) while we were paused.
         ViewerPreferences.get(this).let { hudLayoutFlow.value = HudLayoutStore.load(it, it.activeSportId) }
         dataReloadFlow.value++
-        // Reflect tracking-point changes made in general Settings while we were away.
+        // Reflect tracking-point and ghost appearance changes made in general Settings while away.
         val p = ViewerPreferences.get(this)
         controller?.setTrackingPointStyle(p.trackingPointStyle, p.trackingPointColor, p.trackingPointSize)
+        controller?.setGhostStyle(p.ghostMarkerStyle, p.ghostColor, p.ghostSize)
         startWarmGps()
     }
     override fun onPause() { stopWarmGps(); mapView.onPause(); super.onPause() }

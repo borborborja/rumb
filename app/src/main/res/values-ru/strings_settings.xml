@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Точка</string>
     <string name="settings_tracking_arrow">Стрелка</string>
     <string name="settings_route_tracking_size">Размер</string>
+    <string name="settings_ghost_appearance">Вид призрака</string>
+    <string name="settings_ghost_dot">Точка</string>
+    <string name="settings_ghost_figure">Призрак</string>
+    <string name="settings_ghost_face_help">Смеётся, пока обгоняет вас, и плачет, как только вы его обходите.</string>
+    <string name="settings_ghost_size">Размер</string>
     <string name="settings_route_off_route">Оповещение о сходе с маршрута</string>
     <string name="settings_route_threshold">Порог отклонения: %1$d м</string>
     <string name="settings_route_sound">Звук</string>

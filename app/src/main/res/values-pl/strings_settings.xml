@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Kropka</string>
     <string name="settings_tracking_arrow">Strzałka</string>
     <string name="settings_route_tracking_size">Rozmiar</string>
+    <string name="settings_ghost_appearance">Wygląd ducha</string>
+    <string name="settings_ghost_dot">Kropka</string>
+    <string name="settings_ghost_figure">Duch</string>
+    <string name="settings_ghost_face_help">Śmieje się, dopóki cię wyprzedza, i płacze, gdy tylko go miniesz.</string>
+    <string name="settings_ghost_size">Rozmiar</string>
     <string name="settings_route_off_route">Alert poza trasą</string>
     <string name="settings_route_threshold">Próg odchylenia: %1$d m</string>
     <string name="settings_route_sound">Dźwięk</string>

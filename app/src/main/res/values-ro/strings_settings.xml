@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Punct</string>
     <string name="settings_tracking_arrow">Săgeată</string>
     <string name="settings_route_tracking_size">Dimensiune</string>
+    <string name="settings_ghost_appearance">Aspectul fantomei</string>
+    <string name="settings_ghost_dot">Punct</string>
+    <string name="settings_ghost_figure">Fantomă</string>
+    <string name="settings_ghost_face_help">Râde cât timp te învinge și plânge de îndată ce o depășești.</string>
+    <string name="settings_ghost_size">Dimensiune</string>
     <string name="settings_route_off_route">Alertă abatere de la traseu</string>
     <string name="settings_route_threshold">Prag abatere: %1$d m</string>
     <string name="settings_route_sound">Sunet</string>

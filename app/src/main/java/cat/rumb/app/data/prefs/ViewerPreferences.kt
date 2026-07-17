@@ -378,6 +378,20 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         get() = prefs.getFloat(KEY_TRACKING_SIZE, 1.0f)
         set(value) = prefs.edit().putFloat(KEY_TRACKING_SIZE, value).apply()
 
+    // --- Ghost marker (the opponent): DOT | GHOST, color, size scale. How it LOOKS — which lap it
+    // replays is ghostSource, and whether it exists at all is ghostEnabled. ---
+    var ghostMarkerStyle: String
+        get() = prefs.getString(KEY_GHOST_MARKER_STYLE, "DOT") ?: "DOT"
+        set(value) = prefs.edit().putString(KEY_GHOST_MARKER_STYLE, value).apply()
+
+    var ghostColor: String
+        get() = prefs.getString(KEY_GHOST_COLOR, DEFAULT_GHOST_COLOR) ?: DEFAULT_GHOST_COLOR
+        set(value) = prefs.edit().putString(KEY_GHOST_COLOR, value).apply()
+
+    var ghostSize: Float
+        get() = prefs.getFloat(KEY_GHOST_SIZE, 1.0f)
+        set(value) = prefs.edit().putFloat(KEY_GHOST_SIZE, value).apply()
+
     // --- Online map cache (MapLibre ambient cache) + route prefetch ---
     var mapCacheSizeMb: Int
         get() = prefs.getInt(KEY_MAP_CACHE_MB, 200)
@@ -536,6 +550,9 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         private const val KEY_TRACKING_STYLE = "tracking_point_style"
         private const val KEY_TRACKING_COLOR = "tracking_point_color"
         private const val KEY_TRACKING_SIZE = "tracking_point_size"
+        private const val KEY_GHOST_MARKER_STYLE = "ghost_marker_style"
+        private const val KEY_GHOST_COLOR = "ghost_color"
+        private const val KEY_GHOST_SIZE = "ghost_size"
         private const val KEY_MAP_CACHE_MB = "map_cache_size_mb"
         private const val KEY_PREFETCH_ON_FOLLOW = "prefetch_on_follow"
         private const val KEY_OFFROUTE_THRESHOLD = "offroute_threshold"
@@ -558,6 +575,9 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         private const val KEY_ANN_F_HR = "ann_f_hr"
         const val DEFAULT_TRACK_COLOR = "#E63946"
         const val DEFAULT_FOLLOW_COLOR = "#3A86FF"
+
+        /** The ghost's purple, hardcoded in the map layer before it was configurable. */
+        const val DEFAULT_GHOST_COLOR = "#9B5DE5"
 
         fun get(context: Context): ViewerPreferences =
             ViewerPreferences(context.getSharedPreferences("viewer_prefs", Context.MODE_PRIVATE))

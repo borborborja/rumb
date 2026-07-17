@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Крапка</string>
     <string name="settings_tracking_arrow">Стрілка</string>
     <string name="settings_route_tracking_size">Розмір</string>
+    <string name="settings_ghost_appearance">Вигляд привида</string>
+    <string name="settings_ghost_dot">Крапка</string>
+    <string name="settings_ghost_figure">Привид</string>
+    <string name="settings_ghost_face_help">Сміється, поки випереджає тебе, і плаче, щойно ти його обходиш.</string>
+    <string name="settings_ghost_size">Розмір</string>
     <string name="settings_route_off_route">Сповіщення про відхилення</string>
     <string name="settings_route_threshold">Поріг відхилення: %1$d м</string>
     <string name="settings_route_sound">Звук</string>

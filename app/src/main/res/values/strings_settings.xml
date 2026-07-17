@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Dot</string>
     <string name="settings_tracking_arrow">Arrow</string>
     <string name="settings_route_tracking_size">Size</string>
+    <string name="settings_ghost_appearance">Ghost appearance</string>
+    <string name="settings_ghost_dot">Dot</string>
+    <string name="settings_ghost_figure">Ghost</string>
+    <string name="settings_ghost_face_help">It laughs while it is beating you, and cries the moment you pass it.</string>
+    <string name="settings_ghost_size">Size</string>
     <string name="settings_route_off_route">Off-route alert</string>
     <string name="settings_route_threshold">Deviation threshold: %1$d m</string>
     <string name="settings_route_sound">Sound</string>

@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Nokta</string>
     <string name="settings_tracking_arrow">Ok</string>
     <string name="settings_route_tracking_size">Boyut</string>
+    <string name="settings_ghost_appearance">Hayaletin görünümü</string>
+    <string name="settings_ghost_dot">Nokta</string>
+    <string name="settings_ghost_figure">Hayalet</string>
+    <string name="settings_ghost_face_help">Seni geçtiği sürece güler, sen onu geçer geçmez ağlar.</string>
+    <string name="settings_ghost_size">Boyut</string>
     <string name="settings_route_off_route">Rota dışı uyarısı</string>
     <string name="settings_route_threshold">Sapma eşiği: %1$d m</string>
     <string name="settings_route_sound">Ses</string>

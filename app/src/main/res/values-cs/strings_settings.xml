@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Tečka</string>
     <string name="settings_tracking_arrow">Šipka</string>
     <string name="settings_route_tracking_size">Velikost</string>
+    <string name="settings_ghost_appearance">Vzhled ducha</string>
+    <string name="settings_ghost_dot">Tečka</string>
+    <string name="settings_ghost_figure">Duch</string>
+    <string name="settings_ghost_face_help">Směje se, dokud tě poráží, a pláče, jakmile ho předjedeš.</string>
+    <string name="settings_ghost_size">Velikost</string>
     <string name="settings_route_off_route">Upozornění mimo trasu</string>
     <string name="settings_route_threshold">Práh odchylky: %1$d m</string>
     <string name="settings_route_sound">Zvuk</string>

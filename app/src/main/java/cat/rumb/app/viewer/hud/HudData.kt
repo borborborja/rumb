@@ -34,24 +34,47 @@ data class HudData(
     val isOffRoute: Boolean
         get() = following && (metrics.offRouteMeters ?: 0.0) > offRouteThresholdM
 
-    /** Race state vs the ghost: within ±[GHOST_EVEN_M] counts as even (blue). */
+    /** Race state vs the ghost: within ±[GhostState.EVEN_M] counts as even (blue). */
     val ghostState: GhostState?
-        get() = metrics.ghostDeltaMeters?.let {
-            when {
-                it > GHOST_EVEN_M -> GhostState.AHEAD
-                it < -GHOST_EVEN_M -> GhostState.BEHIND
-                else -> GhostState.EVEN
-            }
-        }
-
-    companion object {
-        const val GHOST_EVEN_M = 5.0
-    }
+        get() = GhostState.of(metrics.ghostDeltaMeters)
 }
+
+/** The face the ghost wears on the map when drawn as a figure rather than a plain dot. */
+enum class GhostFace { LAUGHING, CRYING, NEUTRAL }
 
 /** Whether the athlete is ahead of, behind, or even with the ghost. */
 enum class GhostState(val colorHex: String) {
     AHEAD("#2ECC71"),
     BEHIND("#E63946"),
     EVEN("#3A86FF"),
+    ;
+
+    /**
+     * The face the ghost wears — from the GHOST's point of view, because it is your rival and not
+     * your coach. [AHEAD] means YOU are ahead, so the ghost is losing and cries; [BEHIND] means it
+     * is beating you, so it laughs at you.
+     *
+     * Yes, this reads backwards on purpose: the halo goes green (good for you) exactly when the
+     * ghost is in tears. Don't "fix" it — see GhostStateTest.
+     */
+    val face: GhostFace
+        get() = when (this) {
+            AHEAD -> GhostFace.CRYING
+            BEHIND -> GhostFace.LAUGHING
+            EVEN -> GhostFace.NEUTRAL
+        }
+
+    companion object {
+        /** Within ±this many metres the race counts as even. */
+        const val EVEN_M = 5.0
+
+        /** Classifies a signed delta (+ = you are ahead of the ghost). Null delta = not racing. */
+        fun of(deltaMeters: Double?): GhostState? = deltaMeters?.let {
+            when {
+                it > EVEN_M -> AHEAD
+                it < -EVEN_M -> BEHIND
+                else -> EVEN
+            }
+        }
+    }
 }

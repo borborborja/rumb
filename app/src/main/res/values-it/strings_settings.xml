@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Punto</string>
     <string name="settings_tracking_arrow">Freccia</string>
     <string name="settings_route_tracking_size">Dimensione</string>
+    <string name="settings_ghost_appearance">Aspetto del fantasma</string>
+    <string name="settings_ghost_dot">Punto</string>
+    <string name="settings_ghost_figure">Fantasma</string>
+    <string name="settings_ghost_face_help">Ride finché ti batte, e piange appena lo superi.</string>
+    <string name="settings_ghost_size">Dimensione</string>
     <string name="settings_route_off_route">Avviso fuori percorso</string>
     <string name="settings_route_threshold">Soglia di deviazione: %1$d m</string>
     <string name="settings_route_sound">Suono</string>

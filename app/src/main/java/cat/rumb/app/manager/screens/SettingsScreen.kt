@@ -141,6 +141,45 @@ private fun MapRoutesSection(prefs: ViewerPreferences) {
     TrackAppearanceSection(prefs)
     androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
     FollowRouteSection(prefs)
+    androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
+    GhostAppearanceSection(prefs)
+}
+
+/**
+ * How the ghost (the opponent you race) is drawn on the map: a plain dot, or a figure whose face
+ * taunts you. Sibling of the tracking-point block in [FollowRouteSection] — same three controls,
+ * for the other marker on the map.
+ */
+@Composable
+private fun GhostAppearanceSection(prefs: ViewerPreferences) {
+    val palette = listOf("#9B5DE5", "#3A86FF", "#E63946", "#2A9D8F", "#F4A261", "#FFD166")
+    var style by remember { mutableStateOf(prefs.ghostMarkerStyle) }
+    var color by remember { mutableStateOf(prefs.ghostColor) }
+    var size by remember { mutableFloatStateOf(prefs.ghostSize) }
+
+    Text(stringResource(R.string.settings_ghost_appearance), style = MaterialTheme.typography.labelLarge)
+    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        FilterChip(
+            selected = style == "DOT",
+            onClick = { style = "DOT"; prefs.ghostMarkerStyle = "DOT" },
+            label = { Text(stringResource(R.string.settings_ghost_dot)) },
+        )
+        FilterChip(
+            selected = style == "GHOST",
+            onClick = { style = "GHOST"; prefs.ghostMarkerStyle = "GHOST" },
+            label = { Text(stringResource(R.string.settings_ghost_figure)) },
+        )
+    }
+    if (style == "GHOST") {
+        Text(
+            stringResource(R.string.settings_ghost_face_help),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+    ColorPalette(palette, color) { color = it; prefs.ghostColor = it }
+    Text(stringResource(R.string.settings_ghost_size), style = MaterialTheme.typography.bodySmall)
+    Slider(value = size, onValueChange = { size = it; prefs.ghostSize = it }, valueRange = 0.6f..1.8f)
 }
 
 /** «App»: información/actualización/depuración + gestión de tipos de actividad. */

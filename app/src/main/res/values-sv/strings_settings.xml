@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Punkt</string>
     <string name="settings_tracking_arrow">Pil</string>
     <string name="settings_route_tracking_size">Storlek</string>
+    <string name="settings_ghost_appearance">Spökets utseende</string>
+    <string name="settings_ghost_dot">Punkt</string>
+    <string name="settings_ghost_figure">Spöke</string>
+    <string name="settings_ghost_face_help">Det skrattar så länge det slår dig, och gråter så snart du passerar det.</string>
+    <string name="settings_ghost_size">Storlek</string>
     <string name="settings_route_off_route">Avvikelselarm</string>
     <string name="settings_route_threshold">Avvikelsetröskel: %1$d m</string>
     <string name="settings_route_sound">Ljud</string>

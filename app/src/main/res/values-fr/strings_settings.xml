@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Point</string>
     <string name="settings_tracking_arrow">Flèche</string>
     <string name="settings_route_tracking_size">Taille</string>
+    <string name="settings_ghost_appearance">Apparence du fantôme</string>
+    <string name="settings_ghost_dot">Point</string>
+    <string name="settings_ghost_figure">Fantôme</string>
+    <string name="settings_ghost_face_help">Il rit tant qu\'il te bat, et pleure dès que tu le dépasses.</string>
+    <string name="settings_ghost_size">Taille</string>
     <string name="settings_route_off_route">Alerte hors itinéraire</string>
     <string name="settings_route_threshold">Seuil de déviation : %1$d m</string>
     <string name="settings_route_sound">Son</string>

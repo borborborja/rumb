@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Stip</string>
     <string name="settings_tracking_arrow">Pijl</string>
     <string name="settings_route_tracking_size">Grootte</string>
+    <string name="settings_ghost_appearance">Uiterlijk van de ghost</string>
+    <string name="settings_ghost_dot">Stip</string>
+    <string name="settings_ghost_figure">Ghost</string>
+    <string name="settings_ghost_face_help">Hij lacht zolang hij je verslaat, en huilt zodra je hem voorbijgaat.</string>
+    <string name="settings_ghost_size">Grootte</string>
     <string name="settings_route_off_route">Buiten-route-melding</string>
     <string name="settings_route_threshold">Afwijkingsdrempel: %1$d m</string>
     <string name="settings_route_sound">Geluid</string>

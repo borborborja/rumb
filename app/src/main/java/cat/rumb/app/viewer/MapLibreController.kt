@@ -67,7 +67,13 @@ class MapLibreController(private val map: MapLibreMap) {
         const val MAX_FOLLOW_ARROWS = 200
         const val MIN_FOLLOW_ARROW_SPACING_M = 80.0
         const val GHOST_SOURCE = "ghost-source"
-        const val GHOST_LAYER = "ghost-layer"
+        const val GHOST_DOT_LAYER = "ghost-layer"
+        const val GHOST_FIGURE_LAYER = "ghost-figure-layer"
+        const val GHOST_ICON_LAUGHING = "ghost-icon-laughing"
+        const val GHOST_ICON_CRYING = "ghost-icon-crying"
+        const val GHOST_ICON_NEUTRAL = "ghost-icon-neutral"
+        /** Feature property naming the face icon, resolved by the figure layer's icon-image. */
+        const val GHOST_FACE_PROP = "face"
         const val TRACKING_SOURCE = "tracking-source"
         const val TRACKING_DOT_LAYER = "tracking-dot-layer"
         const val TRACKING_ARROW_LAYER = "tracking-arrow-layer"
@@ -185,20 +191,35 @@ class MapLibreController(private val map: MapLibreMap) {
         )
         waypointSource = waypoints
 
-        // Ghost (competition opponent) dot. CircleLayer only — a text SymbolLayer would need glyphs,
-        // which raster styles lack (and would break every GeoJSON layer; see note above).
+        // Ghost (competition opponent). Same recipe as the tracking marker below: dot = CircleLayer,
+        // figure = SymbolLayer with a code-drawn icon. A TEXT SymbolLayer is what's forbidden here —
+        // it would need glyphs, which raster styles lack (and would break every GeoJSON layer; see
+        // note above) — so the face is painted into a bitmap, never typed.
         val ghost = GeoJsonSource(GHOST_SOURCE, FeatureCollection.fromFeatures(emptyList()))
         style.addSource(ghost)
+        addGhostFaceImages(style)
         style.addLayer(
-            CircleLayer(GHOST_LAYER, GHOST_SOURCE).withProperties(
-                PropertyFactory.circleRadius(7f),
-                PropertyFactory.circleColor("#9B5DE5"),
+            CircleLayer(GHOST_DOT_LAYER, GHOST_SOURCE).withProperties(
+                PropertyFactory.circleRadius(7f * ghostSize),
+                PropertyFactory.circleColor(ghostColorHex),
                 PropertyFactory.circleStrokeColor("#FFFFFF"),
                 PropertyFactory.circleStrokeWidth(2f),
+                PropertyFactory.visibility(if (ghostStyle == "GHOST") Property.NONE else Property.VISIBLE),
+            ),
+        )
+        style.addLayer(
+            // Data-driven icon: the feature carries the face, so a mood change costs a setGeoJson
+            // and never a bitmap regen (same trick as the tracking arrow's iconRotate/bearing).
+            SymbolLayer(GHOST_FIGURE_LAYER, GHOST_SOURCE).withProperties(
+                PropertyFactory.iconImage(Expression.get(GHOST_FACE_PROP)),
+                PropertyFactory.iconSize(ghostSize),
+                PropertyFactory.iconAllowOverlap(true),
+                PropertyFactory.iconIgnorePlacement(true),
+                PropertyFactory.visibility(if (ghostStyle == "GHOST") Property.VISIBLE else Property.NONE),
             ),
         )
         // Re-apply the last known ghost position so a base-map switch keeps the dot.
-        lastGhost?.let { setGhost(it) }
+        lastGhost?.let { setGhost(it, lastGhostFace) }
 
         // Tracking point (user position): a custom marker so colour/size/shape are configurable
         // (the native puck can't be scaled). Dot = CircleLayer; arrow = SymbolLayer with a code-drawn
@@ -229,7 +250,12 @@ class MapLibreController(private val map: MapLibreMap) {
         lastTrackingPoint?.let { setTrackingMarker(it, lastTrackingBearing) }
     }
 
+    // Ghost marker state.
     private var lastGhost: GeoPoint? = null
+    private var lastGhostFace: cat.rumb.app.viewer.hud.GhostFace? = null
+    private var ghostStyle: String = "DOT"
+    private var ghostColorHex: String = cat.rumb.app.data.prefs.ViewerPreferences.DEFAULT_GHOST_COLOR
+    private var ghostSize: Float = 1.0f
 
     // Tracking-point marker state.
     private var trackingStyle: String = "DOT"
@@ -262,6 +288,82 @@ class MapLibreController(private val map: MapLibreMap) {
         }
         c.drawPath(p, fill)
         c.drawPath(p, stroke)
+        return bmp
+    }
+
+    /**
+     * The ghost figure in [colorHex], wearing [face]: a domed head over a wavy hem, white-outlined
+     * like every other marker. Drawn with Canvas paths rather than typed as an emoji because a text
+     * SymbolLayer needs glyphs a raster style hasn't got (see addOverlayLayers).
+     */
+    private fun ghostBitmap(colorHex: String, face: cat.rumb.app.viewer.hud.GhostFace): android.graphics.Bitmap {
+        val s = 96
+        val bmp = android.graphics.Bitmap.createBitmap(s, s, android.graphics.Bitmap.Config.ARGB_8888)
+        val c = android.graphics.Canvas(bmp)
+        val body = android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG).apply {
+            color = runCatching { android.graphics.Color.parseColor(colorHex) }
+                .getOrDefault(android.graphics.Color.parseColor(cat.rumb.app.data.prefs.ViewerPreferences.DEFAULT_GHOST_COLOR))
+            style = android.graphics.Paint.Style.FILL
+        }
+        val outline = android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG).apply {
+            color = android.graphics.Color.WHITE
+            style = android.graphics.Paint.Style.STROKE
+            strokeWidth = 5f
+            strokeJoin = android.graphics.Paint.Join.ROUND
+        }
+        val ink = android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG).apply {
+            color = android.graphics.Color.WHITE
+            style = android.graphics.Paint.Style.FILL
+        }
+        val mouth = android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG).apply {
+            color = android.graphics.Color.WHITE
+            style = android.graphics.Paint.Style.STROKE
+            strokeWidth = 5f
+            strokeCap = android.graphics.Paint.Cap.ROUND
+        }
+        val left = s * 0.16f
+        val right = s * 0.84f
+        val shoulders = s * 0.42f // where the dome ends and the straight sides begin
+        val hem = s * 0.80f
+        // ONE continuous contour: up the left side, over the dome, down the right side, then
+        // scallops back to the start. Drawing the dome as its own subpath instead would make
+        // close() stroke a straight white line across the ghost's face at eye level.
+        val silhouette = android.graphics.Path().apply {
+            moveTo(left, hem)
+            lineTo(left, shoulders)
+            // 180° starts at the oval's leftmost point (our current one) and sweeps over the top.
+            arcTo(android.graphics.RectF(left, s * 0.10f, right, s * 0.74f), 180f, 180f, false)
+            lineTo(right, hem)
+            // Scallops right-to-left, so the hem reads as a floating sheet and lands back at start.
+            var x = right
+            val step = (right - left) / 3f
+            repeat(3) {
+                quadTo(x - step * 0.5f, hem + s * 0.11f, x - step, hem)
+                x -= step
+            }
+            close()
+        }
+        c.drawPath(silhouette, body)
+        c.drawPath(silhouette, outline)
+        // Eyes, sitting in the dome.
+        val eyeY = s * 0.40f
+        val eyeR = s * 0.06f
+        c.drawCircle(s * 0.37f, eyeY, eyeR, ink)
+        c.drawCircle(s * 0.63f, eyeY, eyeR, ink)
+        // Mouth: the whole point of the figure. An arc over the BOTTOM of its box reads as a grin,
+        // over the TOP as a frown (y grows downwards, so angles run clockwise from 3 o'clock).
+        when (face) {
+            cat.rumb.app.viewer.hud.GhostFace.LAUGHING ->
+                c.drawArc(android.graphics.RectF(s * 0.38f, s * 0.48f, s * 0.62f, s * 0.66f), 20f, 140f, false, mouth)
+            cat.rumb.app.viewer.hud.GhostFace.CRYING -> {
+                c.drawArc(android.graphics.RectF(s * 0.38f, s * 0.56f, s * 0.62f, s * 0.74f), 200f, 140f, false, mouth)
+                // Tears hang off the OUTER edge of each eye. Further out they read as blushing cheeks.
+                c.drawCircle(s * 0.31f, s * 0.51f, s * 0.042f, ink)
+                c.drawCircle(s * 0.69f, s * 0.51f, s * 0.042f, ink)
+            }
+            cat.rumb.app.viewer.hud.GhostFace.NEUTRAL ->
+                c.drawLine(s * 0.41f, s * 0.60f, s * 0.59f, s * 0.60f, mouth)
+        }
         return bmp
     }
 
@@ -304,20 +406,59 @@ class MapLibreController(private val map: MapLibreMap) {
     fun lastLocation(): android.location.Location? =
         runCatching { map.locationComponent.lastKnownLocation }.getOrNull()
 
-    /** Moves the ghost dot to [point], or clears it when null. */
-    fun setGhost(point: GeoPoint?) {
+    /**
+     * Moves the ghost to [point], or clears it when null. [face] is only rendered in the GHOST style
+     * (the dot ignores it) and rides along as a feature property, so a mood change costs nothing.
+     */
+    fun setGhost(point: GeoPoint?, face: cat.rumb.app.viewer.hud.GhostFace? = null) {
         lastGhost = point
+        lastGhostFace = face
         // Fetch from the CURRENT style by id (field refs go stale after a restyle; see drawFollow).
         val src = map.style?.getSourceAs<GeoJsonSource>(GHOST_SOURCE) ?: return
         if (point == null) {
             src.setGeoJson(FeatureCollection.fromFeatures(emptyList<Feature>()))
         } else {
-            src.setGeoJson(
-                FeatureCollection.fromFeatures(
-                    listOf(Feature.fromGeometry(Point.fromLngLat(point.longitude, point.latitude))),
-                ),
-            )
+            val feature = Feature.fromGeometry(Point.fromLngLat(point.longitude, point.latitude))
+            feature.addStringProperty(GHOST_FACE_PROP, faceIcon(face))
+            src.setGeoJson(FeatureCollection.fromFeatures(listOf(feature)))
         }
+    }
+
+    private fun faceIcon(face: cat.rumb.app.viewer.hud.GhostFace?) = when (face) {
+        cat.rumb.app.viewer.hud.GhostFace.LAUGHING -> GHOST_ICON_LAUGHING
+        cat.rumb.app.viewer.hud.GhostFace.CRYING -> GHOST_ICON_CRYING
+        else -> GHOST_ICON_NEUTRAL // no race state yet: a blank stare beats a flicker
+    }
+
+    private fun addGhostFaceImages(style: Style) {
+        style.addImage(GHOST_ICON_LAUGHING, ghostBitmap(ghostColorHex, cat.rumb.app.viewer.hud.GhostFace.LAUGHING))
+        style.addImage(GHOST_ICON_CRYING, ghostBitmap(ghostColorHex, cat.rumb.app.viewer.hud.GhostFace.CRYING))
+        style.addImage(GHOST_ICON_NEUTRAL, ghostBitmap(ghostColorHex, cat.rumb.app.viewer.hud.GhostFace.NEUTRAL))
+    }
+
+    /** Applies the ghost marker style; regenerates the face icons for the chosen colour/size. */
+    fun setGhostStyle(style: String, colorHex: String, size: Float) {
+        val clamped = size.coerceIn(0.4f, 2.5f)
+        // Nothing changed (e.g. a plain onResume) → skip the bitmap regen + layer writes.
+        if (style == ghostStyle && colorHex == ghostColorHex && clamped == ghostSize &&
+            map.style?.getLayer(GHOST_DOT_LAYER) != null
+        ) {
+            return
+        }
+        ghostStyle = style
+        ghostColorHex = colorHex
+        ghostSize = clamped
+        val s = map.style ?: return
+        addGhostFaceImages(s)
+        s.getLayer(GHOST_DOT_LAYER)?.setProperties(
+            PropertyFactory.circleColor(ghostColorHex),
+            PropertyFactory.circleRadius(7f * ghostSize),
+            PropertyFactory.visibility(if (style == "GHOST") Property.NONE else Property.VISIBLE),
+        )
+        s.getLayer(GHOST_FIGURE_LAYER)?.setProperties(
+            PropertyFactory.iconSize(ghostSize),
+            PropertyFactory.visibility(if (style == "GHOST") Property.VISIBLE else Property.NONE),
+        )
     }
 
     private var trackUpdateCount = 0

@@ -114,6 +114,11 @@
     <string name="settings_tracking_dot">Punkt</string>
     <string name="settings_tracking_arrow">Pfeil</string>
     <string name="settings_route_tracking_size">Größe</string>
+    <string name="settings_ghost_appearance">Aussehen des Geistes</string>
+    <string name="settings_ghost_dot">Punkt</string>
+    <string name="settings_ghost_figure">Geist</string>
+    <string name="settings_ghost_face_help">Er lacht, solange er dich schlägt, und weint, sobald du ihn überholst.</string>
+    <string name="settings_ghost_size">Größe</string>
     <string name="settings_route_off_route">Abseits-Route-Warnung</string>
     <string name="settings_route_threshold">Abweichungsschwelle: %1$d m</string>
     <string name="settings_route_sound">Ton</string>
