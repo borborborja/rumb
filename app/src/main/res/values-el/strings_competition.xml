@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Η εγγραφή αποθηκεύτηκε, αλλά δεν μετράει: διαφορετικό άθλημα από τον αγώνα.</string>
     <string name="competition_attempt_lap_not_raced">Η καταγραφή αποθηκεύτηκε, αλλά δεν μετράει: κανένας γύρος δεν ολοκληρώθηκε.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Εμφάνιση των γραφημάτων του</string>
+    <string name="competition_race_row_hint">Σύρε το προφίλ για να δεις ποιος ήταν πού.</string>
+    <string name="competition_race_row_tick">Τσέκαρε μια προσπάθεια για να μπει στον χάρτη.</string>
 </resources>

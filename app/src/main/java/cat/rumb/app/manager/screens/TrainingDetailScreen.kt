@@ -139,11 +139,8 @@ fun TrainingDetailScreen(trackId: Long, onBack: () -> Unit, onCompare: (Long) ->
         c.setWaypoints(starts)
     }
 
-    fun nearestSample(fraction: Float): TrackSample? {
-        if (samples.isEmpty()) return null
-        val target = fraction * samples.last().distM
-        return samples.minByOrNull { kotlin.math.abs(it.distM - target) }
-    }
+    fun nearestSample(fraction: Float): TrackSample? =
+        cat.rumb.app.data.tracks.nearestSampleAtFraction(samples, fraction)
 
     fun scrub(fraction: Float?) {
         highlight = fraction

@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Gravació desada, però no compta: és un esport diferent del de la competició.</string>
     <string name="competition_attempt_lap_not_raced">Gravació desada, però no compta: cap volta ha fet el circuit sencer.</string>
     <string name="competition_delete_lap_confirm">Vols eliminar aquesta volta de la competició?</string>
+    <string name="competition_attempt_expand">Mostra les seves gràfiques</string>
+    <string name="competition_race_row_hint">Arrossega el perfil per veure qui era on.</string>
+    <string name="competition_race_row_tick">Marca un intent per posar-lo al mapa.</string>
 </resources>

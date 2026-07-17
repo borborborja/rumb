@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Aufzeichnung gespeichert, zählt aber nicht: andere Sportart als der Wettkampf.</string>
     <string name="competition_attempt_lap_not_raced">Aufzeichnung gespeichert, zählt aber nicht: keine Runde ging ganz herum.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Diagramme anzeigen</string>
+    <string name="competition_race_row_hint">Zieh am Profil, um zu sehen, wer wo war.</string>
+    <string name="competition_race_row_tick">Markiere einen Versuch, um ihn auf die Karte zu legen.</string>
 </resources>

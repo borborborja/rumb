@@ -33,11 +33,15 @@ internal val GapRed = Color(0x55E63946)
 internal val GapGreenSolid = Color(0xFF2ECC71)
 internal val GapRedSolid = Color(0xFFE63946)
 
-/** Gap-over-distance chart: sign-colored bars from a zero line + the gap polyline. */
+/**
+ * Gap-over-distance chart: sign-colored bars from a zero line + the gap polyline.
+ * [highlightFraction] draws the shared scrub line, so the curve and the map read as one place.
+ */
 @Composable
-internal fun GapChart(series: List<GapSample>, modifier: Modifier) {
+internal fun GapChart(series: List<GapSample>, modifier: Modifier, highlightFraction: Float? = null) {
     val lineColor = MaterialTheme.colorScheme.onSurface
     val zeroColor = MaterialTheme.colorScheme.outline
+    val scrubColor = Color.White
     Canvas(modifier) {
         if (series.size < 2) return@Canvas
         val w = size.width
@@ -65,6 +69,10 @@ internal fun GapChart(series: List<GapSample>, modifier: Modifier) {
             if (i == 0) path.moveTo(x(s.distM), y(s.gapSeconds)) else path.lineTo(x(s.distM), y(s.gapSeconds))
         }
         drawPath(path, lineColor, style = Stroke(width = 2f))
+        if (highlightFraction != null) {
+            val hx = highlightFraction.coerceIn(0f, 1f) * w
+            drawLine(scrubColor, Offset(hx, 0f), Offset(hx, h), strokeWidth = 1.5f.dp.toPx())
+        }
     }
 }
 

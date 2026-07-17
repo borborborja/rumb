@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Opname opgeslagen, maar telt niet: andere sport dan de competitie.</string>
     <string name="competition_attempt_lap_not_raced">Opname opgeslagen, maar telt niet: geen enkele ronde ging helemaal rond.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Toon de grafieken</string>
+    <string name="competition_race_row_hint">Sleep over het profiel om te zien wie waar was.</string>
+    <string name="competition_race_row_tick">Vink een poging aan om hem op de kaart te zetten.</string>
 </resources>

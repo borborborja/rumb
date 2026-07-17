@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Kayıt kaydedildi ama sayılmaz: yarıştan farklı bir spor.</string>
     <string name="competition_attempt_lap_not_raced">Kayıt saklandı, ama sayılmıyor: hiçbir tur pisti tamamlamadı.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Grafiklerini göster</string>
+    <string name="competition_race_row_hint">Kimin nerede olduğunu görmek için profili sürükle.</string>
+    <string name="competition_race_row_tick">Haritaya koymak için bir denemeyi işaretle.</string>
 </resources>

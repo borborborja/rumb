@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Запис збережено, але не зараховано: інший вид спорту, ніж у змаганні.</string>
     <string name="competition_attempt_lap_not_raced">Запис збережено, але не зараховано: жодне коло не пройдено повністю.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Показати його графіки</string>
+    <string name="competition_race_row_hint">Проведи по профілю, щоб побачити, хто де був.</string>
+    <string name="competition_race_row_tick">Познач спробу, щоб показати її на карті.</string>
 </resources>

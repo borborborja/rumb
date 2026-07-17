@@ -45,6 +45,10 @@ private class Lane(
  * Up to three stacked lanes (elevation / speed / HR) over a shared x-axis of cumulative distance.
  * A lane is shown only when its series has at least one value. Drag or tap anywhere to scrub:
  * [onScrub] receives the horizontal fraction (0..1), null when the gesture ends.
+ *
+ * [maxLanes] trims the stack for a short strip that is there to be dragged rather than read. It
+ * keeps whichever lanes DO have data, so a track without elevation still offers a scrub surface
+ * instead of collapsing to nothing.
  */
 @Composable
 fun StackedTrackChart(
@@ -52,17 +56,18 @@ fun StackedTrackChart(
     highlightFraction: Float?,
     onScrub: (Float?) -> Unit,
     modifier: Modifier = Modifier,
+    maxLanes: Int = 3,
 ) {
     if (samples.size < 2) return
     val totalDist = samples.last().distM.takeIf { it > 0.0 } ?: return
     val fractions = remember(samples) { samples.map { (it.distM / totalDist).toFloat() } }
 
-    val lanes = remember(samples) {
+    val lanes = remember(samples, maxLanes) {
         listOf(
             Lane(R.string.training_chart_elevation, ELEVATION_COLOR, samples.map { it.elevation }, filled = true, unit = "m"),
             Lane(R.string.training_chart_speed, SPEED_COLOR, samples.map { it.speedKmh }, filled = false, unit = "km/h"),
             Lane(R.string.training_chart_hr, HR_COLOR, samples.map { it.hr }, filled = false, unit = "bpm"),
-        ).filter { lane -> lane.values.any { it != null } }
+        ).filter { lane -> lane.values.any { it != null } }.take(maxLanes.coerceAtLeast(1))
     }
     if (lanes.isEmpty()) return
 

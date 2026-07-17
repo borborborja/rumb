@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Înregistrare salvată, dar nu contează: alt sport decât competiția.</string>
     <string name="competition_attempt_lap_not_raced">Înregistrare salvată, dar nu contează: niciun tur nu a parcurs circuitul întreg.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Arată graficele lui</string>
+    <string name="competition_race_row_hint">Trage de profil ca să vezi cine era unde.</string>
+    <string name="competition_race_row_tick">Bifează o încercare ca s-o pui pe hartă.</string>
 </resources>

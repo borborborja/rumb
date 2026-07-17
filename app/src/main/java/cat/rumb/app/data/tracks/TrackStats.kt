@@ -31,6 +31,19 @@ data class TrackSample(
     val time: Instant?,
 )
 
+/**
+ * The sample nearest to [distM] along [samples], or null when there is nothing to point at.
+ * Shared by every screen that turns a chart scrub into a place on the map.
+ */
+fun nearestSampleAt(samples: List<TrackSample>, distM: Double): TrackSample? =
+    samples.minByOrNull { kotlin.math.abs(it.distM - distM) }
+
+/** The sample at [fraction] (0..1) of the track's total distance. */
+fun nearestSampleAtFraction(samples: List<TrackSample>, fraction: Float): TrackSample? {
+    if (samples.isEmpty()) return null
+    return nearestSampleAt(samples, fraction * samples.last().distM)
+}
+
 object TrackStatsCalculator {
 
     private const val MOVING_SPEED_KMH = 1.0

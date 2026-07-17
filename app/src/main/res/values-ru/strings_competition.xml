@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Запись сохранена, но не засчитана: вид спорта отличается от соревнования.</string>
     <string name="competition_attempt_lap_not_raced">Запись сохранена, но не засчитана: ни один круг не пройден целиком.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Показать его графики</string>
+    <string name="competition_race_row_hint">Проведите по профилю, чтобы увидеть, кто где был.</string>
+    <string name="competition_race_row_tick">Отметьте попытку, чтобы показать её на карте.</string>
 </resources>

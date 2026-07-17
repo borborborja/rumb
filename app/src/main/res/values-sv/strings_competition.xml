@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Inspelningen sparades, men räknas inte: annan sport än tävlingen.</string>
     <string name="competition_attempt_lap_not_raced">Inspelningen sparad, men räknas inte: inget varv gick hela vägen runt.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Visa dess diagram</string>
+    <string name="competition_race_row_hint">Dra i profilen för att se vem som var var.</string>
+    <string name="competition_race_row_tick">Kryssa i ett försök för att lägga det på kartan.</string>
 </resources>

@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Optagelsen er gemt, men tæller ikke: en anden sport end konkurrencen.</string>
     <string name="competition_attempt_lap_not_raced">Optagelsen gemt, men tæller ikke: ingen omgang kom hele vejen rundt.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Vis dens grafer</string>
+    <string name="competition_race_row_hint">Træk i profilen for at se, hvem der var hvor.</string>
+    <string name="competition_race_row_tick">Sæt flueben ved et forsøg for at vise det på kortet.</string>
 </resources>

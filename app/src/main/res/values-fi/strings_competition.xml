@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Tallennus tallennettu, mutta ei kelpaa: eri laji kuin kilpailussa.</string>
     <string name="competition_attempt_lap_not_raced">Tallennus tallennettu, mutta ei laske: yksikään kierros ei kiertänyt kokonaan.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Näytä sen kaaviot</string>
+    <string name="competition_race_row_hint">Vedä profiilia nähdäksesi, kuka oli missä.</string>
+    <string name="competition_race_row_tick">Rastita yritys, niin se tulee kartalle.</string>
 </resources>

@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Nagranie zapisane, ale się nie liczy: to inny sport niż w zawodach.</string>
     <string name="competition_attempt_lap_not_raced">Nagranie zapisane, ale się nie liczy: żadne okrążenie nie objęło całej pętli.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Pokaż jego wykresy</string>
+    <string name="competition_race_row_hint">Przeciągnij profil, aby zobaczyć, kto był gdzie.</string>
+    <string name="competition_race_row_tick">Zaznacz próbę, aby pokazać ją na mapie.</string>
 </resources>

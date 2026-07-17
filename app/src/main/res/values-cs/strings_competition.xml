@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Záznam uložen, ale nepočítá se: jiný sport než závod.</string>
     <string name="competition_attempt_lap_not_raced">Nahrávka uložena, ale nepočítá se: žádné kolo neobjelo celý okruh.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Zobrazit jeho grafy</string>
+    <string name="competition_race_row_hint">Táhni po profilu a uvidíš, kdo byl kde.</string>
+    <string name="competition_race_row_tick">Zaškrtni pokus, aby se objevil na mapě.</string>
 </resources>

@@ -1,7 +1,6 @@
 package cat.rumb.app.data.competition
 
 import cat.rumb.app.data.gpx.GpxPoint
-import cat.rumb.app.viewer.hud.MetricsCalculator
 
 /** Gap of an attempt vs the best track at a given distance. Positive = attempt slower. */
 data class GapSample(val distM: Double, val gapSeconds: Double)
@@ -19,8 +18,8 @@ object CompetitionAnalysis {
      * distance is under 1 m.
      */
     fun gapOverDistance(best: List<GpxPoint>, attempt: List<GpxPoint>, buckets: Int = 300): List<GapSample> {
-        val bestCurve = curveOf(best) ?: return emptyList()
-        val attemptCurve = curveOf(attempt) ?: return emptyList()
+        val bestCurve = TrackCurve.of(best) ?: return emptyList()
+        val attemptCurve = TrackCurve.of(attempt) ?: return emptyList()
         val total = minOf(bestCurve.totalDist, attemptCurve.totalDist)
         if (total < 1.0 || buckets <= 0) return emptyList()
         val out = ArrayList<GapSample>(buckets)
@@ -58,45 +57,4 @@ object CompetitionAnalysis {
         return zones
     }
 
-    /** Time-at-distance curve. Distances non-decreasing; times coerced monotonic. */
-    private class Curve(private val dist: DoubleArray, private val time: DoubleArray) {
-        val totalDist: Double get() = dist.last()
-
-        /**
-         * Relative seconds at distance [d], linearly interpolated on the distance axis.
-         * Where the track pauses the distance repeats; the binary search returns the lower
-         * bound (first index with dist >= d), i.e. the FIRST time at that distance.
-         */
-        fun timeAt(d: Double): Double {
-            if (d <= dist.first()) return time.first()
-            if (d >= dist.last()) return time.last()
-            // Lower bound: first index i with dist[i] >= d.
-            var lo = 0
-            var hi = dist.size - 1
-            while (lo < hi) {
-                val mid = (lo + hi) ushr 1
-                if (dist[mid] >= d) hi = mid else lo = mid + 1
-            }
-            val d0 = dist[lo - 1]
-            val d1 = dist[lo]
-            if (d1 <= d0) return time[lo]
-            val f = (d - d0) / (d1 - d0)
-            return time[lo - 1] + (time[lo] - time[lo - 1]) * f
-        }
-    }
-
-    /** Builds the curve from the timed points, or null with fewer than 2 of them. */
-    private fun curveOf(points: List<GpxPoint>): Curve? {
-        val timed = points.filter { it.time != null }
-        if (timed.size < 2) return null
-        val dist = DoubleArray(timed.size)
-        val time = DoubleArray(timed.size)
-        val t0 = timed.first().time!!.toEpochMilli()
-        for (i in 1 until timed.size) {
-            dist[i] = dist[i - 1] + MetricsCalculator.distanceMeters(timed[i - 1].toGeoPoint(), timed[i].toGeoPoint())
-            val t = (timed[i].time!!.toEpochMilli() - t0) / 1000.0
-            time[i] = maxOf(t, time[i - 1]) // coerce monotonic
-        }
-        return Curve(dist, time)
-    }
 }

@@ -34,4 +34,7 @@
     <string name="competition_attempt_wrong_sport">Registrazione salvata, ma non conta: è uno sport diverso da quello della competizione.</string>
     <string name="competition_attempt_lap_not_raced">Registrazione salvata, ma non conta: nessun giro ha fatto il circuito intero.</string>
     <string name="competition_delete_lap_confirm">Delete this lap from the competition?</string>
+    <string name="competition_attempt_expand">Mostra i suoi grafici</string>
+    <string name="competition_race_row_hint">Trascina il profilo per vedere chi era dove.</string>
+    <string name="competition_race_row_tick">Spunta un tentativo per metterlo sulla mappa.</string>
 </resources>
