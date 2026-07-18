@@ -330,7 +330,12 @@ fun TrainingDetailScreen(trackId: Long, onBack: () -> Unit, onCompare: (Long) ->
                             onCancel = { editingLaps = false },
                             onSave = { newRanges ->
                                 scope.launch {
-                                    app.trackRepository.setLaps(trackId, cat.rumb.app.data.tracks.Laps.encode(newRanges))
+                                    // Empty → clear the column outright (the canonical "no laps"),
+                                    // so the track becomes a plain training again everywhere.
+                                    app.trackRepository.setLaps(
+                                        trackId,
+                                        if (newRanges.isEmpty()) null else cat.rumb.app.data.tracks.Laps.encode(newRanges),
+                                    )
                                     editingLaps = false
                                     reloadTick++
                                 }

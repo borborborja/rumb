@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Startpunkt: %1$.1f km bort</string>
     <string name="viewer_qs_auto_pause">Pausa automatiskt vid stopp</string>
     <string name="viewer_qs_lap_management">Varvhantering</string>
+    <string name="viewer_qs_lap_management_help">Stäng av för inga varv alls — automatiska avståndssplittar inkluderade. En tävling räknar ändå varv vid mållinjen.</string>
     <string name="viewer_qs_auto_lap">Auto-varv efter position</string>
     <string name="viewer_qs_auto_lap_help">När du startar varv blir den platsen start/mållinje och varje passage stänger ett varv automatiskt. Den manuella flaggan fungerar fortfarande.</string>
     <string name="viewer_qs_auto_pause_secs">Pausa efter att ha stått still i:</string>

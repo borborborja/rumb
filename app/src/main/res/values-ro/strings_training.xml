@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Trage un mâner pentru a muta o limită. Atinge profilul pentru a plasa o diviziune, sau atinge un mâner pentru a-l elimina.</string>
     <string name="laps_edit_add">Adaugă diviziune</string>
     <string name="laps_edit_remove">Elimină diviziune</string>
+    <string name="laps_edit_clear">Șterge toate turele</string>
+    <string name="laps_edit_clear_confirm">Redevine o traseu normal fără ture. Nu se poate anula.</string>
     <string name="training_lap_n">Tura %1$d</string>
     <string name="training_action_compare">Compară</string>
     <string name="compare_title">Compară</string>

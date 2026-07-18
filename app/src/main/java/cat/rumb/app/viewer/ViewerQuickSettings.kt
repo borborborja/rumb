@@ -351,6 +351,7 @@ private fun LapsSection(
 ) {
     Text(stringResource(R.string.viewer_qs_section_laps), style = MaterialTheme.typography.labelLarge)
     ToggleRow(stringResource(R.string.viewer_qs_lap_management), lapManagement, onLapManagement)
+    Hint(R.string.viewer_qs_lap_management_help)
     if (lapManagement) {
         ToggleRow(stringResource(R.string.viewer_qs_auto_lap), autoLapByPosition, onAutoLapByPosition)
         Hint(R.string.viewer_qs_auto_lap_help)

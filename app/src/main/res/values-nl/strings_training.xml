@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Sleep een greep om een grens te verplaatsen. Tik op het profiel om een splitsing te plaatsen, of tik op een greep om die te verwijderen.</string>
     <string name="laps_edit_add">Splitsing toevoegen</string>
     <string name="laps_edit_remove">Splitsing verwijderen</string>
+    <string name="laps_edit_clear">Alle rondes verwijderen</string>
+    <string name="laps_edit_clear_confirm">Wordt weer een gewone track zonder rondes. Kan niet ongedaan.</string>
     <string name="training_lap_n">Ronde %1$d</string>
     <string name="training_action_compare">Vergelijken</string>
     <string name="compare_title">Vergelijken</string>

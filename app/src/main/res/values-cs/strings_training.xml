@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Tažením úchytu posuneš hranici. Klepnutím na profil umístíš mezičas, klepnutím na úchyt jej odebereš.</string>
     <string name="laps_edit_add">Přidat mezičas</string>
     <string name="laps_edit_remove">Odebrat mezičas</string>
+    <string name="laps_edit_clear">Smazat všechna kola</string>
+    <string name="laps_edit_clear_confirm">Znovu se stane běžnou trasou bez kol. Nelze vrátit.</string>
     <string name="training_lap_n">Okruh %1$d</string>
     <string name="training_action_compare">Porovnat</string>
     <string name="compare_title">Porovnat</string>

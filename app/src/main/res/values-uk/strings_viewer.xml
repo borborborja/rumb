@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Точка старту: за %1$.1f км</string>
     <string name="viewer_qs_auto_pause">Автопауза при зупинці</string>
     <string name="viewer_qs_lap_management">Керування колами</string>
+    <string name="viewer_qs_lap_management_help">Вимкни, щоб не було жодних кіл — зокрема автоматичних за відстанню. Змагання все одно рахує коло на фініші.</string>
     <string name="viewer_qs_auto_lap">Автоколо за позицією</string>
     <string name="viewer_qs_auto_lap_help">Коли ви починаєте кола, це місце стає лінією старту/фінішу, і кожен перетин автоматично закриває коло. Ручна позначка теж працює.</string>
     <string name="viewer_qs_auto_pause_secs">Пауза після зупинки на:</string>

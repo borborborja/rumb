@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Startpunkt: %1$.1f km væk</string>
     <string name="viewer_qs_auto_pause">Pause automatisk ved stop</string>
     <string name="viewer_qs_lap_management">Omgangsstyring</string>
+    <string name="viewer_qs_lap_management_help">Slå fra for ingen omgange overhovedet — automatiske afstandsopdelinger inkluderet. En konkurrence tæller stadig omgang ved målstregen.</string>
     <string name="viewer_qs_auto_lap">Auto-omgang efter position</string>
     <string name="viewer_qs_auto_lap_help">Når du starter omgange, bliver det sted til start-/mållinje, og hver passage lukker en omgang automatisk. Det manuelle flag virker stadig.</string>
     <string name="viewer_qs_auto_pause_secs">Pause efter at have stået stille i:</string>

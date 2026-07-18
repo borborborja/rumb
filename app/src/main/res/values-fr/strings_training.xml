@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Faites glisser une poignée pour déplacer une limite. Touchez le profil pour placer un intervalle, ou touchez une poignée pour la retirer.</string>
     <string name="laps_edit_add">Ajouter un intervalle</string>
     <string name="laps_edit_remove">Retirer l\'intervalle</string>
+    <string name="laps_edit_clear">Supprimer tous les tours</string>
+    <string name="laps_edit_clear_confirm">Redevient une trace normale sans tours. Irréversible.</string>
     <string name="training_lap_n">Tour %1$d</string>
     <string name="training_action_compare">Comparer</string>
     <string name="compare_title">Comparer</string>

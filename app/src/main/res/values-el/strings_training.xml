@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Σύρετε μια λαβή για να μετακινήσετε ένα όριο. Πατήστε το προφίλ για να τοποθετήσετε διαχωριστικό, ή πατήστε μια λαβή για αφαίρεση.</string>
     <string name="laps_edit_add">Προσθήκη διαχωριστικού</string>
     <string name="laps_edit_remove">Αφαίρεση διαχωριστικού</string>
+    <string name="laps_edit_clear">Διαγραφή όλων των γύρων</string>
+    <string name="laps_edit_clear_confirm">Ξαναγίνεται κανονική διαδρομή χωρίς γύρους. Δεν αναιρείται.</string>
     <string name="training_lap_n">Γύρος %1$d</string>
     <string name="training_action_compare">Σύγκριση</string>
     <string name="compare_title">Σύγκριση</string>

@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Arrossega un tirador per moure un límit. Toca el perfil per col·locar un tall, o toca un tirador per treure\'l.</string>
     <string name="laps_edit_add">Afegir tall</string>
     <string name="laps_edit_remove">Treure tall</string>
+    <string name="laps_edit_clear">Elimina totes les voltes</string>
+    <string name="laps_edit_clear_confirm">Torna a ser un track normal sense voltes. No es pot desfer.</string>
     <string name="training_lap_n">Volta %1$d</string>
     <string name="training_action_compare">Compara</string>
     <string name="compare_title">Compara</string>

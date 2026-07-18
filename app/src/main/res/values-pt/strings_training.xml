@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Arrasta um marcador para mover um limite. Toca no perfil para colocar uma divisão, ou toca num marcador para a remover.</string>
     <string name="laps_edit_add">Adicionar divisão</string>
     <string name="laps_edit_remove">Remover divisão</string>
+    <string name="laps_edit_clear">Eliminar todas as voltas</string>
+    <string name="laps_edit_clear_confirm">Volta a ser um percurso normal sem voltas. Não se pode desfazer.</string>
     <string name="training_lap_n">Volta %1$d</string>
     <string name="training_action_compare">Comparar</string>
     <string name="compare_title">Comparar</string>

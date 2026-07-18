@@ -432,24 +432,33 @@ class RecordingService : Service() {
          * The engine config the prefs describe. In the companion because crash recovery needs the
          * same one the live path uses — it used to build a two-field stub and lose the circuit line.
          */
-        private fun configFrom(prefs: ViewerPreferences) = RecorderConfig(
-            maxAccuracyM = prefs.recMaxAccuracyM,
-            minDistanceM = prefs.recMinDistanceM.toDouble(),
-            autoLapByPosition = prefs.autoLapByPosition,
-            // Distance splits are off during a circuit: the meta owns the laps there.
-            autoLapEveryM = if (prefs.circuitActive) 0.0 else prefs.autoLapEveryMFor(prefs.activeSportId).toDouble(),
-            presetLapLine = if (prefs.circuitActive) {
-                cat.rumb.app.data.opentracks.model.GeoPoint(prefs.circuitLineLat, prefs.circuitLineLng)
-            } else {
-                null
-            },
-            autoLapRadiusM = if (prefs.circuitActive) prefs.circuitRadiusM else 25.0,
-            autoLapMinLapMs = if (prefs.circuitActive) prefs.circuitMinLapMs else 20_000,
-            autoLapMinLapM = if (prefs.circuitActive) prefs.circuitMinLapM else 100.0,
-            lapRefDistanceM = if (prefs.circuitActive) prefs.circuitRefDistanceM else 0.0,
-            // Only for free laps: a competition already has its line, and it forces circuitActive.
-            autoDetectLoop = prefs.autoDetectLoop && !prefs.circuitActive,
-        )
+        private fun configFrom(prefs: ViewerPreferences): RecorderConfig {
+            // "Lap management" is the master switch: off = no automatic laps of any kind. A circuit
+            // competition is exempt — it laps at presetLapLine below, which this doesn't touch.
+            val al = AutoLapPrefs.resolve(
+                lapManagement = prefs.lapManagementEnabled,
+                circuit = prefs.circuitActive,
+                byPosition = prefs.autoLapByPosition,
+                everyM = prefs.autoLapEveryMFor(prefs.activeSportId),
+                detectLoop = prefs.autoDetectLoop,
+            )
+            return RecorderConfig(
+                maxAccuracyM = prefs.recMaxAccuracyM,
+                minDistanceM = prefs.recMinDistanceM.toDouble(),
+                autoLapByPosition = al.byPosition,
+                autoLapEveryM = al.everyM,
+                presetLapLine = if (prefs.circuitActive) {
+                    cat.rumb.app.data.opentracks.model.GeoPoint(prefs.circuitLineLat, prefs.circuitLineLng)
+                } else {
+                    null
+                },
+                autoLapRadiusM = if (prefs.circuitActive) prefs.circuitRadiusM else 25.0,
+                autoLapMinLapMs = if (prefs.circuitActive) prefs.circuitMinLapMs else 20_000,
+                autoLapMinLapM = if (prefs.circuitActive) prefs.circuitMinLapM else 100.0,
+                lapRefDistanceM = if (prefs.circuitActive) prefs.circuitRefDistanceM else 0.0,
+                autoDetectLoop = al.detectLoop,
+            )
+        }
 
         private const val ACTION_START = "cat.rumb.app.recording.START"
         private const val ACTION_PAUSE = "cat.rumb.app.recording.PAUSE"

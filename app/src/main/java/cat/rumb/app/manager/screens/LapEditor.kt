@@ -71,6 +71,7 @@ fun LapBoundaryEditor(
     var dragging by remember { mutableStateOf(-1) }
     var selectedCut by remember { mutableStateOf(-1) } // internal cut selected for removal
     var cursor by remember { mutableStateOf(-1) }       // point index under the tap, candidate for add
+    var confirmClear by remember { mutableStateOf(false) }
 
     val lineColor = MaterialTheme.colorScheme.primary
     val elevColor = MaterialTheme.colorScheme.onSurfaceVariant
@@ -189,9 +190,29 @@ fun LapBoundaryEditor(
                     cuts = c; segKinds = k; selectedCut = -1
                 }
             }, enabled = LapEdits.canRemove(cuts, segKinds, selectedCut)) { Text(stringResource(R.string.laps_edit_remove)) }
+            // Merging bottoms out at one lap (a cut needs a LAP on both sides), so clearing is its own
+            // action — the only way to turn a lapped track back into a plain one.
+            TextButton(onClick = { confirmClear = true }) {
+                Text(stringResource(R.string.laps_edit_clear), color = MaterialTheme.colorScheme.error)
+            }
             Spacer(Modifier.weight(1f))
             TextButton(onClick = onCancel) { Text(stringResource(R.string.home_cancel)) }
             TextButton(onClick = { onSave(LapEdits.rebuild(cuts, segKinds)) }) { Text(stringResource(R.string.home_save)) }
         }
+    }
+
+    if (confirmClear) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { confirmClear = false },
+            title = { Text(stringResource(R.string.laps_edit_clear)) },
+            // One-way: with no laps the section (and this editor) disappears, so there's no re-entry.
+            text = { Text(stringResource(R.string.laps_edit_clear_confirm)) },
+            confirmButton = {
+                TextButton(onClick = { confirmClear = false; onSave(emptyList()) }) {
+                    Text(stringResource(R.string.home_delete), color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = { TextButton(onClick = { confirmClear = false }) { Text(stringResource(R.string.home_cancel)) } },
+        )
     }
 }

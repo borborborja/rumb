@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Ponto de partida: a %1$.1f km</string>
     <string name="viewer_qs_auto_pause">Pausa automática ao parar</string>
     <string name="viewer_qs_lap_management">Gestão de voltas</string>
+    <string name="viewer_qs_lap_management_help">Desativa para não teres voltas de nenhum tipo, splits automáticos incluídos. Uma competição continua a contar volta na meta.</string>
     <string name="viewer_qs_auto_lap">Volta automática por posição</string>
     <string name="viewer_qs_auto_lap_help">Ao iniciar voltas, esse ponto torna-se a linha de partida/meta e cada passagem fecha uma volta automaticamente. O marcador manual continua a funcionar.</string>
     <string name="viewer_qs_auto_pause_secs">Pausar após ficar parado durante:</string>

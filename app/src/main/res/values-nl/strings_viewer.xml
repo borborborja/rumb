@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Startpunt: %1$.1f km verderop</string>
     <string name="viewer_qs_auto_pause">Automatisch pauzeren bij stilstand</string>
     <string name="viewer_qs_lap_management">Rondebeheer</string>
+    <string name="viewer_qs_lap_management_help">Zet uit voor geen enkele ronde — automatische afstand-splits inbegrepen. Een wedstrijd telt nog wel een ronde bij de finish.</string>
     <string name="viewer_qs_auto_lap">Auto-ronde op positie</string>
     <string name="viewer_qs_auto_lap_help">Wanneer je rondes start, wordt die plek de start/finishlijn en sluit elke passage automatisch een ronde af. De handmatige vlag werkt nog steeds.</string>
     <string name="viewer_qs_auto_pause_secs">Pauzeren na stilstaan gedurende:</string>

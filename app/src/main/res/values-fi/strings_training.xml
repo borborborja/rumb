@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Vedä kahvaa siirtääksesi rajaa. Napauta profiilia asettaaksesi jaon, tai napauta kahvaa poistaaksesi sen.</string>
     <string name="laps_edit_add">Lisää jako</string>
     <string name="laps_edit_remove">Poista jako</string>
+    <string name="laps_edit_clear">Poista kaikki kierrokset</string>
+    <string name="laps_edit_clear_confirm">Muuttuu taas tavalliseksi jäljeksi ilman kierroksia. Ei voi perua.</string>
     <string name="training_lap_n">Kierros %1$d</string>
     <string name="training_action_compare">Vertaa</string>
     <string name="compare_title">Vertaa</string>

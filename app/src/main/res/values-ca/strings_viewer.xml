@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Sortida a %1$.1f km</string>
     <string name="viewer_qs_auto_pause">Auto-pausa en aturar-te</string>
     <string name="viewer_qs_lap_management">Gestió de voltes</string>
+    <string name="viewer_qs_lap_management_help">Desactiva-ho per no tenir voltes de cap mena, els parcials automàtics inclosos. Una competició encara talla volta a la meta.</string>
     <string name="viewer_qs_auto_lap">Auto-volta per posició</string>
     <string name="viewer_qs_auto_lap_help">En iniciar les voltes, aquell punt es converteix en la línia de meta i cada creuament tanca una volta automàticament. La bandera manual continua funcionant.</string>
     <string name="viewer_qs_auto_pause_secs">Pausa després d\'estar aturat:</string>

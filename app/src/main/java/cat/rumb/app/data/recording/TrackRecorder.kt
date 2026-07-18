@@ -73,6 +73,31 @@ data class RecorderConfig(
     val autoDetectLoop: Boolean = false,
 )
 
+/**
+ * The auto-lap fields after applying the "Lap management" master switch, so it can gate every
+ * automatic-lap path from one place. A circuit competition laps at its [RecorderConfig.presetLapLine]
+ * meta, which lives outside these fields, so it stays lapping even with the switch off — entering it
+ * is an explicit "race laps". Pure so the prefs→config mapping is unit-testable, unlike the Service
+ * method that reads it.
+ */
+data class AutoLapPrefs(val byPosition: Boolean, val everyM: Double, val detectLoop: Boolean) {
+    companion object {
+        fun resolve(
+            lapManagement: Boolean,
+            circuit: Boolean,
+            byPosition: Boolean,
+            everyM: Float,
+            detectLoop: Boolean,
+        ): AutoLapPrefs = if (!lapManagement) {
+            AutoLapPrefs(byPosition = false, everyM = 0.0, detectLoop = false)
+        } else {
+            // Distance splits are off during a circuit (the meta owns the laps there); loop detection
+            // too. This branch preserves the pre-switch behaviour exactly.
+            AutoLapPrefs(byPosition, if (circuit) 0.0 else everyM.toDouble(), detectLoop && !circuit)
+        }
+    }
+}
+
 /** Immutable snapshot of an ongoing/finished native recording, consumed by the viewer pipeline. */
 data class RecorderState(
     val segments: List<Segment> = emptyList(),

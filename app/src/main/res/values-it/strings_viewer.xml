@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Punto di partenza: a %1$.1f km</string>
     <string name="viewer_qs_auto_pause">Pausa automatica da fermo</string>
     <string name="viewer_qs_lap_management">Gestione giri</string>
+    <string name="viewer_qs_lap_management_help">Disattivalo per non avere giri di alcun tipo, split automatici inclusi. Una competizione conta comunque il giro al traguardo.</string>
     <string name="viewer_qs_auto_lap">Giro automatico per posizione</string>
     <string name="viewer_qs_auto_lap_help">Quando avvii i giri, quel punto diventa la linea di partenza/arrivo e ogni passaggio chiude un giro automaticamente. Il flag manuale funziona comunque.</string>
     <string name="viewer_qs_auto_pause_secs">Pausa dopo essere fermo per:</string>

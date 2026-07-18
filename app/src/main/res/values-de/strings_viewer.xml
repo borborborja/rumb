@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Startpunkt: %1$.1f km entfernt</string>
     <string name="viewer_qs_auto_pause">Auto-Pause bei Stillstand</string>
     <string name="viewer_qs_lap_management">Rundenverwaltung</string>
+    <string name="viewer_qs_lap_management_help">Ausschalten für gar keine Runden — automatische Distanz-Splits inklusive. Ein Wettbewerb rundet weiterhin an seiner Ziellinie.</string>
     <string name="viewer_qs_auto_lap">Auto-Runde nach Position</string>
     <string name="viewer_qs_auto_lap_help">Wenn du Runden startest, wird dieser Punkt zur Start-/Ziellinie und jede Überquerung schließt automatisch eine Runde ab. Die manuelle Markierung funktioniert weiterhin.</string>
     <string name="viewer_qs_auto_pause_secs">Pause nach Stillstand von:</string>

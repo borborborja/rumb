@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Точка старта: %1$.1f км</string>
     <string name="viewer_qs_auto_pause">Автопауза при остановке</string>
     <string name="viewer_qs_lap_management">Управление кругами</string>
+    <string name="viewer_qs_lap_management_help">Отключите, чтобы кругов не было вообще — включая автоматические по расстоянию. Соревнование всё равно засчитывает круг на финише.</string>
     <string name="viewer_qs_auto_lap">Автокруг по позиции</string>
     <string name="viewer_qs_auto_lap_help">Когда вы начинаете круги, это место становится линией старта/финиша, и каждое пересечение автоматически закрывает круг. Ручная отметка тоже работает.</string>
     <string name="viewer_qs_auto_pause_secs">Пауза после остановки на:</string>

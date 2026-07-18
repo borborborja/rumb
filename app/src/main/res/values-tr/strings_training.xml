@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Bir sınırı taşımak için tutamağı sürükleyin. Bölme eklemek için profile dokunun ya da kaldırmak için bir tutamağa dokunun.</string>
     <string name="laps_edit_add">Bölme ekle</string>
     <string name="laps_edit_remove">Bölme kaldır</string>
+    <string name="laps_edit_clear">Tüm turları sil</string>
+    <string name="laps_edit_clear_confirm">Tekrar tursuz normal bir kayda dönüşür. Geri alınamaz.</string>
     <string name="training_lap_n">Tur %1$d</string>
     <string name="training_action_compare">Karşılaştır</string>
     <string name="compare_title">Karşılaştır</string>

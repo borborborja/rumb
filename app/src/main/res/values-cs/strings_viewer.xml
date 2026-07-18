@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Startovní bod: %1$.1f km daleko</string>
     <string name="viewer_qs_auto_pause">Auto-pauza při zastavení</string>
     <string name="viewer_qs_lap_management">Správa okruhů</string>
+    <string name="viewer_qs_lap_management_help">Vypni pro žádná kola — včetně automatických vzdálenostních. Soutěž stále počítá kolo v cíli.</string>
     <string name="viewer_qs_auto_lap">Auto-okruh podle polohy</string>
     <string name="viewer_qs_auto_lap_help">Když spustíš okruhy, dané místo se stane startem/cílem a každé projetí automaticky uzavře okruh. Manuální značka stále funguje.</string>
     <string name="viewer_qs_auto_pause_secs">Pauza po zastavení na:</string>

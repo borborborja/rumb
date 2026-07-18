@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Başlangıç noktası: %1$.1f km uzakta</string>
     <string name="viewer_qs_auto_pause">Durunca otomatik duraklat</string>
     <string name="viewer_qs_lap_management">Tur yönetimi</string>
+    <string name="viewer_qs_lap_management_help">Hiç tur olmaması için kapat — otomatik mesafe bölümleri dâhil. Bir yarışma yine de bitiş çizgisinde tur sayar.</string>
     <string name="viewer_qs_auto_lap">Konuma göre otomatik tur</string>
     <string name="viewer_qs_auto_lap_help">Turları başlattığında o nokta başlangıç/bitiş çizgisi olur ve her geçiş bir turu otomatik kapatır. Manuel bayrak da çalışır.</string>
     <string name="viewer_qs_auto_pause_secs">Şu kadar hareketsiz kaldıktan sonra duraklat:</string>

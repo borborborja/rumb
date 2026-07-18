@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Start point: %1$.1f km away</string>
     <string name="viewer_qs_auto_pause">Auto-pause when stopped</string>
     <string name="viewer_qs_lap_management">Lap management</string>
+    <string name="viewer_qs_lap_management_help">Turn off for no laps of any kind — automatic distance splits included. A competition still laps at its finish line.</string>
     <string name="viewer_qs_auto_lap">Auto-lap by position</string>
     <string name="viewer_qs_auto_lap_help">When you start laps, that spot becomes the start/finish line and each crossing closes a lap automatically. The manual flag still works.</string>
     <string name="viewer_qs_auto_pause_secs">Pause after standing still for:</string>

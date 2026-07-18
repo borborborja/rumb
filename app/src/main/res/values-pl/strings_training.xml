@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Przeciągnij uchwyt, aby przesunąć granicę. Dotknij profilu, aby dodać podział, lub dotknij uchwytu, aby go usunąć.</string>
     <string name="laps_edit_add">Dodaj podział</string>
     <string name="laps_edit_remove">Usuń podział</string>
+    <string name="laps_edit_clear">Usuń wszystkie okrążenia</string>
+    <string name="laps_edit_clear_confirm">Znów staje się zwykłą trasą bez okrążeń. Nie można cofnąć.</string>
     <string name="training_lap_n">Okrążenie %1$d</string>
     <string name="training_action_compare">Porównaj</string>
     <string name="compare_title">Porównaj</string>

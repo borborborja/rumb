@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Point de départ : à %1$.1f km</string>
     <string name="viewer_qs_auto_pause">Pause auto à l\'arrêt</string>
     <string name="viewer_qs_lap_management">Gestion des tours</string>
+    <string name="viewer_qs_lap_management_help">Désactive pour n\'avoir aucun tour, splits automatiques compris. Une compétition boucle toujours à sa ligne d\'arrivée.</string>
     <string name="viewer_qs_auto_lap">Tour auto par position</string>
     <string name="viewer_qs_auto_lap_help">Quand vous démarrez les tours, ce point devient la ligne de départ/arrivée et chaque passage clôt un tour automatiquement. Le drapeau manuel fonctionne toujours.</string>
     <string name="viewer_qs_auto_pause_secs">Pause après un arrêt de :</string>

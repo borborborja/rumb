@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Ziehe einen Griff, um eine Grenze zu verschieben. Tippe auf das Profil, um eine Zwischenzeit zu setzen, oder auf einen Griff, um sie zu entfernen.</string>
     <string name="laps_edit_add">Zwischenzeit hinzufügen</string>
     <string name="laps_edit_remove">Zwischenzeit entfernen</string>
+    <string name="laps_edit_clear">Alle Runden löschen</string>
+    <string name="laps_edit_clear_confirm">Wird wieder eine normale Aufzeichnung ohne Runden. Nicht umkehrbar.</string>
     <string name="training_lap_n">Runde %1$d</string>
     <string name="training_action_compare">Vergleichen</string>
     <string name="compare_title">Vergleichen</string>

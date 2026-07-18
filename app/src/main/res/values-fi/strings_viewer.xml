@@ -62,6 +62,7 @@
     <string name="comp_start_distance_km">Lähtöpiste: %1$.1f km päässä</string>
     <string name="viewer_qs_auto_pause">Keskeytä automaattisesti pysähdyksissä</string>
     <string name="viewer_qs_lap_management">Kierrosten hallinta</string>
+    <string name="viewer_qs_lap_management_help">Poista käytöstä, jottei kierroksia tule lainkaan — automaattiset välit mukaan lukien. Kilpailu kirjaa silti kierroksen maalissa.</string>
     <string name="viewer_qs_auto_lap">Automaattinen kierros sijainnin mukaan</string>
     <string name="viewer_qs_auto_lap_help">Kun aloitat kierrokset, siitä kohdasta tulee lähtö-/maaliviiva ja jokainen ylitys sulkee kierroksen automaattisesti. Manuaalinen merkintä toimii yhä.</string>
     <string name="viewer_qs_auto_pause_secs">Keskeytä paikallaan olon jälkeen:</string>

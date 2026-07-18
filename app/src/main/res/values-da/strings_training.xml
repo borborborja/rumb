@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Træk et håndtag for at flytte en grænse. Tryk på profilen for at placere en split, eller tryk på et håndtag for at fjerne den.</string>
     <string name="laps_edit_add">Tilføj split</string>
     <string name="laps_edit_remove">Fjern split</string>
+    <string name="laps_edit_clear">Slet alle omgange</string>
+    <string name="laps_edit_clear_confirm">Bliver igen et almindeligt spor uden omgange. Kan ikke fortrydes.</string>
     <string name="training_lap_n">Omgang %1$d</string>
     <string name="training_action_compare">Sammenlign</string>
     <string name="compare_title">Sammenlign</string>

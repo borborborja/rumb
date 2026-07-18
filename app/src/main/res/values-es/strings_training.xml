@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Arrastra un tirador para mover un límite. Toca el perfil para colocar un corte, o toca un tirador para quitarlo.</string>
     <string name="laps_edit_add">Añadir corte</string>
     <string name="laps_edit_remove">Quitar corte</string>
+    <string name="laps_edit_clear">Eliminar todas las vueltas</string>
+    <string name="laps_edit_clear_confirm">Vuelve a ser un track normal sin vueltas. No se puede deshacer.</string>
     <string name="training_lap_n">Vuelta %1$d</string>
     <string name="training_action_compare">Comparar</string>
     <string name="compare_title">Comparar</string>

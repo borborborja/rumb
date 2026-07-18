@@ -23,6 +23,8 @@
     <string name="laps_edit_hint">Dra ett handtag för att flytta en gräns. Tryck på profilen för att lägga en delning, eller tryck på ett handtag för att ta bort det.</string>
     <string name="laps_edit_add">Lägg till delning</string>
     <string name="laps_edit_remove">Ta bort delning</string>
+    <string name="laps_edit_clear">Ta bort alla varv</string>
+    <string name="laps_edit_clear_confirm">Blir ett vanligt spår utan varv igen. Kan inte ångras.</string>
     <string name="training_lap_n">Varv %1$d</string>
     <string name="training_action_compare">Jämför</string>
     <string name="compare_title">Jämför</string>
