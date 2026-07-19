@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Používá se pro analýzu soutěžních zón tepové frekvence.</string>
     <string name="settings_weight">Váha: %1$d kg</string>
     <string name="settings_weight_help">Používá se pro odhad kalorií.</string>
+    <string name="settings_height">Výška: %1$d cm</string>
+    <string name="settings_height_unset">Výška: nenastavena</string>
+    <string name="settings_weight_control">Kontrola váhy</string>
+    <string name="settings_weight_control_enable">Zapnout kontrolu váhy</string>
+    <string name="settings_weight_control_help">Přidá nahoru ikonu váhy pro spárování Mi Body Composition Scale a sledování váhy a složení těla.</string>
     <string name="settings_age">Věk: %1$d let</string>
     <string name="settings_age_unset">Věk: nenastaven</string>
     <string name="settings_sex">Pohlaví</string>

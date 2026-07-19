@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Folosită pentru analiza zonelor de frecvență cardiacă din competiție.</string>
     <string name="settings_weight">Greutate: %1$d kg</string>
     <string name="settings_weight_help">Folosită pentru estimarea caloriilor.</string>
+    <string name="settings_height">Înălțime: %1$d cm</string>
+    <string name="settings_height_unset">Înălțime: nesetată</string>
+    <string name="settings_weight_control">Controlul greutății</string>
+    <string name="settings_weight_control_enable">Activează controlul greutății</string>
+    <string name="settings_weight_control_help">Adaugă sus o pictogramă de cântar pentru a asocia un Mi Body Composition Scale și a urmări greutatea și compoziția corporală.</string>
     <string name="settings_age">Vârstă: %1$d ani</string>
     <string name="settings_age_unset">Vârstă: nesetată</string>
     <string name="settings_sex">Sex</string>

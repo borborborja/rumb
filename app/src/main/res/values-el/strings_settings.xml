@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Χρησιμοποιείται για την ανάλυση ζωνών παλμών του αγώνα.</string>
     <string name="settings_weight">Βάρος: %1$d kg</string>
     <string name="settings_weight_help">Χρησιμοποιείται για την εκτίμηση θερμίδων.</string>
+    <string name="settings_height">Ύψος: %1$d cm</string>
+    <string name="settings_height_unset">Ύψος: μη ορισμένο</string>
+    <string name="settings_weight_control">Έλεγχος βάρους</string>
+    <string name="settings_weight_control_enable">Ενεργοποίηση ελέγχου βάρους</string>
+    <string name="settings_weight_control_help">Προσθέτει ένα εικονίδιο ζυγαριάς πάνω για σύζευξη μιας Mi Body Composition Scale και παρακολούθηση βάρους και σύστασης σώματος.</string>
     <string name="settings_age">Ηλικία: %1$d έτη</string>
     <string name="settings_age_unset">Ηλικία: μη ορισμένη</string>
     <string name="settings_sex">Φύλο</string>

@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Gebruikt voor de analyse van hartslagzones in de competitie.</string>
     <string name="settings_weight">Gewicht: %1$d kg</string>
     <string name="settings_weight_help">Gebruikt voor de calorieschatting.</string>
+    <string name="settings_height">Lengte: %1$d cm</string>
+    <string name="settings_height_unset">Lengte: niet ingesteld</string>
+    <string name="settings_weight_control">Gewichtsbeheer</string>
+    <string name="settings_weight_control_enable">Gewichtsbeheer inschakelen</string>
+    <string name="settings_weight_control_help">Voegt bovenaan een weegschaalpictogram toe om een Mi Body Composition Scale te koppelen en je gewicht en lichaamssamenstelling te volgen.</string>
     <string name="settings_age">Leeftijd: %1$d jaar</string>
     <string name="settings_age_unset">Leeftijd: niet ingesteld</string>
     <string name="settings_sex">Geslacht</string>

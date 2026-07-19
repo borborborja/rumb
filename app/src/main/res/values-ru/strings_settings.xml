@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Используется для анализа зон пульса в соревновании.</string>
     <string name="settings_weight">Вес: %1$d кг</string>
     <string name="settings_weight_help">Используется для оценки калорий.</string>
+    <string name="settings_height">Рост: %1$d см</string>
+    <string name="settings_height_unset">Рост: не задан</string>
+    <string name="settings_weight_control">Контроль веса</string>
+    <string name="settings_weight_control_enable">Включить контроль веса</string>
+    <string name="settings_weight_control_help">Добавляет вверху значок весов для сопряжения Mi Body Composition Scale и отслеживания веса и состава тела.</string>
     <string name="settings_age">Возраст: %1$d лет</string>
     <string name="settings_age_unset">Возраст: не указан</string>
     <string name="settings_sex">Пол</string>

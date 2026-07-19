@@ -46,6 +46,7 @@ object Routes {
     const val RECORDS = "records"
     const val HEATMAP = "heatmap"
     const val DESKTOP = "desktop"
+    const val SCALE = "scale"
 }
 
 @Composable
@@ -110,11 +111,14 @@ fun ManagerApp(
                 onOpenRecords = { nav.navigate(Routes.RECORDS) },
                 onOpenHeatmap = { nav.navigate(Routes.HEATMAP) },
                 onOpenDesktop = { nav.navigate(Routes.DESKTOP) },
+                onOpenScale = { nav.navigate(Routes.SCALE) },
                 importUri = importUri,
                 onImportHandled = onImportHandled,
             )
         }
         composable(Routes.DESKTOP) { DesktopModeScreen(onBack = { nav.popBackStack() }) }
+        // Weight-control module (self-contained; remove this line to drop the route).
+        composable(Routes.SCALE) { cat.rumb.app.scale.ui.ScaleScreen(onBack = { nav.popBackStack() }) }
         composable(Routes.RECORDS) {
             RecordsScreen(
                 onBack = { nav.popBackStack() },

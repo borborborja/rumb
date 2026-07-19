@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Utilisée pour l\'analyse des zones cardiaques en compétition.</string>
     <string name="settings_weight">Poids : %1$d kg</string>
     <string name="settings_weight_help">Utilisé pour l\'estimation des calories.</string>
+    <string name="settings_height">Taille : %1$d cm</string>
+    <string name="settings_height_unset">Taille : non définie</string>
+    <string name="settings_weight_control">Contrôle du poids</string>
+    <string name="settings_weight_control_enable">Activer le contrôle du poids</string>
+    <string name="settings_weight_control_help">Ajoute une icône de balance en haut pour appairer une Mi Body Composition Scale et suivre ton poids et ta composition corporelle.</string>
     <string name="settings_age">Âge : %1$d ans</string>
     <string name="settings_age_unset">Âge : non défini</string>
     <string name="settings_sex">Sexe</string>

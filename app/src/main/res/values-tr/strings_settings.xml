@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Yarış kalp hızı bölgesi analizi için kullanılır.</string>
     <string name="settings_weight">Kilo: %1$d kg</string>
     <string name="settings_weight_help">Kalori tahmini için kullanılır.</string>
+    <string name="settings_height">Boy: %1$d cm</string>
+    <string name="settings_height_unset">Boy: ayarlanmadı</string>
+    <string name="settings_weight_control">Kilo kontrolü</string>
+    <string name="settings_weight_control_enable">Kilo kontrolünü etkinleştir</string>
+    <string name="settings_weight_control_help">Bir Mi Body Composition Scale eşleştirip kilonu ve vücut kompozisyonunu takip etmek için üstte bir tartı simgesi ekler.</string>
     <string name="settings_age">Yaş: %1$d yıl</string>
     <string name="settings_age_unset">Yaş: ayarlanmadı</string>
     <string name="settings_sex">Cinsiyet</string>

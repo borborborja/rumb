@@ -190,6 +190,16 @@ private fun GhostAppearanceSection(prefs: ViewerPreferences) {
 private fun AppAndTypesSection(prefs: ViewerPreferences, onOpenDebugLog: () -> Unit) {
     AppSection(onOpenDebugLog)
     androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
+    // Weight-control module master switch (self-contained; remove this block to drop the toggle).
+    var weight by remember { mutableStateOf(prefs.weightControlEnabled) }
+    Text(stringResource(R.string.settings_weight_control), style = MaterialTheme.typography.titleSmall)
+    ToggleRow(stringResource(R.string.settings_weight_control_enable), weight) { weight = it; prefs.weightControlEnabled = it }
+    Text(
+        stringResource(R.string.settings_weight_control_help),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.outline,
+    )
+    androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
     Text(stringResource(R.string.settings_tab_activity_types), style = MaterialTheme.typography.titleSmall)
     ActivityTypesSection(prefs)
 }
@@ -550,6 +560,7 @@ private fun ProfileSection(prefs: ViewerPreferences) {
 
     var maxHr by remember { mutableIntStateOf(prefs.userMaxHr) }
     var weight by remember { mutableIntStateOf(prefs.userWeightKg) }
+    var height by remember { mutableIntStateOf(prefs.userHeightCm) }
     var age by remember { mutableIntStateOf(prefs.userAge) }
     var sex by remember { mutableStateOf(prefs.userSex) }
 
@@ -577,6 +588,17 @@ private fun ProfileSection(prefs: ViewerPreferences) {
         stringResource(R.string.settings_weight_help),
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.outline,
+    )
+    Text(
+        if (height > 0) stringResource(R.string.settings_height, height) else stringResource(R.string.settings_height_unset),
+        style = MaterialTheme.typography.labelLarge,
+        modifier = Modifier.padding(top = 8.dp),
+    )
+    Slider(
+        value = height.toFloat(),
+        onValueChange = { height = it.toInt(); prefs.userHeightCm = height },
+        valueRange = 0f..220f,
+        steps = 219,
     )
     Text(
         if (age > 0) stringResource(R.string.settings_age, age) else stringResource(R.string.settings_age_unset),

@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">S\'usa per a l\'anàlisi de zones de FC de competició.</string>
     <string name="settings_weight">Pes: %1$d kg</string>
     <string name="settings_weight_help">S\'usa per a l\'estimació de calories.</string>
+    <string name="settings_height">Alçada: %1$d cm</string>
+    <string name="settings_height_unset">Alçada: sense definir</string>
+    <string name="settings_weight_control">Control de pes</string>
+    <string name="settings_weight_control_enable">Activa el control de pes</string>
+    <string name="settings_weight_control_help">Afegeix una icona de bàscula a dalt per aparellar una Mi Body Composition Scale i seguir el teu pes i composició corporal.</string>
     <string name="settings_age">Edat: %1$d anys</string>
     <string name="settings_age_unset">Edat: sense definir</string>
     <string name="settings_sex">Sexe</string>

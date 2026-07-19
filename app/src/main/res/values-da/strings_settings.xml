@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Bruges til analysen af pulszoner i konkurrence.</string>
     <string name="settings_weight">Vægt: %1$d kg</string>
     <string name="settings_weight_help">Bruges til kalorieberegningen.</string>
+    <string name="settings_height">Højde: %1$d cm</string>
+    <string name="settings_height_unset">Højde: ikke angivet</string>
+    <string name="settings_weight_control">Vægtkontrol</string>
+    <string name="settings_weight_control_enable">Aktivér vægtkontrol</string>
+    <string name="settings_weight_control_help">Tilføjer et vægtikon foroven til at parre en Mi Body Composition Scale og følge din vægt og kropssammensætning.</string>
     <string name="settings_age">Alder: %1$d år</string>
     <string name="settings_age_unset">Alder: ikke angivet</string>
     <string name="settings_sex">Køn</string>

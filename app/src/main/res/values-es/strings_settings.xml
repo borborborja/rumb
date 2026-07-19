@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Se usa para el análisis de zonas de FC de competición.</string>
     <string name="settings_weight">Peso: %1$d kg</string>
     <string name="settings_weight_help">Se usa para la estimación de calorías.</string>
+    <string name="settings_height">Altura: %1$d cm</string>
+    <string name="settings_height_unset">Altura: sin definir</string>
+    <string name="settings_weight_control">Control de peso</string>
+    <string name="settings_weight_control_enable">Activar el control de peso</string>
+    <string name="settings_weight_control_help">Añade un icono de báscula arriba para emparejar una Mi Body Composition Scale y seguir tu peso y composición corporal.</string>
     <string name="settings_age">Edad: %1$d años</string>
     <string name="settings_age_unset">Edad: sin definir</string>
     <string name="settings_sex">Sexo</string>

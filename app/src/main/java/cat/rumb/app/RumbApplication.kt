@@ -20,7 +20,7 @@ class RumbApplication : Application() {
 
     val database: RumbDatabase by lazy {
         Room.databaseBuilder(this, RumbDatabase::class.java, "rumb.db")
-            .addMigrations(RumbDatabase.MIGRATION_1_2, RumbDatabase.MIGRATION_2_3, RumbDatabase.MIGRATION_3_4, RumbDatabase.MIGRATION_4_5, RumbDatabase.MIGRATION_5_6, RumbDatabase.MIGRATION_6_7, RumbDatabase.MIGRATION_7_8, RumbDatabase.MIGRATION_8_9, RumbDatabase.MIGRATION_9_10, RumbDatabase.MIGRATION_10_11)
+            .addMigrations(RumbDatabase.MIGRATION_1_2, RumbDatabase.MIGRATION_2_3, RumbDatabase.MIGRATION_3_4, RumbDatabase.MIGRATION_4_5, RumbDatabase.MIGRATION_5_6, RumbDatabase.MIGRATION_6_7, RumbDatabase.MIGRATION_7_8, RumbDatabase.MIGRATION_8_9, RumbDatabase.MIGRATION_9_10, RumbDatabase.MIGRATION_10_11, RumbDatabase.MIGRATION_11_12)
             .build()
     }
     val trackRepository: TrackRepository by lazy {
@@ -35,6 +35,10 @@ class RumbApplication : Application() {
     }
     val endurainRepository: EndurainRepository by lazy {
         EndurainRepository(EndurainPreferences.get(this))
+    }
+    // Weight-control module (self-contained; remove this line to drop the feature's repository).
+    val weightRepository: cat.rumb.app.scale.WeightRepository by lazy {
+        cat.rumb.app.scale.WeightRepository(database.weighInDao())
     }
     val routingRepository: cat.rumb.app.data.routing.RoutingRepository by lazy {
         cat.rumb.app.data.routing.RoutingRepository(this)

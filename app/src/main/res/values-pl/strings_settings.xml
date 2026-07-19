@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Używane do analizy stref tętna w rywalizacji.</string>
     <string name="settings_weight">Waga: %1$d kg</string>
     <string name="settings_weight_help">Używana do szacowania kalorii.</string>
+    <string name="settings_height">Wzrost: %1$d cm</string>
+    <string name="settings_height_unset">Wzrost: nie ustawiono</string>
+    <string name="settings_weight_control">Kontrola wagi</string>
+    <string name="settings_weight_control_enable">Włącz kontrolę wagi</string>
+    <string name="settings_weight_control_help">Dodaje u góry ikonę wagi do sparowania Mi Body Composition Scale i śledzenia wagi oraz składu ciała.</string>
     <string name="settings_age">Wiek: %1$d lat</string>
     <string name="settings_age_unset">Wiek: nie ustawiono</string>
     <string name="settings_sex">Płeć</string>

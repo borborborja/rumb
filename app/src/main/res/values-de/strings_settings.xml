@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Wird für die Herzfrequenzzonen-Analyse im Wettkampf verwendet.</string>
     <string name="settings_weight">Gewicht: %1$d kg</string>
     <string name="settings_weight_help">Wird für die Kalorienschätzung verwendet.</string>
+    <string name="settings_height">Größe: %1$d cm</string>
+    <string name="settings_height_unset">Größe: nicht festgelegt</string>
+    <string name="settings_weight_control">Gewichtskontrolle</string>
+    <string name="settings_weight_control_enable">Gewichtskontrolle aktivieren</string>
+    <string name="settings_weight_control_help">Fügt oben ein Waagensymbol hinzu, um eine Mi Body Composition Scale zu koppeln und Gewicht und Körperzusammensetzung zu verfolgen.</string>
     <string name="settings_age">Alter: %1$d Jahre</string>
     <string name="settings_age_unset">Alter: nicht festgelegt</string>
     <string name="settings_sex">Geschlecht</string>

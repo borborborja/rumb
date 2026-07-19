@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Käytetään kilpailun sykealueiden analyysiin.</string>
     <string name="settings_weight">Paino: %1$d kg</string>
     <string name="settings_weight_help">Käytetään kaloriarvioon.</string>
+    <string name="settings_height">Pituus: %1$d cm</string>
+    <string name="settings_height_unset">Pituus: ei asetettu</string>
+    <string name="settings_weight_control">Painonhallinta</string>
+    <string name="settings_weight_control_enable">Ota painonhallinta käyttöön</string>
+    <string name="settings_weight_control_help">Lisää ylös vaakakuvakkeen, jolla paritat Mi Body Composition Scale -vaa\'an ja seuraat painoa ja kehonkoostumusta.</string>
     <string name="settings_age">Ikä: %1$d vuotta</string>
     <string name="settings_age_unset">Ikä: ei asetettu</string>
     <string name="settings_sex">Sukupuoli</string>

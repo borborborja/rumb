@@ -37,6 +37,7 @@ import androidx.compose.material.icons.filled.FileDownload
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Flag
+import androidx.compose.material.icons.filled.MonitorWeight
 import androidx.compose.material.icons.filled.Straighten
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
@@ -137,6 +138,7 @@ fun HomeScreen(
     onOpenRecords: () -> Unit = {},
     onOpenHeatmap: () -> Unit = {},
     onOpenDesktop: () -> Unit = {},
+    onOpenScale: () -> Unit = {},
     importUri: android.net.Uri? = null,
     onImportHandled: () -> Unit = {},
 ) {
@@ -254,6 +256,10 @@ fun HomeScreen(
                 title = { Text(stringResource(R.string.home_title)) },
                 actions = {
                     IconButton(onClick = onOpenDesktop) { Icon(Icons.Filled.Computer, contentDescription = stringResource(R.string.home_cd_desktop)) }
+                    // Weight-control module (self-contained; remove this block to drop the icon).
+                    if (prefs.weightControlEnabled) {
+                        IconButton(onClick = onOpenScale) { Icon(Icons.Filled.MonitorWeight, contentDescription = stringResource(R.string.scale_cd_open)) }
+                    }
                     IconButton(onClick = { tab = 1; currentFolder = null }) {
                         Icon(
                             Icons.Filled.Route,

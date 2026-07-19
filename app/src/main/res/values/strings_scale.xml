@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scale_title">Weight control</string>
+    <string name="scale_cd_open">Scale</string>
+    <string name="scale_bt_manage">Bluetooth</string>
+    <string name="scale_tab_live">Reading</string>
+    <string name="scale_tab_stats">Stats</string>
+    <string name="scale_tab_history">History</string>
+
+    <string name="scale_who_me">Me</string>
+    <string name="scale_who_guest">Guest</string>
+    <string name="scale_guest_hint">A guest reading is shown but not saved. Set their height, age and sex.</string>
+    <string name="scale_not_paired">No scale paired yet.</string>
+    <string name="scale_pair">Pair a scale</string>
+    <string name="scale_weigh">Weigh</string>
+    <string name="scale_saved">Saved</string>
+    <string name="scale_state_idle">Step on the scale and press Weigh.</string>
+    <string name="scale_state_connecting">Connecting to the scale…</string>
+
+    <string name="scale_m_bmi">BMI</string>
+    <string name="scale_m_fat">Body fat</string>
+    <string name="scale_m_water">Body water</string>
+    <string name="scale_m_muscle">Muscle mass</string>
+    <string name="scale_m_bone">Bone mass</string>
+    <string name="scale_m_visceral">Visceral fat</string>
+    <string name="scale_m_bmr">Basal metabolism</string>
+    <string name="scale_m_protein">Protein</string>
+    <string name="scale_m_metabolic_age">Metabolic age</string>
+
+    <string name="scale_meaning_bmi">Weight relative to height. A rough screen, blind to muscle vs fat.</string>
+    <string name="scale_meaning_fat">Share of your weight that is fat. Too little is as unhealthy as too much.</string>
+    <string name="scale_meaning_water">Share of your body that is water. Drops when dehydrated.</string>
+    <string name="scale_meaning_muscle">Total muscle. Rises with strength training.</string>
+    <string name="scale_meaning_bone">Estimated bone mineral mass. Changes very slowly.</string>
+    <string name="scale_meaning_visceral">Fat around your organs. The number to keep low.</string>
+    <string name="scale_meaning_bmr">Calories your body burns at complete rest.</string>
+    <string name="scale_meaning_protein">Share of your body that is protein, tied to muscle.</string>
+    <string name="scale_meaning_metabolic_age">Your metabolism compared to typical ages. Lower is better.</string>
+
+    <string name="scale_status_low">low</string>
+    <string name="scale_status_normal">healthy</string>
+    <string name="scale_status_high">high</string>
+    <string name="scale_healthy_range">Healthy %1$s–%2$s</string>
+    <string name="scale_estimate_note">Body composition is estimated from weight, impedance and your profile — close to the Mi Fitness app, not identical.</string>
+
+    <string name="scale_stats_empty">Two weigh-ins or more will show your trends here.</string>
+    <string name="scale_history_empty">No weigh-ins yet.</string>
+    <string name="scale_delete_confirm">Delete this weigh-in?</string>
+
+    <string name="scale_default_name">Body composition scale</string>
+    <string name="scale_bt_intro">Scan and pair your Mi Body Composition Scale. Step on it during the scan so it advertises.</string>
+    <string name="scale_bt_scan">Scan for scales</string>
+    <string name="scale_bt_none">No scale found yet.</string>
+    <string name="scale_bt_pair">Pair</string>
+    <string name="scale_bt_paired">Paired</string>
+    <string name="scale_bt_done">Done</string>
+
+    <string name="scale_err_permission">Bluetooth permission is needed.</string>
+    <string name="scale_err_bluetooth">Turn Bluetooth on.</string>
+    <string name="scale_err_unknown">This scale isn\'t recognised. It may use a different protocol.</string>
+    <string name="scale_err_generic">Couldn\'t read the scale.</string>
+</resources>

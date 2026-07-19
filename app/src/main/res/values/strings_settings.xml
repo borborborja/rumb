@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Used for the competition heart-rate zone analysis.</string>
     <string name="settings_weight">Weight: %1$d kg</string>
     <string name="settings_weight_help">Used for the calorie estimate.</string>
+    <string name="settings_height">Height: %1$d cm</string>
+    <string name="settings_height_unset">Height: not set</string>
+    <string name="settings_weight_control">Weight control</string>
+    <string name="settings_weight_control_enable">Enable weight control</string>
+    <string name="settings_weight_control_help">Adds a scale icon at the top to pair a Mi Body Composition Scale and track your weight and body composition.</string>
     <string name="settings_age">Age: %1$d years</string>
     <string name="settings_age_unset">Age: not set</string>
     <string name="settings_sex">Sex</string>

@@ -315,6 +315,21 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         get() = prefs.getString(KEY_USER_SEX, "") ?: ""
         set(value) = prefs.edit().putString(KEY_USER_SEX, value).apply()
 
+    /** User's height (cm); 0 = unknown. Needed for BMI and the body-composition estimate. */
+    var userHeightCm: Int
+        get() = prefs.getInt(KEY_USER_HEIGHT, 0)
+        set(value) = prefs.edit().putInt(KEY_USER_HEIGHT, value).apply()
+
+    /** Weight-control module master switch: shows the scale icon and screen when on. */
+    var weightControlEnabled: Boolean
+        get() = prefs.getBoolean(KEY_WEIGHT_CONTROL, false)
+        set(value) = prefs.edit().putBoolean(KEY_WEIGHT_CONTROL, value).apply()
+
+    /** MAC of the paired body-composition scale, or null. Its own key so the module is self-contained. */
+    var scaleAddress: String?
+        get() = prefs.getString(KEY_SCALE_ADDRESS, null)
+        set(value) = prefs.edit().putString(KEY_SCALE_ADDRESS, value).apply()
+
     /**
      * MAC addresses of paired BLE fitness sensors (heart rate / cadence / power). The addresses are
      * what the recording service connects to; [bleSensorsJson] holds the rest (name, warn flag) and
@@ -524,6 +539,9 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         private const val KEY_USER_MAX_HR = "user_max_hr"
         private const val KEY_USER_AGE = "user_age"
         private const val KEY_USER_SEX = "user_sex"
+        private const val KEY_USER_HEIGHT = "user_height_cm"
+        private const val KEY_WEIGHT_CONTROL = "weight_control_enabled"
+        private const val KEY_SCALE_ADDRESS = "scale_address"
         private const val KEY_TURN_VOICE = "turn_voice"
         private const val KEY_DESKTOP_PORT = "desktop_server_port"
         private const val KEY_USER_WEIGHT = "user_weight_kg"

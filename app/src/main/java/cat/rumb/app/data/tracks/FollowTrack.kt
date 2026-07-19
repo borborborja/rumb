@@ -156,8 +156,10 @@ interface FollowTrackDao {
         cat.rumb.app.data.recording.RecordingPointEntity::class,
         CompetitionEntity::class,
         CompetitionAttemptEntity::class,
+        // Weight-control module (self-contained; remove this line to drop the feature's storage).
+        cat.rumb.app.scale.WeighInEntity::class,
     ],
-    version = 11,
+    version = 12,
     exportSchema = false,
 )
 @TypeConverters(Converters::class)
@@ -166,6 +168,7 @@ abstract class RumbDatabase : RoomDatabase() {
     abstract fun syncStatusDao(): SyncStatusDao
     abstract fun recordingDao(): cat.rumb.app.data.recording.RecordingDao
     abstract fun competitionDao(): CompetitionDao
+    abstract fun weighInDao(): cat.rumb.app.scale.WeighInDao
 
     companion object {
         // Circuit ids are shifted into a high range when merged so they never collide with ROUTE
@@ -177,6 +180,19 @@ abstract class RumbDatabase : RoomDatabase() {
          * competition_attempts, drains circuits→LAP and track competitions→ROUTE (GPX inline), then
          * drops the circuit tables. follow_tracks competition columns are left orphaned.
          */
+        /** v12: weight-control module — one table of weigh-ins. Drop the table + this migration to
+         *  remove the feature's storage. */
+        val MIGRATION_11_12 = object : androidx.room.migration.Migration(11, 12) {
+            override fun migrate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `weigh_ins` (" +
+                        "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                        "`timestamp` INTEGER NOT NULL, `weightKg` REAL NOT NULL, `impedanceOhm` INTEGER, " +
+                        "`heightCm` INTEGER NOT NULL, `ageYears` INTEGER NOT NULL, `sex` TEXT NOT NULL)",
+                )
+            }
+        }
+
         val MIGRATION_10_11 = object : androidx.room.migration.Migration(10, 11) {
             override fun migrate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
                 db.execSQL(

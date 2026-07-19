@@ -186,6 +186,11 @@
     <string name="settings_max_hr_help">Används för analysen av tävlingens pulszoner.</string>
     <string name="settings_weight">Vikt: %1$d kg</string>
     <string name="settings_weight_help">Används för kaloriuppskattningen.</string>
+    <string name="settings_height">Längd: %1$d cm</string>
+    <string name="settings_height_unset">Längd: ej angiven</string>
+    <string name="settings_weight_control">Viktkontroll</string>
+    <string name="settings_weight_control_enable">Aktivera viktkontroll</string>
+    <string name="settings_weight_control_help">Lägger till en vågikon högst upp för att parkoppla en Mi Body Composition Scale och följa vikt och kroppssammansättning.</string>
     <string name="settings_age">Ålder: %1$d år</string>
     <string name="settings_age_unset">Ålder: inte angiven</string>
     <string name="settings_sex">Kön</string>
