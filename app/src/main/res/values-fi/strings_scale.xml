@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Punnitse aina samalla tavalla</string>
     <string name="scale_tips_body">Kehonkoostumuslukemat vaihtelevat nesteytyksen, ruoan ja kellonajan mukaan, joten suuntaus kertoo enemmän kuin yksittäinen luku. Vertailukelpoisia lukemia varten:\n\n• Samaan aikaan — aamulla on paras\n• Ennen syömistä ja juomista, rakon tyhjennyksen jälkeen\n• Paljain, kuivin jaloin suoraan metallille\n• Ei heti suihkun, aterian tai liikunnan jälkeen\n• Seiso paikallasi, kunnes lukema vakiintuu</string>
     <string name="scale_stats_trend_hint">Luota suuntaukseen, älä yksittäiseen lukemaan — paino ja koostumus vaihtelevat päivittäin nesteytyksen ja kellonajan mukaan.</string>
+    <string name="scale_weight_label">Paino</string>
+    <string name="scale_section_composition">Koostumus</string>
+    <string name="scale_estimate_short">arvio</string>
+    <string name="scale_needs_profile">Täytä pituus, ikä ja sukupuoli profiiliin ja odota impedanssilukemaa nähdäksesi täyden erittelyn.</string>
+    <string name="scale_stat_start">Alku</string>
+    <string name="scale_stat_min">Min</string>
+    <string name="scale_stat_max">Maks</string>
+    <string name="scale_all_metrics">Kaikki mittarit</string>
+    <string name="scale_tap_breakdown">Napauta erittelyä varten</string>
 </resources>

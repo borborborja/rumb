@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Pesati sempre allo stesso modo</string>
     <string name="scale_tips_body">Le letture di composizione variano con idratazione, cibo e ora del giorno, quindi conta più la tendenza di un singolo numero. Per letture confrontabili:\n\n• Alla stessa ora — meglio al mattino\n• Prima di mangiare o bere, dopo aver svuotato la vescica\n• Piedi nudi e asciutti sul metallo\n• Non subito dopo doccia, pasto o attività fisica\n• Resta fermo finché non si stabilizza</string>
     <string name="scale_stats_trend_hint">Fidati della tendenza, non di una singola lettura: peso e composizione variano di giorno in giorno con idratazione e ora.</string>
+    <string name="scale_weight_label">Peso</string>
+    <string name="scale_section_composition">Composizione</string>
+    <string name="scale_estimate_short">stima</string>
+    <string name="scale_needs_profile">Inserisci altezza, età e sesso nel profilo e attendi la lettura di impedenza per vedere il dettaglio completo.</string>
+    <string name="scale_stat_start">Inizio</string>
+    <string name="scale_stat_min">Min</string>
+    <string name="scale_stat_max">Max</string>
+    <string name="scale_all_metrics">Tutte le metriche</string>
+    <string name="scale_tap_breakdown">Tocca per il dettaglio</string>
 </resources>

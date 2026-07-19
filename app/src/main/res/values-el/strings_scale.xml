@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Ζυγίζεσαι πάντα με τον ίδιο τρόπο</string>
     <string name="scale_tips_body">Οι μετρήσεις σύστασης αλλάζουν με την ενυδάτωση, το φαγητό και την ώρα, οπότε η τάση μετράει περισσότερο από έναν μεμονωμένο αριθμό. Για συγκρίσιμες μετρήσεις:\n\n• Την ίδια ώρα — καλύτερα το πρωί\n• Πριν φας ή πιεις, αφού αδειάσεις την κύστη\n• Γυμνά, στεγνά πόδια πάνω στο μέταλλο\n• Όχι αμέσως μετά από ντους, γεύμα ή άσκηση\n• Μείνε ακίνητος μέχρι να σταθεροποιηθεί</string>
     <string name="scale_stats_trend_hint">Εμπιστέψου την τάση, όχι μια μεμονωμένη μέτρηση — το βάρος και η σύσταση αλλάζουν μέρα με τη μέρα με την ενυδάτωση και την ώρα.</string>
+    <string name="scale_weight_label">Βάρος</string>
+    <string name="scale_section_composition">Σύσταση</string>
+    <string name="scale_estimate_short">εκτίμηση</string>
+    <string name="scale_needs_profile">Συμπλήρωσε ύψος, ηλικία και φύλο στο προφίλ σου και περίμενε τη μέτρηση εμπέδησης για να δεις πλήρη ανάλυση.</string>
+    <string name="scale_stat_start">Αρχή</string>
+    <string name="scale_stat_min">Ελάχ.</string>
+    <string name="scale_stat_max">Μέγ.</string>
+    <string name="scale_all_metrics">Όλες οι μετρήσεις</string>
+    <string name="scale_tap_breakdown">Πάτα για την ανάλυση</string>
 </resources>

@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Cântărește-te mereu la fel</string>
     <string name="scale_tips_body">Valorile de compoziție variază cu hidratarea, mâncarea și ora din zi, așa că tendința contează mai mult decât un singur număr. Pentru măsurători comparabile:\n\n• La aceeași oră — dimineața e cel mai bine\n• Înainte de a mânca sau bea, după golirea vezicii\n• Picioare goale și uscate direct pe metal\n• Nu imediat după duș, masă sau efort\n• Stai nemișcat până se stabilizează</string>
     <string name="scale_stats_trend_hint">Ai încredere în tendință, nu într-o singură măsurătoare — greutatea și compoziția variază de la o zi la alta cu hidratarea și ora.</string>
+    <string name="scale_weight_label">Greutate</string>
+    <string name="scale_section_composition">Compoziție</string>
+    <string name="scale_estimate_short">estimare</string>
+    <string name="scale_needs_profile">Completează înălțimea, vârsta și sexul în profil și așteaptă măsurarea impedanței pentru a vedea analiza completă.</string>
+    <string name="scale_stat_start">Start</string>
+    <string name="scale_stat_min">Min</string>
+    <string name="scale_stat_max">Max</string>
+    <string name="scale_all_metrics">Toate valorile</string>
+    <string name="scale_tap_breakdown">Atinge pentru analiză</string>
 </resources>

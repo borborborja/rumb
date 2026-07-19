@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Зважуйтеся завжди однаково</string>
     <string name="scale_tips_body">Показники складу тіла коливаються залежно від гідратації, їжі та часу доби, тож тенденція важливіша за окреме число. Щоб вимірювання були порівнянними:\n\n• В один і той самий час — найкраще вранці\n• До їжі та пиття, після спорожнення сечового міхура\n• Босі, сухі ноги на металі\n• Не одразу після душу, їжі чи тренування\n• Стійте нерухомо, доки значення не стабілізується</string>
     <string name="scale_stats_trend_hint">Довіряйте тенденції, а не одному вимірюванню — вага і склад коливаються день у день із гідратацією та часом доби.</string>
+    <string name="scale_weight_label">Вага</string>
+    <string name="scale_section_composition">Склад</string>
+    <string name="scale_estimate_short">оцінка</string>
+    <string name="scale_needs_profile">Вкажи зріст, вік і стать у профілі та зачекай на вимір імпедансу, щоб побачити повний розподіл.</string>
+    <string name="scale_stat_start">Початок</string>
+    <string name="scale_stat_min">Мін</string>
+    <string name="scale_stat_max">Макс</string>
+    <string name="scale_all_metrics">Усі показники</string>
+    <string name="scale_tap_breakdown">Торкнись для розподілу</string>
 </resources>

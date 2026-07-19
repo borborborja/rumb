@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Važte se vždy stejně</string>
     <string name="scale_tips_body">Hodnoty složení těla kolísají s hydratací, jídlem a denní dobou, takže trend znamená víc než jediné číslo. Pro srovnatelná měření:\n\n• Ve stejnou dobu — nejlépe ráno\n• Před jídlem a pitím, po vyprázdnění močového měchýře\n• Bosýma, suchýma nohama přímo na kovu\n• Ne hned po sprše, jídle nebo cvičení\n• Stůjte klidně, dokud se hodnota neustálí</string>
     <string name="scale_stats_trend_hint">Věřte trendu, ne jednomu měření — váha i složení kolísají den ode dne s hydratací a denní dobou.</string>
+    <string name="scale_weight_label">Váha</string>
+    <string name="scale_section_composition">Složení</string>
+    <string name="scale_estimate_short">odhad</string>
+    <string name="scale_needs_profile">Zadej v profilu výšku, věk a pohlaví a počkej na snímek impedance, aby se zobrazil úplný rozpis.</string>
+    <string name="scale_stat_start">Začátek</string>
+    <string name="scale_stat_min">Min</string>
+    <string name="scale_stat_max">Max</string>
+    <string name="scale_all_metrics">Všechny metriky</string>
+    <string name="scale_tap_breakdown">Klepni pro rozpis</string>
 </resources>

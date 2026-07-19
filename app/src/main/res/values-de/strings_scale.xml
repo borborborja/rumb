@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Immer gleich wiegen</string>
     <string name="scale_tips_body">Körperanalyse-Werte schwanken mit Flüssigkeit, Essen und Tageszeit — der Trend zählt mehr als ein einzelner Wert. Für vergleichbare Messungen:\n\n• Immer zur selben Zeit — morgens ist am besten\n• Vor dem Essen und Trinken, nach dem Toilettengang\n• Barfuß und mit trockenen Füßen auf dem Metall\n• Nicht direkt nach Dusche, Mahlzeit oder Sport\n• Still stehen, bis der Wert steht</string>
     <string name="scale_stats_trend_hint">Verlass dich auf den Trend, nicht auf eine einzelne Messung — Gewicht und Körperwerte schwanken täglich mit Flüssigkeit und Tageszeit.</string>
+    <string name="scale_weight_label">Gewicht</string>
+    <string name="scale_section_composition">Zusammensetzung</string>
+    <string name="scale_estimate_short">Schätzung</string>
+    <string name="scale_needs_profile">Trage Größe, Alter und Geschlecht im Profil ein und warte auf die Impedanzmessung, um die volle Aufschlüsselung zu sehen.</string>
+    <string name="scale_stat_start">Start</string>
+    <string name="scale_stat_min">Min</string>
+    <string name="scale_stat_max">Max</string>
+    <string name="scale_all_metrics">Alle Werte</string>
+    <string name="scale_tap_breakdown">Tippen für die Aufschlüsselung</string>
 </resources>

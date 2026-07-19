@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Pesa\'t sempre igual</string>
     <string name="scale_tips_body">Les lectures de composició varien amb la hidratació, el menjar i l\'hora del dia, així que la tendència importa més que qualsevol xifra solta. Per a lectures comparables:\n\n• A la mateixa hora — millor al matí\n• Abans de menjar o beure, després de buidar la bufeta\n• Peus descalços i secs sobre el metall\n• No just després de la dutxa, un àpat o exercici\n• Queda\'t quiet fins que s\'estabilitzi</string>
     <string name="scale_stats_trend_hint">Fia\'t de la tendència, no d\'una lectura solta: el pes i la composició varien d\'un dia a l\'altre amb la hidratació i l\'hora.</string>
+    <string name="scale_weight_label">Pes</string>
+    <string name="scale_section_composition">Composició</string>
+    <string name="scale_estimate_short">estimació</string>
+    <string name="scale_needs_profile">Indica la teva alçada, edat i sexe al perfil i espera la trama d\'impedància per veure el desglossament complet.</string>
+    <string name="scale_stat_start">Inici</string>
+    <string name="scale_stat_min">Mín</string>
+    <string name="scale_stat_max">Màx</string>
+    <string name="scale_all_metrics">Totes les mètriques</string>
+    <string name="scale_tap_breakdown">Toca per veure el desglossament</string>
 </resources>

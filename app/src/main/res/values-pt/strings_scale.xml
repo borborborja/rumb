@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Pese-se sempre da mesma forma</string>
     <string name="scale_tips_body">As leituras de composição variam com a hidratação, a comida e a hora do dia, por isso a tendência importa mais do que um número isolado. Para leituras comparáveis:\n\n• À mesma hora — de manhã é melhor\n• Antes de comer ou beber, depois de esvaziar a bexiga\n• Pés descalços e secos sobre o metal\n• Não logo após o banho, uma refeição ou exercício\n• Fique parado até estabilizar</string>
     <string name="scale_stats_trend_hint">Confie na tendência, não numa única leitura: peso e composição variam de um dia para o outro com a hidratação e a hora.</string>
+    <string name="scale_weight_label">Peso</string>
+    <string name="scale_section_composition">Composição</string>
+    <string name="scale_estimate_short">estimativa</string>
+    <string name="scale_needs_profile">Preenche a tua altura, idade e sexo no perfil e espera pela leitura de impedância para veres a análise completa.</string>
+    <string name="scale_stat_start">Início</string>
+    <string name="scale_stat_min">Mín</string>
+    <string name="scale_stat_max">Máx</string>
+    <string name="scale_all_metrics">Todas as métricas</string>
+    <string name="scale_tap_breakdown">Toca para ver a análise</string>
 </resources>

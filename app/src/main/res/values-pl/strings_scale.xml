@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Waż się zawsze tak samo</string>
     <string name="scale_tips_body">Pomiary składu ciała wahają się w zależności od nawodnienia, posiłków i pory dnia, więc trend znaczy więcej niż pojedyncza liczba. Aby pomiary były porównywalne:\n\n• O tej samej porze — najlepiej rano\n• Przed jedzeniem i piciem, po opróżnieniu pęcherza\n• Bose, suche stopy płasko na metalu\n• Nie tuż po prysznicu, posiłku czy ćwiczeniach\n• Stój nieruchomo, aż wynik się ustali</string>
     <string name="scale_stats_trend_hint">Ufaj trendowi, a nie pojedynczemu pomiarowi — waga i skład wahają się z dnia na dzień z nawodnieniem i porą dnia.</string>
+    <string name="scale_weight_label">Waga</string>
+    <string name="scale_section_composition">Skład</string>
+    <string name="scale_estimate_short">szacunek</string>
+    <string name="scale_needs_profile">Uzupełnij wzrost, wiek i płeć w profilu i poczekaj na pomiar impedancji, aby zobaczyć pełny rozkład.</string>
+    <string name="scale_stat_start">Początek</string>
+    <string name="scale_stat_min">Min</string>
+    <string name="scale_stat_max">Maks</string>
+    <string name="scale_all_metrics">Wszystkie metryki</string>
+    <string name="scale_tap_breakdown">Dotknij, aby zobaczyć rozkład</string>
 </resources>

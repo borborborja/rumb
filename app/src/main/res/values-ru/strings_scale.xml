@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Взвешивайтесь всегда одинаково</string>
     <string name="scale_tips_body">Показатели состава тела меняются от гидратации, еды и времени суток, поэтому тенденция важнее одного числа. Чтобы измерения были сопоставимы:\n\n• В одно и то же время — лучше утром\n• До еды и питья, после посещения туалета\n• Босые, сухие ноги на металле\n• Не сразу после душа, еды или тренировки\n• Стойте неподвижно, пока значение не установится</string>
     <string name="scale_stats_trend_hint">Доверяйте тенденции, а не одному измерению — вес и состав меняются день ото дня с гидратацией и временем суток.</string>
+    <string name="scale_weight_label">Вес</string>
+    <string name="scale_section_composition">Состав</string>
+    <string name="scale_estimate_short">оценка</string>
+    <string name="scale_needs_profile">Укажите рост, возраст и пол в профиле и дождитесь измерения импеданса, чтобы увидеть полную разбивку.</string>
+    <string name="scale_stat_start">Начало</string>
+    <string name="scale_stat_min">Мин</string>
+    <string name="scale_stat_max">Макс</string>
+    <string name="scale_all_metrics">Все показатели</string>
+    <string name="scale_tap_breakdown">Нажмите для разбивки</string>
 </resources>

@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Her zaman aynı şekilde tartıl</string>
     <string name="scale_tips_body">Vücut analizi değerleri sıvı, yemek ve günün saatine göre değişir; bu yüzden eğilim tek bir sayıdan daha önemlidir. Karşılaştırılabilir ölçümler için:\n\n• Aynı saatte — en iyisi sabah\n• Yemeden içmeden önce, tuvalete gittikten sonra\n• Çıplak, kuru ayaklarla metalin üzerinde\n• Duş, yemek veya egzersizden hemen sonra değil\n• Değer sabitlenene kadar hareketsiz dur</string>
     <string name="scale_stats_trend_hint">Tek bir ölçüme değil eğilime güven — kilo ve vücut değerleri her gün sıvı ve saate göre değişir.</string>
+    <string name="scale_weight_label">Ağırlık</string>
+    <string name="scale_section_composition">Bileşim</string>
+    <string name="scale_estimate_short">tahmin</string>
+    <string name="scale_needs_profile">Profilinde boy, yaş ve cinsiyeti gir ve tam dökümü görmek için empedans okumasını bekle.</string>
+    <string name="scale_stat_start">Başlangıç</string>
+    <string name="scale_stat_min">Min</string>
+    <string name="scale_stat_max">Maks</string>
+    <string name="scale_all_metrics">Tüm ölçümler</string>
+    <string name="scale_tap_breakdown">Döküm için dokun</string>
 </resources>

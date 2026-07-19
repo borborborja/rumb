@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Weeg jezelf steeds hetzelfde</string>
     <string name="scale_tips_body">Lichaamsmetingen schommelen met vocht, eten en tijdstip, dus de trend zegt meer dan één enkel getal. Voor vergelijkbare metingen:\n\n• Op hetzelfde tijdstip — \'s ochtends is het beste\n• Voor het eten of drinken, na een toiletbezoek\n• Blote, droge voeten plat op het metaal\n• Niet vlak na douche, maaltijd of sport\n• Blijf stilstaan tot de meting stabiel is</string>
     <string name="scale_stats_trend_hint">Vertrouw op de trend, niet op één meting — gewicht en samenstelling schommelen per dag met vocht en tijdstip.</string>
+    <string name="scale_weight_label">Gewicht</string>
+    <string name="scale_section_composition">Samenstelling</string>
+    <string name="scale_estimate_short">schatting</string>
+    <string name="scale_needs_profile">Vul je lengte, leeftijd en geslacht in je profiel in en wacht op de impedantiemeting om de volledige uitsplitsing te zien.</string>
+    <string name="scale_stat_start">Start</string>
+    <string name="scale_stat_min">Min</string>
+    <string name="scale_stat_max">Max</string>
+    <string name="scale_all_metrics">Alle metingen</string>
+    <string name="scale_tap_breakdown">Tik voor de uitsplitsing</string>
 </resources>

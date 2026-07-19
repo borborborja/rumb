@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Väg dig alltid likadant</string>
     <string name="scale_tips_body">Kroppsmätningar varierar med vätska, mat och tid på dygnet, så trenden betyder mer än ett enskilt värde. För jämförbara mätningar:\n\n• Samma tid — helst på morgonen\n• Före mat och dryck, efter toalettbesök\n• Bara, torra fötter platt mot metallen\n• Inte precis efter dusch, måltid eller träning\n• Stå stilla tills värdet stabiliseras</string>
     <string name="scale_stats_trend_hint">Lita på trenden, inte på en enskild mätning — vikt och sammansättning varierar från dag till dag med vätska och tid på dygnet.</string>
+    <string name="scale_weight_label">Vikt</string>
+    <string name="scale_section_composition">Sammansättning</string>
+    <string name="scale_estimate_short">uppskattning</string>
+    <string name="scale_needs_profile">Fyll i längd, ålder och kön i profilen och vänta på impedansmätningen för att se hela fördelningen.</string>
+    <string name="scale_stat_start">Start</string>
+    <string name="scale_stat_min">Min</string>
+    <string name="scale_stat_max">Max</string>
+    <string name="scale_all_metrics">Alla mått</string>
+    <string name="scale_tap_breakdown">Tryck för fördelningen</string>
 </resources>

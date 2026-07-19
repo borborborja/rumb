@@ -62,4 +62,13 @@
     <string name="scale_tips_title">Weigh the same way each time</string>
     <string name="scale_tips_body">Composition readings swing with hydration, food and time of day, so the trend matters more than any single number. For readings you can compare:\n\n• Same time of day — the morning is best\n• Before eating or drinking, after emptying your bladder\n• Bare, dry feet flat on the metal\n• Not right after a shower, a meal or exercise\n• Stand still until it settles</string>
     <string name="scale_stats_trend_hint">Trust the trend, not one reading — weight and composition swing day to day with hydration and the time of day.</string>
+    <string name="scale_weight_label">Weight</string>
+    <string name="scale_section_composition">Composition</string>
+    <string name="scale_estimate_short">estimate</string>
+    <string name="scale_needs_profile">Set your height, age and sex in your profile and wait for the impedance frame to see the full breakdown.</string>
+    <string name="scale_stat_start">Start</string>
+    <string name="scale_stat_min">Min</string>
+    <string name="scale_stat_max">Max</string>
+    <string name="scale_all_metrics">All metrics</string>
+    <string name="scale_tap_breakdown">Tap for the breakdown</string>
 </resources>

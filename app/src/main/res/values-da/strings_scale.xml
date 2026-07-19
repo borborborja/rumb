@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Vej dig altid ens</string>
     <string name="scale_tips_body">Kropsmålinger svinger med væske, mad og tidspunkt, så tendensen betyder mere end et enkelt tal. For sammenlignelige målinger:\n\n• Samme tidspunkt — helst om morgenen\n• Før du spiser eller drikker, efter toiletbesøg\n• Bare, tørre fødder fladt på metallet\n• Ikke lige efter bad, måltid eller træning\n• Stå stille, til målingen falder til ro</string>
     <string name="scale_stats_trend_hint">Stol på tendensen, ikke på en enkelt måling — vægt og sammensætning svinger fra dag til dag med væske og tidspunkt.</string>
+    <string name="scale_weight_label">Vægt</string>
+    <string name="scale_section_composition">Sammensætning</string>
+    <string name="scale_estimate_short">estimat</string>
+    <string name="scale_needs_profile">Angiv din højde, alder og køn i profilen, og vent på impedansmålingen for at se hele fordelingen.</string>
+    <string name="scale_stat_start">Start</string>
+    <string name="scale_stat_min">Min</string>
+    <string name="scale_stat_max">Maks</string>
+    <string name="scale_all_metrics">Alle mål</string>
+    <string name="scale_tap_breakdown">Tryk for fordelingen</string>
 </resources>

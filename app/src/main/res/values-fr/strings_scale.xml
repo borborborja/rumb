@@ -55,4 +55,13 @@
     <string name="scale_tips_title">Pesez-vous toujours pareil</string>
     <string name="scale_tips_body">Les mesures de composition varient selon l\'hydratation, les repas et l\'heure — la tendance compte plus qu\'un chiffre isolé. Pour des mesures comparables :\n\n• À la même heure — le matin de préférence\n• Avant de manger ou boire, après être allé aux toilettes\n• Pieds nus et secs à plat sur le métal\n• Pas juste après la douche, un repas ou du sport\n• Restez immobile jusqu\'à stabilisation</string>
     <string name="scale_stats_trend_hint">Fiez-vous à la tendance, pas à une seule mesure : le poids et la composition varient d\'un jour à l\'autre selon l\'hydratation et l\'heure.</string>
+    <string name="scale_weight_label">Poids</string>
+    <string name="scale_section_composition">Composition</string>
+    <string name="scale_estimate_short">estimation</string>
+    <string name="scale_needs_profile">Renseigne ta taille, ton âge et ton sexe dans le profil et attends la mesure d\'impédance pour voir le détail complet.</string>
+    <string name="scale_stat_start">Début</string>
+    <string name="scale_stat_min">Min</string>
+    <string name="scale_stat_max">Max</string>
+    <string name="scale_all_metrics">Toutes les mesures</string>
+    <string name="scale_tap_breakdown">Touche pour le détail</string>
 </resources>
