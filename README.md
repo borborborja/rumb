@@ -16,7 +16,8 @@ pensado para ciclismo, running, senderismo y esquí. El nombre viene de la *lín
 - 📈 **Gestor de rutas y entrenamientos**: carpetas, ordenar/filtrar (distancia, fecha, municipio,
   dificultad, tipo), tipos de actividad (predefinidos + personalizados), estadísticas con gráficas
   apiladas (altitud/velocidad/FC) y scrubber sincronizado con el mapa.
-- 🌍 **i18n**: català, castellano, English — añadir un idioma = una carpeta `values-xx/`.
+- 🌍 **i18n**: 18 idiomas (English base + ca, es, fr, de, it, pt, nl, pl, cs, da, el, fi, ro,
+  ru, sv, tr, uk) — añadir un idioma = una carpeta `values-xx/` (paridad: `scripts/check_i18n.py`).
 - ☁️ **Subida a [Endurain](https://github.com/endurain-project/endurain)** con cola offline.
 - 🔌 **Modo companion opcional**: si abres Rumb desde el dashboard de OpenTracks
   (`de.dennisguse.opentracks`), visualiza esa grabación en vivo (Dashboard API, protocolos 1-3).
@@ -33,7 +34,7 @@ Dos caras en el mismo APK (`applicationId = cat.rumb.app`):
 ```
 data/recording/   Motor nativo: TrackRecorder (puro, testeado), RecordingService (foreground),
                   GpsSource, PressureSource, AutoPause, BLE (ble/).
-data/tracks/      Room v4: biblioteca de rutas/entrenamientos, tipos de actividad, dificultad,
+data/tracks/      Room (migraciones a mano): biblioteca de rutas/entrenamientos, tipos de actividad, dificultad,
                   ordenación/filtrado, stats y decimación, backfill Nominatim (municipio).
 data/opentracks/  Contrato con OpenTracks (Dashboard API) — companion opcional.
 data/map/         Fuentes (OSM/ICGC), estilos, MBTiles offline, descarga de sectores.
