@@ -213,6 +213,12 @@ class MapViewerActivity : ComponentActivity() {
     // from the start) and the ghost is the circuit's best lap. Efforts are persisted on save.
     private var circuitMode = false
     private var competitionId = -1L
+    // Completes when onCreate's async competition load has written the circuit prefs. The recorder
+    // snapshots its config ONCE at start (RecordingService.begin), so starting before this lands
+    // would freeze a config with no lap line: laps never arm and the ghost never shows. Starts
+    // completed; onCreate swaps in a fresh one only when there is a competition to load.
+    private var competitionSetupDone: kotlinx.coroutines.CompletableDeferred<Unit> =
+        kotlinx.coroutines.CompletableDeferred<Unit>().apply { complete(Unit) }
     // ROUTE competition: the inline reference route to draw once the map controller is ready.
     private var pendingRouteRefPts: List<cat.rumb.app.data.gpx.GpxPoint>? = null
     private var startPillStarted = false
@@ -278,6 +284,7 @@ class MapViewerActivity : ComponentActivity() {
         val compId = intent.getLongExtra(EXTRA_COMPETITION_ID, -1L)
         if (compId > 0) {
             competitionId = compId
+            competitionSetupDone = kotlinx.coroutines.CompletableDeferred()
             lifecycleScope.launch {
                 val app = RumbApplication.from(this@MapViewerActivity)
                 val comp = app.competitionRepository.getCompetition(compId) ?: return@launch
@@ -314,7 +321,9 @@ class MapViewerActivity : ComponentActivity() {
                     }
                     DebugLog.i("Competi", "mode competició ROUTE · id=$compId · ${refPts.size} punts")
                 }
-            }
+                // Releases a waiting record-start on ANY exit: normal, the early return when the
+                // competition is gone, or cancellation.
+            }.invokeOnCompletion { competitionSetupDone.complete(Unit) }
         }
 
         // SurfaceView (default): renders GeoJSON overlays reliably. textureMode was a leftover from the
@@ -435,7 +444,7 @@ class MapViewerActivity : ComponentActivity() {
                                     cat.rumb.app.manager.Routes.DATA
                                 }
                                 startActivity(
-                                    cat.rumb.app.manager.ManagerActivity.editIntent(this@MapViewerActivity, route),
+                                    cat.rumb.app.manager.ManagerActivity.editIntent(this@MapViewerActivity, route, competitionId),
                                 )
                             }
                         }
@@ -1149,6 +1158,22 @@ class MapViewerActivity : ComponentActivity() {
         sensorWarnAcknowledged = false // the next recording gets its own sensor check
         requestNotificationPermission()
         DebugLog.i("Record", "native start")
+        // RecordingService.begin() snapshots its config from prefs ONCE. In a competition those
+        // circuit prefs are written by onCreate's async load — starting before it lands would
+        // record without the lap line (laps never arm, ghost never shows). Wait for it, bounded.
+        if (competitionSetupDone.isCompleted) {
+            launchRecordingService(ctrl)
+        } else {
+            lifecycleScope.launch {
+                kotlinx.coroutines.withTimeoutOrNull(5_000) { competitionSetupDone.await() }
+                    ?: DebugLog.w("Competi", "config de circuit no carregada en 5s · gravant sense línia")
+                launchRecordingService(ctrl)
+            }
+        }
+    }
+
+    /** The actual service start, split out so [doStartNativeRecording] can defer it. */
+    private fun launchRecordingService(ctrl: MapLibreController) {
         RecordingService.start(this)
         observeNative(ctrl)
         followMode = true

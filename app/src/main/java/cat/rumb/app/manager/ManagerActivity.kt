@@ -17,9 +17,16 @@ class ManagerActivity : ComponentActivity() {
     companion object {
         const val EXTRA_ROUTE = "start_route"
 
-        /** Opens the manager directly on [route] (e.g. the HUD/Dades editor from the viewer). */
-        fun editIntent(context: android.content.Context, route: String): Intent =
-            Intent(context, ManagerActivity::class.java).putExtra(EXTRA_ROUTE, route)
+        /**
+         * Opens the manager directly on [route] (e.g. the HUD/Dades editor from the viewer). A
+         * positive [competitionId] rides along so the editor's back-to-viewer relaunch re-enters
+         * the same competition — without it, the relaunched viewer's onCreate reads "no
+         * competition" and silently leaves it (empty map: no reference route, no ghost).
+         */
+        fun editIntent(context: android.content.Context, route: String, competitionId: Long = -1L): Intent =
+            Intent(context, ManagerActivity::class.java).putExtra(EXTRA_ROUTE, route).apply {
+                if (competitionId > 0) putExtra(MapViewerActivity.EXTRA_COMPETITION_ID, competitionId)
+            }
     }
 
     // A track file opened/shared into Rumb (VIEW/SEND). Reactive so onNewIntent re-triggers import.

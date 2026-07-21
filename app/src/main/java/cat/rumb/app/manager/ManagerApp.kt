@@ -88,7 +88,15 @@ fun ManagerApp(
      */
     val backToViewer: () -> Unit = {
         activity?.let { act ->
-            act.startActivity(android.content.Intent(act, cat.rumb.app.viewer.MapViewerActivity::class.java))
+            val intent = android.content.Intent(act, cat.rumb.app.viewer.MapViewerActivity::class.java)
+            // The pencil forwards the viewer's active competition in the edit intent (and singleTask
+            // onNewIntent keeps act.intent current); hand it back so the relaunched viewer re-enters
+            // the competition instead of reading "no extra" as leaving it (reference route, ghost and
+            // circuit config would all vanish mid-recording).
+            val compId = act.intent
+                ?.getLongExtra(cat.rumb.app.viewer.MapViewerActivity.EXTRA_COMPETITION_ID, -1L) ?: -1L
+            if (compId > 0) intent.putExtra(cat.rumb.app.viewer.MapViewerActivity.EXTRA_COMPETITION_ID, compId)
+            act.startActivity(intent)
             if (!nav.popBackStack()) act.finish()
         }
     }
