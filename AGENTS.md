@@ -62,6 +62,43 @@ file — edit here, never duplicate content there. Architecture overview and pac
   (`data/recording/RecordingState.kt`); `null` = idle. Control it via intent actions
   (`ACTION_START/PAUSE/RESUME/STOP/…`), never by binding.
 
+## Checks before calling a task done
+
+Match the checks to what you touched; run them yourself — CI won't. Never claim something
+works without having run the check; if you couldn't run it (no JDK/SDK on the machine, needs
+a physical device), say so explicitly in your report instead of implying success.
+
+**Always (any code change):**
+1. `./gradlew :app:testDebugUnitTest` — full unit suite, not just "it compiles".
+2. If you added logic, you added a test for it (pure class + JUnit 5 test in `app/src/test/`).
+   Logic without a test is an unfinished task, not a done one.
+3. `git diff` review: no vendored files touched, no attribution KDoc removed, no stray files
+   (only content changes you intended — beware mode-only noise).
+
+**If you touched…**
+- **Any `strings_*.xml`** → `python3 scripts/check_i18n.py` must exit 0 (all 18 locales,
+  matching printf specifiers).
+- **A Room entity/DAO/schema** → verify the 3-step migration protocol below is complete in the
+  same commit, and add a unit test exercising the new column/query if feasible. Think about
+  an existing install upgrading: does every path from v_old to v_new have a migration?
+- **Serialized shapes** (`HudLayout`, `DataLayout`, prefs JSON blobs, `DesktopDto`) → confirm
+  old persisted data still decodes (in-code migration or `ignoreUnknownKeys` covers it) and
+  update the counterpart (`assets/desktop/app.js` for `DesktopDto`).
+- **BLE, sensors, scale, GPS, TTS, or anything hardware-bound** → JVM tests can only cover the
+  parsers/engines. Extract and test those; for the rest, state plainly that it needs a manual
+  test on a device and what to test (e.g. "pair the strap from Sensors → Buscar").
+- **The desktop web app** (`assets/desktop/`) → it's plain JS with no build step or linter:
+  re-read your diff carefully (syntax errors ship as-is) and keep `i18n.js` keys in sync
+  across ca/en/es (Catalan is the reference).
+- **Networking** (tiles, Nominatim, Endurain) → confirm User-Agent / rate-limit etiquette
+  survived your change; DTO changes match the real server API, not an assumed one.
+- **`versionCode`/`versionName` or the release workflow** → remember: tests don't run in CI;
+  a broken build only surfaces when the tag build fails. Compile before tagging.
+
+**Reporting**: state what you ran and its actual result ("tests: 55 passed", "i18n OK ·
+806 keys"). If something failed or was skipped, lead with that — a wrong "all good" costs
+more than an honest "unverified".
+
 ## Room migration protocol
 
 `RumbDatabase` lives in `data/tracks/FollowTrack.kt` ("rumb.db", currently **version 12**).
