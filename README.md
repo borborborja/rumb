@@ -45,6 +45,11 @@ viewer/           MapLibreController, hud/ (métricas + overlay), data/ (Dades),
 manager/          Navegación + pantallas Compose Material 3.
 ```
 
+## Descargar
+
+APK firmada en [Releases](https://github.com/borborborja/rumb/releases/latest) —
+se instala sobre la versión anterior sin desinstalar. Proceso de publicación: `DEPLOY.md`.
+
 ## Compilar
 
 ```bash

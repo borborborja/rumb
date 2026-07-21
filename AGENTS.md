@@ -32,11 +32,11 @@ file — edit here, never duplicate content there. Architecture overview and pac
   doing that: new logic goes in a pure class + unit test, not inside an Activity/Service).
 - i18n check after touching any `res/values*/strings_*.xml`: `python3 scripts/check_i18n.py`
   (exit 1 = missing keys or broken printf specifiers in some locale).
-- **Release**: bump `versionCode` + `versionName` in `app/build.gradle.kts`, commit, tag
-  `vX.Y.Z`, push tag → `.github/workflows/release.yml` builds the signed APK and publishes a
-  GitHub Release with generated notes. Local `assembleRelease` falls back to the **debug** key
-  (real keystore only exists in CI via env secrets) — a locally built release APK will not
-  install over a published one.
+- **Release**: follow `DEPLOY.md` (single source of truth for the process — update it in the
+  same commit if the process changes). Short version: bump `versionCode` + `versionName`,
+  commit, tag `vX.Y.Z`, push tag → CI builds the signed APK and publishes the GitHub Release.
+  Local `assembleRelease` falls back to the **debug** key (real keystore only exists in CI) —
+  a locally built release APK will not install over a published one.
 - Minify is OFF even in release; no flavors.
 
 ## Conventions
