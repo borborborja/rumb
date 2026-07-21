@@ -107,6 +107,16 @@ Any entity/schema change requires, in the same commit:
 2. Hand-write `MIGRATION_x_y` next to the existing ones in `FollowTrack.kt`.
 3. Register it in `RumbApplication`'s `addMigrations(...)` chain.
 
+```kotlin
+// FollowTrack.kt — @Database(version = 13, …) plus, next to its siblings:
+val MIGRATION_12_13 = object : androidx.room.migration.Migration(12, 13) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE follow_tracks ADD COLUMN foo INTEGER NOT NULL DEFAULT 0")
+    }
+}
+// RumbApplication.kt — append RumbDatabase.MIGRATION_12_13 to addMigrations(…)
+```
+
 Quirks to respect: competition/circuit unification (v11) left orphaned competition columns in
 `follow_tracks` (harmless — leave them); circuit ids are offset by `CIRCUIT_ID_OFFSET =
 1_000_000_000L` to avoid collisions.
@@ -116,6 +126,14 @@ Quirks to respect: competition/circuit unification (v11) left orphaned competiti
 - **BLE GATT is one-operation-at-a-time** (`ble/BleSensorManager`): CCC descriptors are written
   serially via the `pendingWrites` queue, each from the previous `onDescriptorWrite`. Writing
   them in a loop silently drops all but the first.
+
+  ```kotlin
+  // WRONG — GATT silently drops every write after the first:
+  descriptors.forEach { gatt.writeDescriptor(it, ENABLE_NOTIFICATION_VALUE) }
+  // RIGHT — queue them; each next write fires from onDescriptorWrite():
+  pendingWrites[gatt] = ArrayDeque(descriptors)
+  writeNextDescriptor(gatt)
+  ```
 - **BLE discovery scans must be UNFILTERED**: many HR devices (Mi Band, Amazfit, watches) do
   not advertise service UUID 0x180D — a `ScanFilter.setServiceUuid` filter makes them
   invisible. Filter client-side instead (see `SensorsScreen` and `BleSensorProbe`).
