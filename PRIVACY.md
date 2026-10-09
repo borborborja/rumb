@@ -1,8 +1,8 @@
 # Política de privacidad de Rumb
 
-**Desarrollador:** micapum  
-**Aplicación:** Rumb (`cat.rumb.app`), distribución Google Play  
-**Actualización:** 9 de octubre de 2026  
+**Desarrollador:** micapum
+**Aplicación:** Rumb (`cat.rumb.app`), distribución Google Play
+**Actualización:** 9 de octubre de 2026
 **Contacto de privacidad y soporte:** [rumb@micapum.net](mailto:rumb@micapum.net)
 
 Rumb permite registrar actividades deportivas, gestionar rutas, consultar mapas y utilizar sensores Bluetooth compatibles. Esta política explica qué datos utiliza la aplicación y cuándo pueden salir del teléfono.
