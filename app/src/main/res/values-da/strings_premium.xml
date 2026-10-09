@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_title">Rumb Premium</string>
+    <string name="premium_required">Denne funktion kræver Rumb Premium.</string>
+    <string name="premium_free">GPS-optagelse og grundlæggende onlinekort er gratis.</string>
+    <string name="premium_features">Offlinekort, rutefølgning, tilpasset HUD og datavisninger, Bluetooth-sensorer, skysynkronisering, avanceret analyse og konkurrencer samt vægtregistrering.</string>
+    <string name="premium_loading">Opretter forbindelse til Google Play…</string>
+    <string name="premium_active">Rumb Premium er aktivt.</string>
+    <string name="premium_restore">Gendan køb</string>
+    <string name="premium_manage">Administrer abonnement</string>
+    <string name="premium_monthly_price">Månedligt — %1$s / måned</string>
+    <string name="premium_annual_price">Årligt — %1$s / år</string>
+    <string name="premium_renewal">Abonnement med automatisk fornyelse. Google Play opkræver den valgte pris hver måned eller hvert år, indtil du opsiger. Opsig i Google Play; adgangen fortsætter til slutningen af den betalte periode.</string>
+    <string name="premium_store_unavailable">Google Play er ikke tilgængelig. Prøv igen med forbindelse.</string>
+    <string name="premium_prices_unavailable">Abonnementspriser er ikke tilgængelige. Prøv igen senere.</string>
+    <string name="premium_canceled">Køb annulleret. Rumb har ikke opkrævet dig.</string>
+    <string name="premium_pending">Betalingen afventer. Premium låses op, når Google Play bekræfter betalingen.</string>
+    <string name="premium_verification_failed">Købet kunne ikke verificeres. Gendan køb eller kontakt support.</string>
+    <string name="premium_suspended">Dit abonnement er suspenderet. Kontrollér betalingen eller genoptag det i Google Play.</string>
+    <string name="premium_ack_retry">Købsbekræftelsen kunne ikke afsluttes. Åbn Rumb igen med forbindelse for at prøve igen.</string>
+    <string name="premium_restored">Dit abonnement er gendannet.</string>
+    <string name="premium_none">Intet aktivt abonnement blev fundet for denne Google Play-konto.</string>
+    <string name="premium_purchase_failed">Købet kunne ikke gennemføres. Prøv igen.</string>
+    <string name="premium_github">Alle funktioner er tilgængelige i GitHub-versionen.</string>
+    <string name="premium_privacy">Privatlivspolitik</string>
+    <string name="premium_connection">Google Play kontrollerer Premium-adgang, når Rumb åbnes. Hvis kontrollen fejler efter genstart, opret forbindelse igen og gendan køb.</string>
+    <string name="premium_demo">Gratis demoadgang</string>
+    <string name="premium_demo_code">Adgangskode</string>
+    <string name="premium_demo_activate">Aktivér demo</string>
+    <string name="premium_demo_remove">Fjern demoadgang</string>
+    <string name="premium_demo_invalid">Ugyldig adgangskode.</string>
+    <string name="premium_demo_active">Demoadgang er aktiv. Dette er ikke et betalt abonnement.</string>
+</resources>

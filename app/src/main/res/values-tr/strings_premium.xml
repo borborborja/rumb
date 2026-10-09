@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_title">Rumb Premium</string>
+    <string name="premium_required">Bu özellik Rumb Premium gerektirir.</string>
+    <string name="premium_free">GPS kaydı ve temel çevrimiçi haritalar ücretsizdir.</string>
+    <string name="premium_features">Çevrimdışı haritalar, rota takibi, özel HUD ve veri ekranları, Bluetooth sensörleri, bulut eşitleme, gelişmiş analiz ve yarışmalar ve kilo takibi.</string>
+    <string name="premium_loading">Google Play’e bağlanılıyor…</string>
+    <string name="premium_active">Rumb Premium etkin.</string>
+    <string name="premium_restore">Satın alımları geri yükle</string>
+    <string name="premium_manage">Aboneliği yönet</string>
+    <string name="premium_monthly_price">Aylık — %1$s / ay</string>
+    <string name="premium_annual_price">Yıllık — %1$s / yıl</string>
+    <string name="premium_renewal">Otomatik yenilenen abonelik. Google Play, iptal edene kadar seçilen fiyatı her ay veya yıl tahsil eder. Google Play’de iptal edin; erişim ödenen dönemin sonuna kadar sürer.</string>
+    <string name="premium_store_unavailable">Google Play kullanılamıyor. Bağlantıyla tekrar deneyin.</string>
+    <string name="premium_prices_unavailable">Abonelik fiyatları kullanılamıyor. Daha sonra tekrar deneyin.</string>
+    <string name="premium_canceled">Satın alma iptal edildi. Rumb ücret almadı.</string>
+    <string name="premium_pending">Ödeme beklemede. Google Play ödemeyi onayladığında Premium açılır.</string>
+    <string name="premium_verification_failed">Satın alma doğrulanamadı. Satın alımları geri yükleyin veya destekle iletişime geçin.</string>
+    <string name="premium_suspended">Aboneliğiniz askıya alındı. Ödemeyi kontrol edin veya Google Play’de devam ettirin.</string>
+    <string name="premium_ack_retry">Satın alma onayı tamamlanamadı. Tekrar denemek için Rumb’u bağlantıyla yeniden açın.</string>
+    <string name="premium_restored">Aboneliğiniz geri yüklendi.</string>
+    <string name="premium_none">Bu Google Play hesabında etkin abonelik bulunamadı.</string>
+    <string name="premium_purchase_failed">Satın alma tamamlanamadı. Tekrar deneyin.</string>
+    <string name="premium_github">Tüm özellikler GitHub sürümünde kullanılabilir.</string>
+    <string name="premium_privacy">Gizlilik politikası</string>
+    <string name="premium_connection">Google Play, Rumb açıldığında Premium erişimini kontrol eder. Yeniden başlattıktan sonra doğrulama başarısız olursa yeniden bağlanın ve satın alımları geri yükleyin.</string>
+    <string name="premium_demo">Ücretsiz demo erişimi</string>
+    <string name="premium_demo_code">Erişim kodu</string>
+    <string name="premium_demo_activate">Demoyu etkinleştir</string>
+    <string name="premium_demo_remove">Demo erişimini kaldır</string>
+    <string name="premium_demo_invalid">Geçersiz erişim kodu.</string>
+    <string name="premium_demo_active">Demo erişimi etkin. Bu ücretli bir abonelik değildir.</string>
+</resources>

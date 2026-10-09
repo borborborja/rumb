@@ -73,8 +73,10 @@ class RecordingService : Service() {
 
     private fun begin() {
         if (recorder != null) return // already recording
+        getSharedPreferences("recording_premium", MODE_PRIVATE).edit()
+            .putBoolean("enabled", RumbApplication.from(this).premiumManager.state.value.hasPremium).apply()
         val prefs = ViewerPreferences.get(this)
-        val r = TrackRecorder(configFrom(prefs))
+        val r = TrackRecorder(configFrom(prefs, allowCompetitions = premiumSessionEnabled(this)))
         r.start(Instant.now())
         recorder = r
         autoPause = if (prefs.recAutoPause) AutoPause(idleAfterSec = prefs.recAutoPauseSec.toLong()) else null
@@ -108,12 +110,13 @@ class RecordingService : Service() {
                 val active = dao.activeRecording()
                 if (active == null) {
                     DebugLog.i("Record", "sticky restart sense gravació activa · aturant")
+                    getSharedPreferences("recording_premium", MODE_PRIVATE).edit().remove("enabled").apply()
                     stopForeground(STOP_FOREGROUND_REMOVE)
                     stopSelf()
                     return@launch
                 }
                 val stored = dao.points(active.id)
-                val r = TrackRecorder(configFrom(prefs))
+                val r = TrackRecorder(configFrom(prefs, allowCompetitions = premiumSessionEnabled(this@RecordingService)))
                 r.restore(stored.toSegments(), Instant.ofEpochMilli(active.startedAt), Instant.now())
                 active.laps?.let { raw ->
                     runCatching { LAP_JSON.decodeFromString<List<LapMark>>(raw) }.getOrNull()?.let { r.restoreLaps(it) }
@@ -173,7 +176,7 @@ class RecordingService : Service() {
         if (prefs.recBarometer) {
             pressure.start { hPa -> recorder?.onPressure(hPa) }
         }
-        val sensors = prefs.bleSensorAddrs
+        val sensors = if (premiumSessionEnabled(this)) prefs.bleSensorAddrs else emptySet()
         if (sensors.isNotEmpty()) {
             ble = cat.rumb.app.data.recording.ble.BleSensorManager(
                 this,
@@ -249,6 +252,7 @@ class RecordingService : Service() {
         val finalBatch = drainPending()
         recorder = null
         recordingId = null
+        getSharedPreferences("recording_premium", MODE_PRIVATE).edit().remove("enabled").apply()
         releaseWakeLock()
         // Persist the final points and mark the recording FINISHED (do NOT delete): the durable copy
         // must survive until the user actually saves. A process death between Stop and Save would
@@ -428,16 +432,22 @@ class RecordingService : Service() {
     }
 
     companion object {
+        /** Entitlement captured when this recording began, retained through service recovery. */
+        fun premiumSessionEnabled(context: Context): Boolean =
+            RumbApplication.from(context).premiumManager.state.value.hasPremium ||
+                context.getSharedPreferences("recording_premium", Context.MODE_PRIVATE).getBoolean("enabled", false)
+
         /**
          * The engine config the prefs describe. In the companion because crash recovery needs the
          * same one the live path uses — it used to build a two-field stub and lose the circuit line.
          */
-        private fun configFrom(prefs: ViewerPreferences): RecorderConfig {
+        private fun configFrom(prefs: ViewerPreferences, allowCompetitions: Boolean = true): RecorderConfig {
+            val circuitActive = prefs.circuitActive && allowCompetitions
             // "Lap management" is the master switch: off = no automatic laps of any kind. A circuit
             // competition is exempt — it laps at presetLapLine below, which this doesn't touch.
             val al = AutoLapPrefs.resolve(
                 lapManagement = prefs.lapManagementEnabled,
-                circuit = prefs.circuitActive,
+                circuit = circuitActive,
                 byPosition = prefs.autoLapByPosition,
                 everyM = prefs.autoLapEveryMFor(prefs.activeSportId),
                 detectLoop = prefs.autoDetectLoop,
@@ -447,15 +457,15 @@ class RecordingService : Service() {
                 minDistanceM = prefs.recMinDistanceM.toDouble(),
                 autoLapByPosition = al.byPosition,
                 autoLapEveryM = al.everyM,
-                presetLapLine = if (prefs.circuitActive) {
+                presetLapLine = if (circuitActive) {
                     cat.rumb.app.data.opentracks.model.GeoPoint(prefs.circuitLineLat, prefs.circuitLineLng)
                 } else {
                     null
                 },
-                autoLapRadiusM = if (prefs.circuitActive) prefs.circuitRadiusM else 25.0,
-                autoLapMinLapMs = if (prefs.circuitActive) prefs.circuitMinLapMs else 20_000,
-                autoLapMinLapM = if (prefs.circuitActive) prefs.circuitMinLapM else 100.0,
-                lapRefDistanceM = if (prefs.circuitActive) prefs.circuitRefDistanceM else 0.0,
+                autoLapRadiusM = if (circuitActive) prefs.circuitRadiusM else 25.0,
+                autoLapMinLapMs = if (circuitActive) prefs.circuitMinLapMs else 20_000,
+                autoLapMinLapM = if (circuitActive) prefs.circuitMinLapM else 100.0,
+                lapRefDistanceM = if (circuitActive) prefs.circuitRefDistanceM else 0.0,
                 autoDetectLoop = al.detectLoop,
             )
         }

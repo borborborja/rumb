@@ -54,11 +54,11 @@ se instala sobre la versión anterior sin desinstalar. Proceso de publicación: 
 
 ```bash
 export JAVA_HOME=/opt/homebrew/opt/openjdk@17
-./gradlew :app:assembleDebug        # APK en app/build/outputs/apk/debug/
-./gradlew :app:testDebugUnitTest    # tests JVM (motor, GPX, stats, orden/filtro)
+./gradlew :app:assembleGithubDebug        # APK en app/build/outputs/apk/github/debug/
+./gradlew :app:testPlayDebugUnitTest :app:testGithubDebugUnitTest    # tests JVM (motor, GPX, stats, orden/filtro)
 ```
 
-Requisitos: JDK 17, Android SDK (compileSdk 35). AGP 8.7 · Kotlin 2.0 · MapLibre 11.
+Requisitos: JDK 17, Android SDK (compileSdk 36). AGP 8.10 · Kotlin 2.0 · MapLibre 11.
 
 ## Licencia
 Apache-2.0 (ver `LICENSE`/`NOTICE`). Contiene código derivado de OpenTracks y OSMDashboard

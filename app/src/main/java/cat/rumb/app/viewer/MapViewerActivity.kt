@@ -60,6 +60,8 @@ import cat.rumb.app.data.recording.ble.BleSensorProbe
 import cat.rumb.app.data.recording.ble.SavedSensors
 import cat.rumb.app.data.tracks.TrackStatsCalculator
 import cat.rumb.app.data.recording.RecordingService
+import cat.rumb.app.data.premium.PremiumFeature
+import cat.rumb.app.data.premium.PremiumFeaturePolicy
 import cat.rumb.app.viewer.follow.FollowRouteEngine
 import cat.rumb.app.viewer.hud.HudControls
 import cat.rumb.app.viewer.hud.HudData
@@ -225,10 +227,12 @@ class MapViewerActivity : ComponentActivity() {
 
     /** The lap ghost to chase right now: the user's pick between the record and today's best lap. */
     private val lapGhost: cat.rumb.app.data.competition.GhostEngine?
-        get() = cat.rumb.app.data.competition.GhostSource.pick(ghostSource, lapRecordGhost, sessionGhost, ghostOn)
+        get() = cat.rumb.app.data.competition.GhostSource.pick(
+            ghostSource, lapRecordGhost, sessionGhost, ghostOn && premiumContinuation(PremiumFeature.COMPETITIONS),
+        )
 
     private val ghostEngine: cat.rumb.app.data.competition.GhostEngine?
-        get() = routeGhost?.takeIf { ghostOn }
+        get() = routeGhost?.takeIf { ghostOn && premiumContinuation(PremiumFeature.COMPETITIONS) }
 
     /**
      * Racing a lap ghost: there is one to chase, and the laps are trips round the same loop. Distance
@@ -251,6 +255,23 @@ class MapViewerActivity : ComponentActivity() {
         DebugLog.i("Viewer", "onCreate · action=${intent.action}")
         applyWindowFlags()
 
+        lifecycleScope.launch {
+            var previousPremium = hasPremium()
+            RumbApplication.from(this@MapViewerActivity).premiumManager.state.collect { state ->
+                if (state.hasPremium != previousPremium) {
+                    previousPremium = state.hasPremium
+                    ghostOn = ViewerPreferences.get(this@MapViewerActivity).ghostEnabled && premiumContinuation(PremiumFeature.COMPETITIONS)
+                    if (!NativeRecording.isActive) controller?.let { ctrl ->
+                        applyBaseMap(ctrl, frame = false) { reapplyOverlays(ctrl) }
+                    }
+                    val requestedCompetition = intent.getLongExtra(EXTRA_COMPETITION_ID, -1L)
+                    if (state.hasPremium && requestedCompetition > 0 && competitionId != requestedCompetition && !NativeRecording.isActive) {
+                        recreate()
+                    }
+                }
+            }
+        }
+
         val prefs = ViewerPreferences.get(this)
         hudLayoutFlow.value = HudLayoutStore.load(prefs, prefs.activeSportId)
         activeSportFlow.value = prefs.activeSportId
@@ -261,7 +282,7 @@ class MapViewerActivity : ComponentActivity() {
         weightKg = prefs.userWeightKg
         // Prefer the latest measured weight for the live calorie estimate; falls back to the manual
         // weight when the scale module is off or has no weigh-ins (so nothing changes without a scale).
-        if (prefs.weightControlEnabled) {
+        if (prefs.weightControlEnabled && hasPremium()) {
             lifecycleScope.launch {
                 weightKg = cat.rumb.app.RumbApplication.from(this@MapViewerActivity)
                     .weightRepository.weightKgFor(null, prefs.userWeightKg, true)
@@ -279,15 +300,20 @@ class MapViewerActivity : ComponentActivity() {
         // someone who had turned the halo off still got one.
         ghostHaloOn = prefs.competitionHalo
         ghostSecondsOn = prefs.competitionShowSeconds
-        ghostOn = prefs.ghostEnabled
+        ghostOn = prefs.ghostEnabled && premiumContinuation(PremiumFeature.COMPETITIONS)
         ghostSource = cat.rumb.app.data.competition.GhostSource.byName(prefs.ghostSource)
         val compId = intent.getLongExtra(EXTRA_COMPETITION_ID, -1L)
+            .takeIf { premiumContinuation(PremiumFeature.COMPETITIONS) } ?: -1L
         if (compId > 0) {
             competitionId = compId
             competitionSetupDone = kotlinx.coroutines.CompletableDeferred()
             lifecycleScope.launch {
                 val app = RumbApplication.from(this@MapViewerActivity)
                 val comp = app.competitionRepository.getCompetition(compId) ?: return@launch
+                if (!premiumContinuation(PremiumFeature.COMPETITIONS)) {
+                    competitionSetupDone.complete(Unit)
+                    return@launch
+                }
                 val refPts = runCatching { cat.rumb.app.data.gpx.Gpx.read(comp.referenceGpx.byteInputStream()).points }.getOrDefault(emptyList())
                 if (comp.type == cat.rumb.app.data.tracks.CompetitionType.LAP) {
                     circuitMode = true
@@ -384,6 +410,7 @@ class MapViewerActivity : ComponentActivity() {
                 RumbTheme {
                     val page by currentPageFlow.collectAsState()
                     val settingsOpen by settingsOpenFlow.collectAsState()
+                    val premiumState by app.premiumManager.state.collectAsState()
                     // The sport is locked while recording (its layout must not change mid-effort); the
                     // pencil stays editable (you can pause, edit, resume). Both react to these flows.
                     val recState by cat.rumb.app.data.recording.NativeRecording.state.collectAsState()
@@ -437,7 +464,8 @@ class MapViewerActivity : ComponentActivity() {
                         )
                         // Pencil at the top-right (mirroring the back arrow): edits the visible page.
                         Box(Modifier.align(androidx.compose.ui.Alignment.TopEnd).padding(end = 8.dp)) {
-                            EditPageButton {
+                            EditPageButton editPage@{
+                                if (!hasPremium()) { openPremium(); return@editPage }
                                 val route = if (page == 0) {
                                     cat.rumb.app.manager.Routes.HUD
                                 } else {
@@ -452,9 +480,9 @@ class MapViewerActivity : ComponentActivity() {
                             val tracks by app.trackRepository.observeSummaries().collectAsState(initial = emptyList())
                             val competitions by app.competitionRepository.observeCompetitions().collectAsState(initial = emptyList())
                             ViewerQuickSettings(
-                                currentBaseMapId = prefs.baseMapId,
-                                offlineMaps = cat.rumb.app.data.map.OfflineMapStore.get(this@MapViewerActivity).list(),
-                                currentFollowId = prefs.activeFollowTrackId,
+                                currentBaseMapId = effectiveBaseMapId(prefs.baseMapId),
+                                offlineMaps = if (premiumState.hasPremium) cat.rumb.app.data.map.OfflineMapStore.get(this@MapViewerActivity).list() else emptyList(),
+                                currentFollowId = prefs.activeFollowTrackId.takeIf { premiumContinuation(PremiumFeature.ROUTE_FOLLOWING) } ?: -1L,
                                 // Only catalogue ROUTES are followable; the same table also holds
                                 // recorded trainings and competition references, which must not leak.
                                 tracks = tracks.filter { !it.archived && it.kind == cat.rumb.app.data.tracks.TrackKind.ROUTE },
@@ -465,12 +493,16 @@ class MapViewerActivity : ComponentActivity() {
                                 keepScreenOn = prefs.keepScreenOn,
                                 fullscreen = prefs.fullscreen,
                                 adaptiveZoom = prefs.adaptiveZoom,
-                                onSelectBaseMap = { id ->
+                                onSelectBaseMap = selectMap@{ id ->
+                                    if (id?.startsWith(cat.rumb.app.data.map.OfflineMap.OFFLINE_PREFIX) == true && !hasPremium()) {
+                                        openPremium(); return@selectMap
+                                    }
                                     DebugLog.i("UI", "quick-settings · mapa base → $id")
                                     prefs.baseMapId = id
                                     controller?.let { c -> applyBaseMap(c, frame = false) { reapplyOverlays(c) } }
                                 },
-                                onSelectFollow = { id ->
+                                onSelectFollow = selectFollow@{ id ->
+                                    if (id > 0 && !hasPremium()) { openPremium(); return@selectFollow }
                                     DebugLog.i("UI", "quick-settings · ruta a seguir → id=$id")
                                     prefs.activeFollowTrackId = id
                                     // While racing, the competition owns the follow layer (reloadFollow
@@ -573,14 +605,16 @@ class MapViewerActivity : ComponentActivity() {
                                     DebugLog.i("UI", "quick-settings · compte enrere de volta → $b")
                                     prefs.lapCountdown = b
                                 },
-                                ghostEnabled = prefs.ghostEnabled,
-                                onGhostEnabled = { b ->
+                                ghostEnabled = prefs.ghostEnabled && premiumContinuation(PremiumFeature.COMPETITIONS),
+                                onGhostEnabled = enableGhost@{ b ->
+                                    if (b && !hasPremium()) { openPremium(); return@enableGhost }
                                     DebugLog.i("UI", "quick-settings · fantasma → $b")
                                     prefs.ghostEnabled = b
                                     applyGhostEnabled(b)
                                 },
                                 ghostSource = cat.rumb.app.data.competition.GhostSource.byName(prefs.ghostSource),
-                                onGhostSource = { s ->
+                                onGhostSource = selectGhost@{ s ->
+                                    if (!hasPremium()) { openPremium(); return@selectGhost }
                                     DebugLog.i("UI", "quick-settings · origen del fantasma → $s")
                                     prefs.ghostSource = s.name
                                     applyGhostSource(s)
@@ -738,7 +772,7 @@ class MapViewerActivity : ComponentActivity() {
                 // With no route/recording/competition to frame, open centered on the user instead of
                 // the whole default map. Try now (cached fix); otherwise recenter on the first warm fix.
                 val nothingToFrame = pendingRouteRefPts == null &&
-                    prefs.activeFollowTrackId <= 0 && !NativeRecording.isActive
+                    (!premiumContinuation(PremiumFeature.ROUTE_FOLLOWING) || prefs.activeFollowTrackId <= 0) && !NativeRecording.isActive
                 // Show the user's location; request the permission if we don't have it yet.
                 if (hasLocationPermission()) {
                     ctrl.enableLocation(this)
@@ -763,10 +797,29 @@ class MapViewerActivity : ComponentActivity() {
         emitControls()
     }
 
+    private fun hasPremium(): Boolean = RumbApplication.from(this).premiumManager.state.value.hasPremium
+
+    private fun premiumContinuation(feature: PremiumFeature): Boolean =
+        PremiumFeaturePolicy.allowsContinuation(
+            feature,
+            hasPremium(),
+            NativeRecording.isActive,
+            RecordingService.premiumSessionEnabled(this),
+        )
+
+    /** Fall back for this view only; retain the selected offline archive for restored purchases. */
+    private fun effectiveBaseMapId(selected: String?): String? =
+        if (selected?.startsWith(cat.rumb.app.data.map.OfflineMap.OFFLINE_PREFIX) == true &&
+            !premiumContinuation(PremiumFeature.OFFLINE_MAPS)) MapSource.OSM.id else selected
+
+    private fun openPremium() {
+        startActivity(cat.rumb.app.manager.ManagerActivity.editIntent(this, cat.rumb.app.manager.Routes.PREMIUM))
+    }
+
     /** Applies the base map from prefs (online source or offline MBTiles), then runs [onReady]. */
     private fun applyBaseMap(ctrl: MapLibreController, frame: Boolean, onReady: () -> Unit) {
         val prefs = ViewerPreferences.get(this)
-        val baseMapId = prefs.baseMapId
+        val baseMapId = effectiveBaseMapId(prefs.baseMapId)
         val offline = baseMapId
             ?.takeIf { it.startsWith(cat.rumb.app.data.map.OfflineMap.OFFLINE_PREFIX) }
             ?.let { cat.rumb.app.data.map.OfflineMapStore.get(this).bySelectionId(it) }
@@ -801,6 +854,12 @@ class MapViewerActivity : ComponentActivity() {
     /** Loads or clears the followed route according to the current state (live). */
     private fun reloadFollow(ctrl: MapLibreController, frame: Boolean = false) {
         val prefs = ViewerPreferences.get(this)
+        if (!premiumContinuation(PremiumFeature.ROUTE_FOLLOWING)) {
+            ctrl.setFollowRoute(emptyList())
+            followEngine = null
+            following = false
+            return
+        }
         val refPts = pendingRouteRefPts
         when {
             // ROUTE competition: the reference route is inline (no track id) — redraw it, or a base-map
@@ -912,6 +971,7 @@ class MapViewerActivity : ComponentActivity() {
      * same relaunch, so they share the "this discards your recording" confirmation.
      */
     private fun switchCompetition(id: Long) {
+        if (id > 0 && !hasPremium()) { openPremium(); return }
         DebugLog.i("Competi", "quick-settings · competició → ${if (id > 0) "id=$id" else "cap"}")
         settingsOpenFlow.value = false
         if (NativeRecording.isActive) confirmCompetitionFlow.value = id
@@ -948,7 +1008,14 @@ class MapViewerActivity : ComponentActivity() {
     /** singleTask reuse (e.g. starting a competition from the manager while the viewer is alive). */
     override fun onNewIntent(intent: android.content.Intent) {
         super.onNewIntent(intent)
-        if (intent.getLongExtra(EXTRA_COMPETITION_ID, -1L) > 0) { setIntent(intent); recreate() }
+        val requestedCompetition = intent.getLongExtra(EXTRA_COMPETITION_ID, -1L)
+        val continuingCompetition = requestedCompetition == competitionId && NativeRecording.isActive &&
+            premiumContinuation(PremiumFeature.COMPETITIONS)
+        if (requestedCompetition > 0 && !hasPremium() && !continuingCompetition) {
+            openPremium()
+            return
+        }
+        if (requestedCompetition > 0) { setIntent(intent); recreate() }
     }
 
     /**
@@ -1024,6 +1091,7 @@ class MapViewerActivity : ComponentActivity() {
      * we never block: [SensorWarnDialog] always offers to start anyway.
      */
     private suspend fun missingWarnSensors(): List<String> {
+        if (!hasPremium()) return emptyList()
         val prefs = ViewerPreferences.get(this)
         val watched = SavedSensors.load(prefs).filter { it.warnIfMissing }
         if (watched.isEmpty()) return emptyList()
@@ -1174,6 +1242,14 @@ class MapViewerActivity : ComponentActivity() {
 
     /** The actual service start, split out so [doStartNativeRecording] can defer it. */
     private fun launchRecordingService(ctrl: MapLibreController) {
+        if (!hasPremium()) {
+            competitionId = -1L
+            competing = false
+            circuitMode = false
+            ghostOn = false
+            pendingRouteRefPts = null
+            reloadFollow(ctrl)
+        }
         RecordingService.start(this)
         observeNative(ctrl)
         followMode = true
@@ -1447,12 +1523,19 @@ class MapViewerActivity : ComponentActivity() {
     }
 
     private fun loadFollowRoute(prefs: ViewerPreferences, ctrl: MapLibreController, frame: Boolean = false) {
+        if (!premiumContinuation(PremiumFeature.ROUTE_FOLLOWING)) {
+            ctrl.setFollowRoute(emptyList())
+            followEngine = null
+            following = false
+            return
+        }
         val id = prefs.activeFollowTrackId
         DebugLog.i("Follow", "loadFollowRoute · id=$id · frame=$frame")
         announcedTurns.clear() // new route → new turn indices
         if (id <= 0) return
         lifecycleScope.launch {
             val gpx = RumbApplication.from(this@MapViewerActivity).trackRepository.loadGpxRoute(id)
+            if (!premiumContinuation(PremiumFeature.ROUTE_FOLLOWING)) return@launch
             if (gpx.isNotEmpty()) {
                 val geo = gpx.map { it.toGeoPoint() }
                 followEngine = FollowRouteEngine(geo, gpx.map { it.elevation })
@@ -1494,6 +1577,7 @@ class MapViewerActivity : ComponentActivity() {
         gpx: List<cat.rumb.app.data.gpx.GpxPoint>,
         frame: Boolean = false,
     ) {
+        if (!premiumContinuation(PremiumFeature.ROUTE_FOLLOWING)) return
         announcedTurns.clear()
         if (gpx.isEmpty()) return
         val geo = gpx.map { it.toGeoPoint() }
@@ -1519,6 +1603,7 @@ class MapViewerActivity : ComponentActivity() {
      * when connected, once per (route, source), and if the user enabled route prefetch.
      */
     private fun maybePrefetchRoute(prefs: ViewerPreferences, ctrl: MapLibreController, trackId: Long) {
+        if (!hasPremium()) return
         if (!prefs.prefetchOnFollow) return
         val baseMapId = prefs.baseMapId
         if (baseMapId?.startsWith(cat.rumb.app.data.map.OfflineMap.OFFLINE_PREFIX) == true) return // already offline
@@ -1565,6 +1650,7 @@ class MapViewerActivity : ComponentActivity() {
                 }
                 processUpdate(s.segments, emptyList(), s.statistics, s.isRecording, ctrl, isPaused = s.isPaused, lapSnapshot = s)
                 if (s.isFinished && saveDialogFlow.value == null) {
+                    if (!hasPremium()) applyBaseMap(ctrl, frame = false) { reapplyOverlays(ctrl) }
                     DebugLog.i("Record", "finalitzada · ${s.points().size} punts → diàleg de desar")
                     if (s.points().any { it.latLong != null }) {
                         saveDialogFlow.value = s

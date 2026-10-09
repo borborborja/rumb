@@ -14,9 +14,9 @@ commit — `AGENTS.md` y cualquier agente remiten aquí.
 
 ## Publicar una release
 
-1. **Verificar** (CI no ejecuta tests):
+1. **Verificar** (el workflow de APK no ejecuta tests):
    ```bash
-   ./gradlew :app:testDebugUnitTest
+   ./gradlew :app:testGithubDebugUnitTest
    python3 scripts/check_i18n.py        # si se tocaron strings
    ```
 2. **Bump de versión** en `app/build.gradle.kts` — las DOS líneas, en el mismo commit que
@@ -29,7 +29,7 @@ commit — `AGENTS.md` y cualquier agente remiten aquí.
    git tag -a vX.Y.Z -m "Rumb X.Y.Z"
    git push origin main vX.Y.Z
    ```
-5. CI (`.github/workflows/release.yml`) hace el resto: compila `assembleRelease` firmada,
+5. CI (`.github/workflows/release.yml`) hace el resto: compila `assembleGithubRelease` firmada,
    renombra a `Rumb-vX.Y.Z.apk` y publica el **GitHub Release** con notas autogeneradas.
    Tarda ~5-6 min. Verifica en <https://github.com/borborborja/rumb/actions> que el run
    del tag acaba en verde y que el release tiene la APK adjunta.
@@ -56,6 +56,111 @@ gh run download --name Rumb-apk        # o desde la pestaña Actions → Artifac
 ```
 
 Requiere `gh` autenticado con scopes `repo` + `workflow`.
+
+## Preparar el Android App Bundle para Google Play
+
+Google Play recibe el **AAB de la variante `play`**. La variante `github` conserva la
+distribución directa por APK. Ambas usan `cat.rumb.app`: no añadas un sufijo al applicationId
+si deben seguir siendo la misma app y actualizar sus datos existentes.
+
+La preparación con suscripciones es **1.90.2 (versionCode 173)**, con `compileSdk` y `targetSdk` 36,
+AGP 8.10.1 y MapLibre 11.7.0. La variante `play` no contiene el actualizador de APK de
+GitHub ni el permiso `REQUEST_INSTALL_PACKAGES`; Google Play entrega sus actualizaciones.
+También excluye el servidor LAN y la pantalla de modo escritorio, además de NanoHTTPD:
+el escritorio actual transmite ubicación y datos de actividad/perfil por HTTP. Solo podrá
+incorporarse a Play cuando su transporte esté cifrado. La variante `github` conserva esta
+función y todos sus assets sin cambios.
+
+El manifiesto exclusivo de Play fija `usesCleartextTraffic=false`, también para Android
+8.0/8.1. Endurain/WebDAV deben configurarse con HTTPS. Comprueba el rechazo de HTTP en
+dispositivo antes de declarar en Console que todos los datos se cifran en tránsito.
+
+La instalación de Play es gratuita: grabación GPS, mapas básicos en línea y consulta/exportación
+de actividades guardadas. `rumb_premium` desbloquea mapas offline, seguimiento de rutas,
+edición de pantallas, sensores BLE, sincronización en la nube, análisis avanzado,
+competiciones y el módulo de peso. Los planes autorrenovables son `monthly` (`P1M`) y
+`annual` (`P1Y`); el precio de venta previsto en España es 2 €/mes y 20 €/año. Comprueba
+el precio final con impuestos en Console. La pantalla de compra siempre utiliza el precio
+localizado devuelto por Google Play, no una cantidad fija en el código.
+
+`play-billing-public-key.txt` contiene la clave **pública** RSA de Licencias de esta ficha
+de Play. Gradle permite sustituirla con `-PplayBillingPublicKey=...` o con
+`RUMB_PLAY_BILLING_PUBLIC_KEY`. No es el keystore ni una credencial privada. El cliente
+comprueba la firma y vuelve a consultar las compras en primer plano; no guarda un indicador
+persistente de suscripción ni calcula la fecha de renovación a partir de `purchaseTime`.
+La integración actual no tiene un servidor de validación/RTDN y puede necesitar conexión
+para verificar o restaurar el acceso después de reiniciar el proceso. Los fallos transitorios
+conservan el acceso ya verificado durante la sesión. Una grabación iniciada con Premium
+conserva sus herramientas hasta terminar; la cancelación no borra datos ni ajustes.
+
+Antes de ofrecer suscripciones, completa el perfil de pagos de comercio, publica una
+compilación con Billing en un canal de prueba, crea y activa ambos planes y realiza compras
+de prueba con testers de licencia de Google. Los tests JVM no verifican el cobro, la renovación,
+la cancelación ni la restauración con una cuenta real de Play.
+
+La pantalla Premium ofrece también acceso gratuito de demostración mediante código, visible
+y separado de la suscripción. Permite revisar exactamente las mismas funciones sin cobrar
+ni detectar cuentas de revisores. El código privado de revisión se conserva únicamente en
+`play-store-preparation/private-review-access.json` (ignorado y fuera de los paquetes públicos);
+solo su SHA-256 aparece en `play-access-code-sha256.txt` y en el binario. No publiques el
+código en logs, PRs o artifacts. Proporciónalo en Console → Acceso a la aplicación junto a
+instrucciones en inglés. La app revalida el código guardado en `noBackupFilesDir` en cada
+arranque y permite retirarlo. Este acceso no crea ni renueva una compra de Google Play.
+
+El workflow `.github/workflows/play-bundle.yml` se ejecuta manualmente o al pushear la rama
+`codex/google-play-preparation`. No crea un tag, una GitHub Release ni publica en Google Play.
+
+```bash
+gh workflow run play-bundle.yml --ref main
+# Selecciona el run correcto en Actions o descarga usando su ID:
+gh run download RUN_ID --name Rumb-play-aab --dir dist/play
+gh run download RUN_ID --name Rumb-play-unit-tests --dir dist/play-tests
+```
+
+El disparo manual con `--ref main` solo funciona cuando el workflow ya está en `main`.
+Para preparar y verificar el primer bundle sin modificar `main`, pushea la rama indicada y
+usa el run que genera ese push. No hace falta subir `versionCode` si ese código todavía no
+se ha usado en Play; mantén el contador común con GitHub y usa un código mayor en cada
+versión nueva, incluidos los bundles posteriores subidos a Play.
+
+CI instala el SDK declarado en `compileSdk`, ejecuta **todos los tests JVM de `play`**
+(`:app:testPlayDebugUnitTest`), construye `:app:bundlePlayRelease`, verifica la firma y entrega
+el artifact `Rumb-play-aab` con `Rumb-X.Y.Z-vcNNN.aab` y `SHA256SUMS`. Los informes de tests
+se guardan en `Rumb-play-unit-tests`, incluso si el build falla.
+
+### Firma y continuidad de las instalaciones
+
+El AAB utiliza los secrets existentes `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` y
+`KEY_PASSWORD`. El workflow falla si falta alguno: un bundle firmado con la clave debug no
+es válido para publicar. El keystore se borra del runner al terminar y nunca se adjunta
+como artifact. En local, Gradle sigue usando la clave debug cuando no se proporciona el
+keystore de release; un build local de `bundlePlayRelease` no sustituye el artifact de CI.
+
+El certificado que firma el AAB es la **clave de subida**. Play App Signing firma las APK
+que reciben los usuarios con la **clave de firma de la app**, que puede ser distinta.
+Al configurar la primera publicación, si las instalaciones de GitHub deben actualizarse
+desde Play sin desinstalar, hay que importar a Play la clave de firma existente mediante
+su proceso seguro de PEPK. Elegir una nueva clave generada por Google rompe esa continuidad,
+aunque el AAB se haya firmado con el keystore de CI. Si la app ya existe en Play, compara
+su certificado de subida con el del AAB y conserva la configuración existente.
+Fuente: [Play App Signing](https://support.google.com/googleplay/android-developer/answer/9842756?hl=en).
+
+### Requisitos que deben comprobarse antes de enviar a revisión
+
+- **API de destino**: desde el 31 de agosto de 2026, las nuevas apps y actualizaciones de
+  móvil deben usar `targetSdk` **36 o superior**. Esta preparación usa 36.
+  `minSdk = 26` mantiene la compatibilidad desde Android 8.0 y no debe confundirse con
+  la API de destino requerida para publicar.
+  Fuente: [requisitos oficiales de API](https://support.google.com/googleplay/android-developer/answer/11926878?hl=en-EN).
+- **Páginas de memoria de 16 KB**: Rumb incluye código nativo de MapLibre. Esta preparación
+  usa AGP 8.10.1 y MapLibre 11.7.0; las bibliotecas `.so` también deben ser compatibles.
+  Comprueba el AAB en Play y prueba las funciones de mapa en un dispositivo/emulador de
+  16 KB; una compilación y tests JVM correctos no demuestran esta compatibilidad.
+  Fuente: [guía oficial de 16 KB](https://developer.android.com/guide/practices/page-sizes).
+- **Publicación**: subir el artifact no equivale a publicar. Completa la ficha, política de
+  privacidad, seguridad de datos, clasificación, declaraciones de permisos y cualquier
+  requisito de pruebas de la cuenta; revisa el resultado en Play Console y envía la release
+  a revisión cuando esté lista.
 
 ## Si el build del tag falla
 

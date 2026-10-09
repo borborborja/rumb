@@ -61,7 +61,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import cat.rumb.app.BuildConfig
 import cat.rumb.app.R
 import cat.rumb.app.data.prefs.ViewerPreferences
 import cat.rumb.app.data.tracks.ActivityTypes
@@ -71,22 +70,10 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cat.rumb.app.RumbApplication
-import cat.rumb.app.data.update.ApkDownloadWorker
 import kotlinx.coroutines.flow.first
-import cat.rumb.app.data.update.ApkInstaller
-import cat.rumb.app.data.update.UpdateInfo
-import cat.rumb.app.data.update.UpdateRepository
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
-
-private sealed interface UpdateState {
-    data object Idle : UpdateState
-    data object Checking : UpdateState
-    data object UpToDate : UpdateState
-    data class Available(val info: UpdateInfo) : UpdateState
-    data class Error(val message: String) : UpdateState
-}
 
 private val TABS = listOf(
     R.string.settings_tab_recording,   // 0
@@ -100,11 +87,13 @@ private val TABS = listOf(
 @Composable
 fun SettingsScreen(
     onBack: () -> Unit,
+    onOpenPremium: () -> Unit = {},
     onOpenDebugLog: () -> Unit = {},
     onOpenSensors: () -> Unit = {},
     onOpenEndurainDownload: () -> Unit = {},
 ) {
     val context = LocalContext.current
+    val premium by cat.rumb.app.RumbApplication.from(context).premiumManager.state.collectAsStateWithLifecycle()
     val prefs = remember { ViewerPreferences.get(context) }
     // Saveable: opening a sub-screen (sensors, debug log, Endurain) disposes this composition, and a
     // plain remember would drop you back on the first tab instead of the one you left from.
@@ -112,6 +101,11 @@ fun SettingsScreen(
 
     DetailScaffold(title = stringResource(R.string.settings_title), onBack = onBack) { modifier ->
         Column(modifier.fillMaxSize()) {
+            if (cat.rumb.app.BuildConfig.FLAVOR == "play") {
+                TextButton(onClick = onOpenPremium, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.premium_title))
+                }
+            }
             ScrollableTabRow(selectedTabIndex = tab, edgePadding = 8.dp) {
                 TABS.forEachIndexed { i, title ->
                     Tab(selected = tab == i, onClick = { tab = i }, text = { Text(stringResource(title)) })
@@ -124,10 +118,10 @@ fun SettingsScreen(
                 when (tab) {
                     0 -> RecordingSection(prefs, onOpenSensors)
                     1 -> ProfileSection(prefs)
-                    2 -> MapRoutesSection(prefs)
+                    2 -> MapRoutesSection(prefs, premium.hasPremium, onOpenPremium)
                     3 -> AudioAnnouncementsSection(prefs)
-                    4 -> SyncSection(onOpenEndurainDownload)
-                    else -> AppAndTypesSection(prefs, onOpenDebugLog)
+                    4 -> SyncSection(onOpenEndurainDownload, premium.hasPremium, onOpenPremium)
+                    else -> AppAndTypesSection(prefs, onOpenDebugLog, premium.hasPremium, onOpenPremium)
                 }
             }
         }
@@ -136,16 +130,30 @@ fun SettingsScreen(
 
 /** «Mapa y rutas»: caché de mapa + apariencia de traza + ruta a seguir + fuera de ruta. */
 @Composable
-private fun MapRoutesSection(prefs: ViewerPreferences) {
+private fun MapRoutesSection(prefs: ViewerPreferences, hasPremium: Boolean, onOpenPremium: () -> Unit) {
+    val context = LocalContext.current
+    var onlineGeocoding by remember { mutableStateOf(prefs.onlineGeocodingEnabled) }
     Text(stringResource(R.string.settings_tab_map), style = MaterialTheme.typography.titleSmall)
     MapSection(prefs)
+    ToggleRow(stringResource(R.string.settings_online_geocoding), onlineGeocoding) { enabled ->
+        onlineGeocoding = enabled
+        prefs.onlineGeocodingEnabled = enabled
+        if (enabled) cat.rumb.app.data.tracks.TrackMetadataBackfillWorker.enqueue(context)
+    }
+    Text(
+        stringResource(R.string.settings_online_geocoding_help),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
     androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
     Text(stringResource(R.string.settings_appearance_track), style = MaterialTheme.typography.titleSmall)
     TrackAppearanceSection(prefs)
     androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
-    FollowRouteSection(prefs)
-    androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
-    GhostAppearanceSection(prefs)
+    if (hasPremium) {
+        FollowRouteSection(prefs)
+        androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
+        GhostAppearanceSection(prefs)
+    } else PremiumPrompt(onUpgrade = onOpenPremium)
 }
 
 /**
@@ -187,13 +195,14 @@ private fun GhostAppearanceSection(prefs: ViewerPreferences) {
 
 /** «App»: información/actualización/depuración + gestión de tipos de actividad. */
 @Composable
-private fun AppAndTypesSection(prefs: ViewerPreferences, onOpenDebugLog: () -> Unit) {
+private fun AppAndTypesSection(prefs: ViewerPreferences, onOpenDebugLog: () -> Unit, hasPremium: Boolean, onOpenPremium: () -> Unit) {
     AppSection(onOpenDebugLog)
     androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
     // Weight-control module master switch (self-contained; remove this block to drop the toggle).
     var weight by remember { mutableStateOf(prefs.weightControlEnabled) }
     Text(stringResource(R.string.settings_weight_control), style = MaterialTheme.typography.titleSmall)
-    ToggleRow(stringResource(R.string.settings_weight_control_enable), weight) { weight = it; prefs.weightControlEnabled = it }
+    if (hasPremium) ToggleRow(stringResource(R.string.settings_weight_control_enable), weight) { weight = it; prefs.weightControlEnabled = it }
+    else PremiumPrompt(onUpgrade = onOpenPremium)
     Text(
         stringResource(R.string.settings_weight_control_help),
         style = MaterialTheme.typography.bodySmall,
@@ -239,7 +248,12 @@ private fun UnitsSection(prefs: ViewerPreferences) {
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
-private fun SyncSection(onOpenEndurainDownload: () -> Unit = {}) {
+private fun SyncSection(onOpenEndurainDownload: () -> Unit = {}, hasPremium: Boolean = true, onOpenPremium: () -> Unit = {}) {
+    if (!hasPremium) {
+        PremiumPrompt(onUpgrade = onOpenPremium)
+        FolderExportBlock()
+        return
+    }
     val context = LocalContext.current
     val endurainPrefs = remember { cat.rumb.app.data.prefs.EndurainPreferences.get(context) }
     val scope = rememberCoroutineScope()
@@ -630,100 +644,8 @@ private fun ProfileSection(prefs: ViewerPreferences) {
 private fun AppSection(onOpenDebugLog: () -> Unit) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val repo = remember { UpdateRepository() }
-    val requestNotif = rememberNotificationPermission()
-    var state by remember { mutableStateOf<UpdateState>(UpdateState.Idle) }
-
-    // The download runs in a foreground worker, so it survives leaving this screen and the screen
-    // going off. Observe it instead of owning it: re-entering settings re-attaches to it.
-    val downloadInfos by androidx.work.WorkManager.getInstance(context)
-        .getWorkInfosForUniqueWorkFlow(ApkDownloadWorker.WORK_NAME)
-        .collectAsStateWithLifecycle(initialValue = emptyList())
-    val download = downloadInfos.lastOrNull()
-    val downloading = download?.state == androidx.work.WorkInfo.State.RUNNING ||
-        download?.state == androidx.work.WorkInfo.State.ENQUEUED
-    val progress = (download?.progress?.getInt(ApkDownloadWorker.KEY_PROGRESS, 0) ?: 0) / 100f
-
-    // Hand the finished APK to the system installer once per completed download. The marker MUST be
-    // persisted: WorkManager keeps a SUCCEEDED work around, so a remember-scoped flag reset on every
-    // navigation and re-launched the installer for an old download each time this screen was opened.
-    val prefs = remember { ViewerPreferences.get(context) }
-    LaunchedEffect(download?.id, download?.state) {
-        val d = download ?: return@LaunchedEffect
-        if (d.state != androidx.work.WorkInfo.State.SUCCEEDED) return@LaunchedEffect
-        val workId = d.id.toString()
-        if (prefs.lastInstalledDownloadId == workId) return@LaunchedEffect
-        val path = d.outputData.getString(ApkDownloadWorker.KEY_PATH) ?: return@LaunchedEffect
-        prefs.lastInstalledDownloadId = workId
-        ApkInstaller.install(context, java.io.File(path))
-    }
-
     LanguageCard()
-
-    Card {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(stringResource(R.string.settings_app_installed_version), style = MaterialTheme.typography.labelMedium)
-            Text("v${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})", style = MaterialTheme.typography.titleMedium)
-        }
-    }
-
-    val networkError = stringResource(R.string.settings_update_network_error)
-    Button(
-        onClick = {
-            state = UpdateState.Checking
-            scope.launch {
-                state = try {
-                    repo.checkForUpdate()?.let { UpdateState.Available(it) } ?: UpdateState.UpToDate
-                } catch (e: Exception) {
-                    UpdateState.Error(e.message ?: networkError)
-                }
-            }
-        },
-        enabled = state !is UpdateState.Checking && !downloading,
-        modifier = Modifier.fillMaxWidth(),
-    ) { Text(stringResource(R.string.settings_check_update)) }
-
-    if (downloading) {
-        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(stringResource(R.string.settings_update_downloading, (progress * 100).toInt()))
-            LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth())
-            Text(
-                stringResource(R.string.settings_update_background_hint),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-    }
-    download?.takeIf { it.state == androidx.work.WorkInfo.State.FAILED }?.let {
-        val msg = it.outputData.getString(ApkDownloadWorker.KEY_ERROR)
-            ?: stringResource(R.string.settings_update_download_error)
-        Text(stringResource(R.string.settings_error, msg), color = MaterialTheme.colorScheme.error)
-    }
-
-    when (val s = state) {
-        is UpdateState.Checking -> Text(stringResource(R.string.settings_update_checking))
-        is UpdateState.UpToDate -> Text(stringResource(R.string.settings_update_up_to_date))
-        is UpdateState.Error -> Text(stringResource(R.string.settings_error, s.message), color = MaterialTheme.colorScheme.error)
-        is UpdateState.Available -> Card {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(stringResource(R.string.settings_update_new_version, s.info.version), style = MaterialTheme.typography.titleMedium)
-                Text(s.info.changelog, style = MaterialTheme.typography.bodySmall)
-                Button(
-                    onClick = {
-                        if (!ApkInstaller.canInstall(context)) {
-                            ApkInstaller.requestInstallPermission(context)
-                            return@Button
-                        }
-                        requestNotif()
-                        ApkDownloadWorker.enqueue(context, s.info.apkUrl)
-                    },
-                    enabled = !downloading,
-                    modifier = Modifier.fillMaxWidth(),
-                ) { Text(stringResource(R.string.settings_update_download_install)) }
-            }
-        }
-        UpdateState.Idle -> {}
-    }
+    AppUpdateSection()
 
     // Debug: full app/viewer diagnostics.
     val clipboard = androidx.compose.ui.platform.LocalClipboardManager.current

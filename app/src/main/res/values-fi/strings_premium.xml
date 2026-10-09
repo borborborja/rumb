@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_title">Rumb Premium</string>
+    <string name="premium_required">Tämä toiminto vaatii Rumb Premiumin.</string>
+    <string name="premium_free">GPS-tallennus ja perusverkkokartat ovat ilmaisia.</string>
+    <string name="premium_features">Offline-kartat, reittien seuranta, mukautettu HUD ja tietonäkymät, Bluetooth-anturit, pilvisynkronointi, edistynyt analyysi ja kilpailut sekä painonseuranta.</string>
+    <string name="premium_loading">Yhdistetään Google Playhin…</string>
+    <string name="premium_active">Rumb Premium on käytössä.</string>
+    <string name="premium_restore">Palauta ostot</string>
+    <string name="premium_manage">Hallitse tilausta</string>
+    <string name="premium_monthly_price">Kuukausittain — %1$s / kuukausi</string>
+    <string name="premium_annual_price">Vuosittain — %1$s / vuosi</string>
+    <string name="premium_renewal">Automaattisesti uusiutuva tilaus. Google Play veloittaa valitun hinnan kuukausittain tai vuosittain, kunnes peruutat. Peruuta Google Playssa; käyttöoikeus säilyy maksetun kauden loppuun.</string>
+    <string name="premium_store_unavailable">Google Play ei ole käytettävissä. Yritä uudelleen verkkoyhteydellä.</string>
+    <string name="premium_prices_unavailable">Tilaushinnat eivät ole käytettävissä. Yritä myöhemmin uudelleen.</string>
+    <string name="premium_canceled">Osto peruutettu. Rumb ei ole veloittanut sinua.</string>
+    <string name="premium_pending">Maksu odottaa. Premium avautuu, kun Google Play vahvistaa maksun.</string>
+    <string name="premium_verification_failed">Ostoa ei voitu vahvistaa. Palauta ostot tai ota yhteyttä tukeen.</string>
+    <string name="premium_suspended">Tilauksesi on keskeytetty. Tarkista maksu tai jatka sitä Google Playssa.</string>
+    <string name="premium_ack_retry">Ostovahvistusta ei voitu viimeistellä. Avaa Rumb uudelleen verkkoyhteydellä.</string>
+    <string name="premium_restored">Tilauksesi on palautettu.</string>
+    <string name="premium_none">Tälle Google Play -tilille ei löytynyt aktiivista tilausta.</string>
+    <string name="premium_purchase_failed">Ostoa ei voitu suorittaa. Yritä uudelleen.</string>
+    <string name="premium_github">Kaikki toiminnot ovat saatavilla GitHub-versiossa.</string>
+    <string name="premium_privacy">Tietosuojakäytäntö</string>
+    <string name="premium_connection">Google Play tarkistaa Premium-käyttöoikeuden Rumbia avattaessa. Jos tarkistus epäonnistuu uudelleenkäynnistyksen jälkeen, yhdistä uudelleen ja palauta ostot.</string>
+    <string name="premium_demo">Ilmainen demokäyttö</string>
+    <string name="premium_demo_code">Käyttökoodi</string>
+    <string name="premium_demo_activate">Aktivoi demo</string>
+    <string name="premium_demo_remove">Poista demokäyttö</string>
+    <string name="premium_demo_invalid">Virheellinen käyttökoodi.</string>
+    <string name="premium_demo_active">Demokäyttö on aktiivinen. Tämä ei ole maksullinen tilaus.</string>
+</resources>

@@ -90,6 +90,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import cat.rumb.app.BuildConfig
 import cat.rumb.app.RumbApplication
 import cat.rumb.app.R
 import cat.rumb.app.data.gpx.GpxPoint
@@ -125,6 +126,7 @@ private const val ARCHIVED_FOLDER = "\u0000arxivats"
 @Composable
 fun HomeScreen(
     onOpenViewer: () -> Unit,
+    onOpenPremium: () -> Unit = {},
     onOpenSettings: () -> Unit = {},
     onOpenLayers: () -> Unit = {},
     onOpenRoute: (Long) -> Unit = {},
@@ -144,6 +146,7 @@ fun HomeScreen(
 ) {
     val context = LocalContext.current
     val app = remember { RumbApplication.from(context) }
+    val premium by app.premiumManager.state.collectAsStateWithLifecycle()
     val prefs = remember { ViewerPreferences.get(context) }
     val scope = rememberCoroutineScope()
 
@@ -238,7 +241,10 @@ fun HomeScreen(
     val routeActions = RouteActions(
         onOpen = { if (it.kind == TrackKind.TRAINING) onOpenTraining(it.id) else onOpenRoute(it.id) },
         onOpenCompare = { onOpenCompare(it.id) },
-        onCreateCircuit = { t -> createCompetition(scope, context, app, t, CompetitionType.LAP, onOpenCompetition) },
+        onCreateCircuit = { t ->
+            if (app.premiumManager.state.value.hasPremium) createCompetition(scope, context, app, t, CompetitionType.LAP, onOpenCompetition)
+            else onOpenPremium()
+        },
         onExport = ::exportTrack,
         onEdit = { t -> if (kind == TrackKind.ROUTE) onEditRoute(t.id) else renameFor = t },
         onMove = { moveFor = it },
@@ -246,7 +252,10 @@ fun HomeScreen(
             scope.launch { app.trackRepository.routeBoundingBox(t.id)?.let(onDownloadRouteMap) }
         },
         onDelete = { deleteFor = it },
-        onCompetition = { t -> createCompetition(scope, context, app, t, CompetitionType.ROUTE, onOpenCompetition) },
+        onCompetition = { t ->
+            if (app.premiumManager.state.value.hasPremium) createCompetition(scope, context, app, t, CompetitionType.ROUTE, onOpenCompetition)
+            else onOpenPremium()
+        },
         onArchive = { t -> scope.launch { app.trackRepository.setArchived(t.id, !t.archived) } },
     )
 
@@ -255,7 +264,9 @@ fun HomeScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.home_title)) },
                 actions = {
-                    IconButton(onClick = onOpenDesktop) { Icon(Icons.Filled.Computer, contentDescription = stringResource(R.string.home_cd_desktop)) }
+                    if (BuildConfig.FLAVOR == "github") {
+                        IconButton(onClick = onOpenDesktop) { Icon(Icons.Filled.Computer, contentDescription = stringResource(R.string.home_cd_desktop)) }
+                    }
                     // Weight-control module (self-contained; remove this block to drop the icon).
                     if (prefs.weightControlEnabled) {
                         IconButton(onClick = onOpenScale) { Icon(Icons.Filled.MonitorWeight, contentDescription = stringResource(R.string.scale_cd_open)) }
@@ -275,6 +286,11 @@ fun HomeScreen(
     ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).padding(horizontal = 16.dp)) {
             ViewerMapButton(onClick = onOpenViewer)
+            if (cat.rumb.app.BuildConfig.FLAVOR == "play") {
+                TextButton(onClick = onOpenPremium, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.premium_title))
+                }
+            }
 
             // Routes-to-follow (tab 1) lives in the top bar now; the tab strip shows the other three
             // sections as text. In routes mode, a header with a back-to-tabs affordance replaces it.
@@ -383,7 +399,8 @@ fun HomeScreen(
                     )
                 }
             } else if (tab == 2) {
-                CompetitionTab(competitions = competitions, onOpen = onOpenCompetition, onPlay = onStartCompetition)
+                if (premium.hasPremium) CompetitionTab(competitions = competitions, onOpen = onOpenCompetition, onPlay = onStartCompetition)
+                else PremiumPrompt(onUpgrade = onOpenPremium)
             } else {
                 ProgressTab(
                     all = all,
@@ -630,6 +647,7 @@ private fun createCompetition(
     onOpenCompetition: (Long) -> Unit,
 ) {
     scope.launch {
+        if (!app.premiumManager.state.value.hasPremium) return@launch
         val id = app.competitionRepository.createFromTrack(t.id, t.name, t.activityType, type, System.currentTimeMillis())
         if (id != null) {
             onOpenCompetition(id)

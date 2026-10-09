@@ -1,0 +1,88 @@
+name: Prepare Google Play bundle
+
+on:
+  push:
+    branches:
+      - codex/google-play-preparation
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Accept licenses and install SDK packages
+        run: |
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          COMPILE_SDK=$(sed -nE 's/^[[:space:]]*compileSdk = ([0-9]+).*/\1/p' app/build.gradle.kts)
+          test -n "$COMPILE_SDK"
+          yes | "$SDKMANAGER" --licenses > /dev/null 2>&1 || true
+          "$SDKMANAGER" "platforms;android-$COMPILE_SDK" "build-tools;35.0.0"
+
+      - name: Run unit tests
+        run: ./gradlew :app:testPlayDebugUnitTest --no-daemon
+
+      - name: Decode release keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          test -n "$KEYSTORE_BASE64"
+          test -n "$KEYSTORE_PASSWORD"
+          test -n "$KEY_ALIAS"
+          test -n "$KEY_PASSWORD"
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
+          test -s "$RUNNER_TEMP/release.jks"
+
+      - name: Build signed Play bundle
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/release.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: ./gradlew :app:bundlePlayRelease --no-daemon
+
+      - name: Verify bundle signature and prepare artifact
+        run: |
+          BUNDLE=app/build/outputs/bundle/playRelease/app-play-release.aab
+          jarsigner -verify "$BUNDLE" > "$RUNNER_TEMP/bundle-signature.txt"
+          grep -q 'jar verified.' "$RUNNER_TEMP/bundle-signature.txt"
+          VERSION_NAME=$(sed -nE 's/^[[:space:]]*versionName = "([^"]+)".*/\1/p' app/build.gradle.kts)
+          VERSION_CODE=$(sed -nE 's/^[[:space:]]*versionCode = ([0-9]+).*/\1/p' app/build.gradle.kts)
+          test -n "$VERSION_NAME"
+          test -n "$VERSION_CODE"
+          mkdir -p dist
+          cp "$BUNDLE" "dist/Rumb-$VERSION_NAME-vc$VERSION_CODE.aab"
+          (cd dist && sha256sum *.aab > SHA256SUMS)
+
+      - name: Upload signed bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rumb-play-aab
+          path: dist/
+          if-no-files-found: error
+
+      - name: Upload unit test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rumb-play-unit-tests
+          path: |
+            app/build/reports/tests/testPlayDebugUnitTest/
+            app/build/test-results/testPlayDebugUnitTest/
+
+      - name: Remove temporary signing key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/release.jks"

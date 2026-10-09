@@ -59,6 +59,7 @@ fun RouteDetailScreen(
     onEditTrace: (Long) -> Unit,
     onDownloadMap: (cat.rumb.app.data.map.BoundingBox) -> Unit,
     onOpenTraining: (Long) -> Unit = {},
+    onOpenPremium: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val app = remember { RumbApplication.from(context) }
@@ -171,7 +172,11 @@ fun RouteDetailScreen(
                     ) { Text(stringResource(R.string.home_unarchive)) }
                 }
                 if (entity?.archived != true) {
-                Button(onClick = {
+                Button(onClick = followRoute@{
+                    if (!app.premiumManager.state.value.hasPremium) {
+                        onOpenPremium()
+                        return@followRoute
+                    }
                     prefs.activeFollowTrackId = trackId
                     Toast.makeText(context, context.getString(R.string.routes_active_follow_toast), Toast.LENGTH_SHORT).show()
                 }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.routes_follow_this_route)) }

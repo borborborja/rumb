@@ -234,4 +234,6 @@
     <string name="endurain_dl_error">Couldn\'t download the activity</string>
     <string name="settings_sync_upload_all">Upload all pending to Endurain</string>
     <string name="settings_sync_upload_all_queued">%1$d activities queued to upload</string>
+    <string name="settings_online_geocoding">Sök kommuner online</string>
+    <string name="settings_online_geocoding_help">När funktionen är aktiverad skickas startkoordinaterna för sparade rutter och aktiviteter till Nominatim (OpenStreetMap) för att hitta kommunnamn.</string>
 </resources>

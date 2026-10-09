@@ -1,5 +1,5 @@
 [versions]
-agp = "8.7.3"
+agp = "8.10.1"
 kotlin = "2.0.21"
 ksp = "2.0.21-1.0.28"
 coreKtx = "1.15.0"
@@ -10,7 +10,7 @@ navigationCompose = "2.8.5"
 datastore = "1.1.1"
 room = "2.6.1"
 workManager = "2.10.0"
-maplibre = "11.5.2"
+maplibre = "11.7.0"
 maplibreAnnotation = "3.0.2"
 retrofit = "2.11.0"
 okhttp = "4.12.0"
@@ -25,6 +25,7 @@ junit = "5.11.3"
 mockk = "1.13.13"
 assertj = "3.26.3"
 coroutinesTest = "1.9.0"
+billing = "9.1.0"
 
 [libraries]
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -62,6 +63,7 @@ junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jun
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+billing = { module = "com.android.billingclient:billing", version.ref = "billing" }
 
 [bundles]
 compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-material-icons-extended", "lifecycle-runtime-compose", "lifecycle-viewmodel-compose"]

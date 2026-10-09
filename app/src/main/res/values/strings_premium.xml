@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_title">Rumb Premium</string>
+    <string name="premium_required">This feature requires Rumb Premium.</string>
+    <string name="premium_free">GPS recording and basic online maps are free.</string>
+    <string name="premium_features">Offline maps, route following, custom HUD and data layouts, Bluetooth sensors, cloud sync, advanced analysis and competitions, and weight tracking.</string>
+    <string name="premium_loading">Connecting to Google Play…</string>
+    <string name="premium_active">Rumb Premium is active.</string>
+    <string name="premium_restore">Restore purchases</string>
+    <string name="premium_manage">Manage subscription</string>
+    <string name="premium_monthly_price">Monthly — %1$s / month</string>
+    <string name="premium_annual_price">Annual — %1$s / year</string>
+    <string name="premium_renewal">Auto-renewing subscription. Google Play charges the selected price each month or year until you cancel. Cancel in Google Play; access remains until the paid period ends.</string>
+    <string name="premium_store_unavailable">Google Play is unavailable. Try again when connected.</string>
+    <string name="premium_prices_unavailable">Subscription prices are unavailable. Try again later.</string>
+    <string name="premium_canceled">Purchase canceled. Rumb has not charged you.</string>
+    <string name="premium_pending">Payment is pending. Premium unlocks when Google Play confirms payment.</string>
+    <string name="premium_verification_failed">The purchase could not be verified. Restore purchases or contact support.</string>
+    <string name="premium_suspended">Your subscription is suspended. Check your payment or resume it in Google Play.</string>
+    <string name="premium_ack_retry">Purchase confirmation could not finish. Reopen Rumb while connected to retry.</string>
+    <string name="premium_restored">Your subscription has been restored.</string>
+    <string name="premium_none">No active subscription was found for this Google Play account.</string>
+    <string name="premium_purchase_failed">The purchase could not be completed. Try again.</string>
+    <string name="premium_github">All features are available in the GitHub version.</string>
+    <string name="premium_privacy">Privacy policy</string>
+    <string name="premium_connection">Google Play checks Premium access when Rumb opens. If verification fails after restarting, reconnect and restore purchases.</string>
+    <string name="premium_demo">Free demo access</string>
+    <string name="premium_demo_code">Access code</string>
+    <string name="premium_demo_activate">Activate demo</string>
+    <string name="premium_demo_remove">Remove demo access</string>
+    <string name="premium_demo_invalid">Invalid access code.</string>
+    <string name="premium_demo_active">Demo access is active. This is not a paid subscription.</string>
+</resources>

@@ -8,15 +8,38 @@ plugins {
 
 android {
     namespace = "cat.rumb.app"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "cat.rumb.app"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 171
-        versionName = "1.90.0"
+        targetSdk = 36
+        versionCode = 173
+        versionName = "1.90.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // A Google Play licensing public key is public application metadata, not a signing key.
+        val playBillingPublicKey = providers.gradleProperty("playBillingPublicKey")
+            .orElse(providers.environmentVariable("RUMB_PLAY_BILLING_PUBLIC_KEY"))
+            .orElse(providers.fileContents(rootProject.layout.projectDirectory.file("play-billing-public-key.txt")).asText)
+            .get().trim()
+        require(playBillingPublicKey.matches(Regex("[A-Za-z0-9+/=]+"))) {
+            "Google Play licensing public key must be Base64"
+        }
+        buildConfigField("String", "PLAY_BILLING_PUBLIC_KEY", "\"$playBillingPublicKey\"")
+        val playAccessCodeHash = providers.fileContents(
+            rootProject.layout.projectDirectory.file("play-access-code-sha256.txt"),
+        ).asText.get().trim()
+        require(playAccessCodeHash.matches(Regex("[a-f0-9]{64}"))) {
+            "Free access code SHA-256 must be a hexadecimal digest"
+        }
+        buildConfigField("String", "PLAY_ACCESS_CODE_SHA256", "\"$playAccessCodeHash\"")
+    }
+
+    // Google Play delivers updates itself. Keep the APK updater in the GitHub source set only.
+    flavorDimensions += "distribution"
+    productFlavors {
+        create("github") { dimension = "distribution" }
+        create("play") { dimension = "distribution" }
     }
 
     // Stable release signing. In CI the keystore is decoded from a secret and its path/passwords
@@ -99,13 +122,14 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.serialization)
     implementation(libs.okhttp)
-    implementation(libs.nanohttpd)
+    "githubImplementation"(libs.nanohttpd)
     implementation(libs.okhttp.logging)
     implementation(libs.serialization.json)
     implementation(libs.security.crypto)
 
     implementation(libs.coil.compose)
     implementation(libs.documentfile)
+    "playImplementation"(libs.billing)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.mockk)

@@ -1,17 +1,24 @@
 package cat.rumb.app.manager
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import cat.rumb.app.BuildConfig
+import cat.rumb.app.RumbApplication
+import cat.rumb.app.data.premium.PremiumFeature
+import cat.rumb.app.manager.screens.PremiumScreen
+import cat.rumb.app.manager.screens.PremiumGate
 import cat.rumb.app.data.map.BoundingBox
 import cat.rumb.app.manager.screens.CompareScreen
 import cat.rumb.app.manager.screens.CompetitionDetailScreen
 import cat.rumb.app.manager.screens.DataDesignerScreen
 import cat.rumb.app.manager.screens.DebugLogScreen
-import cat.rumb.app.manager.screens.DesktopModeScreen
 import cat.rumb.app.manager.screens.EndurainDownloadScreen
 import cat.rumb.app.manager.screens.HeatmapScreen
 import cat.rumb.app.manager.screens.HomeScreen
@@ -28,6 +35,7 @@ import cat.rumb.app.manager.screens.TrainingDetailScreen
 
 object Routes {
     const val HOME = "home"
+    const val PREMIUM = "premium"
     const val HUD = "hud"
     const val DATA = "data"
     const val LAYERS = "layers"
@@ -60,6 +68,11 @@ fun ManagerApp(
     onNavigated: () -> Unit = {},
 ) {
     val nav = rememberNavController()
+    val app = RumbApplication.from(androidx.compose.ui.platform.LocalContext.current)
+    val openPremium: () -> Unit = { nav.navigate(Routes.PREMIUM) { launchSingleTop = true } }
+    val startCompetition: (Long) -> Unit = { id ->
+        if (app.premiumManager.state.value.hasPremium) onStartCompetition(id) else openPremium()
+    }
     androidx.compose.runtime.LaunchedEffect(nav) {
         nav.currentBackStackEntryFlow.collect { entry ->
             cat.rumb.app.data.debug.DebugLog.d("UI", "pantalla → ${entry.destination.route}")
@@ -101,9 +114,13 @@ fun ManagerApp(
         }
     }
     NavHost(navController = nav, startDestination = startRoute ?: Routes.HOME) {
+        composable(Routes.PREMIUM) {
+            PremiumScreen(manager = app.premiumManager, onBack = { if (!nav.popBackStack()) activity?.finish() })
+        }
         composable(Routes.HOME) {
             HomeScreen(
                 onOpenViewer = onOpenViewer,
+                onOpenPremium = openPremium,
                 onOpenSettings = { nav.navigate(Routes.SETTINGS) },
                 onOpenLayers = { nav.navigate(Routes.LAYERS) },
                 onOpenRoute = { id -> nav.navigate("${Routes.ROUTE_DETAIL}/$id") },
@@ -115,50 +132,56 @@ fun ManagerApp(
                     nav.navigate("${Routes.DOWNLOAD_AREA}?w=${bbox.west}&s=${bbox.south}&e=${bbox.east}&n=${bbox.north}")
                 },
                 onOpenCompetition = { nav.navigate("${Routes.COMPETITION_DETAIL}/$it") },
-                onStartCompetition = onStartCompetition,
+                onStartCompetition = startCompetition,
                 onOpenRecords = { nav.navigate(Routes.RECORDS) },
                 onOpenHeatmap = { nav.navigate(Routes.HEATMAP) },
-                onOpenDesktop = { nav.navigate(Routes.DESKTOP) },
+                onOpenDesktop = {
+                    if (BuildConfig.FLAVOR == "github") nav.navigate(Routes.DESKTOP)
+                },
                 onOpenScale = { nav.navigate(Routes.SCALE) },
                 importUri = importUri,
                 onImportHandled = onImportHandled,
             )
         }
-        composable(Routes.DESKTOP) { DesktopModeScreen(onBack = { nav.popBackStack() }) }
+        registerDesktopRoute(onBack = { nav.popBackStack() })
         // Weight-control module (self-contained; remove this line to drop the route).
-        composable(Routes.SCALE) { cat.rumb.app.scale.ui.ScaleScreen(onBack = { nav.popBackStack() }) }
-        composable(Routes.RECORDS) {
+        premiumComposable(Routes.SCALE, PremiumFeature.WEIGHT, { nav.popBackStack() }) { cat.rumb.app.scale.ui.ScaleScreen(onBack = { nav.popBackStack() }) }
+        premiumComposable(Routes.RECORDS, PremiumFeature.ADVANCED_ANALYSIS, { nav.popBackStack() }) {
             RecordsScreen(
                 onBack = { nav.popBackStack() },
                 onOpenTraining = { id -> nav.navigate("${Routes.TRAINING_DETAIL}/$id") },
             )
         }
-        composable(Routes.HEATMAP) {
+        premiumComposable(Routes.HEATMAP, PremiumFeature.ADVANCED_ANALYSIS, { nav.popBackStack() }) {
             HeatmapScreen(onBack = { nav.popBackStack() })
         }
         composable(Routes.SETTINGS) {
             SettingsScreen(
                 onBack = { nav.popBackStack() },
                 onOpenDebugLog = { nav.navigate(Routes.DEBUG_LOG) },
+                onOpenPremium = openPremium,
                 onOpenSensors = { nav.navigate(Routes.SENSORS) },
                 onOpenEndurainDownload = { nav.navigate(Routes.ENDURAIN_DOWNLOAD) },
             )
         }
-        composable(Routes.ENDURAIN_DOWNLOAD) { EndurainDownloadScreen(onBack = { nav.popBackStack() }) }
-        composable(Routes.SENSORS) { SensorsScreen(onBack = { nav.popBackStack() }) }
+        premiumComposable(Routes.ENDURAIN_DOWNLOAD, PremiumFeature.CLOUD_SYNC, { nav.popBackStack() }) { EndurainDownloadScreen(onBack = { nav.popBackStack() }) }
+        premiumComposable(Routes.SENSORS, PremiumFeature.BLE_SENSORS, { nav.popBackStack() }) { SensorsScreen(onBack = { nav.popBackStack() }) }
         composable(Routes.DEBUG_LOG) { DebugLogScreen(onBack = { nav.popBackStack() }) }
-        composable(Routes.HUD) { HudDesignerScreen(onBack = backToViewer) }
-        composable(Routes.DATA) { DataDesignerScreen(onBack = backToViewer) }
+        premiumComposable(Routes.HUD, PremiumFeature.LAYOUT_EDITING, backToViewer) { HudDesignerScreen(onBack = backToViewer) }
+        premiumComposable(Routes.DATA, PremiumFeature.LAYOUT_EDITING, backToViewer) { DataDesignerScreen(onBack = backToViewer) }
         composable(Routes.LAYERS) {
             MapLayersScreen(
                 onBack = { nav.popBackStack() },
+                onOpenPremium = openPremium,
                 onDownloadArea = { nav.navigate(Routes.DOWNLOAD_AREA) },
                 onOpenSectors = { path ->
                     nav.navigate("${Routes.OFFLINE_SECTORS}/${android.net.Uri.encode(path)}")
                 },
             )
         }
-        composable(
+        premiumComposable(
+            feature = PremiumFeature.OFFLINE_MAPS,
+            onBack = { nav.popBackStack() },
             route = "${Routes.OFFLINE_SECTORS}/{path}",
             arguments = listOf(navArgument("path") { type = NavType.StringType }),
         ) { entry ->
@@ -169,7 +192,9 @@ fun ManagerApp(
                 onDownloadArea = { nav.navigate(Routes.DOWNLOAD_AREA) },
             )
         }
-        composable(
+        premiumComposable(
+            feature = PremiumFeature.OFFLINE_MAPS,
+            onBack = { nav.popBackStack() },
             route = "${Routes.DOWNLOAD_AREA}?w={w}&s={s}&e={e}&n={n}",
             arguments = listOf(
                 navArgument("w") { type = NavType.FloatType; defaultValue = Float.NaN },
@@ -206,6 +231,7 @@ fun ManagerApp(
                     nav.navigate("${Routes.DOWNLOAD_AREA}?w=${bbox.west}&s=${bbox.south}&e=${bbox.east}&n=${bbox.north}")
                 },
                 onOpenTraining = { id -> nav.navigate("${Routes.TRAINING_DETAIL}/$id") },
+                onOpenPremium = openPremium,
             )
         }
         composable(
@@ -219,14 +245,18 @@ fun ManagerApp(
                 onCompare = { nav.navigate("${Routes.COMPARE}/$it") },
             )
         }
-        composable(
+        premiumComposable(
+            feature = PremiumFeature.ADVANCED_ANALYSIS,
+            onBack = { nav.popBackStack() },
             route = "${Routes.COMPARE}/{trackId}",
             arguments = listOf(navArgument("trackId") { type = NavType.LongType }),
         ) { entry ->
             val id = entry.arguments?.getLong("trackId") ?: 0L
             CompareScreen(trackId = id, onBack = { nav.popBackStack() })
         }
-        composable(
+        premiumComposable(
+            feature = PremiumFeature.COMPETITIONS,
+            onBack = { nav.popBackStack() },
             route = "${Routes.COMPETITION_DETAIL}/{competitionId}",
             arguments = listOf(navArgument("competitionId") { type = NavType.LongType }),
         ) { entry ->
@@ -234,7 +264,7 @@ fun ManagerApp(
             CompetitionDetailScreen(
                 competitionId = id,
                 onBack = { nav.popBackStack() },
-                onStartCompetition = onStartCompetition,
+                onStartCompetition = startCompetition,
             )
         }
         composable(
@@ -244,5 +274,18 @@ fun ManagerApp(
             val id = entry.arguments?.getLong("trackId") ?: 0L
             RouteEditorScreen(trackId = id, onBack = { nav.popBackStack() }, onSaved = { nav.popBackStack() })
         }
+    }
+}
+
+/** Destination checks also cover deep links and restored back stacks. */
+private fun NavGraphBuilder.premiumComposable(
+    route: String,
+    feature: PremiumFeature,
+    onBack: () -> Unit,
+    arguments: List<NamedNavArgument> = emptyList(),
+    content: @Composable (NavBackStackEntry) -> Unit,
+) {
+    composable(route = route, arguments = arguments) { entry ->
+        PremiumGate(feature = feature, onBack = onBack) { content(entry) }
     }
 }

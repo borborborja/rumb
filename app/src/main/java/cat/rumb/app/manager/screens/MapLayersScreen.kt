@@ -51,6 +51,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cat.rumb.app.R
 import cat.rumb.app.data.map.MapDisplayConfig
 import cat.rumb.app.data.map.MapDisplayStore
@@ -67,10 +68,12 @@ import java.io.File
 @Composable
 fun MapLayersScreen(
     onBack: () -> Unit,
+    onOpenPremium: () -> Unit = {},
     onDownloadArea: () -> Unit = {},
     onOpenSectors: (String) -> Unit = {},
 ) {
     val context = LocalContext.current
+    val premium by cat.rumb.app.RumbApplication.from(context).premiumManager.state.collectAsStateWithLifecycle()
     val prefs = remember { ViewerPreferences.get(context) }
     val store = remember { OfflineMapStore.get(context) }
     // Saveable: downloading an area or opening the sectors of a map disposes this composition, and a
@@ -90,7 +93,7 @@ fun MapLayersScreen(
             ) {
                 if (tab == 0) {
                     OnlineTab(current = baseMapId) { id -> baseMapId = id; prefs.baseMapId = id }
-                } else {
+                } else if (premium.hasPremium) {
                     OfflineTab(
                         store = store,
                         current = baseMapId,
@@ -98,7 +101,7 @@ fun MapLayersScreen(
                         onDownloadArea = onDownloadArea,
                         onOpenSectors = onOpenSectors,
                     )
-                }
+                } else PremiumPrompt(onUpgrade = onOpenPremium)
             }
         }
     }
@@ -273,7 +276,7 @@ private fun OfflineTab(
     var maps by remember { mutableStateOf(store.list()) }
 
     val importLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
-        if (uri != null) {
+        if (uri != null && cat.rumb.app.RumbApplication.from(context).premiumManager.state.value.hasPremium) {
             val name = uri.lastPathSegment?.substringAfterLast('/') ?: context.getString(R.string.maps_default_map_name)
             runCatching { store.import(context.contentResolver, uri, name) }
             maps = store.list()

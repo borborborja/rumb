@@ -6,8 +6,6 @@
     <!-- Show the user's position and let the "locate" control center on it. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- Required to install the downloaded APK update (off-Play distribution). -->
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <!-- Foreground download of offline map tiles + its progress notification. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -109,7 +107,7 @@
             tools:node="merge"
             xmlns:tools="http://schemas.android.com/tools" />
 
-        <!-- Serves the downloaded APK to the system installer via a content:// URI. -->
+        <!-- Share exported tracks and diagnostics using scoped content:// URIs. -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

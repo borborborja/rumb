@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_title">Rumb Premium</string>
+    <string name="premium_required">Для этой функции требуется Rumb Premium.</string>
+    <string name="premium_free">Запись GPS и базовые онлайн-карты бесплатны.</string>
+    <string name="premium_features">Офлайн-карты, следование маршрутам, собственные HUD и экраны данных, датчики Bluetooth, синхронизация с облаком, расширенный анализ и соревнования, а также контроль веса.</string>
+    <string name="premium_loading">Подключение к Google Play…</string>
+    <string name="premium_active">Rumb Premium активен.</string>
+    <string name="premium_restore">Восстановить покупки</string>
+    <string name="premium_manage">Управление подпиской</string>
+    <string name="premium_monthly_price">Ежемесячно — %1$s / месяц</string>
+    <string name="premium_annual_price">Ежегодно — %1$s / год</string>
+    <string name="premium_renewal">Подписка с автоматическим продлением. Google Play списывает выбранную цену каждый месяц или год до отмены. Отмените в Google Play; доступ сохранится до конца оплаченного периода.</string>
+    <string name="premium_store_unavailable">Google Play недоступен. Повторите попытку при наличии подключения.</string>
+    <string name="premium_prices_unavailable">Цены подписок недоступны. Попробуйте позже.</string>
+    <string name="premium_canceled">Покупка отменена. Rumb не списал плату.</string>
+    <string name="premium_pending">Платёж ожидается. Premium откроется, когда Google Play подтвердит оплату.</string>
+    <string name="premium_verification_failed">Не удалось проверить покупку. Восстановите покупки или обратитесь в поддержку.</string>
+    <string name="premium_suspended">Подписка приостановлена. Проверьте платёж или возобновите её в Google Play.</string>
+    <string name="premium_ack_retry">Не удалось завершить подтверждение покупки. Откройте Rumb снова с подключением для повторной попытки.</string>
+    <string name="premium_restored">Подписка восстановлена.</string>
+    <string name="premium_none">Для этого аккаунта Google Play не найдена активная подписка.</string>
+    <string name="premium_purchase_failed">Не удалось завершить покупку. Повторите попытку.</string>
+    <string name="premium_github">Все функции доступны в версии GitHub.</string>
+    <string name="premium_privacy">Политика конфиденциальности</string>
+    <string name="premium_connection">Google Play проверяет доступ Premium при запуске Rumb. Если проверка после перезапуска не удалась, подключитесь снова и восстановите покупки.</string>
+    <string name="premium_demo">Бесплатный демодоступ</string>
+    <string name="premium_demo_code">Код доступа</string>
+    <string name="premium_demo_activate">Включить демодоступ</string>
+    <string name="premium_demo_remove">Удалить демодоступ</string>
+    <string name="premium_demo_invalid">Неверный код доступа.</string>
+    <string name="premium_demo_active">Демодоступ активен. Это не платная подписка.</string>
+</resources>

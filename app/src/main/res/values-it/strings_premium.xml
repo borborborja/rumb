@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_title">Rumb Premium</string>
+    <string name="premium_required">Questa funzione richiede Rumb Premium.</string>
+    <string name="premium_free">La registrazione GPS e le mappe di base online sono gratuite.</string>
+    <string name="premium_features">Mappe offline, guida sui percorsi, HUD e schermate dati personalizzati, sensori Bluetooth, sincronizzazione cloud, analisi avanzata e competizioni, e controllo del peso.</string>
+    <string name="premium_loading">Connessione a Google Play…</string>
+    <string name="premium_active">Rumb Premium è attivo.</string>
+    <string name="premium_restore">Ripristina acquisti</string>
+    <string name="premium_manage">Gestisci abbonamento</string>
+    <string name="premium_monthly_price">Mensile — %1$s / mese</string>
+    <string name="premium_annual_price">Annuale — %1$s / anno</string>
+    <string name="premium_renewal">Abbonamento con rinnovo automatico. Google Play addebita il prezzo scelto ogni mese o anno fino alla disdetta. Disdici in Google Play; l’accesso resta disponibile fino al termine del periodo pagato.</string>
+    <string name="premium_store_unavailable">Google Play non è disponibile. Riprova con una connessione.</string>
+    <string name="premium_prices_unavailable">I prezzi degli abbonamenti non sono disponibili. Riprova più tardi.</string>
+    <string name="premium_canceled">Acquisto annullato. Rumb non ti ha addebitato nulla.</string>
+    <string name="premium_pending">Il pagamento è in sospeso. Premium si sbloccherà quando Google Play confermerà il pagamento.</string>
+    <string name="premium_verification_failed">Impossibile verificare l’acquisto. Ripristina gli acquisti o contatta l’assistenza.</string>
+    <string name="premium_suspended">L’abbonamento è sospeso. Controlla il pagamento o riprendilo in Google Play.</string>
+    <string name="premium_ack_retry">Impossibile completare la conferma dell’acquisto. Riapri Rumb con una connessione per riprovare.</string>
+    <string name="premium_restored">L’abbonamento è stato ripristinato.</string>
+    <string name="premium_none">Nessun abbonamento attivo trovato per questo account Google Play.</string>
+    <string name="premium_purchase_failed">Impossibile completare l’acquisto. Riprova.</string>
+    <string name="premium_github">Tutte le funzioni sono disponibili nella versione GitHub.</string>
+    <string name="premium_privacy">Informativa sulla privacy</string>
+    <string name="premium_connection">Google Play verifica l’accesso Premium all’apertura di Rumb. Se la verifica fallisce dopo il riavvio, riconnettiti e ripristina gli acquisti.</string>
+    <string name="premium_demo">Accesso demo gratuito</string>
+    <string name="premium_demo_code">Codice di accesso</string>
+    <string name="premium_demo_activate">Attiva demo</string>
+    <string name="premium_demo_remove">Rimuovi accesso demo</string>
+    <string name="premium_demo_invalid">Codice di accesso non valido.</string>
+    <string name="premium_demo_active">L’accesso demo è attivo. Non è un abbonamento a pagamento.</string>
+</resources>

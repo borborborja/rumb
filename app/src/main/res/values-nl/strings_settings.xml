@@ -234,4 +234,6 @@
     <string name="endurain_dl_error">Couldn\'t download the activity</string>
     <string name="settings_sync_upload_all">Upload all pending to Endurain</string>
     <string name="settings_sync_upload_all_queued">%1$d activities queued to upload</string>
+    <string name="settings_online_geocoding">Gemeenten online opzoeken</string>
+    <string name="settings_online_geocoding_help">Als dit is ingeschakeld, worden de startcoördinaten van opgeslagen routes en activiteiten naar Nominatim (OpenStreetMap) verstuurd om gemeentenamen te vinden.</string>
 </resources>

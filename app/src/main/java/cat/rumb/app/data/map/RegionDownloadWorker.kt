@@ -22,6 +22,13 @@ import java.util.UUID
 class RegionDownloadWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
+        when (cat.rumb.app.data.premium.premiumWorkAccess(applicationContext)) {
+            cat.rumb.app.data.premium.PremiumWorkAccess.ALLOWED -> Unit
+            cat.rumb.app.data.premium.PremiumWorkAccess.UNKNOWN -> return Result.retry()
+            cat.rumb.app.data.premium.PremiumWorkAccess.DENIED -> return Result.failure(
+                workDataOf(RegionDownloadWorker.KEY_ERROR to applicationContext.getString(cat.rumb.app.R.string.premium_required)),
+            )
+        }
         val sourceId = inputData.getString(KEY_SOURCE) ?: return Result.failure()
         val name = inputData.getString(KEY_NAME) ?: "Àrea offline"
         val minZoom = inputData.getInt(KEY_MIN_ZOOM, 8)
@@ -92,6 +99,11 @@ class RegionDownloadWorker(context: Context, params: WorkerParameters) : Corouti
             .setSmallIcon(android.R.drawable.stat_sys_download)
             .setOngoing(true)
             .setProgress(max, progress, total <= 1)
+            .addAction(
+                android.R.drawable.ic_menu_close_clear_cancel,
+                applicationContext.getString(cat.rumb.app.R.string.maps_cancel),
+                WorkManager.getInstance(applicationContext).createCancelPendingIntent(id),
+            )
             .build()
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ForegroundInfo(NOTIF_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)

@@ -19,14 +19,14 @@ file — edit here, never duplicate content there. Architecture overview and pac
    on upgrade.
 4. **Every new user-facing string goes into all 18 locales** and passes
    `python3 scripts/check_i18n.py` (see i18n below).
-5. **CI runs no tests** — the release workflow only builds. Run
-   `./gradlew :app:testDebugUnitTest` yourself before considering work done.
+5. **The APK release workflow runs no tests**; the Play bundle workflow runs the Play suite. Run
+   `./gradlew :app:testPlayDebugUnitTest :app:testGithubDebugUnitTest` yourself before considering work done.
 
 ## Build, test, release
 
-- **JDK 17** required (`JAVA_HOME`), compileSdk/targetSdk 35, minSdk 26. Kotlin 2.0, AGP 8.7,
+- **JDK 17** required (`JAVA_HOME`), compileSdk/targetSdk 36, minSdk 26. Kotlin 2.0, AGP 8.10,
   Compose (BOM), KSP. Version catalog in `gradle/libs.versions.toml`.
-- Build: `./gradlew :app:assembleDebug` · Tests: `./gradlew :app:testDebugUnitTest`
+- Build: `./gradlew :app:assembleGithubDebug` · Tests: `./gradlew :app:testPlayDebugUnitTest :app:testGithubDebugUnitTest`
   (JUnit 5 + MockK + AssertJ + coroutines-test; ~55 files under `app/src/test/`; there is NO
   `androidTest/` — hard logic is deliberately extracted into pure JVM-testable classes; keep
   doing that: new logic goes in a pure class + unit test, not inside an Activity/Service).
@@ -37,7 +37,18 @@ file — edit here, never duplicate content there. Architecture overview and pac
   commit, tag `vX.Y.Z`, push tag → CI builds the signed APK and publishes the GitHub Release.
   Local `assembleRelease` falls back to the **debug** key (real keystore only exists in CI) —
   a locally built release APK will not install over a published one.
-- Minify is OFF even in release; no flavors.
+- Minify is OFF even in release. Distribution flavors: `github` retains APK updates and the
+  LAN desktop; `play` excludes the installer code/permission and the plaintext HTTP desktop
+  server, screen, navigation and NanoHTTPD dependency. Both use `cat.rumb.app`. Keep desktop
+  Kotlin sources in `src/github` and their tests in `src/testGithub`; do not enable desktop
+  in Play until the transport encrypts location and fitness/profile data. Shared static
+  desktop assets remain unchanged.
+- Play alone includes Google Billing. Keep basic recording/maps and saved activity access
+  free; use `PremiumFeaturePolicy` for paid entry points and deferred work. Never infer a
+  renewal expiry from `purchaseTime` or persist an unsigned purchased-status flag. Free
+  demo access is visible, separate from paid ownership and uses the same feature paths.
+  Its reusable code is private (ignored preparation file and local `noBackupFilesDir`);
+  only a SHA-256 digest belongs in source. Never print or publish the private code.
 
 ## Conventions
 
@@ -64,12 +75,12 @@ file — edit here, never duplicate content there. Architecture overview and pac
 
 ## Checks before calling a task done
 
-Match the checks to what you touched; run them yourself — CI won't. Never claim something
+Match the checks to what you touched; run both distribution suites yourself. Never claim something
 works without having run the check; if you couldn't run it (no JDK/SDK on the machine, needs
 a physical device), say so explicitly in your report instead of implying success.
 
 **Always (any code change):**
-1. `./gradlew :app:testDebugUnitTest` — full unit suite, not just "it compiles".
+1. `./gradlew :app:testPlayDebugUnitTest :app:testGithubDebugUnitTest` — full unit suite, not just "it compiles".
 2. If you added logic, you added a test for it (pure class + JUnit 5 test in `app/src/test/`).
    Logic without a test is an unfinished task, not a done one.
 3. `git diff` review: no vendored files touched, no attribution KDoc removed, no stray files

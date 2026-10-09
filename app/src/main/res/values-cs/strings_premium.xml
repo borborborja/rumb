@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_title">Rumb Premium</string>
+    <string name="premium_required">Tato funkce vyžaduje Rumb Premium.</string>
+    <string name="premium_free">Záznam GPS a základní online mapy jsou zdarma.</string>
+    <string name="premium_features">Offline mapy, sledování tras, vlastní HUD a datové obrazovky, senzory Bluetooth, synchronizace s cloudem, pokročilá analýza a soutěže a sledování hmotnosti.</string>
+    <string name="premium_loading">Připojování ke Google Play…</string>
+    <string name="premium_active">Rumb Premium je aktivní.</string>
+    <string name="premium_restore">Obnovit nákupy</string>
+    <string name="premium_manage">Spravovat předplatné</string>
+    <string name="premium_monthly_price">Měsíčně — %1$s / měsíc</string>
+    <string name="premium_annual_price">Ročně — %1$s / rok</string>
+    <string name="premium_renewal">Automaticky obnovované předplatné. Google Play účtuje vybranou cenu každý měsíc nebo rok, dokud jej nezrušíte. Zrušte v Google Play; přístup zůstane do konce zaplaceného období.</string>
+    <string name="premium_store_unavailable">Google Play není k dispozici. Zkuste to znovu s připojením.</string>
+    <string name="premium_prices_unavailable">Ceny předplatného nejsou k dispozici. Zkuste to později.</string>
+    <string name="premium_canceled">Nákup zrušen. Rumb vám nic neúčtoval.</string>
+    <string name="premium_pending">Platba čeká. Premium se odemkne, až Google Play potvrdí platbu.</string>
+    <string name="premium_verification_failed">Nákup se nepodařilo ověřit. Obnovte nákupy nebo kontaktujte podporu.</string>
+    <string name="premium_suspended">Předplatné je pozastaveno. Zkontrolujte platbu nebo jej obnovte v Google Play.</string>
+    <string name="premium_ack_retry">Potvrzení nákupu se nepodařilo dokončit. Znovu otevřete Rumb s připojením.</string>
+    <string name="premium_restored">Předplatné bylo obnoveno.</string>
+    <string name="premium_none">Pro tento účet Google Play nebylo nalezeno aktivní předplatné.</string>
+    <string name="premium_purchase_failed">Nákup se nepodařilo dokončit. Zkuste to znovu.</string>
+    <string name="premium_github">Všechny funkce jsou dostupné ve verzi GitHub.</string>
+    <string name="premium_privacy">Zásady ochrany soukromí</string>
+    <string name="premium_connection">Google Play ověřuje přístup Premium při otevření Rumb. Pokud ověření po restartu selže, znovu se připojte a obnovte nákupy.</string>
+    <string name="premium_demo">Bezplatný přístup k demu</string>
+    <string name="premium_demo_code">Přístupový kód</string>
+    <string name="premium_demo_activate">Aktivovat demo</string>
+    <string name="premium_demo_remove">Odebrat přístup k demu</string>
+    <string name="premium_demo_invalid">Neplatný přístupový kód.</string>
+    <string name="premium_demo_active">Přístup k demu je aktivní. Nejedná se o placené předplatné.</string>
+</resources>
