@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_title">Rumb Premium</string>
+    <string name="premium_required">Αυτή η λειτουργία απαιτεί Rumb Premium.</string>
+    <string name="premium_free">Η καταγραφή GPS και οι βασικοί διαδικτυακοί χάρτες είναι δωρεάν.</string>
+    <string name="premium_features">Χάρτες εκτός σύνδεσης, παρακολούθηση διαδρομών, προσαρμοσμένο HUD και οθόνες δεδομένων, αισθητήρες Bluetooth, συγχρονισμός cloud, προηγμένη ανάλυση και αγώνες και παρακολούθηση βάρους.</string>
+    <string name="premium_loading">Σύνδεση στο Google Play…</string>
+    <string name="premium_active">Το Rumb Premium είναι ενεργό.</string>
+    <string name="premium_restore">Επαναφορά αγορών</string>
+    <string name="premium_manage">Διαχείριση συνδρομής</string>
+    <string name="premium_monthly_price">Μηνιαία — %1$s / μήνα</string>
+    <string name="premium_annual_price">Ετήσια — %1$s / έτος</string>
+    <string name="premium_renewal">Συνδρομή με αυτόματη ανανέωση. Το Google Play χρεώνει την επιλεγμένη τιμή κάθε μήνα ή έτος μέχρι την ακύρωση. Ακυρώστε στο Google Play· η πρόσβαση παραμένει μέχρι το τέλος της πληρωμένης περιόδου.</string>
+    <string name="premium_store_unavailable">Το Google Play δεν είναι διαθέσιμο. Δοκιμάστε ξανά με σύνδεση.</string>
+    <string name="premium_prices_unavailable">Οι τιμές συνδρομής δεν είναι διαθέσιμες. Δοκιμάστε αργότερα.</string>
+    <string name="premium_canceled">Η αγορά ακυρώθηκε. Το Rumb δεν σας χρέωσε.</string>
+    <string name="premium_pending">Η πληρωμή εκκρεμεί. Το Premium ξεκλειδώνει όταν το Google Play επιβεβαιώσει την πληρωμή.</string>
+    <string name="premium_verification_failed">Η αγορά δεν επαληθεύτηκε. Επαναφέρετε τις αγορές ή επικοινωνήστε με την υποστήριξη.</string>
+    <string name="premium_suspended">Η συνδρομή έχει ανασταλεί. Ελέγξτε την πληρωμή ή συνεχίστε την στο Google Play.</string>
+    <string name="premium_ack_retry">Η επιβεβαίωση αγοράς δεν ολοκληρώθηκε. Ανοίξτε ξανά το Rumb με σύνδεση για νέα προσπάθεια.</string>
+    <string name="premium_restored">Η συνδρομή επαναφέρθηκε.</string>
+    <string name="premium_none">Δεν βρέθηκε ενεργή συνδρομή για αυτόν τον λογαριασμό Google Play.</string>
+    <string name="premium_purchase_failed">Η αγορά δεν ολοκληρώθηκε. Δοκιμάστε ξανά.</string>
+    <string name="premium_github">Όλες οι λειτουργίες είναι διαθέσιμες στην έκδοση GitHub.</string>
+    <string name="premium_privacy">Πολιτική απορρήτου</string>
+    <string name="premium_connection">Το Google Play ελέγχει την πρόσβαση Premium όταν ανοίγει το Rumb. Αν η επαλήθευση αποτύχει μετά την επανεκκίνηση, συνδεθείτε ξανά και επαναφέρετε τις αγορές.</string>
+    <string name="premium_demo">Δωρεάν πρόσβαση επίδειξης</string>
+    <string name="premium_demo_code">Κωδικός πρόσβασης</string>
+    <string name="premium_demo_activate">Ενεργοποίηση επίδειξης</string>
+    <string name="premium_demo_remove">Αφαίρεση πρόσβασης επίδειξης</string>
+    <string name="premium_demo_invalid">Μη έγκυρος κωδικός πρόσβασης.</string>
+    <string name="premium_demo_active">Η πρόσβαση επίδειξης είναι ενεργή. Δεν πρόκειται για συνδρομή επί πληρωμή.</string>
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_title">Rumb Premium</string>
+    <string name="premium_required">Această funcție necesită Rumb Premium.</string>
+    <string name="premium_free">Înregistrarea GPS și hărțile online de bază sunt gratuite.</string>
+    <string name="premium_features">Hărți offline, urmărirea traseelor, HUD și ecrane de date personalizate, senzori Bluetooth, sincronizare în cloud, analiză avansată și competiții și urmărirea greutății.</string>
+    <string name="premium_loading">Conectare la Google Play…</string>
+    <string name="premium_active">Rumb Premium este activ.</string>
+    <string name="premium_restore">Restabilește achizițiile</string>
+    <string name="premium_manage">Gestionează abonamentul</string>
+    <string name="premium_monthly_price">Lunar — %1$s / lună</string>
+    <string name="premium_annual_price">Anual — %1$s / an</string>
+    <string name="premium_renewal">Abonament cu reînnoire automată. Google Play percepe prețul selectat în fiecare lună sau an până la anulare. Anulează în Google Play; accesul rămâne până la sfârșitul perioadei plătite.</string>
+    <string name="premium_store_unavailable">Google Play nu este disponibil. Încearcă din nou cu o conexiune.</string>
+    <string name="premium_prices_unavailable">Prețurile abonamentelor nu sunt disponibile. Încearcă mai târziu.</string>
+    <string name="premium_canceled">Achiziție anulată. Rumb nu te-a taxat.</string>
+    <string name="premium_pending">Plata este în așteptare. Premium se deblochează când Google Play confirmă plata.</string>
+    <string name="premium_verification_failed">Achiziția nu a putut fi verificată. Restabilește achizițiile sau contactează asistența.</string>
+    <string name="premium_suspended">Abonamentul este suspendat. Verifică plata sau reia-l în Google Play.</string>
+    <string name="premium_ack_retry">Confirmarea achiziției nu a putut fi finalizată. Redeschide Rumb cu o conexiune pentru a reîncerca.</string>
+    <string name="premium_restored">Abonamentul a fost restabilit.</string>
+    <string name="premium_none">Nu s-a găsit niciun abonament activ pentru acest cont Google Play.</string>
+    <string name="premium_purchase_failed">Achiziția nu a putut fi finalizată. Încearcă din nou.</string>
+    <string name="premium_github">Toate funcțiile sunt disponibile în versiunea GitHub.</string>
+    <string name="premium_privacy">Politica de confidențialitate</string>
+    <string name="premium_connection">Google Play verifică accesul Premium la deschiderea Rumb. Dacă verificarea eșuează după repornire, reconectează-te și restabilește achizițiile.</string>
+    <string name="premium_demo">Acces demo gratuit</string>
+    <string name="premium_demo_code">Cod de acces</string>
+    <string name="premium_demo_activate">Activează demo</string>
+    <string name="premium_demo_remove">Elimină accesul demo</string>
+    <string name="premium_demo_invalid">Cod de acces nevalid.</string>
+    <string name="premium_demo_active">Accesul demo este activ. Nu este un abonament plătit.</string>
+</resources>

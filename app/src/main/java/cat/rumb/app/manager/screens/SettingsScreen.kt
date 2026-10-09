@@ -87,11 +87,13 @@ private val TABS = listOf(
 @Composable
 fun SettingsScreen(
     onBack: () -> Unit,
+    onOpenPremium: () -> Unit = {},
     onOpenDebugLog: () -> Unit = {},
     onOpenSensors: () -> Unit = {},
     onOpenEndurainDownload: () -> Unit = {},
 ) {
     val context = LocalContext.current
+    val premium by cat.rumb.app.RumbApplication.from(context).premiumManager.state.collectAsStateWithLifecycle()
     val prefs = remember { ViewerPreferences.get(context) }
     // Saveable: opening a sub-screen (sensors, debug log, Endurain) disposes this composition, and a
     // plain remember would drop you back on the first tab instead of the one you left from.
@@ -99,6 +101,11 @@ fun SettingsScreen(
 
     DetailScaffold(title = stringResource(R.string.settings_title), onBack = onBack) { modifier ->
         Column(modifier.fillMaxSize()) {
+            if (cat.rumb.app.BuildConfig.FLAVOR == "play") {
+                TextButton(onClick = onOpenPremium, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.premium_title))
+                }
+            }
             ScrollableTabRow(selectedTabIndex = tab, edgePadding = 8.dp) {
                 TABS.forEachIndexed { i, title ->
                     Tab(selected = tab == i, onClick = { tab = i }, text = { Text(stringResource(title)) })
@@ -111,10 +118,10 @@ fun SettingsScreen(
                 when (tab) {
                     0 -> RecordingSection(prefs, onOpenSensors)
                     1 -> ProfileSection(prefs)
-                    2 -> MapRoutesSection(prefs)
+                    2 -> MapRoutesSection(prefs, premium.hasPremium, onOpenPremium)
                     3 -> AudioAnnouncementsSection(prefs)
-                    4 -> SyncSection(onOpenEndurainDownload)
-                    else -> AppAndTypesSection(prefs, onOpenDebugLog)
+                    4 -> SyncSection(onOpenEndurainDownload, premium.hasPremium, onOpenPremium)
+                    else -> AppAndTypesSection(prefs, onOpenDebugLog, premium.hasPremium, onOpenPremium)
                 }
             }
         }
@@ -123,7 +130,7 @@ fun SettingsScreen(
 
 /** «Mapa y rutas»: caché de mapa + apariencia de traza + ruta a seguir + fuera de ruta. */
 @Composable
-private fun MapRoutesSection(prefs: ViewerPreferences) {
+private fun MapRoutesSection(prefs: ViewerPreferences, hasPremium: Boolean, onOpenPremium: () -> Unit) {
     val context = LocalContext.current
     var onlineGeocoding by remember { mutableStateOf(prefs.onlineGeocodingEnabled) }
     Text(stringResource(R.string.settings_tab_map), style = MaterialTheme.typography.titleSmall)
@@ -142,9 +149,11 @@ private fun MapRoutesSection(prefs: ViewerPreferences) {
     Text(stringResource(R.string.settings_appearance_track), style = MaterialTheme.typography.titleSmall)
     TrackAppearanceSection(prefs)
     androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
-    FollowRouteSection(prefs)
-    androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
-    GhostAppearanceSection(prefs)
+    if (hasPremium) {
+        FollowRouteSection(prefs)
+        androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
+        GhostAppearanceSection(prefs)
+    } else PremiumPrompt(onUpgrade = onOpenPremium)
 }
 
 /**
@@ -186,13 +195,14 @@ private fun GhostAppearanceSection(prefs: ViewerPreferences) {
 
 /** «App»: información/actualización/depuración + gestión de tipos de actividad. */
 @Composable
-private fun AppAndTypesSection(prefs: ViewerPreferences, onOpenDebugLog: () -> Unit) {
+private fun AppAndTypesSection(prefs: ViewerPreferences, onOpenDebugLog: () -> Unit, hasPremium: Boolean, onOpenPremium: () -> Unit) {
     AppSection(onOpenDebugLog)
     androidx.compose.material3.HorizontalDivider(Modifier.padding(vertical = 8.dp))
     // Weight-control module master switch (self-contained; remove this block to drop the toggle).
     var weight by remember { mutableStateOf(prefs.weightControlEnabled) }
     Text(stringResource(R.string.settings_weight_control), style = MaterialTheme.typography.titleSmall)
-    ToggleRow(stringResource(R.string.settings_weight_control_enable), weight) { weight = it; prefs.weightControlEnabled = it }
+    if (hasPremium) ToggleRow(stringResource(R.string.settings_weight_control_enable), weight) { weight = it; prefs.weightControlEnabled = it }
+    else PremiumPrompt(onUpgrade = onOpenPremium)
     Text(
         stringResource(R.string.settings_weight_control_help),
         style = MaterialTheme.typography.bodySmall,
@@ -238,7 +248,12 @@ private fun UnitsSection(prefs: ViewerPreferences) {
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
-private fun SyncSection(onOpenEndurainDownload: () -> Unit = {}) {
+private fun SyncSection(onOpenEndurainDownload: () -> Unit = {}, hasPremium: Boolean = true, onOpenPremium: () -> Unit = {}) {
+    if (!hasPremium) {
+        PremiumPrompt(onUpgrade = onOpenPremium)
+        FolderExportBlock()
+        return
+    }
     val context = LocalContext.current
     val endurainPrefs = remember { cat.rumb.app.data.prefs.EndurainPreferences.get(context) }
     val scope = rememberCoroutineScope()

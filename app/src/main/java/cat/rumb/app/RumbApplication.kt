@@ -18,6 +18,10 @@ import org.maplibre.android.module.http.HttpRequestUtil
  */
 class RumbApplication : Application() {
 
+    val premiumManager: cat.rumb.app.data.premium.PremiumManager by lazy {
+        cat.rumb.app.data.premium.PremiumManager(this)
+    }
+
     val database: RumbDatabase by lazy {
         Room.databaseBuilder(this, RumbDatabase::class.java, "rumb.db")
             .addMigrations(RumbDatabase.MIGRATION_1_2, RumbDatabase.MIGRATION_2_3, RumbDatabase.MIGRATION_3_4, RumbDatabase.MIGRATION_4_5, RumbDatabase.MIGRATION_5_6, RumbDatabase.MIGRATION_6_7, RumbDatabase.MIGRATION_7_8, RumbDatabase.MIGRATION_8_9, RumbDatabase.MIGRATION_9_10, RumbDatabase.MIGRATION_10_11, RumbDatabase.MIGRATION_11_12)
@@ -46,6 +50,7 @@ class RumbApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        premiumManager.start()
         cat.rumb.app.data.debug.DebugLog.install()
         // MapLibre requires a one-time init before any MapView is created.
         MapLibre.getInstance(this)

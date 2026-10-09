@@ -25,6 +25,7 @@ junit = "5.11.3"
 mockk = "1.13.13"
 assertj = "3.26.3"
 coroutinesTest = "1.9.0"
+billing = "9.1.0"
 
 [libraries]
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -62,6 +63,7 @@ junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jun
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+billing = { module = "com.android.billingclient:billing", version.ref = "billing" }
 
 [bundles]
 compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-material-icons-extended", "lifecycle-runtime-compose", "lifecycle-viewmodel-compose"]

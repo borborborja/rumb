@@ -31,6 +31,14 @@ class WebDavUploadWorker(context: Context, params: WorkerParameters) : Coroutine
         val file = File(path)
         if (!file.exists()) return fail(trackId, "Fitxer no trobat")
 
+        when (cat.rumb.app.data.premium.premiumWorkAccess(applicationContext)) {
+            cat.rumb.app.data.premium.PremiumWorkAccess.ALLOWED -> Unit
+            cat.rumb.app.data.premium.PremiumWorkAccess.UNKNOWN -> return Result.retry()
+            cat.rumb.app.data.premium.PremiumWorkAccess.DENIED -> return fail(
+                trackId, applicationContext.getString(cat.rumb.app.R.string.premium_required),
+            )
+        }
+
         val prefs = WebDavPreferences.get(applicationContext)
         if (!prefs.isConfigured) { file.delete(); return fail(trackId, "WebDAV no configurat") }
 

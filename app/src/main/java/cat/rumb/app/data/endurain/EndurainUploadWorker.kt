@@ -29,6 +29,14 @@ class EndurainUploadWorker(context: Context, params: WorkerParameters) : Corouti
         val file = File(path)
         if (!file.exists()) return fail(trackId, "Fitxer no trobat")
 
+        when (cat.rumb.app.data.premium.premiumWorkAccess(applicationContext)) {
+            cat.rumb.app.data.premium.PremiumWorkAccess.ALLOWED -> Unit
+            cat.rumb.app.data.premium.PremiumWorkAccess.UNKNOWN -> return Result.retry()
+            cat.rumb.app.data.premium.PremiumWorkAccess.DENIED -> return fail(
+                trackId, applicationContext.getString(cat.rumb.app.R.string.premium_required),
+            )
+        }
+
         val repo = RumbApplication.from(applicationContext).endurainRepository
         return when (val result = repo.uploadGpx(file.readText(), fileName)) {
             is UploadResult.Success -> {

@@ -63,13 +63,49 @@ Google Play recibe el **AAB de la variante `play`**. La variante `github` conser
 distribución directa por APK. Ambas usan `cat.rumb.app`: no añadas un sufijo al applicationId
 si deben seguir siendo la misma app y actualizar sus datos existentes.
 
-La preparación inicial es **1.90.1 (versionCode 172)**, con `compileSdk` y `targetSdk` 36,
+La preparación con suscripciones es **1.90.2 (versionCode 173)**, con `compileSdk` y `targetSdk` 36,
 AGP 8.10.1 y MapLibre 11.7.0. La variante `play` no contiene el actualizador de APK de
 GitHub ni el permiso `REQUEST_INSTALL_PACKAGES`; Google Play entrega sus actualizaciones.
 También excluye el servidor LAN y la pantalla de modo escritorio, además de NanoHTTPD:
 el escritorio actual transmite ubicación y datos de actividad/perfil por HTTP. Solo podrá
 incorporarse a Play cuando su transporte esté cifrado. La variante `github` conserva esta
 función y todos sus assets sin cambios.
+
+El manifiesto exclusivo de Play fija `usesCleartextTraffic=false`, también para Android
+8.0/8.1. Endurain/WebDAV deben configurarse con HTTPS. Comprueba el rechazo de HTTP en
+dispositivo antes de declarar en Console que todos los datos se cifran en tránsito.
+
+La instalación de Play es gratuita: grabación GPS, mapas básicos en línea y consulta/exportación
+de actividades guardadas. `rumb_premium` desbloquea mapas offline, seguimiento de rutas,
+edición de pantallas, sensores BLE, sincronización en la nube, análisis avanzado,
+competiciones y el módulo de peso. Los planes autorrenovables son `monthly` (`P1M`) y
+`annual` (`P1Y`); el precio de venta previsto en España es 2 €/mes y 20 €/año. Comprueba
+el precio final con impuestos en Console. La pantalla de compra siempre utiliza el precio
+localizado devuelto por Google Play, no una cantidad fija en el código.
+
+`play-billing-public-key.txt` contiene la clave **pública** RSA de Licencias de esta ficha
+de Play. Gradle permite sustituirla con `-PplayBillingPublicKey=...` o con
+`RUMB_PLAY_BILLING_PUBLIC_KEY`. No es el keystore ni una credencial privada. El cliente
+comprueba la firma y vuelve a consultar las compras en primer plano; no guarda un indicador
+persistente de suscripción ni calcula la fecha de renovación a partir de `purchaseTime`.
+La integración actual no tiene un servidor de validación/RTDN y puede necesitar conexión
+para verificar o restaurar el acceso después de reiniciar el proceso. Los fallos transitorios
+conservan el acceso ya verificado durante la sesión. Una grabación iniciada con Premium
+conserva sus herramientas hasta terminar; la cancelación no borra datos ni ajustes.
+
+Antes de ofrecer suscripciones, completa el perfil de pagos de comercio, publica una
+compilación con Billing en un canal de prueba, crea y activa ambos planes y realiza compras
+de prueba con testers de licencia de Google. Los tests JVM no verifican el cobro, la renovación,
+la cancelación ni la restauración con una cuenta real de Play.
+
+La pantalla Premium ofrece también acceso gratuito de demostración mediante código, visible
+y separado de la suscripción. Permite revisar exactamente las mismas funciones sin cobrar
+ni detectar cuentas de revisores. El código privado de revisión se conserva únicamente en
+`play-store-preparation/private-review-access.json` (ignorado y fuera de los paquetes públicos);
+solo su SHA-256 aparece en `play-access-code-sha256.txt` y en el binario. No publiques el
+código en logs, PRs o artifacts. Proporciónalo en Console → Acceso a la aplicación junto a
+instrucciones en inglés. La app revalida el código guardado en `noBackupFilesDir` en cada
+arranque y permite retirarlo. Este acceso no crea ni renueva una compra de Google Play.
 
 El workflow `.github/workflows/play-bundle.yml` se ejecuta manualmente o al pushear la rama
 `codex/google-play-preparation`. No crea un tag, una GitHub Release ni publica en Google Play.

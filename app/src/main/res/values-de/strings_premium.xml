@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_title">Rumb Premium</string>
+    <string name="premium_required">Diese Funktion erfordert Rumb Premium.</string>
+    <string name="premium_free">GPS-Aufzeichnung und grundlegende Onlinekarten sind kostenlos.</string>
+    <string name="premium_features">Offlinekarten, Routenführung, anpassbares HUD und Datenansichten, Bluetooth-Sensoren, Cloud-Synchronisierung, erweiterte Analyse und Wettbewerbe sowie Gewichtskontrolle.</string>
+    <string name="premium_loading">Verbindung mit Google Play…</string>
+    <string name="premium_active">Rumb Premium ist aktiv.</string>
+    <string name="premium_restore">Käufe wiederherstellen</string>
+    <string name="premium_manage">Abo verwalten</string>
+    <string name="premium_monthly_price">Monatlich — %1$s / Monat</string>
+    <string name="premium_annual_price">Jährlich — %1$s / Jahr</string>
+    <string name="premium_renewal">Automatisch verlängerndes Abo. Google Play berechnet den gewählten Preis jeden Monat oder jedes Jahr bis zur Kündigung. Kündige in Google Play; der Zugang bleibt bis zum Ende des bezahlten Zeitraums bestehen.</string>
+    <string name="premium_store_unavailable">Google Play ist nicht verfügbar. Versuche es mit einer Verbindung erneut.</string>
+    <string name="premium_prices_unavailable">Abopreise sind nicht verfügbar. Versuche es später erneut.</string>
+    <string name="premium_canceled">Kauf abgebrochen. Rumb hat dir nichts berechnet.</string>
+    <string name="premium_pending">Die Zahlung ist ausstehend. Premium wird nach der Zahlungsbestätigung von Google Play freigeschaltet.</string>
+    <string name="premium_verification_failed">Der Kauf konnte nicht verifiziert werden. Stelle Käufe wieder her oder kontaktiere den Support.</string>
+    <string name="premium_suspended">Dein Abo ist ausgesetzt. Prüfe die Zahlung oder setze es in Google Play fort.</string>
+    <string name="premium_ack_retry">Die Kaufbestätigung konnte nicht abgeschlossen werden. Öffne Rumb mit einer Verbindung erneut.</string>
+    <string name="premium_restored">Dein Abo wurde wiederhergestellt.</string>
+    <string name="premium_none">Für dieses Google-Play-Konto wurde kein aktives Abo gefunden.</string>
+    <string name="premium_purchase_failed">Der Kauf konnte nicht abgeschlossen werden. Versuche es erneut.</string>
+    <string name="premium_github">Alle Funktionen sind in der GitHub-Version verfügbar.</string>
+    <string name="premium_privacy">Datenschutzerklärung</string>
+    <string name="premium_connection">Google Play prüft den Premium-Zugang beim Öffnen von Rumb. Wenn die Prüfung nach einem Neustart fehlschlägt, stelle die Verbindung und die Käufe wieder her.</string>
+    <string name="premium_demo">Kostenloser Demozugang</string>
+    <string name="premium_demo_code">Zugangscode</string>
+    <string name="premium_demo_activate">Demo aktivieren</string>
+    <string name="premium_demo_remove">Demozugang entfernen</string>
+    <string name="premium_demo_invalid">Ungültiger Zugangscode.</string>
+    <string name="premium_demo_active">Der Demozugang ist aktiv. Dies ist kein kostenpflichtiges Abo.</string>
+</resources>

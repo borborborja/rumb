@@ -43,6 +43,12 @@ file — edit here, never duplicate content there. Architecture overview and pac
   Kotlin sources in `src/github` and their tests in `src/testGithub`; do not enable desktop
   in Play until the transport encrypts location and fitness/profile data. Shared static
   desktop assets remain unchanged.
+- Play alone includes Google Billing. Keep basic recording/maps and saved activity access
+  free; use `PremiumFeaturePolicy` for paid entry points and deferred work. Never infer a
+  renewal expiry from `purchaseTime` or persist an unsigned purchased-status flag. Free
+  demo access is visible, separate from paid ownership and uses the same feature paths.
+  Its reusable code is private (ignored preparation file and local `noBackupFilesDir`);
+  only a SHA-256 digest belongs in source. Never print or publish the private code.
 
 ## Conventions
 

@@ -18,20 +18,19 @@ object SyncTargets {
 
     /** True when at least one target is configured (so the UI can show sync affordances). */
     fun anyConfigured(context: Context): Boolean =
-        EndurainPreferences.get(context).isConfigured ||
-            WebDavPreferences.get(context).isConfigured ||
-            FolderExportPreferences.get(context).isEnabled
+        (cloudAllowed(context) && (EndurainPreferences.get(context).isConfigured ||
+            WebDavPreferences.get(context).isConfigured)) || FolderExportPreferences.get(context).isEnabled
 
     /**
      * Enqueues [gpx] to all configured targets. [trackId] links status back to the training (0 to skip
      * status tracking, e.g. the OpenTracks path). [fileName] should already end in .gpx.
      */
     suspend fun enqueueAll(context: Context, trackId: Long, fileName: String, gpx: String) {
-        if (EndurainPreferences.get(context).isConfigured) {
+        if (cloudAllowed(context) && EndurainPreferences.get(context).isConfigured) {
             SyncStatusStore.mark(context, trackId, SyncService.ENDURAIN, SyncState.PENDING)
             EndurainUploadWorker.enqueue(context, gpx, fileName, trackId)
         }
-        if (WebDavPreferences.get(context).isConfigured) {
+        if (cloudAllowed(context) && WebDavPreferences.get(context).isConfigured) {
             SyncStatusStore.mark(context, trackId, SyncService.WEBDAV, SyncState.PENDING)
             WebDavUploadWorker.enqueue(context, gpx, fileName, trackId)
         }
@@ -48,7 +47,7 @@ object SyncTargets {
      * Returns how many were queued.
      */
     suspend fun uploadAllPendingToEndurain(context: Context): Int {
-        if (!EndurainPreferences.get(context).isConfigured) return 0
+        if (!cloudAllowed(context) || !EndurainPreferences.get(context).isConfigured) return 0
         val app = cat.rumb.app.RumbApplication.from(context)
         val summaries = app.trackRepository.observeSummaries().first()
         val alreadyUp = app.database.syncStatusDao().uploadedTrackIds(SyncService.ENDURAIN).toHashSet()
@@ -79,6 +78,7 @@ object SyncTargets {
         val app = cat.rumb.app.RumbApplication.from(context)
         val failed = app.database.syncStatusDao().failed()
         for (row in failed) {
+            if (row.service != SyncService.FOLDER && !cloudAllowed(context)) continue
             val entity = app.trackRepository.get(row.trackId) ?: continue
             val gpxText = entity.gpx.takeIf { it.isNotBlank() } ?: continue
             val points = runCatching { cat.rumb.app.data.gpx.Gpx.read(gpxText.byteInputStream()).points }
@@ -108,6 +108,9 @@ object SyncTargets {
             }
         }
     }
+
+    private fun cloudAllowed(context: Context): Boolean =
+        cat.rumb.app.RumbApplication.from(context).premiumManager.state.value.hasPremium
 
     fun safeName(name: String): String =
         name.replace(Regex("[^A-Za-z0-9._-]"), "_").ifBlank { "activitat" }

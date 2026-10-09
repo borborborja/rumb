@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_title">Rumb Premium</string>
+    <string name="premium_required">Voor deze functie is Rumb Premium nodig.</string>
+    <string name="premium_free">GPS-opname en eenvoudige onlinekaarten zijn gratis.</string>
+    <string name="premium_features">Offlinekaarten, routes volgen, aangepast HUD en gegevensschermen, Bluetooth-sensoren, cloudsynchronisatie, geavanceerde analyse en wedstrijden, en gewicht bijhouden.</string>
+    <string name="premium_loading">Verbinding maken met Google Play…</string>
+    <string name="premium_active">Rumb Premium is actief.</string>
+    <string name="premium_restore">Aankopen herstellen</string>
+    <string name="premium_manage">Abonnement beheren</string>
+    <string name="premium_monthly_price">Maandelijks — %1$s / maand</string>
+    <string name="premium_annual_price">Jaarlijks — %1$s / jaar</string>
+    <string name="premium_renewal">Automatisch verlengend abonnement. Google Play brengt de gekozen prijs elke maand of elk jaar in rekening totdat je opzegt. Zeg op in Google Play; toegang blijft tot het einde van de betaalde periode.</string>
+    <string name="premium_store_unavailable">Google Play is niet beschikbaar. Probeer het opnieuw met een verbinding.</string>
+    <string name="premium_prices_unavailable">Abonnementsprijzen zijn niet beschikbaar. Probeer het later opnieuw.</string>
+    <string name="premium_canceled">Aankoop geannuleerd. Rumb heeft niets in rekening gebracht.</string>
+    <string name="premium_pending">Betaling is in behandeling. Premium wordt ontgrendeld zodra Google Play de betaling bevestigt.</string>
+    <string name="premium_verification_failed">De aankoop kon niet worden geverifieerd. Herstel aankopen of neem contact op met ondersteuning.</string>
+    <string name="premium_suspended">Je abonnement is opgeschort. Controleer de betaling of hervat het in Google Play.</string>
+    <string name="premium_ack_retry">De aankoopbevestiging kon niet worden afgerond. Open Rumb opnieuw met een verbinding.</string>
+    <string name="premium_restored">Je abonnement is hersteld.</string>
+    <string name="premium_none">Geen actief abonnement gevonden voor dit Google Play-account.</string>
+    <string name="premium_purchase_failed">De aankoop kon niet worden voltooid. Probeer het opnieuw.</string>
+    <string name="premium_github">Alle functies zijn beschikbaar in de GitHub-versie.</string>
+    <string name="premium_privacy">Privacybeleid</string>
+    <string name="premium_connection">Google Play controleert Premium-toegang bij het openen van Rumb. Mislukt de controle na een herstart, maak dan opnieuw verbinding en herstel aankopen.</string>
+    <string name="premium_demo">Gratis demotoegang</string>
+    <string name="premium_demo_code">Toegangscode</string>
+    <string name="premium_demo_activate">Demo activeren</string>
+    <string name="premium_demo_remove">Demotoegang verwijderen</string>
+    <string name="premium_demo_invalid">Ongeldige toegangscode.</string>
+    <string name="premium_demo_active">Demotoegang is actief. Dit is geen betaald abonnement.</string>
+</resources>
