@@ -90,6 +90,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import cat.rumb.app.BuildConfig
 import cat.rumb.app.RumbApplication
 import cat.rumb.app.R
 import cat.rumb.app.data.gpx.GpxPoint
@@ -255,7 +256,9 @@ fun HomeScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.home_title)) },
                 actions = {
-                    IconButton(onClick = onOpenDesktop) { Icon(Icons.Filled.Computer, contentDescription = stringResource(R.string.home_cd_desktop)) }
+                    if (BuildConfig.FLAVOR == "github") {
+                        IconButton(onClick = onOpenDesktop) { Icon(Icons.Filled.Computer, contentDescription = stringResource(R.string.home_cd_desktop)) }
+                    }
                     // Weight-control module (self-contained; remove this block to drop the icon).
                     if (prefs.weightControlEnabled) {
                         IconButton(onClick = onOpenScale) { Icon(Icons.Filled.MonitorWeight, contentDescription = stringResource(R.string.scale_cd_open)) }

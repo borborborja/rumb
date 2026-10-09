@@ -8,8 +8,10 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import cat.rumb.app.BuildConfig
 import cat.rumb.app.RumbApplication
+import cat.rumb.app.data.geo.GeocodingBatch
 import cat.rumb.app.data.geo.NominatimClient
 import cat.rumb.app.data.gpx.Gpx
+import cat.rumb.app.data.prefs.ViewerPreferences
 import kotlinx.coroutines.delay
 
 /**
@@ -44,14 +46,16 @@ class TrackMetadataBackfillWorker(context: Context, params: WorkerParameters) : 
             dao.setDuration(id, TrackRepository.durationMs(points))
         }
 
-        // Phase 2 (network): resolve municipalities, strictly rate-limited.
+        // Phase 2 (network): explicit opt-in is required before any coordinates leave the device.
+        val prefs = ViewerPreferences.get(applicationContext)
+        if (!prefs.onlineGeocodingEnabled) return Result.success()
         val pending = dao.needingMunicipality()
         if (pending.isEmpty()) return Result.success()
         val client = NominatimClient(
             "Rumb/${BuildConfig.VERSION_NAME} (github.com/borborborja/rumb)",
         )
         var networkFailures = 0
-        for (item in pending) {
+        GeocodingBatch.run(pending, isEnabled = { prefs.onlineGeocodingEnabled }) { item ->
             when (val r = client.reverse(item.startLat, item.startLon)) {
                 is NominatimClient.Reverse.Ok ->
                     // Write the name, or the "checked, no place" sentinel ("") so we never re-query it.
@@ -65,7 +69,11 @@ class TrackMetadataBackfillWorker(context: Context, params: WorkerParameters) : 
         }
         // Retry transient failures, but cap attempts so a persistently unreachable Nominatim can't
         // reschedule forever; leftover rows stay NULL and are retried on the next enqueue (next import).
-        return if (networkFailures > 0 && runAttemptCount < MAX_RETRY_ATTEMPTS) Result.retry() else Result.success()
+        return if (prefs.onlineGeocodingEnabled && networkFailures > 0 && runAttemptCount < MAX_RETRY_ATTEMPTS) {
+            Result.retry()
+        } else {
+            Result.success()
+        }
     }
 
     companion object {

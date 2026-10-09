@@ -6,12 +6,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import cat.rumb.app.BuildConfig
 import cat.rumb.app.data.map.BoundingBox
 import cat.rumb.app.manager.screens.CompareScreen
 import cat.rumb.app.manager.screens.CompetitionDetailScreen
 import cat.rumb.app.manager.screens.DataDesignerScreen
 import cat.rumb.app.manager.screens.DebugLogScreen
-import cat.rumb.app.manager.screens.DesktopModeScreen
 import cat.rumb.app.manager.screens.EndurainDownloadScreen
 import cat.rumb.app.manager.screens.HeatmapScreen
 import cat.rumb.app.manager.screens.HomeScreen
@@ -118,13 +118,15 @@ fun ManagerApp(
                 onStartCompetition = onStartCompetition,
                 onOpenRecords = { nav.navigate(Routes.RECORDS) },
                 onOpenHeatmap = { nav.navigate(Routes.HEATMAP) },
-                onOpenDesktop = { nav.navigate(Routes.DESKTOP) },
+                onOpenDesktop = {
+                    if (BuildConfig.FLAVOR == "github") nav.navigate(Routes.DESKTOP)
+                },
                 onOpenScale = { nav.navigate(Routes.SCALE) },
                 importUri = importUri,
                 onImportHandled = onImportHandled,
             )
         }
-        composable(Routes.DESKTOP) { DesktopModeScreen(onBack = { nav.popBackStack() }) }
+        registerDesktopRoute(onBack = { nav.popBackStack() })
         // Weight-control module (self-contained; remove this line to drop the route).
         composable(Routes.SCALE) { cat.rumb.app.scale.ui.ScaleScreen(onBack = { nav.popBackStack() }) }
         composable(Routes.RECORDS) {

@@ -234,4 +234,6 @@
     <string name="endurain_dl_error">No se pudo descargar la actividad</string>
     <string name="settings_sync_upload_all">Subir todos los pendientes a Endurain</string>
     <string name="settings_sync_upload_all_queued">%1$d actividades en cola para subir</string>
+    <string name="settings_online_geocoding">Buscar municipios en línea</string>
+    <string name="settings_online_geocoding_help">Si lo activas, envía las coordenadas iniciales de las rutas y actividades guardadas a Nominatim (OpenStreetMap) para encontrar los nombres de los municipios.</string>
 </resources>

@@ -416,6 +416,11 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         get() = prefs.getBoolean(KEY_PREFETCH_ON_FOLLOW, true)
         set(value) = prefs.edit().putBoolean(KEY_PREFETCH_ON_FOLLOW, value).apply()
 
+    /** Explicit consent to send saved tracks' start coordinates to Nominatim for place names. */
+    var onlineGeocodingEnabled: Boolean
+        get() = prefs.getBoolean(KEY_ONLINE_GEOCODING, false)
+        set(value) = prefs.edit().putBoolean(KEY_ONLINE_GEOCODING, value).apply()
+
     // --- Off-route alert ---
     var offRouteThresholdM: Int
         get() = prefs.getInt(KEY_OFFROUTE_THRESHOLD, 40)
@@ -573,6 +578,7 @@ class ViewerPreferences private constructor(private val prefs: SharedPreferences
         private const val KEY_GHOST_SIZE = "ghost_size"
         private const val KEY_MAP_CACHE_MB = "map_cache_size_mb"
         private const val KEY_PREFETCH_ON_FOLLOW = "prefetch_on_follow"
+        private const val KEY_ONLINE_GEOCODING = "online_geocoding_enabled"
         private const val KEY_OFFROUTE_THRESHOLD = "offroute_threshold"
         private const val KEY_OFFROUTE_SOUND = "offroute_sound"
         private const val KEY_OFFROUTE_VIBRATE = "offroute_vibrate"

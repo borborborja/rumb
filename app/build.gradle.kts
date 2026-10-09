@@ -8,15 +8,22 @@ plugins {
 
 android {
     namespace = "cat.rumb.app"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "cat.rumb.app"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 171
-        versionName = "1.90.0"
+        targetSdk = 36
+        versionCode = 172
+        versionName = "1.90.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // Google Play delivers updates itself. Keep the APK updater in the GitHub source set only.
+    flavorDimensions += "distribution"
+    productFlavors {
+        create("github") { dimension = "distribution" }
+        create("play") { dimension = "distribution" }
     }
 
     // Stable release signing. In CI the keystore is decoded from a secret and its path/passwords
@@ -99,7 +106,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.serialization)
     implementation(libs.okhttp)
-    implementation(libs.nanohttpd)
+    "githubImplementation"(libs.nanohttpd)
     implementation(libs.okhttp.logging)
     implementation(libs.serialization.json)
     implementation(libs.security.crypto)

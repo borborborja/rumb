@@ -73,8 +73,10 @@ class RumbApplication : Application() {
         )
         // Load user-entered tile API keys so keyed base maps (e.g. Tracestrack) can resolve `{key}`.
         cat.rumb.app.data.map.TileApiKeys.load(cat.rumb.app.data.prefs.ViewerPreferences.get(this))
-        // Backfill ascent/start/municipality for tracks saved before DB v4 (and pending geocodes).
-        cat.rumb.app.data.tracks.TrackMetadataBackfillWorker.enqueue(this)
+        // Resolve pending municipalities only after the user has enabled online geocoding.
+        if (cat.rumb.app.data.prefs.ViewerPreferences.get(this).onlineGeocodingEnabled) {
+            cat.rumb.app.data.tracks.TrackMetadataBackfillWorker.enqueue(this)
+        }
     }
 
     companion object {

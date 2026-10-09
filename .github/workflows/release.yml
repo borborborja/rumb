@@ -24,8 +24,10 @@ jobs:
       - name: Accept licenses and install SDK packages
         run: |
           SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          COMPILE_SDK=$(sed -nE 's/^[[:space:]]*compileSdk = ([0-9]+).*/\1/p' app/build.gradle.kts)
+          test -n "$COMPILE_SDK"
           yes | "$SDKMANAGER" --licenses > /dev/null 2>&1 || true
-          "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
+          "$SDKMANAGER" "platforms;android-$COMPILE_SDK" "build-tools;35.0.0"
 
       - name: Decode release keystore
         env:
@@ -38,12 +40,12 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew :app:assembleRelease --no-daemon
+        run: ./gradlew :app:assembleGithubRelease --no-daemon
 
       - name: Rename APK
         run: |
           mkdir -p dist
-          cp app/build/outputs/apk/release/app-release.apk "dist/Rumb-${GITHUB_REF_NAME}.apk"
+          cp app/build/outputs/apk/github/release/app-github-release.apk "dist/Rumb-${GITHUB_REF_NAME}.apk"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
