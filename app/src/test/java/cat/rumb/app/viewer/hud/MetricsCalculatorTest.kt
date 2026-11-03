@@ -63,6 +63,41 @@ class MetricsCalculatorTest {
     }
 
     @Test
+    fun resumedSegmentDoesNotBorrowMeasurementsFromBeforePause() {
+        val beforePause = listOf(
+            tp(41.0, 2.0, 10.0, 1).copy(altitude = 100.0),
+            tp(41.001, 2.0, 10.0, 2).copy(altitude = 110.0),
+        )
+        val resumed = listOf(tp(41.002, 2.0, 1.0, 5).copy(altitude = 150.0))
+
+        val m = MetricsCalculator.compute(listOf(beforePause, resumed), null, isRecording = true)
+
+        assertThat(m.paceMinPerKm!!).isCloseTo(60.0 / 3.6, within(0.001))
+        // A single fix has no measured leg: the movement during the pause is not part of it.
+        assertThat(m.bearingDeg).isNull()
+        assertThat(m.slopePercent).isNull()
+        assertThat(m.vamMeterPerHour).isNull()
+        assertThat(m.altitudeM).isEqualTo(150.0)
+        assertThat(m.pointCount).isEqualTo(3)
+    }
+
+    @Test
+    fun resumedSegmentUsesItsOwnSlopeAndVamOnceItHasTwoPoints() {
+        val beforePause = listOf(tp(40.0, 2.0, 10.0, 1).copy(altitude = 100.0))
+        val resumed = listOf(
+            tp(41.0, 2.0, 1.0, 5).copy(altitude = 500.0),
+            tp(41.0001, 2.0, 1.0, 7).copy(altitude = 502.0),
+        )
+
+        val m = MetricsCalculator.compute(listOf(beforePause, resumed), null, isRecording = true)
+
+        assertThat(m.slopePercent!!).isCloseTo(18.0, within(0.1))
+        assertThat(m.vamMeterPerHour!!).isCloseTo(3600.0, within(0.001))
+        assertThat(m.paceMinPerKm!!).isCloseTo(60.0 / 3.6, within(0.001))
+        assertThat(m.pointCount).isEqualTo(3)
+    }
+
+    @Test
     fun slopeAndVamFromAltitudePoints() {
         // 100 m climb over 1000 m horizontal in 200 s → slope 10%, VAM 1800 m/h
         val base = Instant.ofEpochMilli(0)

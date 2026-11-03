@@ -85,4 +85,23 @@ class GpxExtensionsTest {
             assertThat(it.power).isNull()
         }
     }
+
+    @Test
+    fun readsSensorExtensionsWithExporterChosenPrefix() {
+        val gpx = """
+            <gpx xmlns="http://www.topografix.com/GPX/1/1"
+                 xmlns:tpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
+              <trk><trkseg><trkpt lat="41.0" lon="2.0"><extensions>
+                <tpx:TrackPointExtension><tpx:hr>150</tpx:hr><tpx:cad>85</tpx:cad></tpx:TrackPointExtension>
+                <tpx:power>210</tpx:power>
+              </extensions></trkpt></trkseg></trk>
+            </gpx>
+        """.trimIndent()
+
+        val point = Gpx.read(gpx.byteInputStream()).points.single()
+
+        assertThat(point.heartRate).isEqualTo(150.0)
+        assertThat(point.cadence).isEqualTo(85.0)
+        assertThat(point.power).isEqualTo(210.0)
+    }
 }

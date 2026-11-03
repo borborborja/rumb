@@ -1,5 +1,7 @@
 package cat.rumb.app.data.desktop
 
+import androidx.work.Data
+import cat.rumb.app.data.map.RegionDownloadWorker
 import cat.rumb.app.data.tracks.Calories
 import cat.rumb.app.data.tracks.DifficultyCalculator
 import cat.rumb.app.data.tracks.FollowTrackEntity
@@ -187,6 +189,14 @@ data class SettingsDto(
 )
 @Serializable data class EstimateDto(val tiles: Long, val mb: Long, val overLimit: Boolean)
 @Serializable data class DownloadProgressDto(val state: String, val done: Int, val total: Int, val failed: Int)
+
+/** WorkManager stores the downloader's counters as Long values. Keep the web JSON numeric shape. */
+fun Data.toDownloadProgressDto(state: String): DownloadProgressDto = DownloadProgressDto(
+    state,
+    getLong(RegionDownloadWorker.KEY_DONE, 0L).toInt(),
+    getLong(RegionDownloadWorker.KEY_TOTAL, 0L).toInt(),
+    getLong(RegionDownloadWorker.KEY_FAILED, 0L).toInt(),
+)
 
 @Serializable data class EndurainDto(
     val host: String?, val mode: String, val usernameSet: Boolean, val apiKeySet: Boolean,

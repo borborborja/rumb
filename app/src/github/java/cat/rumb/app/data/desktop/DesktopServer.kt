@@ -499,15 +499,9 @@ class DesktopServer(
         val infos = androidx.work.WorkManager.getInstance(context)
             .getWorkInfosForUniqueWork(w.WORK_NAME).get()
         val info = infos.firstOrNull { it.state == androidx.work.WorkInfo.State.RUNNING } ?: infos.firstOrNull()
-        val prog = info?.progress
         return json(
             Response.Status.OK,
-            DownloadProgressDto(
-                info?.state?.name ?: "NONE",
-                prog?.getInt(w.KEY_DONE, 0) ?: 0,
-                prog?.getInt(w.KEY_TOTAL, 0) ?: 0,
-                prog?.getInt(w.KEY_FAILED, 0) ?: 0,
-            ),
+            (info?.progress ?: androidx.work.Data.EMPTY).toDownloadProgressDto(info?.state?.name ?: "NONE"),
         )
     }
 

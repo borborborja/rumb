@@ -24,7 +24,9 @@ object CompetitionAnalysis {
         if (total < 1.0 || buckets <= 0) return emptyList()
         val out = ArrayList<GapSample>(buckets)
         for (i in 1..buckets) {
-            val d = total * i / buckets
+            // Multiplication followed by division can round just beyond the finish. Preserve the
+            // exact endpoint so timeAt uses first arrival instead of a stationary tail's end.
+            val d = if (i == buckets) total else total * i / buckets
             out.add(GapSample(d, attemptCurve.timeAt(d) - bestCurve.timeAt(d)))
         }
         return out

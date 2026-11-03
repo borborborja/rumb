@@ -61,6 +61,32 @@ class CompetitionAnalysisTest {
     }
 
     @Test
+    fun waitingAtFinishDoesNotInflateTheFinalGap() {
+        val best = track(seconds = 10, stepDeg = 0.0001)
+        val attempt = best + best.last().copy(time = t0.plusSeconds(70))
+
+        val gaps = CompetitionAnalysis.gapOverDistance(best, attempt)
+
+        gaps.forEach { assertThat(it.gapSeconds).isCloseTo(0.0, within(1e-6)) }
+    }
+
+    @Test
+    fun finalBucketStaysAtExactFinishDespiteFloatingPointRounding() {
+        val best = (0..10).map { i ->
+            GpxPoint(41.0 + i * 0.0001, 2.0, time = t0.plusSeconds(i.toLong()))
+        }
+        val attempt = best + best.last().copy(time = t0.plusSeconds(70))
+        val total = TrackCurve.of(best)!!.totalDist
+        // This geometry rounds one ULP beyond total when the last bucket is computed as d*300/300.
+        assertThat(total * 300 / 300).isGreaterThan(total)
+
+        val final = CompetitionAnalysis.gapOverDistance(best, attempt).last()
+
+        assertThat(final.distM).isEqualTo(total)
+        assertThat(final.gapSeconds).isEqualTo(0.0)
+    }
+
+    @Test
     fun emptyWhenUntimed() {
         val timed = track(seconds = 60, stepDeg = 0.0001)
         val untimed = track(seconds = 60, stepDeg = 0.0001, timed = false)

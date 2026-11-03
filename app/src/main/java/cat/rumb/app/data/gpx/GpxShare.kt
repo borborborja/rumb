@@ -6,6 +6,7 @@ import androidx.core.content.FileProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.io.InputStream
 
 /** Track file formats the app can import. */
 enum class TrackFormat { GPX, KML, KMZ, TCX, UNSUPPORTED }
@@ -35,12 +36,75 @@ fun mimeFor(format: TrackFormat): String = when (format) {
 fun sniffFormat(head: ByteArray): TrackFormat {
     if (head.size >= 2 && head[0] == 'P'.code.toByte() && head[1] == 'K'.code.toByte()) return TrackFormat.KMZ
     val text = String(head, Charsets.UTF_8)
-    return when {
-        text.contains("<gpx") -> TrackFormat.GPX
-        text.contains("<TrainingCenterDatabase") -> TrackFormat.TCX
-        text.contains("<kml") -> TrackFormat.KML
-        else -> TrackFormat.UNSUPPORTED
+    var offset = 0
+    while (offset < text.length) {
+        when {
+            text[offset].isWhitespace() || text[offset] == '\uFEFF' -> offset++
+            text.startsWith("<!--", offset) -> {
+                val end = text.indexOf("-->", offset + 4)
+                if (end < 0) return TrackFormat.UNSUPPORTED
+                offset = end + 3
+            }
+            text.startsWith("<?", offset) -> {
+                val end = text.indexOf("?>", offset + 2)
+                if (end < 0) return TrackFormat.UNSUPPORTED
+                offset = end + 2
+            }
+            text.startsWith("<!DOCTYPE", offset) -> {
+                // DTDs may contain quoted '>' characters and an internal subset. Skip the entire
+                // declaration so example element names inside it cannot be mistaken for the root.
+                var quote: Char? = null
+                var brackets = 0
+                var end = offset + 9
+                while (end < text.length) {
+                    val ch = text[end]
+                    if (quote != null) {
+                        if (ch == quote) quote = null
+                    } else {
+                        when (ch) {
+                            '\'', '"' -> quote = ch
+                            '[' -> brackets++
+                            ']' -> brackets--
+                            '>' -> if (brackets == 0) break
+                        }
+                    }
+                    end++
+                }
+                if (end == text.length) return TrackFormat.UNSUPPORTED
+                offset = end + 1
+            }
+            else -> {
+                // Match the complete local name, allowing any exporter-chosen namespace prefix.
+                val root = Regex("""<(?:[^\s<>/?!:]+:)?([^\s<>/?!:]+)(?=[\s/>])""")
+                    .matchAt(text, offset)?.groupValues?.get(1)
+                return when (root) {
+                    "gpx" -> TrackFormat.GPX
+                    "TrainingCenterDatabase" -> TrackFormat.TCX
+                    "kml" -> TrackFormat.KML
+                    else -> TrackFormat.UNSUPPORTED
+                }
+            }
+        }
     }
+    return TrackFormat.UNSUPPORTED
+}
+
+/** Reads a bounded sniffing prefix even when the content provider returns short reads. */
+internal fun readTrackFormatHeader(input: InputStream): ByteArray {
+    val buffer = ByteArray(4096)
+    var size = 0
+    while (size < buffer.size) {
+        val count = input.read(buffer, size, buffer.size - size)
+        if (count < 0) break
+        if (count == 0) {
+            val byte = input.read()
+            if (byte < 0) break
+            buffer[size++] = byte.toByte()
+        } else {
+            size += count
+        }
+    }
+    return buffer.copyOf(size)
 }
 
 /**
@@ -52,9 +116,7 @@ fun resolveTrackFileName(resolver: android.content.ContentResolver, uri: android
     if (formatFor(displayName) != TrackFormat.UNSUPPORTED) return displayName
     val head = runCatching {
         resolver.openInputStream(uri)?.use { input ->
-            val buf = ByteArray(64)
-            val n = input.read(buf)
-            if (n > 0) buf.copyOf(n) else ByteArray(0)
+            readTrackFormatHeader(input)
         }
     }.getOrNull() ?: return null
     val ext = when (sniffFormat(head)) {

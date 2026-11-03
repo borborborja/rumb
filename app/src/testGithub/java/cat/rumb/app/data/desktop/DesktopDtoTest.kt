@@ -1,5 +1,7 @@
 package cat.rumb.app.data.desktop
 
+import androidx.work.Data
+import cat.rumb.app.data.map.RegionDownloadWorker
 import cat.rumb.app.data.tracks.FollowTrackEntity
 import cat.rumb.app.data.tracks.TrackKind
 import kotlinx.serialization.encodeToString
@@ -10,6 +12,24 @@ import org.junit.jupiter.api.Test
 class DesktopDtoTest {
 
     private val json = Json { encodeDefaults = true }
+
+    @Test
+    fun downloadProgressReadsWorkerLongCounters() {
+        val progress = Data.Builder()
+            .putLong(RegionDownloadWorker.KEY_DONE, 125L)
+            .putLong(RegionDownloadWorker.KEY_TOTAL, 500L)
+            .putLong(RegionDownloadWorker.KEY_FAILED, 3L)
+            .build()
+        val dto = progress.toDownloadProgressDto("RUNNING")
+        assertThat(dto).isEqualTo(DownloadProgressDto("RUNNING", 125, 500, 3))
+        assertThat(json.decodeFromString<DownloadProgressDto>(json.encodeToString(dto))).isEqualTo(dto)
+    }
+
+    @Test
+    fun absentDownloadProgressHasZeroCounters() {
+        assertThat(Data.EMPTY.toDownloadProgressDto("NONE"))
+            .isEqualTo(DownloadProgressDto("NONE", 0, 0, 0))
+    }
 
     @Test
     fun trackMapperDerivesKmAndDifficulty() {

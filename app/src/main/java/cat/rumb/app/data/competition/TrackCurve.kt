@@ -26,7 +26,7 @@ class TrackCurve private constructor(
      */
     fun timeAt(distM: Double): Double {
         if (distM <= dist.first()) return time.first()
-        if (distM >= dist.last()) return time.last()
+        if (distM > dist.last()) return time.last()
         val lo = lowerBound(dist, distM)
         val d0 = dist[lo - 1]
         val d1 = dist[lo]

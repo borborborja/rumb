@@ -49,5 +49,36 @@ class TcxWriteTest {
         assertThat(ActivityFile.build("act", untimed, laps, null).fileName).endsWith(".gpx")
     }
 
+    @Test
+    fun sensorDataSurvivesTcxExportAndImport() {
+        val points = listOf(
+            GpxPoint(41.0, 2.0, 100.0, Instant.parse("2026-07-14T10:00:00Z"), heartRate = 150.0, cadence = 85.0, power = 210.0),
+            GpxPoint(41.001, 2.001, 101.0, Instant.parse("2026-07-14T10:01:00Z")),
+        )
+
+        val read = Tcx.read(Tcx.write("Sortida", points, emptyList(), null).byteInputStream()).points
+
+        assertThat(read).containsExactlyElementsOf(points)
+    }
+
+    @Test
+    fun readsPowerWithExporterChosenPrefix() {
+        val tcx = """
+            <tcx:TrainingCenterDatabase xmlns:tcx="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2"
+                                       xmlns:ae="http://www.garmin.com/xmlschemas/ActivityExtension/v2">
+              <tcx:Activities><tcx:Activity Sport="Biking"><tcx:Lap><tcx:Track><tcx:Trackpoint>
+                <tcx:Position><tcx:LatitudeDegrees>41.0</tcx:LatitudeDegrees><tcx:LongitudeDegrees>2.0</tcx:LongitudeDegrees></tcx:Position>
+                <tcx:Cadence>85</tcx:Cadence>
+                <tcx:Extensions><ae:TPX><ae:Watts>210</ae:Watts></ae:TPX></tcx:Extensions>
+              </tcx:Trackpoint></tcx:Track></tcx:Lap></tcx:Activity></tcx:Activities>
+            </tcx:TrainingCenterDatabase>
+        """.trimIndent()
+
+        val route = Tcx.read(tcx.byteInputStream())
+
+        assertThat(route.name).isEqualTo("Biking")
+        assertThat(route.points).containsExactly(GpxPoint(41.0, 2.0, cadence = 85.0, power = 210.0))
+    }
+
     private fun countOf(s: String, sub: String) = s.split(sub).size - 1
 }

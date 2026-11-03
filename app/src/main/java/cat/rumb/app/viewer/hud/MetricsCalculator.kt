@@ -28,13 +28,17 @@ object MetricsCalculator {
     ): LiveMetrics {
         val points = segments.flatten().filter { it.latLong != null }
         val lastPoint = points.lastOrNull()
+        // Pauses and separate tracks break continuity. Do not derive an imaginary leg or mix
+        // pre-pause speeds into the first fixes after resuming.
+        val currentSegment = segments.lastOrNull { segment -> segment.any { it.latLong != null } }
+            ?.filter { it.latLong != null }.orEmpty()
 
         val currentSpeedKmh = lastPoint?.speed?.takeIf { it >= 0.0 }?.times(MS_TO_KMH)
-        val bearing = lastPoint?.bearing ?: bearingOfLastLeg(points)
+        val bearing = lastPoint?.bearing ?: bearingOfLastLeg(currentSegment)
         // Prefer OpenTracks' per-point altitude (column "elevation"); fall back to a DEM provider.
         val altitude = lastPoint?.altitude
             ?: lastPoint?.latLong?.let { elevationProvider?.altitudeAt(it.latitude, it.longitude) }
-        val (slope, vam) = slopeAndVam(points)
+        val (slope, vam) = slopeAndVam(currentSegment)
 
         return LiveMetrics(
             speedKmh = currentSpeedKmh,
@@ -44,7 +48,7 @@ object MetricsCalculator {
             totalTime = statistics?.totalTime ?: kotlin.time.Duration.ZERO,
             movingTime = statistics?.movingTime ?: kotlin.time.Duration.ZERO,
             // Pace uses a smoothed speed, not the raw fix: see [smoothedSpeedKmh]. SPEED stays raw.
-            paceMinPerKm = paceFromSpeedKmh(smoothedSpeedKmh(points) ?: currentSpeedKmh),
+            paceMinPerKm = paceFromSpeedKmh(smoothedSpeedKmh(currentSegment) ?: currentSpeedKmh),
             bearingDeg = bearing,
             elevationGainM = statistics?.elevationGainMeter,
             minElevationM = statistics?.minElevationMeter,

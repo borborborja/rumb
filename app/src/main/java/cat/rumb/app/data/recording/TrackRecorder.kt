@@ -10,6 +10,7 @@ import cat.rumb.app.viewer.hud.MetricsCalculator
 import java.time.Instant
 import kotlin.math.abs
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.toKotlinDuration
 
 /** Tunables of the native recording engine. Defaults follow OpenTracks' recording behavior. */
@@ -277,9 +278,15 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
             }
         }
         lastPointTime = all.lastOrNull()?.time
-        // Active time before the crash ≈ span of recorded points (pauses within it are unknown).
-        accumulatedActive = all.lastOrNull()?.let { java.time.Duration.between(startedAt, it.time).toKotlinDuration() }
-            ?: Duration.ZERO
+        // Segment boundaries preserve pauses, so only sum time inside each segment. The first
+        // segment includes the initial GPS warm-up; later resume times are not persisted, so their
+        // first points are the earliest known active instant. Counting the whole track's span would
+        // turn every pause before a crash into recorded activity time.
+        accumulatedActive = Duration.ZERO
+        closedSegments.forEachIndexed { index, segment ->
+            val from = if (index == 0) startedAt else segment.first().time
+            accumulatedActive += java.time.Duration.between(from, segment.last().time).toKotlinDuration()
+        }
         activeSince = resumeAt
         // New segment after the gap; reset the leg baseline so the crash gap adds no distance.
         lastLatLong = null
@@ -298,6 +305,13 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
         time: Instant,
     ): Trackpoint? {
         if (paused || finished || startedAt == null) return null
+        // Cached or reordered fixes must not move the track backwards in time. With a non-positive
+        // delta the implied-speed guard cannot run, so even a GPS jump would otherwise be accepted
+        // and a moving fix could subtract from moving time.
+        if (lastPointTime?.let { !time.isAfter(it) } == true) {
+            DebugLog.d("Motor", "fix refusat: hora no posterior a l'últim punt")
+            return null
+        }
         // The loop-detected banner rides on one snapshot (the publish right after the fix that
         // fired); clear it as the next fix arrives so it announces once, not forever.
         justDetectedLoopM = null
@@ -636,6 +650,10 @@ class TrackRecorder(private val config: RecorderConfig = RecorderConfig()) {
     fun restoreLaps(marks: List<LapMark>) {
         if (marks.isEmpty()) return
         lapMarks.clear(); lapMarks.addAll(marks)
+        // Point spans cannot recover active idle time before a pause or the delay to the first
+        // fix after resuming. Lap boundaries carry the original active clock, so it must never
+        // restart below one of those persisted instants (which would freeze or negate lap times).
+        accumulatedActive = maxOf(accumulatedActive, marks.maxOf { it.totalMs }.milliseconds)
         val opens = marks.count { it.type == LapMarkType.START || it.type == LapMarkType.SPLIT }
         lapCount = opens
         val last = marks.last()

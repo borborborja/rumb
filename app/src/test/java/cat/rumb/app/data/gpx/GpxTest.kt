@@ -37,4 +37,24 @@ class GpxTest {
         assertThat(route.points).hasSize(2)
         assertThat(route.points[0].elevation).isEqualTo(1800.0)
     }
+
+    @Test
+    fun readsPrefixedGpxElements() {
+        val gpx = """
+            <route:gpx xmlns:route="http://www.topografix.com/GPX/1/1" version="1.1">
+              <route:trk><route:name>Prefixed route</route:name><route:trkseg>
+                <route:trkpt lat="42.5" lon="1.5">
+                  <route:ele>1800</route:ele><route:time>2026-07-11T10:00:00Z</route:time>
+                </route:trkpt>
+              </route:trkseg></route:trk>
+            </route:gpx>
+        """.trimIndent()
+
+        val route = Gpx.read(gpx.byteInputStream())
+
+        assertThat(route.name).isEqualTo("Prefixed route")
+        assertThat(route.points).containsExactly(
+            GpxPoint(42.5, 1.5, elevation = 1800.0, time = Instant.parse("2026-07-11T10:00:00Z")),
+        )
+    }
 }

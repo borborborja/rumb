@@ -126,6 +126,18 @@ class TrackCurveTest {
     }
 
     @Test
+    fun timeAtFinishUsesFirstArrivalBeforeAStationaryTail() {
+        val moving = steady(10, 1)
+        val stationary = moving.last().copy(time = t0.plusSeconds(70))
+        val c = TrackCurve.of(moving + stationary)!!
+
+        assertThat(c.totalTime).isEqualTo(70.0)
+        assertThat(c.timeAt(c.totalDist)).isEqualTo(10.0)
+        assertThat(c.distanceAt(c.timeAt(c.totalDist))).isEqualTo(c.totalDist)
+        assertThat(c.timeAt(c.totalDist + 1.0)).isEqualTo(70.0)
+    }
+
+    @Test
     fun theRivalIsWhereItWasAtTheLeadersMoment() {
         // THE test this whole screen rests on. Two attempts over the same line, the rival at half
         // pace. When the leader has covered its lap, the rival must be ~halfway — NOT at the same

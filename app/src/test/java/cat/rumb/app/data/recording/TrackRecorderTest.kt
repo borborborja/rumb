@@ -126,6 +126,26 @@ class TrackRecorderTest {
     }
 
     @Test
+    fun rejectsGpsJumpsWithDuplicateTimestamps() {
+        val r = recorderWithLegs(1)
+        val before = r.snapshot(at(1))
+        // A duplicate timestamp used to skip the speed guard (dt == 0) and admit this kilometre jump.
+        assertThat(r.onLocation(41.01, 2.0, 100.0, 5.0, null, 5f, at(1))).isNull()
+        assertThat(r.snapshot(at(1))).isEqualTo(before)
+        assertThat(r.onLocation(41.0002, 2.0, 100.0, 5.0, null, 5f, at(2))).isNotNull()
+        assertThat(r.snapshot(at(2)).statistics.totalDistanceMeter).isEqualTo(22.2, within(1.0))
+    }
+
+    @Test
+    fun rejectsOutOfOrderFixesWithoutSubtractingMovingTime() {
+        val r = recorderWithLegs(2)
+        val before = r.snapshot(at(2))
+        assertThat(r.onLocation(41.0003, 2.0, 100.0, 5.0, null, 5f, at(1))).isNull()
+        assertThat(r.snapshot(at(2))).isEqualTo(before)
+        assertThat(r.snapshot(at(2)).statistics.movingTime.inWholeSeconds).isEqualTo(2)
+    }
+
+    @Test
     fun skipsIdleJitterByMinDistance() {
         val r = TrackRecorder()
         r.start(t0)
@@ -253,6 +273,58 @@ class TrackRecorderTest {
         val s1 = restored.snapshot(at(122))
         assertThat(s1.points()).hasSize(8)
         assertThat(s1.statistics.totalDistanceMeter).isEqualTo(55.7 + 11.1, within(3.0))
+    }
+
+    @Test
+    fun restoreExcludesPausedTimeBetweenSegments() {
+        val original = recorderWithLegs(5)
+        original.pause(at(5))
+        original.resume(at(65))
+        original.onLocation(41.001, 2.0, 100.0, null, null, 5f, at(65))
+        original.onLocation(41.0011, 2.0, 100.0, null, null, 5f, at(67))
+        val persisted = original.snapshot(at(67))
+
+        val restored = TrackRecorder()
+        restored.restore(persisted.segments, t0, resumeAt = at(120))
+        assertThat(restored.snapshot(at(120)).statistics.totalTime.inWholeSeconds).isEqualTo(7)
+        assertThat(restored.snapshot(at(123)).statistics.totalTime.inWholeSeconds).isEqualTo(10)
+        assertThat(restored.snapshot(at(120)).statistics.movingTime).isEqualTo(persisted.statistics.movingTime)
+    }
+
+    @Test
+    fun restoreKeepsGpsWarmupTimeInTheFirstSegment() {
+        val original = TrackRecorder(RecorderConfig(startGoodFixes = 1))
+        original.start(t0)
+        original.onLocation(41.0, 2.0, 100.0, null, null, 5f, at(3))
+        original.onLocation(41.0001, 2.0, 100.0, null, null, 5f, at(5))
+
+        val restored = TrackRecorder()
+        restored.restore(original.snapshot(at(5)).segments, t0, resumeAt = at(120))
+        assertThat(restored.snapshot(at(120)).statistics.totalTime.inWholeSeconds).isEqualTo(5)
+    }
+
+    @Test
+    fun restoredLapClockCannotPrecedeItsPersistedBoundaryAfterAnIdlePause() {
+        val original = recorderWithLegs(5)
+        // The recorder stays active while idle, but no more points are accepted before pausing.
+        original.pause(at(600))
+        original.resume(at(660))
+        original.onLocation(41.001, 2.0, 100.0, 1.0, null, 5f, at(660))
+        original.onLocation(41.0011, 2.0, 100.0, 1.0, null, 5f, at(662))
+        original.lap(at(662))
+        val persisted = original.snapshot(at(662))
+        assertThat(persisted.lapMarks.single().totalMs).isEqualTo(602_000L)
+
+        val restored = TrackRecorder()
+        restored.restore(persisted.segments, t0, resumeAt = at(700))
+        restored.restoreLaps(persisted.lapMarks)
+
+        assertThat(restored.snapshot(at(700)).statistics.totalTime.inWholeSeconds).isEqualTo(602)
+        assertThat(restored.snapshot(at(701)).currentLapTimeMs).isEqualTo(1_000L)
+        restored.lap(at(701))
+        val afterSplit = restored.snapshot(at(701))
+        assertThat(afterSplit.lastLapMs).isEqualTo(1_000L)
+        assertThat(afterSplit.lapMarks.last().totalMs).isEqualTo(603_000L)
     }
 
     // --- Position auto-lap ---

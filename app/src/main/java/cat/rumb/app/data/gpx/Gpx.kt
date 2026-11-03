@@ -34,16 +34,16 @@ data class GpxRoute(val name: String?, val points: List<GpxPoint>)
 object Gpx {
 
     fun read(input: InputStream): GpxRoute {
-        val factory = DocumentBuilderFactory.newInstance().apply { isNamespaceAware = false }
+        val factory = DocumentBuilderFactory.newInstance().apply { isNamespaceAware = true }
         val doc = factory.newDocumentBuilder().parse(input)
         doc.documentElement.normalize()
 
-        val name = doc.getElementsByTagName("name").let { if (it.length > 0) it.item(0).textContent?.trim() else null }
+        val name = doc.getElementsByTagNameNS("*", "name").let { if (it.length > 0) it.item(0).textContent?.trim() else null }
 
         val points = mutableListOf<GpxPoint>()
         // Prefer trkpt, then rtept, then wpt.
         for (tag in listOf("trkpt", "rtept", "wpt")) {
-            val nodes = doc.getElementsByTagName(tag)
+            val nodes = doc.getElementsByTagNameNS("*", tag)
             if (nodes.length == 0) continue
             for (i in 0 until nodes.length) {
                 val el = nodes.item(i) as? Element ?: continue
@@ -51,11 +51,11 @@ object Gpx {
                 val lon = el.getAttribute("lon").toDoubleOrNull() ?: continue
                 val ele = childText(el, "ele")?.toDoubleOrNull()
                 val time = childText(el, "time")?.let { parseTrackTime(it) }
-                // Sensor extensions: the parser is namespace-unaware, so prefixed tags are literal
-                // names; getElementsByTagName searches all descendants, incl. inside <extensions>.
-                val hr = (childText(el, "gpxtpx:hr") ?: childText(el, "hr"))?.toDoubleOrNull()
-                val cad = (childText(el, "gpxtpx:cad") ?: childText(el, "cad"))?.toDoubleOrNull()
-                val power = (childText(el, "power") ?: childText(el, "gpxtpx:power"))?.toDoubleOrNull()
+                // Namespace prefixes are chosen by the exporter; match local names so sensor
+                // extensions work with any prefix, including the unprefixed variants.
+                val hr = childText(el, "hr")?.toDoubleOrNull()
+                val cad = childText(el, "cad")?.toDoubleOrNull()
+                val power = childText(el, "power")?.toDoubleOrNull()
                 points.add(GpxPoint(lat, lon, ele, time, heartRate = hr, cadence = cad, power = power))
             }
             if (points.isNotEmpty()) break
@@ -64,7 +64,7 @@ object Gpx {
     }
 
     private fun childText(parent: Element, tag: String): String? {
-        val nodes = parent.getElementsByTagName(tag)
+        val nodes = parent.getElementsByTagNameNS("*", tag)
         return if (nodes.length > 0) nodes.item(0).textContent?.trim() else null
     }
 

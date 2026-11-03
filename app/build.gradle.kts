@@ -14,8 +14,8 @@ android {
         applicationId = "cat.rumb.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 173
-        versionName = "1.90.2"
+        versionCode = 174
+        versionName = "1.90.3"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // A Google Play licensing public key is public application metadata, not a signing key.
         val playBillingPublicKey = providers.gradleProperty("playBillingPublicKey")
