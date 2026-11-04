@@ -28,7 +28,6 @@ Builds:
       - fdroid
     rm:
       - app/src/play
-      - app/src/testPlay
     prebuild:
       - sed -i '/"playImplementation"(libs.billing)/d' build.gradle.kts
       - sed -i '/^billing = /d' ../gradle/libs.versions.toml

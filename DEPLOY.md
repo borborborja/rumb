@@ -189,7 +189,7 @@ NanoHTTPD ni el servidor LAN. `usesCleartextTraffic=false` también se aplica a 
    `./gradlew :app:assembleFdroidRelease`. El APK local sigue siendo una previsualización:
    la infraestructura oficial compila y firma la app después de aceptar su receta.
 2. Revisa dependencias y licencias. La receta en `fdroid/cat.rumb.app.yml` elimina de la
-   copia de compilación las fuentes/tests de Play y las dos declaraciones de Billing;
+   copia de compilación las fuentes de Play y las dos declaraciones de Billing;
    no oculta dependencias con `scanignore`. El escáner debe inspeccionar esa copia, nunca
    el árbol de trabajo: puede borrar archivos. Los datos cifrados de dependencias de AGP
    se desactivan con `dependenciesInfo`, para que F-Droid pueda inspeccionar el APK.
