@@ -1,8 +1,8 @@
 # Política de privacidad de Rumb
 
 **Desarrollador:** micapum
-**Aplicación:** Rumb (`cat.rumb.app`), distribución Google Play
-**Actualización:** 9 de octubre de 2026
+**Aplicación:** Rumb (`cat.rumb.app`), distribuciones Google Play y F-Droid
+**Actualización:** 4 de noviembre de 2026
 **Contacto de privacidad y soporte:** [rumb@micapum.net](mailto:rumb@micapum.net)
 
 Rumb permite registrar actividades deportivas, gestionar rutas, consultar mapas y utilizar sensores Bluetooth compatibles. Esta política explica qué datos utiliza la aplicación y cuándo pueden salir del teléfono.
@@ -18,6 +18,8 @@ Rumb guarda actividades, rutas, nombres, fechas, vueltas, estadísticas, prefere
 Rumb no exige crear una cuenta propia. Las cuentas que utilices para Endurain o WebDAV corresponden al servicio que configures.
 
 ## Compras y suscripciones
+
+Esta sección se aplica únicamente a la edición de Google Play. La edición F-Droid incluye las funciones avanzadas sin compras ni códigos de desbloqueo, no integra Google Play Billing y no consulta a Google para verificar suscripciones.
 
 La suscripción opcional Rumb Premium se contrata mediante el sistema de facturación de Google Play. Google gestiona el pago, la renovación y la cancelación conforme a sus condiciones y su [política de privacidad](https://policies.google.com/privacy). Rumb no solicita ni recibe el número completo de tu tarjeta ni su código de seguridad.
 
@@ -51,9 +53,9 @@ Al compartir o exportar un archivo mediante otra aplicación, esa aplicación y 
 
 Rumb solicita permisos de ubicación para mostrar tu posición y registrar actividades, de Bluetooth para buscar y conectar sensores y de notificaciones para mostrar grabaciones y descargas en curso. Puedes administrar los permisos en los ajustes de Android. Algunas funciones dejan de estar disponibles si retiras el permiso correspondiente.
 
-Los servicios públicos de mapas, Nominatim y BRouter utilizados por defecto se consultan mediante HTTPS. La distribución de Google Play configura Android para rechazar conexiones HTTP sin cifrar; utiliza direcciones HTTPS para los destinos que configures y conserva tus credenciales de forma segura. Los datos locales se guardan en el almacenamiento de la aplicación, protegido por los controles de acceso de Android.
+Los servicios públicos de mapas, Nominatim y BRouter utilizados por defecto se consultan mediante HTTPS. Las distribuciones de Google Play y F-Droid configuran Android para rechazar conexiones HTTP sin cifrar; utiliza direcciones HTTPS para los destinos que configures y conserva tus credenciales de forma segura. Los datos locales se guardan en el almacenamiento de la aplicación, protegido por los controles de acceso de Android.
 
-Esta distribución de Rumb no incorpora publicidad ni herramientas de analítica o envío automático de errores al desarrollador. La pantalla de depuración permite consultar registros técnicos locales. Si decides copiarlos, guardarlos o compartirlos, pueden incluir datos del dispositivo, errores y operaciones de la aplicación.
+Estas distribuciones de Rumb no incorporan publicidad ni herramientas de analítica o envío automático de errores al desarrollador. La pantalla de depuración permite consultar registros técnicos locales. Si decides copiarlos, guardarlos o compartirlos, pueden incluir datos del dispositivo, errores y operaciones de la aplicación.
 
 ## Conservación y eliminación
 

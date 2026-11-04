@@ -20,9 +20,9 @@ RepoType: git
 Repo: https://github.com/borborborja/rumb.git
 
 Builds:
-  - versionName: 1.90.3
-    versionCode: 174
-    commit: v1.90.3
+  - versionName: 1.90.4
+    versionCode: 175
+    commit: v1.90.4
     subdir: app
     gradle:
       - fdroid
@@ -35,5 +35,5 @@ Builds:
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
-CurrentVersion: 1.90.3
-CurrentVersionCode: 174
+CurrentVersion: 1.90.4
+CurrentVersionCode: 175

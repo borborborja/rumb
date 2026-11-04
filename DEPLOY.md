@@ -177,7 +177,7 @@ publicado con la APK descargable.)
 
 ## Presentar y mantener la edición F-Droid
 
-La primera edición propuesta es **1.90.3 (174)**. `fdroid` usa el mismo identificador
+La primera edición propuesta es **1.90.4 (175)**. `fdroid` usa el mismo identificador
 `cat.rumb.app`, con grabación, mapas online/offline, seguimiento, sensores, editores,
 análisis, competiciones, peso y sincronización libres, sin compra ni código de acceso.
 Comparte `PremiumManager` con GitHub en `src/libre`; la facturación permanece únicamente
