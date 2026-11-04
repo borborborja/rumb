@@ -21,7 +21,7 @@
     <string name="premium_restored">Dein Abo wurde wiederhergestellt.</string>
     <string name="premium_none">Für dieses Google-Play-Konto wurde kein aktives Abo gefunden.</string>
     <string name="premium_purchase_failed">Der Kauf konnte nicht abgeschlossen werden. Versuche es erneut.</string>
-    <string name="premium_github">Alle Funktionen sind in der GitHub-Version verfügbar.</string>
+    <string name="premium_github">Diese Ausgabe freier Software enthält alle Funktionen. Ein Abonnement ist nicht erforderlich.</string>
     <string name="premium_privacy">Datenschutzerklärung</string>
     <string name="premium_connection">Google Play prüft den Premium-Zugang beim Öffnen von Rumb. Wenn die Prüfung nach einem Neustart fehlschlägt, stelle die Verbindung und die Käufe wieder her.</string>
     <string name="premium_demo">Kostenloser Demozugang</string>

@@ -21,7 +21,7 @@
     <string name="premium_restored">Подписка восстановлена.</string>
     <string name="premium_none">Для этого аккаунта Google Play не найдена активная подписка.</string>
     <string name="premium_purchase_failed">Не удалось завершить покупку. Повторите попытку.</string>
-    <string name="premium_github">Все функции доступны в версии GitHub.</string>
+    <string name="premium_github">Эта версия свободного программного обеспечения включает все функции. Подписка не требуется.</string>
     <string name="premium_privacy">Политика конфиденциальности</string>
     <string name="premium_connection">Google Play проверяет доступ Premium при запуске Rumb. Если проверка после перезапуска не удалась, подключитесь снова и восстановите покупки.</string>
     <string name="premium_demo">Бесплатный демодоступ</string>

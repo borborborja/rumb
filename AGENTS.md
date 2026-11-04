@@ -19,8 +19,10 @@ file — edit here, never duplicate content there. Architecture overview and pac
    on upgrade.
 4. **Every new user-facing string goes into all 18 locales** and passes
    `python3 scripts/check_i18n.py` (see i18n below).
-5. **The APK release workflow runs no tests**; the Play bundle workflow runs the Play suite. Run
-   `./gradlew :app:testPlayDebugUnitTest :app:testGithubDebugUnitTest` yourself before considering work done.
+5. **The APK release workflow runs no tests**; the Play bundle workflow runs the Play suite.
+   The F-Droid workflow runs all three suites. Run
+   `./gradlew :app:testPlayDebugUnitTest :app:testGithubDebugUnitTest :app:testFdroidDebugUnitTest`
+   yourself before considering work done.
 
 ## Build, test, release
 
@@ -39,7 +41,11 @@ file — edit here, never duplicate content there. Architecture overview and pac
   a locally built release APK will not install over a published one.
 - Minify is OFF even in release. Distribution flavors: `github` retains APK updates and the
   LAN desktop; `play` excludes the installer code/permission and the plaintext HTTP desktop
-  server, screen, navigation and NanoHTTPD dependency. Both use `cat.rumb.app`. Keep desktop
+  server, screen, navigation and NanoHTTPD dependency. `fdroid` also excludes the updater/LAN
+  server, includes every advanced feature without payment and has no Billing dependency.
+  All use `cat.rumb.app`. `src/libre` shares unconditional access between GitHub and F-Droid;
+  `src/store` shares the informational update section and disabled desktop route between stores.
+  Keep desktop
   Kotlin sources in `src/github` and their tests in `src/testGithub`; do not enable desktop
   in Play until the transport encrypts location and fitness/profile data. Shared static
   desktop assets remain unchanged.
@@ -80,7 +86,8 @@ works without having run the check; if you couldn't run it (no JDK/SDK on the ma
 a physical device), say so explicitly in your report instead of implying success.
 
 **Always (any code change):**
-1. `./gradlew :app:testPlayDebugUnitTest :app:testGithubDebugUnitTest` — full unit suite, not just "it compiles".
+1. `./gradlew :app:testPlayDebugUnitTest :app:testGithubDebugUnitTest :app:testFdroidDebugUnitTest`
+   — full unit suites, not just "it compiles".
 2. If you added logic, you added a test for it (pure class + JUnit 5 test in `app/src/test/`).
    Logic without a test is an unfinished task, not a done one.
 3. `git diff` review: no vendored files touched, no attribution KDoc removed, no stray files

@@ -21,7 +21,7 @@
     <string name="premium_restored">Se ha restaurado tu suscripción.</string>
     <string name="premium_none">No se ha encontrado ninguna suscripción activa en esta cuenta de Google Play.</string>
     <string name="premium_purchase_failed">No se ha podido completar la compra. Inténtalo de nuevo.</string>
-    <string name="premium_github">Todas las funciones están disponibles en la versión de GitHub.</string>
+    <string name="premium_github">Esta edición de software libre incluye todas las funciones. No requiere suscripción.</string>
     <string name="premium_privacy">Política de privacidad</string>
     <string name="premium_connection">Google Play comprueba el acceso a Premium al abrir Rumb. Si la verificación falla tras reiniciar, vuelve a conectarte y restaura las compras.</string>
     <string name="premium_demo">Acceso de demostración gratuito</string>

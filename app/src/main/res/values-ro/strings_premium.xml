@@ -21,7 +21,7 @@
     <string name="premium_restored">Abonamentul a fost restabilit.</string>
     <string name="premium_none">Nu s-a găsit niciun abonament activ pentru acest cont Google Play.</string>
     <string name="premium_purchase_failed">Achiziția nu a putut fi finalizată. Încearcă din nou.</string>
-    <string name="premium_github">Toate funcțiile sunt disponibile în versiunea GitHub.</string>
+    <string name="premium_github">Această ediție de software liber include toate funcțiile. Nu este necesar un abonament.</string>
     <string name="premium_privacy">Politica de confidențialitate</string>
     <string name="premium_connection">Google Play verifică accesul Premium la deschiderea Rumb. Dacă verificarea eșuează după repornire, reconectează-te și restabilește achizițiile.</string>
     <string name="premium_demo">Acces demo gratuit</string>

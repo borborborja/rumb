@@ -21,7 +21,7 @@
     <string name="premium_restored">Aboneliğiniz geri yüklendi.</string>
     <string name="premium_none">Bu Google Play hesabında etkin abonelik bulunamadı.</string>
     <string name="premium_purchase_failed">Satın alma tamamlanamadı. Tekrar deneyin.</string>
-    <string name="premium_github">Tüm özellikler GitHub sürümünde kullanılabilir.</string>
+    <string name="premium_github">Bu özgür yazılım sürümü tüm özellikleri içerir. Abonelik gerekmez.</string>
     <string name="premium_privacy">Gizlilik politikası</string>
     <string name="premium_connection">Google Play, Rumb açıldığında Premium erişimini kontrol eder. Yeniden başlattıktan sonra doğrulama başarısız olursa yeniden bağlanın ve satın alımları geri yükleyin.</string>
     <string name="premium_demo">Ücretsiz demo erişimi</string>

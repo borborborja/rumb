@@ -21,7 +21,7 @@
     <string name="premium_restored">Tilauksesi on palautettu.</string>
     <string name="premium_none">Tälle Google Play -tilille ei löytynyt aktiivista tilausta.</string>
     <string name="premium_purchase_failed">Ostoa ei voitu suorittaa. Yritä uudelleen.</string>
-    <string name="premium_github">Kaikki toiminnot ovat saatavilla GitHub-versiossa.</string>
+    <string name="premium_github">Tämä vapaan ohjelmiston versio sisältää kaikki toiminnot. Tilausta ei tarvita.</string>
     <string name="premium_privacy">Tietosuojakäytäntö</string>
     <string name="premium_connection">Google Play tarkistaa Premium-käyttöoikeuden Rumbia avattaessa. Jos tarkistus epäonnistuu uudelleenkäynnistyksen jälkeen, yhdistä uudelleen ja palauta ostot.</string>
     <string name="premium_demo">Ilmainen demokäyttö</string>

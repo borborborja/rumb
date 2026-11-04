@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-/** The open-source GitHub distribution retains its existing feature set. */
+/** The free GitHub and F-Droid distributions include every advanced feature. */
 class PremiumManager(@Suppress("UNUSED_PARAMETER") context: Context) {
     private val mutableState = MutableStateFlow(
         PremiumState(hasPremium = true, ownershipVerified = true, available = false),

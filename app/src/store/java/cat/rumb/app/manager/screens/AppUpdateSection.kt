@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import cat.rumb.app.BuildConfig
 import cat.rumb.app.R
 
-/** Store builds receive all binary updates through Google Play. */
+/** Store builds receive binary updates through their distribution repository. */
 @Composable
 internal fun AppUpdateSection() {
     val context = LocalContext.current

@@ -21,7 +21,7 @@
     <string name="premium_restored">Din prenumeration har återställts.</string>
     <string name="premium_none">Ingen aktiv prenumeration hittades för det här Google Play-kontot.</string>
     <string name="premium_purchase_failed">Köpet kunde inte slutföras. Försök igen.</string>
-    <string name="premium_github">Alla funktioner finns i GitHub-versionen.</string>
+    <string name="premium_github">Den här utgåvan av fri programvara innehåller alla funktioner. Ingen prenumeration krävs.</string>
     <string name="premium_privacy">Integritetspolicy</string>
     <string name="premium_connection">Google Play kontrollerar Premium-åtkomst när Rumb öppnas. Om kontrollen misslyckas efter omstart, anslut igen och återställ köp.</string>
     <string name="premium_demo">Gratis demoåtkomst</string>

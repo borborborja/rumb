@@ -1,0 +1,39 @@
+AntiFeatures:
+  NonFreeNet:
+    en-US: Optional Esri satellite and Tracestrack map layers connect to proprietary
+      services. Other map sources and offline MBTiles remain available without these
+      services.
+Categories:
+  - Navigation
+  - Sports & Health
+License: Apache-2.0
+AuthorName: Rumb contributors
+AuthorEmail: rumb@micapum.net
+WebSite: https://github.com/borborborja/rumb
+SourceCode: https://github.com/borborborja/rumb
+IssueTracker: https://github.com/borborborja/rumb/issues
+Changelog: https://github.com/borborborja/rumb/releases
+
+AutoName: Rumb
+
+RepoType: git
+Repo: https://github.com/borborborja/rumb.git
+
+Builds:
+  - versionName: 1.90.3
+    versionCode: 174
+    commit: v1.90.3
+    subdir: app
+    gradle:
+      - fdroid
+    rm:
+      - app/src/play
+      - app/src/testPlay
+    prebuild:
+      - sed -i '/"playImplementation"(libs.billing)/d' build.gradle.kts
+      - sed -i '/^billing = /d' ../gradle/libs.versions.toml
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: 1.90.3
+CurrentVersionCode: 174

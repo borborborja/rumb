@@ -21,7 +21,7 @@
     <string name="premium_restored">S’ha restaurat la subscripció.</string>
     <string name="premium_none">No s’ha trobat cap subscripció activa en aquest compte de Google Play.</string>
     <string name="premium_purchase_failed">No s’ha pogut completar la compra. Torna-ho a provar.</string>
-    <string name="premium_github">Totes les funcions estan disponibles a la versió de GitHub.</string>
+    <string name="premium_github">Aquesta edició de programari lliure inclou totes les funcions. No cal cap subscripció.</string>
     <string name="premium_privacy">Política de privacitat</string>
     <string name="premium_connection">Google Play comprova l’accés a Premium quan s’obre Rumb. Si la verificació falla després de reiniciar, reconnecta i restaura les compres.</string>
     <string name="premium_demo">Accés de demostració gratuït</string>

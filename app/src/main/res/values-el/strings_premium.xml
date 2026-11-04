@@ -21,7 +21,7 @@
     <string name="premium_restored">Η συνδρομή επαναφέρθηκε.</string>
     <string name="premium_none">Δεν βρέθηκε ενεργή συνδρομή για αυτόν τον λογαριασμό Google Play.</string>
     <string name="premium_purchase_failed">Η αγορά δεν ολοκληρώθηκε. Δοκιμάστε ξανά.</string>
-    <string name="premium_github">Όλες οι λειτουργίες είναι διαθέσιμες στην έκδοση GitHub.</string>
+    <string name="premium_github">Αυτή η έκδοση ελεύθερου λογισμικού περιλαμβάνει όλες τις λειτουργίες. Δεν απαιτείται συνδρομή.</string>
     <string name="premium_privacy">Πολιτική απορρήτου</string>
     <string name="premium_connection">Το Google Play ελέγχει την πρόσβαση Premium όταν ανοίγει το Rumb. Αν η επαλήθευση αποτύχει μετά την επανεκκίνηση, συνδεθείτε ξανά και επαναφέρετε τις αγορές.</string>
     <string name="premium_demo">Δωρεάν πρόσβαση επίδειξης</string>

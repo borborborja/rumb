@@ -21,7 +21,7 @@
     <string name="premium_restored">Předplatné bylo obnoveno.</string>
     <string name="premium_none">Pro tento účet Google Play nebylo nalezeno aktivní předplatné.</string>
     <string name="premium_purchase_failed">Nákup se nepodařilo dokončit. Zkuste to znovu.</string>
-    <string name="premium_github">Všechny funkce jsou dostupné ve verzi GitHub.</string>
+    <string name="premium_github">Tato edice svobodného softwaru obsahuje všechny funkce. Předplatné není potřeba.</string>
     <string name="premium_privacy">Zásady ochrany soukromí</string>
     <string name="premium_connection">Google Play ověřuje přístup Premium při otevření Rumb. Pokud ověření po restartu selže, znovu se připojte a obnovte nákupy.</string>
     <string name="premium_demo">Bezplatný přístup k demu</string>

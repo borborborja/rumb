@@ -1,0 +1,21 @@
+<p>Registra attività di ciclismo, corsa, escursionismo e sci con Rumb. Consulta il percorso sulla mappa, segui un itinerario pianificato e adatta la visualizzazione dei dati in diretta alla tua attività.</p>
+<p><b>Registrazione e mappe</b></p>
+<ul>
+<li>Registrazione GPS con pausa manuale o automatica, distanza, tempo, velocità, ritmo e dislivello.</li>
+<li>Mappe online, importazione di MBTiles offline e download di aree della mappa.</li>
+<li>Navigazione lungo gli itinerari con avvisi di deviazione e indicazioni vocali.</li>
+<li>Editor visivi per i widget sulla mappa e la schermata dei dati.</li>
+<li>Sensori Bluetooth compatibili per frequenza cardiaca, cadenza e potenza.</li>
+</ul>
+<p><b>Le tue attività, i tuoi file</b></p>
+<ul>
+<li>Organizza le attività, esamina i percorsi e consulta statistiche, confronti e strumenti di competizione.</li>
+<li>Importa GPX, TCX, KML e KMZ; esporta GPX, TCX o KML.</li>
+<li>Sincronizzazione facoltativa delle attività con un server Endurain o WebDAV configurato da te.</li>
+<li>Storico del peso e stime della composizione corporea con una Mi Body Composition Scale compatibile.</li>
+</ul>
+<p>L'edizione F-Droid include le funzioni descritte senza abbonamento né codice di sblocco. Non include Google Play Billing, il sistema di aggiornamento degli APK né il server desktop sulla rete locale. Non serve un account Rumb. Senza pubblicità.</p>
+<p>Le attività vengono salvate sul tuo dispositivo. Le mappe online, il calcolo degli itinerari e i servizi esterni configurati ricevono le richieste necessarie alle loro funzioni. La ricerca facoltativa dei comuni invia a Nominatim di OpenStreetMap le coordinate iniziali di itinerari e attività salvate solo se la attivi.</p>
+<p>I sensori, il dislivello barometrico e le funzioni della bilancia dipendono da hardware compatibile. I valori della composizione corporea sono stime basate sul tuo profilo e sulle letture della bilancia. Rumb non è un dispositivo medico e non diagnostica, tratta, cura né previene malattie. Consulta un professionista sanitario qualificato per consigli, diagnosi o trattamenti medici.</p>
+<p>Disponibile in 18 lingue. Richiede Android 8.0 o versioni successive. Le mappe e il calcolo degli itinerari online richiedono Internet; le mappe scaricate funzionano offline.</p>
+<p>Assistenza e privacy: rumb@micapum.net</p>

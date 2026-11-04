@@ -1,0 +1,21 @@
+<p>Grava atividades de ciclismo, corrida, caminhada e esqui com o Rumb. Consulta o percurso no mapa, segue uma rota planeada e adapta a apresentação dos dados em direto à tua atividade.</p>
+<p><b>Gravação e mapas</b></p>
+<ul>
+<li>Gravação GPS com pausa manual ou automática, distância, tempo, velocidade, ritmo e desnível.</li>
+<li>Mapas online, importação de MBTiles offline e transferência de áreas do mapa.</li>
+<li>Seguimento de rotas com alertas de desvio e indicações por voz.</li>
+<li>Editores visuais para os widgets sobre o mapa e o ecrã de dados.</li>
+<li>Sensores Bluetooth compatíveis de frequência cardíaca, cadência e potência.</li>
+</ul>
+<p><b>As tuas atividades, os teus ficheiros</b></p>
+<ul>
+<li>Organiza atividades, examina os percursos e consulta estatísticas, comparações e ferramentas de competição.</li>
+<li>Importa GPX, TCX, KML e KMZ; exporta GPX, TCX ou KML.</li>
+<li>Sincronização opcional de atividades com um servidor Endurain ou WebDAV configurado por ti.</li>
+<li>Histórico de peso e estimativas de composição corporal com uma Mi Body Composition Scale compatível.</li>
+</ul>
+<p>A edição F-Droid inclui as funções descritas sem subscrição nem código de desbloqueio. Não inclui o Google Play Billing, o atualizador de APK nem o servidor de ambiente de trabalho na rede local. Não é necessária uma conta Rumb e não há anúncios.</p>
+<p>As atividades são guardadas no teu dispositivo. Os mapas online, o cálculo de rotas e os serviços externos configurados recebem os pedidos necessários ao seu funcionamento. A pesquisa opcional de municípios envia ao Nominatim do OpenStreetMap as coordenadas iniciais de rotas e atividades guardadas apenas se a ativares.</p>
+<p>Os sensores, a elevação barométrica e as funções da balança dependem de hardware compatível. Os valores da composição corporal são estimativas baseadas no teu perfil e nas leituras da balança. O Rumb não é um dispositivo médico e não diagnostica, trata, cura nem previne doenças. Consulta um profissional de saúde qualificado para aconselhamento, diagnóstico ou tratamento médico.</p>
+<p>Disponível em 18 idiomas. Requer Android 8.0 ou posterior. Os mapas e o cálculo de rotas online precisam de ligação à Internet; os mapas transferidos funcionam offline.</p>
+<p>Suporte e privacidade: rumb@micapum.net</p>

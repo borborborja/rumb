@@ -1,0 +1,1 @@
+Primera edición para F-Droid. Las funciones descritas de grabación, mapas, seguimiento, sensores, análisis y sincronización están disponibles sin suscripción. Se excluyen la facturación de Google Play, los códigos de desbloqueo, el actualizador de APK y el servidor de escritorio por red local.

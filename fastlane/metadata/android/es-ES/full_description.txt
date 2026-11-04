@@ -1,0 +1,21 @@
+<p>Graba actividades de ciclismo, running, senderismo y esquí con Rumb. Consulta tu recorrido en el mapa, sigue una ruta planificada y organiza los datos en directo según tu actividad.</p>
+<p><b>Grabación y mapas</b></p>
+<ul>
+<li>Grabación GPS con pausa manual o automática, distancia, tiempo, velocidad, ritmo y desnivel.</li>
+<li>Mapas en línea, importación de MBTiles sin conexión y descarga de sectores.</li>
+<li>Seguimiento de rutas con avisos de desvío e indicaciones de voz.</li>
+<li>Editores visuales para los widgets sobre el mapa y la pantalla de datos.</li>
+<li>Sensores Bluetooth compatibles de frecuencia cardíaca, cadencia y potencia.</li>
+</ul>
+<p><b>Tus actividades, tus archivos</b></p>
+<ul>
+<li>Organiza actividades, examina sus recorridos y consulta estadísticas, comparaciones y herramientas de competición.</li>
+<li>Importa GPX, TCX, KML y KMZ; exporta GPX, TCX o KML.</li>
+<li>Sincronización opcional de actividades con un servidor Endurain o WebDAV que configures.</li>
+<li>Historial de peso y estimaciones de composición corporal con una Mi Body Composition Scale compatible.</li>
+</ul>
+<p>La edición de F-Droid incluye las funciones descritas sin suscripción ni código de desbloqueo. No incluye la facturación de Google Play, el actualizador de APK ni el servidor de escritorio por red local. No requiere una cuenta de Rumb ni contiene anuncios.</p>
+<p>Las actividades se guardan en tu dispositivo. Los mapas en línea, el cálculo de rutas y los servicios externos configurados reciben las solicitudes necesarias para funcionar. La búsqueda opcional de municipios envía a Nominatim de OpenStreetMap las coordenadas iniciales de rutas y actividades guardadas solo si la activas.</p>
+<p>Los sensores, el desnivel barométrico y la báscula dependen de hardware compatible. Los valores de composición corporal son estimaciones basadas en tu perfil y las lecturas de la báscula. Rumb no es un dispositivo médico y no diagnostica, trata, cura ni previene enfermedades. Consulta a un profesional sanitario cualificado para recibir asesoramiento, diagnóstico o tratamiento médicos.</p>
+<p>Disponible en 18 idiomas. Requiere Android 8.0 o posterior. Los mapas y el cálculo de rutas en línea necesitan conexión; los mapas descargados funcionan sin conexión.</p>
+<p>Soporte y privacidad: rumb@micapum.net</p>

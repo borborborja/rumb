@@ -1,0 +1,21 @@
+<p>Zeichne mit Rumb Aktivitäten beim Radfahren, Laufen, Wandern und Skifahren auf. Sieh deine Strecke auf der Karte, folge einer geplanten Route und passe die Live-Datenanzeige an deine Aktivität an.</p>
+<p><b>Aufzeichnung und Karten</b></p>
+<ul>
+<li>GPS-Aufzeichnung mit manueller oder automatischer Pause, Distanz, Zeit, Geschwindigkeit, Tempo und Höhenmetern.</li>
+<li>Online-Karten, Import von Offline-MBTiles und Download von Kartenausschnitten.</li>
+<li>Routenführung mit Abweichungswarnungen und Sprachhinweisen.</li>
+<li>Visuelle Editoren für Widgets über der Karte und den Datenbildschirm.</li>
+<li>Kompatible Bluetooth-Sensoren für Herzfrequenz, Trittfrequenz und Leistung.</li>
+</ul>
+<p><b>Deine Aktivitäten, deine Dateien</b></p>
+<ul>
+<li>Organisiere Aktivitäten, prüfe ihre Strecken und nutze Statistiken, Vergleiche und Wettkampffunktionen.</li>
+<li>Importiere GPX, TCX, KML und KMZ; exportiere GPX, TCX oder KML.</li>
+<li>Optionale Aktivitätssynchronisierung mit einem von dir eingerichteten Endurain- oder WebDAV-Server.</li>
+<li>Gewichtsverlauf und Schätzungen der Körperzusammensetzung mit einer kompatiblen Mi Body Composition Scale.</li>
+</ul>
+<p>Die F-Droid-Ausgabe enthält die beschriebenen Funktionen ohne Abo oder Freischaltcode. Sie enthält weder Google Play Billing noch den APK-Updater oder den LAN-Desktopserver. Kein eigenes Rumb-Konto erforderlich. Keine Werbung.</p>
+<p>Aktivitäten werden auf deinem Gerät gespeichert. Online-Karten, Routenberechnung und eingerichtete externe Dienste erhalten die für ihre Funktionen nötigen Anfragen. Die optionale Ortssuche sendet die Startkoordinaten gespeicherter Routen und Aktivitäten nur dann an Nominatim von OpenStreetMap, wenn du sie aktivierst.</p>
+<p>Sensoren, barometrische Höhenmessung und Waagenfunktionen benötigen kompatible Hardware. Werte zur Körperzusammensetzung sind Schätzungen anhand deines Profils und der Waagenmessungen. Rumb ist kein Medizinprodukt und dient nicht der Diagnose, Behandlung, Heilung oder Vorbeugung von Krankheiten. Wende dich für medizinischen Rat, Diagnose oder Behandlung an qualifiziertes medizinisches Fachpersonal.</p>
+<p>In 18 Sprachen verfügbar. Erfordert Android 8.0 oder neuer. Online-Karten und Online-Routenberechnung benötigen Internet; heruntergeladene Karten funktionieren offline.</p>
+<p>Support und Datenschutz: rumb@micapum.net</p>

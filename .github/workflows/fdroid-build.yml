@@ -1,0 +1,48 @@
+name: Verify F-Droid edition
+
+on:
+  push:
+    branches:
+      - codex/fdroid-publication
+    tags:
+      - 'v*'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install Android SDK
+        run: |
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          COMPILE_SDK=$(sed -nE 's/^[[:space:]]*compileSdk = ([0-9]+).*/\1/p' app/build.gradle.kts)
+          test -n "$COMPILE_SDK"
+          yes | "$SDKMANAGER" --licenses > /dev/null 2>&1 || true
+          "$SDKMANAGER" "platforms;android-$COMPILE_SDK" "build-tools;35.0.0"
+      - name: Verify all distributions and translations
+        run: |
+          ./gradlew :app:testPlayDebugUnitTest :app:testGithubDebugUnitTest :app:testFdroidDebugUnitTest --no-daemon
+          python3 scripts/check_i18n.py
+      - name: Build F-Droid preview APK
+        run: |
+          rm -rf app/src/play app/src/testPlay
+          sed -i '/"playImplementation"(libs.billing)/d' app/build.gradle.kts
+          sed -i '/^billing = /d' gradle/libs.versions.toml
+          ./gradlew :app:assembleFdroidRelease --no-daemon
+      - name: Upload preview and test reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rumb-fdroid-preview
+          path: |
+            app/build/outputs/apk/fdroid/release/*.apk
+            app/build/test-results/test*DebugUnitTest/*.xml
+          if-no-files-found: error

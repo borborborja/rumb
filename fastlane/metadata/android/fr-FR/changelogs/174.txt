@@ -1,0 +1,1 @@
+Première édition F-Droid. Les fonctions décrites d'enregistrement, de cartes, de suivi d'itinéraires, de capteurs, d'analyse et de synchronisation sont disponibles sans abonnement. Google Play Billing, les codes de déverrouillage, la mise à jour d'APK et le serveur de bureau local sont exclus.
