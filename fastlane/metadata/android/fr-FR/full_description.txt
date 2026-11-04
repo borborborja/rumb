@@ -1,0 +1,21 @@
+<p>Enregistrez vos activités à vélo, en course à pied, en randonnée et à ski avec Rumb. Consultez votre parcours sur la carte, suivez un itinéraire prévu et adaptez l'affichage des données en direct à votre activité.</p>
+<p><b>Enregistrement et cartes</b></p>
+<ul>
+<li>Enregistrement GPS avec pause manuelle ou automatique, distance, durée, vitesse, allure et dénivelé.</li>
+<li>Cartes en ligne, importation de fichiers MBTiles hors connexion et téléchargement de zones.</li>
+<li>Suivi d'itinéraires avec alertes de sortie du parcours et indications vocales.</li>
+<li>Éditeurs visuels pour les widgets sur la carte et l'écran de données.</li>
+<li>Capteurs Bluetooth compatibles pour la fréquence cardiaque, la cadence et la puissance.</li>
+</ul>
+<p><b>Vos activités, vos fichiers</b></p>
+<ul>
+<li>Organisez vos activités, examinez leurs parcours et consultez statistiques, comparaisons et outils de compétition.</li>
+<li>Importez GPX, TCX, KML et KMZ ; exportez GPX, TCX ou KML.</li>
+<li>Synchronisation facultative des activités avec un serveur Endurain ou WebDAV que vous configurez.</li>
+<li>Historique de poids et estimations de composition corporelle avec une Mi Body Composition Scale compatible.</li>
+</ul>
+<p>L'édition F-Droid inclut les fonctions décrites sans abonnement ni code de déverrouillage. Elle ne contient ni Google Play Billing, ni système de mise à jour d'APK, ni serveur de bureau sur le réseau local. Aucun compte Rumb nécessaire. Sans publicité.</p>
+<p>Les activités sont enregistrées sur votre appareil. Les cartes en ligne, le calcul d'itinéraires et les services externes configurés reçoivent les requêtes nécessaires à leur fonctionnement. La recherche facultative de communes envoie les coordonnées de départ des parcours et activités enregistrés à Nominatim d'OpenStreetMap uniquement si vous l'activez.</p>
+<p>Les capteurs, le dénivelé barométrique et les fonctions de balance dépendent du matériel compatible. Les valeurs de composition corporelle sont des estimations fondées sur votre profil et les mesures de la balance. Rumb n'est pas un dispositif médical et ne diagnostique, ne traite, ne guérit ni ne prévient de maladie. Consultez un professionnel de santé qualifié pour tout conseil, diagnostic ou traitement médical.</p>
+<p>Disponible en 18 langues. Android 8.0 ou version ultérieure requis. Les cartes et le calcul d'itinéraires en ligne nécessitent Internet ; les cartes téléchargées fonctionnent hors connexion.</p>
+<p>Assistance et confidentialité : rumb@micapum.net</p>

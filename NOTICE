@@ -16,3 +16,14 @@ the Apache License 2.0. https://github.com/OpenTracksApp/OpenTracks
 Map data:
  - © OpenStreetMap contributors (ODbL)
  - © Institut Cartogràfic i Geològic de Catalunya (ICGC), CC-BY
+
+Third-party libraries:
+ - Leaflet 1.9.4 (desktop map client), BSD 2-Clause License.
+   Source: https://github.com/Leaflet/Leaflet/blob/v1.9.4/LICENSE
+   Full copyright and license:
+   third_party/licenses/Leaflet-1.9.4-BSD-2-Clause.txt
+ - MapLibre Native Android 11.7.0 (map rendering), BSD 2-Clause License.
+   Source:
+   https://github.com/maplibre/maplibre-native/blob/android-v11.7.0/LICENSE.md
+   Full copyright and license:
+   third_party/licenses/MapLibre-Native-11.7.0-BSD-2-Clause.txt

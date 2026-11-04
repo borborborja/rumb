@@ -21,7 +21,7 @@
     <string name="premium_restored">Dit abonnement er gendannet.</string>
     <string name="premium_none">Intet aktivt abonnement blev fundet for denne Google Play-konto.</string>
     <string name="premium_purchase_failed">Købet kunne ikke gennemføres. Prøv igen.</string>
-    <string name="premium_github">Alle funktioner er tilgængelige i GitHub-versionen.</string>
+    <string name="premium_github">Denne udgave af fri software indeholder alle funktioner. Der kræves intet abonnement.</string>
     <string name="premium_privacy">Privatlivspolitik</string>
     <string name="premium_connection">Google Play kontrollerer Premium-adgang, når Rumb åbnes. Hvis kontrollen fejler efter genstart, opret forbindelse igen og gendan køb.</string>
     <string name="premium_demo">Gratis demoadgang</string>

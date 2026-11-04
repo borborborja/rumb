@@ -1,0 +1,1 @@
+First F-Droid edition. All listed recording, map, route-following, sensor, analysis and sync features are available without a subscription. Google Play Billing, unlock codes, the APK updater and the LAN desktop server are excluded.

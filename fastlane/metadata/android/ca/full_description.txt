@@ -1,0 +1,21 @@
+<p>Grava activitats de ciclisme, cursa, senderisme i esquí amb Rumb. Consulta el recorregut al mapa, segueix una ruta planificada i organitza les dades en directe segons l'activitat.</p>
+<p><b>Gravació i mapes</b></p>
+<ul>
+<li>Gravació GPS amb pausa manual o automàtica, distància, temps, velocitat, ritme i desnivell.</li>
+<li>Mapes en línia, importació de MBTiles sense connexió i descàrrega de sectors.</li>
+<li>Seguiment de rutes amb avisos de desviació i indicacions de veu.</li>
+<li>Editors visuals per als widgets sobre el mapa i la pantalla de dades.</li>
+<li>Sensors Bluetooth compatibles de freqüència cardíaca, cadència i potència.</li>
+</ul>
+<p><b>Les teves activitats, els teus arxius</b></p>
+<ul>
+<li>Organitza activitats, examina els recorreguts i consulta estadístiques, comparacions i eines de competició.</li>
+<li>Importa GPX, TCX, KML i KMZ; exporta GPX, TCX o KML.</li>
+<li>Sincronització opcional d'activitats amb un servidor Endurain o WebDAV que configuris.</li>
+<li>Historial de pes i estimacions de composició corporal amb una Mi Body Composition Scale compatible.</li>
+</ul>
+<p>L'edició de F-Droid inclou les funcions descrites sense subscripció ni codi de desbloqueig. No inclou la facturació de Google Play, l'actualitzador d'APK ni el servidor d'escriptori per xarxa local. No requereix un compte de Rumb ni conté anuncis.</p>
+<p>Les activitats es desen al dispositiu. Els mapes en línia, el càlcul de rutes i els serveis externs configurats reben les peticions necessàries per funcionar. La cerca opcional de municipis envia a Nominatim d'OpenStreetMap les coordenades inicials de rutes i activitats desades només si l'actives.</p>
+<p>Els sensors, el desnivell baromètric i la bàscula depenen de maquinari compatible. Els valors de composició corporal són estimacions basades en el perfil i les lectures de la bàscula. Rumb no és un dispositiu mèdic i no diagnostica, tracta, cura ni prevé malalties. Consulta un professional sanitari qualificat per obtenir assessorament, diagnòstic o tractament mèdic.</p>
+<p>Disponible en 18 idiomes. Requereix Android 8.0 o posterior. Els mapes i el càlcul de rutes en línia necessiten connexió; els mapes descarregats funcionen sense connexió.</p>
+<p>Suport i privacitat: rumb@micapum.net</p>

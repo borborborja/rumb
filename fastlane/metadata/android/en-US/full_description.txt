@@ -1,0 +1,21 @@
+<p>Record cycling, running, hiking and skiing activities with Rumb. See your route on the map, follow a planned route and arrange the live data display to suit your activity.</p>
+<p><b>Recording and maps</b></p>
+<ul>
+<li>GPS recording with manual or automatic pause, distance, time, speed, pace and elevation.</li>
+<li>Online maps, offline MBTiles import and map-area downloads.</li>
+<li>Route following with off-route alerts and voice guidance.</li>
+<li>Visual editors for widgets over the map and the data screen.</li>
+<li>Compatible Bluetooth sensors for heart rate, cadence and power.</li>
+</ul>
+<p><b>Your activities, your files</b></p>
+<ul>
+<li>Organize activities, inspect their routes and review available statistics, comparisons and competition tools.</li>
+<li>Import GPX, TCX, KML and KMZ; export GPX, TCX or KML.</li>
+<li>Optional activity sync with an Endurain or WebDAV server you configure.</li>
+<li>Weight history and body composition estimates with a compatible Mi Body Composition Scale.</li>
+</ul>
+<p>The F-Droid edition includes the listed features without a subscription or unlock code. It has no Google Play Billing, APK self-updater or LAN desktop server. No Rumb account is required and there are no ads.</p>
+<p>Activities are stored on your device. Online maps, route calculation and configured external services receive the requests needed for their functions. Optional municipality lookup sends the starting coordinates of saved routes and activities to OpenStreetMap's Nominatim only if you enable it.</p>
+<p>Sensors, barometric elevation and scale functions depend on compatible hardware. Body composition values are estimates based on your profile and scale readings. Rumb is not a medical device and does not diagnose, treat, cure or prevent disease. Consult a qualified healthcare professional for medical advice, diagnosis or treatment.</p>
+<p>Available in 18 languages. Requires Android 8.0 or later. Online maps and online route calculation require internet; downloaded maps work offline.</p>
+<p>Support and privacy: rumb@micapum.net</p>

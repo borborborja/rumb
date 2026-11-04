@@ -1,0 +1,1 @@
+Prima edizione F-Droid. Le funzioni descritte di registrazione, mappe, navigazione, sensori, analisi e sincronizzazione sono disponibili senza abbonamento. Sono esclusi Google Play Billing, i codici di sblocco, il sistema di aggiornamento degli APK e il server desktop locale.

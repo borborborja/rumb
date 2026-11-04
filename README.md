@@ -50,12 +50,18 @@ manager/          Navegación + pantallas Compose Material 3.
 APK firmada en [Releases](https://github.com/borborborja/rumb/releases/latest) —
 se instala sobre la versión anterior sin desinstalar. Proceso de publicación: `DEPLOY.md`.
 
+La edición `fdroid` incluye las funciones avanzadas sin suscripciones ni Google Billing.
+Recibe actualizaciones de su repositorio y omite el actualizador de APK y el servidor LAN.
+Su incorporación al catálogo oficial de F-Droid requiere revisión y compilación por F-Droid;
+la receta propuesta está en [`fdroid/cat.rumb.app.yml`](fdroid/cat.rumb.app.yml).
+
 ## Compilar
 
 ```bash
 export JAVA_HOME=/opt/homebrew/opt/openjdk@17
 ./gradlew :app:assembleGithubDebug        # APK en app/build/outputs/apk/github/debug/
-./gradlew :app:testPlayDebugUnitTest :app:testGithubDebugUnitTest    # tests JVM (motor, GPX, stats, orden/filtro)
+./gradlew :app:assembleFdroidDebug       # edición libre para F-Droid
+./gradlew :app:testPlayDebugUnitTest :app:testGithubDebugUnitTest :app:testFdroidDebugUnitTest
 ```
 
 Requisitos: JDK 17, Android SDK (compileSdk 36). AGP 8.10 · Kotlin 2.0 · MapLibre 11.

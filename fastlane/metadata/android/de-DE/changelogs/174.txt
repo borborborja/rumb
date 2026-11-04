@@ -1,0 +1,1 @@
+Erste F-Droid-Ausgabe. Die beschriebenen Funktionen für Aufzeichnung, Karten, Routenführung, Sensoren, Analyse und Synchronisierung sind ohne Abo verfügbar. Google Play Billing, Freischaltcodes, APK-Updater und LAN-Desktopserver sind nicht enthalten.

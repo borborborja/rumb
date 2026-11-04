@@ -63,8 +63,8 @@ Google Play recibe el **AAB de la variante `play`**. La variante `github` conser
 distribución directa por APK. Ambas usan `cat.rumb.app`: no añadas un sufijo al applicationId
 si deben seguir siendo la misma app y actualizar sus datos existentes.
 
-La preparación con suscripciones es **1.90.2 (versionCode 173)**, con `compileSdk` y `targetSdk` 36,
-AGP 8.10.1 y MapLibre 11.7.0. La variante `play` no contiene el actualizador de APK de
+La primera versión subida con suscripciones fue **1.90.2 (versionCode 173)**. El proyecto
+usa `compileSdk` y `targetSdk` 36, AGP 8.10.1 y MapLibre 11.7.0. La variante `play` no contiene el actualizador de APK de
 GitHub ni el permiso `REQUEST_INSTALL_PACKAGES`; Google Play entrega sus actualizaciones.
 También excluye el servidor LAN y la pantalla de modo escritorio, además de NanoHTTPD:
 el escritorio actual transmite ubicación y datos de actividad/perfil por HTTP. Solo podrá
@@ -174,3 +174,48 @@ git tag -a vX.Y.Z -m "Rumb X.Y.Z" && git push origin vX.Y.Z
 
 (Es el único caso en que re-escribir un tag es aceptable: nunca sobre un release ya
 publicado con la APK descargable.)
+
+## Presentar y mantener la edición F-Droid
+
+La primera edición propuesta es **1.90.3 (174)**. `fdroid` usa el mismo identificador
+`cat.rumb.app`, con grabación, mapas online/offline, seguimiento, sensores, editores,
+análisis, competiciones, peso y sincronización libres, sin compra ni código de acceso.
+Comparte `PremiumManager` con GitHub en `src/libre`; la facturación permanece únicamente
+en `src/play`. `src/store` contiene la sección informativa de versión/privacidad y la ruta
+sin servidor LAN. F-Droid no incluye el actualizador de GitHub, su permiso de instalación,
+NanoHTTPD ni el servidor LAN. `usesCleartextTraffic=false` también se aplica a esta edición.
+
+1. Ejecuta las tres suites JVM, `python3 scripts/check_i18n.py` y
+   `./gradlew :app:assembleFdroidRelease`. El APK local sigue siendo una previsualización:
+   la infraestructura oficial compila y firma la app después de aceptar su receta.
+2. Revisa dependencias y licencias. La receta en `fdroid/cat.rumb.app.yml` elimina de la
+   copia de compilación las fuentes/tests de Play y las dos declaraciones de Billing;
+   no oculta dependencias con `scanignore`. El escáner debe inspeccionar esa copia, nunca
+   el árbol de trabajo: puede borrar archivos. Los datos cifrados de dependencias de AGP
+   se desactivan con `dependenciesInfo`, para que F-Droid pueda inspeccionar el APK.
+3. Mantén textos, icono y capturas reales en `fastlane/metadata/android/<idioma>/`.
+   El changelog usa `changelogs/<versionCode>.txt`. Los textos de esta edición no deben
+   anunciar suscripciones. Las capas opcionales Esri y Tracestrack se declaran como
+   `NonFreeNet`; no se necesitan para usar los demás mapas o archivos MBTiles.
+4. Tras verificar el cambio, publica un tag que coincida con ambas versiones de Gradle,
+   según el proceso de release de este documento. El workflow de APK sigue publicando
+   exclusivamente `github`; `fdroid-build.yml` entrega una previsualización y pruebas.
+   No presentes un APK debug como si estuviera firmado por F-Droid.
+5. En un fork de `https://gitlab.com/fdroid/fdroiddata`, crea una rama `cat.rumb.app` y
+   añade únicamente `metadata/cat.rumb.app.yml`, copiando la receta y fijando `commit`
+   al SHA completo del tag publicado. Ejecuta `fdroid rewritemeta cat.rumb.app`,
+   `fdroid lint -f cat.rumb.app` y prueba la compilación de la receta. La construcción
+   oficial retira las configuraciones de firma y aporta su propia clave.
+6. Envía el merge request **New app: Rumb**, con validación y las advertencias reales.
+   El envío necesita una cuenta GitLab del mantenedor. No es una publicación inmediata:
+   F-Droid debe revisar, aceptar, compilar y publicar. Comprueba el MR y después
+   `https://f-droid.org/packages/cat.rumb.app/` antes de afirmar que está en el catálogo.
+
+No se ha configurado `Binaries` ni se afirma reproducibilidad binaria con el APK de
+GitHub: hay código nativo y todavía no se ha comprobado igualdad entre entornos.
+F-Droid usará su firma; no se puede actualizar una instalación de GitHub/Play con un APK
+firmado con una clave distinta sin reinstalar. No subas la clave privada de CI a GitLab.
+
+Fuentes: [guía oficial de incorporación](https://f-droid.org/docs/Submitting_to_F-Droid_Quick_Start_Guide/),
+[política de inclusión](https://f-droid.org/docs/Inclusion_Policy/) y
+[referencia de recetas](https://f-droid.org/docs/Build_Metadata_Reference/).
